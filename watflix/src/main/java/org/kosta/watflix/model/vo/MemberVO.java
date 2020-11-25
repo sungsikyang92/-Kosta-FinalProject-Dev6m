@@ -19,6 +19,12 @@ public class MemberVO {
 		this.address = address;
 		this.enabled = enabled;
 	}
+	/* 성식 리뷰작성테스트를위한 MemberVO 오버라이딩 테스트 후 삭제예정*/
+	public MemberVO(String string, String string2, String string3, String string4, Object object, Object object2,
+			String string5, Object object3, Object object4, Object object5, Object object6, Object object7,
+			Object object8, Object object9) {
+		// TODO Auto-generated constructor stub
+	}
 	public String getId() {
 		return id;
 	}

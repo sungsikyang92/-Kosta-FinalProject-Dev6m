@@ -15,5 +15,4 @@ public class ContentsVO {
 	private int contentsHits;
 	private List<ContentsPosterVO> poster;
 	
-	
 }
