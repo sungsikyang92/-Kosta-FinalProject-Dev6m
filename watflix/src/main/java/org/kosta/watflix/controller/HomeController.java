@@ -16,8 +16,5 @@ public class HomeController {
 		spring-security.xml 에 설정되어있음 
 		<security:access-denied-handler error-page="/accessDeniedView.do"/>
 	 */
-	@RequestMapping("accessDeniedView.do")
-	public String accessDeniedView() {
-		return "auth/accessDeniedView";
-	}
+	
 }

@@ -6,6 +6,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 
+import org.springframework.stereotype.Service;
+@Service
 public class ContentsServiceImpl implements ContentsService {
 
 	@Override
