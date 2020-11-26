@@ -33,6 +33,7 @@ public class SungsikTestJUnit {
 		reviewVO.setReviewTitle("Test2");
 		reviewVO.setReviewContents("테스트중인디?");
 		reviewMapper.mReviewWrite(reviewVO);
+		System.out.println();
 	}
 	
 	
