@@ -5,25 +5,81 @@ public class MemberVO {
 	private String password;
 	private String name;
 	private String address;
+	private String birth;
+	private String tel;
+	private String sex;
+	private String email;
+	private String loginTime;
+	private int loginFail;
+	private int point;
+	private String signupDate;
+	private String agreement;
+	private AccStatusVO accStatusVO;
 	private int enabled;
+	
+	
+	@Override
+	public String toString() {
+		return "MemberVO [id=" + id + ", password=" + password + ", name=" + name + ", address=" + address + ", birth="
+				+ birth + ", tel=" + tel + ", sex=" + sex + ", email=" + email + ", loginTime=" + loginTime
+				+ ", loginFail=" + loginFail + ", point=" + point + ", signupDate=" + signupDate + ", agreement="
+				+ agreement + ", accStatusVO=" + accStatusVO + ", enabled=" + enabled + "]";
+	}
 	public MemberVO() {
 		super();
-		// TODO Auto-generated constructor stub
-	}      
-	public MemberVO(String id, String password, String name, String address,
-			int enabled) {
+	}
+	
+	public MemberVO(String id, String password, String name, String address, String birth, String tel, String sex,
+			String email, String agreement) {
 		super();
 		this.id = id;
 		this.password = password;
 		this.name = name;
 		this.address = address;
-		this.enabled = enabled;
+		this.birth = birth;
+		this.tel = tel;
+		this.sex = sex;
+		this.email = email;
+		this.agreement = agreement;
 	}
-	/* 성식 리뷰작성테스트를위한 MemberVO 오버라이딩 테스트 후 삭제예정*/
-	public MemberVO(String string, String string2, String string3, String string4, Object object, Object object2,
-			String string5, Object object3, Object object4, Object object5, Object object6, Object object7,
-			Object object8, Object object9) {
-		// TODO Auto-generated constructor stub
+	public MemberVO(String id, String password, String name, String address, String birth, String tel, String sex,
+			String email, String loginTime, int loginFail, int point, String signupDate, String agreement,
+			AccStatusVO accStatusVO) {
+		super();
+		this.id = id;
+		this.password = password;
+		this.name = name;
+		this.address = address;
+		this.birth = birth;
+		this.tel = tel;
+		this.sex = sex;
+		this.email = email;
+		this.loginTime = loginTime;
+		this.loginFail = loginFail;
+		this.point = point;
+		this.signupDate = signupDate;
+		this.agreement = agreement;
+		this.accStatusVO = accStatusVO;
+	}
+	public MemberVO(String id, String password, String name, String address, String birth, String tel, String sex,
+			String email, String loginTime, int loginFail, int point, String signupDate, String agreement,
+			AccStatusVO accStatusVO, int enabled) {
+		super();
+		this.id = id;
+		this.password = password;
+		this.name = name;
+		this.address = address;
+		this.birth = birth;
+		this.tel = tel;
+		this.sex = sex;
+		this.email = email;
+		this.loginTime = loginTime;
+		this.loginFail = loginFail;
+		this.point = point;
+		this.signupDate = signupDate;
+		this.agreement = agreement;
+		this.accStatusVO = accStatusVO;
+		this.enabled = enabled;
 	}
 	public String getId() {
 		return id;
@@ -49,16 +105,71 @@ public class MemberVO {
 	public void setAddress(String address) {
 		this.address = address;
 	}
+	public String getBirth() {
+		return birth;
+	}
+	public void setBirth(String birth) {
+		this.birth = birth;
+	}
+	public String getTel() {
+		return tel;
+	}
+	public void setTel(String tel) {
+		this.tel = tel;
+	}
+	public String getSex() {
+		return sex;
+	}
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getLoginTime() {
+		return loginTime;
+	}
+	public void setLoginTime(String loginTime) {
+		this.loginTime = loginTime;
+	}
+	public int getLoginFail() {
+		return loginFail;
+	}
+	public void setLoginFail(int loginFail) {
+		this.loginFail = loginFail;
+	}
+	public int getPoint() {
+		return point;
+	}
+	public void setPoint(int point) {
+		this.point = point;
+	}
+	public String getSignupDate() {
+		return signupDate;
+	}
+	public void setSignupDate(String signupDate) {
+		this.signupDate = signupDate;
+	}
+	public String getAgreement() {
+		return agreement;
+	}
+	public void setAgreement(String agreement) {
+		this.agreement = agreement;
+	}
+	public AccStatusVO getAccStatusVO() {
+		return accStatusVO;
+	}
+	public void setAccStatusVO(AccStatusVO accStatusVO) {
+		this.accStatusVO = accStatusVO;
+	}
 	public int getEnabled() {
 		return enabled;
 	}
 	public void setEnabled(int enabled) {
 		this.enabled = enabled;
-	}
-	@Override
-	public String toString() {
-		return "MemberVO [id=" + id + ", password=" + password + ", name="
-				+ name + ", address=" + address + ", enabled=" + enabled + "]";
 	}
 	@Override
 	public int hashCode() {
