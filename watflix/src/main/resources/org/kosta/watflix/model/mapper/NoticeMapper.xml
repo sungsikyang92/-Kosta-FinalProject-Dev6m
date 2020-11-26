@@ -7,9 +7,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<sql id = "selectNotice">
 		SELECT noticeNo, id, noticeTitle, noticeContents, noticePostedTime, noticeHits FROM notice
 	</sql>
-	<select id="getNoticeList">
-		<include refid="selectMember"/>
+	<select id="mNoticeGetList" resultType="noticeVO">
+		<include refid="selectNotice"/>
 	</select>
+	
 </mapper>
 
 
