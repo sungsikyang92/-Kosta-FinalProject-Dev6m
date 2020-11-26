@@ -30,8 +30,8 @@ public class AdminController {
       String bThumbnailURL;
       String path; //사진을 저장할 물리적인 장소
       Document sDoc,bDoc;
-        Elements sElems,bElems;
-        for(int i=0; i<genreArr.length;i++) {
+      Elements sElems,bElems;
+      for(int i=0; i<genreArr.length;i++) {
            try {
               sThumbnailURL=stemplateURL+genreArr[i];
                sDoc = Jsoup.connect(sThumbnailURL).get();
