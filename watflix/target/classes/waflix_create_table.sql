@@ -211,5 +211,22 @@ INSERT INTO MEMBERSHIP VALUES(2,'스탠다드',2);
 INSERT INTO MEMBERSHIP VALUES(3,'프리미엄',4);
 
 
+drop table apply;
+drop table party;
+drop table membership;
+drop table faq;
+drop table grade;
+drop table product_order;
+drop table product;
+drop table report;
+drop table report_type;
+drop table notice;
+drop table review;
+drop table comments;
+drop table contents cascade constraint;
+drop table genre;
+drop table member cascade constraint;
+drop table acc_status cascade constraint;
+
 
 

@@ -1,6 +1,11 @@
 delete from genre
 select * from genre
 select * from CONTENTS
+<<<<<<< HEAD
+
+drop table contents_poster
+select * from contents
+=======
 
 
 INSERT INTO MEMBER VALUES ('jikang', '1', '강지', '000-0000-0000', SYSDATE, '남성', '강지@naver.com', '분당', SYSDATE, 0, 1000, SYSDATE, '비동의', 0)
@@ -27,3 +32,4 @@ drop table acc_status;
 
 select * from member
 
+>>>>>>> branch 'master' of https://github.com/Minikanko/-Kosta-FinalProject-Dev6m.git
