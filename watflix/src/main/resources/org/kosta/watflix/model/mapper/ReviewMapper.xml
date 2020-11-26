@@ -6,10 +6,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="org.kosta.watflix.model.mapper.ReviewMapper">
 	<sql id=""></sql>
 	<insert id="mReviewWrite" parameterType="reviewVO">
-		<selectKey keyProperty="REVIEW_NO" resultType="string" order="BEFORE">
+		<selectKey keyProperty="reviewNo" resultType="string" order="BEFORE">
 			SELECT REVIEW_SEQ.NEXTVAL FROM DUAL
 		</selectKey>
-		INSERT INTO REVIEW(REVIEW_NO,ID,CONTENTS_NO,REVIEW_TITLE,REVIEW_CONTENTS,REVIEW_POSTED_DATE) VALUES(#{reviewNo},{memberVO.id},#{contentsVO.contentsNo},#{reviewTitle},#{reviewContents},sysdate)
+		INSERT INTO REVIEW(REVIEW_NO,ID,CONTENTS_NO,REVIEW_TITLE,REVIEW_CONTENTS) 
+		VALUES(#{reviewNo},#{memberVO.id},#{contentsVO.contentsNo},#{reviewTitle},#{reviewContents})
 	</insert>
 </mapper>
 

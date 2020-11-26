@@ -24,6 +24,7 @@ public class ReviewVO {
 		this.memberVO = memberVO;
 		this.contentsVO = contentsVO;
 	}
+	
 	public String getReviewNo() {
 		return reviewNo;
 	}
