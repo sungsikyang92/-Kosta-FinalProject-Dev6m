@@ -4,13 +4,15 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.kosta.watflix.model.mapper.ReviewMapper">
- 
+	<sql id=""></sql>
+	<insert id="mReviewWrite" parameterType="reviewVO">
+		<selectKey keyProperty="reviewNo" resultType="string" order="BEFORE">
+			SELECT REVIEW_SEQ.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO REVIEW(REVIEW_NO,ID,CONTENTS_NO,REVIEW_TITLE,REVIEW_CONTENTS) 
+		VALUES(#{reviewNo},#{memberVO.id},#{contentsVO.contentsNo},#{reviewTitle},#{reviewContents})
+	</insert>
 </mapper>
-
-
-
-
-
 
 
 
