@@ -18,10 +18,14 @@ public class SungsikTestJUnit {
 	@Test
 	public void reviewUnitTest() {
 		//리뷰등록 테스트
+		MemberVO memberVO = new MemberVO();
+		memberVO.setId("a");
+		memberVO.setPassword("1");
+		memberVO.setName("깡상");
+		memberVO.setEmail("gmail");
 		ReviewVO reviewVO=new ReviewVO();
 		reviewVO.setReviewTitle("Test2");
 		reviewVO.setReviewContents("테스트중인디?");
-		reviewVO.setMemberVO(new MemberVO("tiamo2","1","Dan2","010",null,null,"tiamo",null,null,null,null,null,null,null));
 		reviewMapper.mReviewWrite(reviewVO);
 	}
 	

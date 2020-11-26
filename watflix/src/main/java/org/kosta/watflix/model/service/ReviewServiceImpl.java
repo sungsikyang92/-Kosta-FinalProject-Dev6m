@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 public class ReviewServiceImpl implements ReviewService {
 	@Resource
 	private ReviewMapper reviewMapper;
-
+	//리뷰작성
 	@Override
 	public void sReviewWrite(ReviewVO reviewVO) {
 		reviewMapper.mReviewWrite(reviewVO);
