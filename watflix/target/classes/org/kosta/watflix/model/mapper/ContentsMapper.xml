@@ -4,6 +4,37 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.kosta.watflix.model.mapper.ContentsMapper">
+ 	<resultMap type="contentsVO" id="contentsRM">
+		<result property="genreVO.genreCode" column="genreCode"/>
+		<result property="genreVO.genreName" column="genreName"/>
+	</resultMap>
+	
+ 	<sql id="selectGenre">
+ 		select GENRE_CODE,GENRE_NAME from genre
+ 	</sql>
+ 
+ 	
+ 	<select id="mFindGenreByCode" resultType="genreVO">
+ 		<include refid="selectGenre"></include>
+ 		where GENRE_CODE=#{value}
+ 	</select>
+ 	
+	<select id="mFindContentsByNo" resultMap="contentsRM">
+ 		select C.CONTENTS_NO,C.CONTENTS_TITLE,C.CONTENTS_TYPE,G.GENRE_CODE,G.GENRE_NAME,C.CONTENTS_SUMMARY,C.CONTENTS_SMALL_THUMBNAIL,C.CONTENTS_BIG_THUMBNAIL,C.CONTENTS_AVG_STARS,C.CONTENTS_LIKES,C.CONTENTS_HITS
+		from (select CONTENTS_NO,CONTENTS_TITLE,CONTENTS_TYPE,GENRE_CODE,CONTENTS_SUMMARY,CONTENTS_SMALL_THUMBNAIL,CONTENTS_BIG_THUMBNAIL,CONTENTS_AVG_STARS,CONTENTS_LIKES,CONTENTS_HITS from contents) C, GENRE G
+		where C.GENRE_CODE=G.GENRE_CODE and CONTENTS_NO=#{value}
+ 	</select>
+ 	
+ 	<!-- 장르 insert -->
+ 	<insert id="mGenreRegister" parameterType="genreVO">
+ 		insert into genre(GENRE_CODE,GENRE_NAME) values(#{genreCode},#{genreName})
+ 	</insert>
+ 	
+ 	<!-- 컨텐츠 insert -->
+ 	<insert id="mContentsRegister" parameterType="contentsVO">
+ 		insert into CONTENTS(CONTENTS_NO,CONTENTS_TITLE,CONTENTS_TYPE,GENRE_CODE,CONTENTS_SUMMARY,CONTENTS_SMALL_THUMBNAIL,CONTENTS_BIG_THUMBNAIL) 
+ 		values(#{contentsNo},#{contentsTitle},#{contentsType},#{genreVO.genreCode},#{contentsSummary},#{contentsSmallThumbnail},#{contentsBigThumbnail})
+ 	</insert>
  	
 </mapper>
 
