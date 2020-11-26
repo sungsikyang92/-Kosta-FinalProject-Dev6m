@@ -4,7 +4,12 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.kosta.watflix.model.mapper.NoticeMapper">
- 
+	<sql id = "selectNotice">
+		SELECT noticeNo, id, noticeTitle, noticeContents, noticePostedTime, noticeHits FROM notice
+	</sql>
+	<select id="getNoticeList">
+		<include refid="selectMember"/>
+	</select>
 </mapper>
 
 
