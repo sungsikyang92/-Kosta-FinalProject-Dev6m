@@ -22,7 +22,7 @@ public class AdminController {
 	
 	@RequestMapping("contentsUpdateAdmin.do")
 	public String updateContents() {
-		String[] genreArr= {"1568","9994"};
+		String[] genreArr= {"1568"};
 		//크롤링할 웹페이지 주소
 		String stemplateURL = "https://www.netflix.com/kr/browse/genre/";
 		String btemplateURL = "https://www.netflix.com/kr/title/";	//게시물 상세보기 관련 URL
@@ -47,7 +47,7 @@ public class AdminController {
             	
             	sElems = sDoc.select("img.nm-collections-title-img");
     		     for(Element sElem:sElems) {
-    		    	 path="C:\\kosta203\\FinalProject\\watflix\\src\\main\\webapp\\resources\\contents\\"; //사진을 저장할 물리적인 장소
+    		    	 path="C:\\kosta203\\FinalProject\\-Kosta-FinalProject-Dev6m\\watflix\\src\\main\\webapp\\resources\\contents\\"; //사진을 저장할 물리적인 장소
     		    	  //이미지
     			        String sImgUrl = sElem.attr("src");
     			        if(sImgUrl.startsWith("http")) {
