@@ -50,6 +50,7 @@ public class MemberVO {
 		this.enabled = enabled;
 	}
 	@Override
+	
 	public String toString() {
 		return "MemberVO [id=" + id + ", password=" + password + ", name="
 				+ name + ", address=" + address + ", enabled=" + enabled + "]";
