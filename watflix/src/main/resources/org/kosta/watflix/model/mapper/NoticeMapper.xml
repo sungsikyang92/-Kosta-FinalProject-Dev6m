@@ -7,12 +7,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	<select id="mNoticeGetTotalPostCount" resultType="int">
  		SELECT COUNT(*) FROM notice
  	</select>
-	<resultMap type = "noticeVO" id = "noticeBoardRM">
-		<result property = "memberVO.id" column="id"/>
-	</resultMap>
-	<select id="mNoticeGetList" parameterType="pagingBean" resultType="noticeBoardRM">
-		SELECT row_number() over(order by notice_no desc) as rnum, notice_no, notice_title,
-		
+	<select id="mNoticeGetList" parameterType="pagingBean" resultType="noticeVO">
+		SELECT notice_no, id, notice_title, notice_hits FROM(
+		SELECT row_number() over(order by notice_no desc) as rnum, notice_no, id, notice_title, notice_hits
+		FROM notice
+		) WHERE rnum BETWEEN #{startRowNumber} AND #{endRowNumber}
 	</select>
 	
 </mapper>

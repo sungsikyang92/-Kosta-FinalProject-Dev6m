@@ -18,6 +18,12 @@ INSERT INTO CONTENTS VALUES(CONTENTS_SEQ.NEXTVAL,'트랜스포머','타입','장
 /*Notice 테스트를 위한 데이터 추가*/
 INSERT INTO NOTICE VALUES (NOTICE_SEQ.NEXTVAL, 'jikang', '점심은 뭐 먹지?', '점심 뭐가 맛있나요?', SYSDATE, 0)
 
+/*Notice 테스트용*/
+SELECT notice_no, id, notice_title, notice_hits FROM(
+SELECT row_number() over(order by notice_no desc) as rnum, notice_no, id, notice_title, notice_hits
+FROM notice
+) WHERE rnum BETWEEN 7 AND 25
+
 select count(*) from product_order
 select count(*) from member
 select count(*) from apply
@@ -47,5 +53,6 @@ drop table contents CASCADE CONSTRAINTS;
 drop table genre;
 drop table member;
 drop table acc_status;
+drop sequence NOTICE_SEQ;
 
 select * from contents
