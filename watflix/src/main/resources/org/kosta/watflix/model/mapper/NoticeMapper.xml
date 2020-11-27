@@ -3,14 +3,17 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.kosta.watflix.model.mapper.NoticeMapper">
-<!-- 	<sql id = "selectNotice">
-		SELECT noticeNo, id, noticeTitle, noticeContents, noticePostedTime, noticeHits FROM notice
-	</sql>
-	<select id="mNoticeGetList" resultType="noticeVO">
-		<include refid="selectNotice"/>
+<mapper namespace = "org.kosta.watflix.model.mapper.NoticeMapper">
+ 	<select id="mNoticeGetTotalPostCount" resultType="int">
+ 		SELECT COUNT(*) FROM notice
+ 	</select>
+	<select id="mNoticeGetList" parameterType="pagingBean" resultType="noticeVO">
+		SELECT notice_no, id, notice_title, notice_hits FROM(
+		SELECT row_number() over(order by notice_no desc) as rnum, notice_no, id, notice_title, notice_hits
+		FROM notice
+		) WHERE rnum BETWEEN #{startRowNumber} AND #{endRowNumber}
 	</select>
-	 -->
+	
 </mapper>
 
 
