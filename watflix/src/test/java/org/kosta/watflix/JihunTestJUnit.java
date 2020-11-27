@@ -40,12 +40,13 @@ public class JihunTestJUnit {
 	private NoticeMapper noticeMapper;
 	@Test
 	public void test(){
+		
 		//1. 리스트 출력 테스트
 		int totalPostCount = noticeMapper.mNoticeGetTotalPostCount();
 		PagingBean pagingBean = new PagingBean(totalPostCount);
 		List<NoticeVO> list = noticeMapper.mNoticeGetList(pagingBean);
 		for(int i = 0; i < list.size(); i++) {
-			System.out.println(list);
+			System.out.println(list.get(i));
 		}
 	}
 }

@@ -4,7 +4,23 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.kosta.watflix.model.mapper.ReviewMapper">
-	<sql id=""></sql>
+	<!-- 리뷰갯수 가져오기 -->
+	<select id="mGetTotalReviewCount" resultType="int">
+		SELECT COUNT(*) FROM REVIEW
+	</select>
+	<resultMap type="reviewVO" id="reviewRM">
+		<result property="memberVO.id" column="id"/>
+		<result property="contentsVO.contentsNo" column="contentsNo"/>
+	</resultMap>
+	<!-- 리뷰 리스트 가져오기 -->
+	<select id="mGetReviewList" resultMap="reviewRM" parameterType="pagingBean">
+		SELECT R.REVIEW_NO, M.ID,C.CONTENTS_NO,R.REVIEW_TITLE, R.REVIEW_CONTENTS
+		FROM (SELECT ROW_NUMBER() OVER(ORDER BY REVIEW_NO DESC) AS RNUM, REVIEW_NO, ID, CONTENTS_NO, REVIEW_TITLE, REVIEW_CONTENTS FROM REVIEW) 
+		R, MEMBER M, CONTENTS C
+		WHERE R.ID = M.ID AND R.CONTENTS_NO = C.CONTENTS_NO 
+		AND RNUM BETWEEN #{startRowNumber} AND #{endRowNumber} ORDER BY REVIEW_NO DESC
+	</select>
+	<!-- 리뷰 작성 -->
 	<insert id="mReviewWrite" parameterType="reviewVO">
 		<selectKey keyProperty="reviewNo" resultType="string" order="BEFORE">
 			SELECT REVIEW_SEQ.NEXTVAL FROM DUAL
@@ -12,6 +28,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		INSERT INTO REVIEW(REVIEW_NO,ID,CONTENTS_NO,REVIEW_TITLE,REVIEW_CONTENTS) 
 		VALUES(#{reviewNo},#{memberVO.id},#{contentsVO.contentsNo},#{reviewTitle},#{reviewContents})
 	</insert>
+	<!-- 리뷰 수정 -->
+	<update id="mReviewUpdate" parameterType="reviewVO">
+		UPDATE REVIEW 
+		SET REVIEW_TITLE = #{reviewTitle}, REVIEW_CONTENTS = #{reviewContents}
+		WHERE REVIEW_NO = #{reviewNo}
+	</update>
+	<!-- 리뷰 디테일 -->
+	<select id="mGetReviewDetail" resultMap="reviewRM">
+		SELECT R.REVIEW_NO,R.REVIEW_TITLE,R.REVIEW_LIKES,TO_CHAR(R.REVIEW_POSTED_TIME, 'YYYY.MM.DD HH24:MI:SS') 
+		AS REVIEW_POSTED_TIME,M.ID,R.REVIEW_HITS,R.REVIEW_CONTENTS 
+		FROM REVIEW R, MEMBER M 
+		WHERE R.ID = M.ID AND REVIEW_NO = #{VALUE}
+	</select>
 </mapper>
 
 

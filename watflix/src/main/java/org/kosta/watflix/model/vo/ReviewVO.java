@@ -9,11 +9,12 @@ public class ReviewVO {
 	private String reviewPostedDate;
 	private MemberVO memberVO;
 	private ContentsVO contentsVO;
-	
 	public ReviewVO() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
-	public ReviewVO(String reviewNo, String reviewTitle, String reviewContents, int reviewHits, int reviewLikes, String reviewPostedDate, MemberVO memberVO, ContentsVO contentsVO) {
+	public ReviewVO(String reviewNo, String reviewTitle, String reviewContents, int reviewHits, int reviewLikes,
+			String reviewPostedDate, MemberVO memberVO, ContentsVO contentsVO) {
 		super();
 		this.reviewNo = reviewNo;
 		this.reviewTitle = reviewTitle;
@@ -24,7 +25,6 @@ public class ReviewVO {
 		this.memberVO = memberVO;
 		this.contentsVO = contentsVO;
 	}
-	
 	public String getReviewNo() {
 		return reviewNo;
 	}
