@@ -49,3 +49,9 @@ drop table member;
 drop table acc_status;
 
 select * from contents
+
+insert into party value(party_no , id, party_title,membership_no, party_headcount)
+values (PARTY_SEQ.nextval,'java','파티원제목1',1,1)
+
+select * from party
+

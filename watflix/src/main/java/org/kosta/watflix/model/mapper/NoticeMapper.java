@@ -7,10 +7,7 @@ import org.kosta.watflix.model.service.PagingBean;
 import org.kosta.watflix.model.vo.NoticeVO;
 @Mapper
 public interface NoticeMapper {
-	
-	int mNoticeGetTotalPostCount();
-	
-	List<NoticeVO> mNoticeGetList(PagingBean pageingBean);
+
 }
 
 
