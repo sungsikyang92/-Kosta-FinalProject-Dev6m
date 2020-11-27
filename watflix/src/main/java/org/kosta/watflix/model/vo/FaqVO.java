@@ -1,7 +1,7 @@
 package org.kosta.watflix.model.vo;
 
 public class FaqVO {
-	private String faqNo;
+	private int faqNo;
 	private MemberVO memberVO;
 	private String faqTitle;
 	private String faqContents;
@@ -11,7 +11,7 @@ public class FaqVO {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public FaqVO(String faqNo, MemberVO memberVO, String faqTitle, String faqContents, String faqPostedTime,
+	public FaqVO(int faqNo, MemberVO memberVO, String faqTitle, String faqContents, String faqPostedTime,
 			int faqHits) {
 		super();
 		this.faqNo = faqNo;
@@ -22,10 +22,10 @@ public class FaqVO {
 		this.faqHits = faqHits;
 	}
 	
-	public String getFaqNo() {
+	public int getFaqNo() {
 		return faqNo;
 	}
-	public void setFaqNo(String faqNo) {
+	public void setFaqNo(int faqNo) {
 		this.faqNo = faqNo;
 	}
 	public MemberVO getMemberVO() {

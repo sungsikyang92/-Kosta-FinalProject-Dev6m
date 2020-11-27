@@ -19,4 +19,24 @@ public class FaqServiceImpl implements FaqService {
 		
 	}
 
+	@Override
+	public void sFaqUpdate(FaqVO faqVO) {
+		// TODO Auto-generated method stub
+		faqMapper.mFaqUpdate(faqVO);
+		
+	}
+
+	@Override
+	public void sFaqDelete(FaqVO faqVO) {
+		// TODO Auto-generated method stub
+		faqMapper.mFaqDelete(faqVO);
+		
+	}
+
+	@Override
+	public FaqVO sFaqDetail(int faqNo) {
+		// TODO Auto-generated method stub
+		return faqMapper.mFaqDetail(faqNo);
+	}
+
 }

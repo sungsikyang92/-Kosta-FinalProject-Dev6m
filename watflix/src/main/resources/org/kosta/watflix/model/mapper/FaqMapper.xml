@@ -6,12 +6,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="org.kosta.watflix.model.mapper.FaqMapper">
 
  	<insert id="mFaqWrite" parameterType="faqVO">
- 		<selectKey keyProperty="faqNo" resultType="string" order="BEFORE">
+ 		<selectKey keyProperty="faqNo" resultType="int" order="BEFORE">
  			select faq_seq.nextval from dual
  		</selectKey>
  		 insert into faq(FAQ_NO,ID,FAQ_TITLE,FAQ_CONTENTS)
  		values(#{faqNo},#{memberVO.id},#{faqTitle},#{faqContents})
  	</insert>
+ 	<update id="mFaqUpdate" parameterType="faqVO">
+ 		update faq set FAQ_TITLE=#{faqTitle},FAQ_CONTENTS=#{faqContents}
+ 	</update>
+ 	<delete id="mFaqDelete" parameterType="faqVO">
+ 		delete from faq where FAQ_NO=#{faqNo}
+ 	</delete>
+ 	<select id="mFaqDetail" resultType="faqVO">
+ 		select FAQ_NO,FAQ_TITLE,to_char(FAQ_POSTED_TIME,'YYYY.MM.DD HH24:MI:SS') as
+		FAQ_POSTED_TIME,ID,FAQ_CONTENTS
+		from faq
+		where FAQ_NO=#{faqNo}
+ 	</select>
 </mapper>
 
 
