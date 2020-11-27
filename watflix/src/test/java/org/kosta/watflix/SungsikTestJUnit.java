@@ -52,24 +52,16 @@ public class SungsikTestJUnit {
 //		reviewMapper.mReviewWrite(reviewVO);
 		
 		//리뷰 상세보기
-		System.out.println(reviewMapper.mGetReviewDetail("8"));
-		
+//		System.out.println(reviewMapper.mGetReviewDetail("8"));
 		
 		//리뷰수정
-//		System.out.println(reviewMapper.get);
+		System.out.println(reviewMapper.mGetReviewDetail("8"));		//리뷰 수정 전
+		ReviewVO reviewVO = reviewService.sGetReviewDetailNoHits("8");
+		reviewVO.setReviewTitle("깨랑까랑");
+		reviewVO.setReviewContents("경영이형 축지법 알려줭");
+		reviewMapper.mReviewUpdate(reviewVO);
+		System.out.println(reviewMapper.mGetReviewDetail("8"));		//리뷰 수정 후 		
 		
-		
-		
-		
-		/*
-		System.out.println(boardMapper.getPostDetail(1));	//수정전
-		PostVO pvo=new PostVO();
-		pvo.setTitle("크크루삥뽕");
-		pvo.setContent("ㅋㅋ루삥뽕~");
-		pvo.setNo(1);
-		boardMapper.updatePost(pvo);
-		System.out.println(boardMapper.getPostDetail(1));	//수정후
-		*/
 	
 	}
 }

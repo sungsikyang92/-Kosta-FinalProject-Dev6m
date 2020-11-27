@@ -30,7 +30,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	<!-- 리뷰 수정 -->
 	<update id="mReviewUpdate" parameterType="reviewVO">
-		UPDATE REVIEW SET REVIEW_TITLE = #{reviewTitle}, REVIEW_CONTENTS = #{reviewContents}
+		UPDATE REVIEW 
+		SET REVIEW_TITLE = #{reviewTitle}, REVIEW_CONTENTS = #{reviewContents}
 		WHERE REVIEW_NO = #{reviewNo}
 	</update>
 	<!-- 리뷰 디테일 -->

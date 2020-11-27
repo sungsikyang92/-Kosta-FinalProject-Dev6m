@@ -9,15 +9,15 @@ import org.kosta.watflix.model.vo.MemberVO;
 import org.kosta.watflix.model.vo.ReviewVO;
 @Mapper
 public interface ReviewMapper {
-
+	//리뷰작성
 	void mReviewWrite(ReviewVO reviewVO);
-
+	//리뷰수정
 	void mReviewUpdate(ReviewVO reviewVO);
-
+	//총리뷰개수
 	int mGetTotalReviewCount();
-
+	//리뷰리스트 with 페이징
 	List<ReviewVO> mGetReviewList(PagingBean pagingBean);
-
+	//리뷰상세보기
 	ReviewVO mGetReviewDetail(String reviewNo);
 
 	
