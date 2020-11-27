@@ -51,7 +51,7 @@ public class MemberAuthenticationProvider implements AuthenticationProvider {
 		// 사용자가 로그인시 입력한 ID 반환
 		String id = authentication.getName();
 		// 입력받은 id를 이용해 사용자 정보 DB로부터 조회
-		MemberVO member = memberService.findMemberById(id);
+		MemberVO member = memberService.sFindMemberById(id);
 		if (member == null) {
 			throw new UsernameNotFoundException("회원 아이디가 존재하지 않습니다");
 		}
@@ -66,23 +66,24 @@ public class MemberAuthenticationProvider implements AuthenticationProvider {
 		   이용자가 로그인 폼에서 입력한 비밀번호와 DB로부터 가져온 암호화된 비밀번호를 비교한다
 		  ( 비밀번호 암호화를 이용할 경우 )
 		 */
-		if (passwordEncoder.matches(password, member.getPassword()) == false)
+		if (passwordEncoder.matches(password, member.getPassword()) == false) {
+			memberService.sMemberLoginFailUp(member.getId());
 			throw new BadCredentialsException("비밀번호가 일치하지 않습니다");
+		}
+			
 		// 사용자 권한 조회 ( 회원가입시 권한 부여 , 관리자는 시스템 상에서 권한 부여 )
-		List<Authority> list = memberService.selectAuthorityByUsername(id);
+		List<Authority> list = memberService.sFindAuthorityById(id);
 		if (list.size() == 0) {
 			throw new UsernameNotFoundException("권한이 없습니다.");
 		}
 
 		List<SimpleGrantedAuthority> authorities = new ArrayList<SimpleGrantedAuthority>();
-		for (Authority au : list) { // ROLE_ 형식의 db 정보가 아니라면 이 시점에 ROLE_ 를 접두어로 추가한다
-			authorities.add(new SimpleGrantedAuthority(au.getAuthority()));
-		}
 		/****************************************
 		 * 여기까지 왔으면 인증 완료 - Authentication객체 생성해서 리턴
 		 ***************************************/
 
 		Authentication auth = new UsernamePasswordAuthenticationToken(member, password, authorities);
+		memberService.sMemberLoginTimeUpdate(member.getId());
 		System.out.println("로그인 인증완료");
 		return auth;
 	}

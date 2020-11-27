@@ -12,4 +12,5 @@ public interface ReviewService {
 	void sReviewUpdate(ReviewVO reviewVO);
 	//리뷰상세보기와 조회수증가방지
 	ReviewVO sGetReviewDetailNoHits(String reviewNo);
+	//크크루삥뽕빵뽕삥
 }

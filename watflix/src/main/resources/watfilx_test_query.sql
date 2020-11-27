@@ -16,6 +16,7 @@ INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('yuki','1','유리','gmail')
 /*ReviewWrite쿼리문 테스트를 위한 CONTENTS TABLE 데이터 추가*/
 INSERT INTO CONTENTS VALUES(CONTENTS_SEQ.NEXTVAL,'트랜스포머','타입','장르','요약','트레일러',0,1,1)
 
+
 /*ReviewList 불러오는 쿼리문 테스트를 위한 MEMBER TABLE과 REVIEW TABLE JOIN*/
 SELECT R.REVIEW_NO, M.ID, R.REVIEW_TITLE, R.REVIEW_CONTENTS
 FROM REVIEW R
@@ -100,15 +101,14 @@ SELECT row_number() over(order by notice_no desc) as rnum, notice_no, id, notice
 FROM notice
 ) WHERE rnum BETWEEN 7 AND 25
 
+UPDATE notice SET notice_title = '오늘 점심은 청년다방', notice_contents = '배부르다' WHERE notice_no = 1
+
 select count(*) from product_order
 select count(*) from member
 select count(*) from apply
 
 select * from contents
 select * from genre
-
-
-
 
 delete from genre
 delete from contents;
@@ -132,6 +132,11 @@ drop table acc_status;
 drop sequence NOTICE_SEQ;
 
 select * from contents
+
+insert into party value(party_no , id, party_title,membership_no, party_headcount)
+values (PARTY_SEQ.nextval,'java','파티원제목1',1,1)
+
+select * from party
 
 
 /* Faq test */
