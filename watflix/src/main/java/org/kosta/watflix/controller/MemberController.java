@@ -1,4 +1,4 @@
-package org.kosta.myapp.controller;
+package org.kosta.watflix.controller;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
