@@ -4,7 +4,10 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.kosta.watflix.model.mapper.PartyMapper">
- 
+ 	<!-- <insert id="wirte">
+ 		insert into party value(party_no , id, party_title,membership_no, party_headcount)
+		values (PARTY_SEQ.nextval,'java','파티원제목1',#{value},1)
+ 	</insert> -->
 </mapper>
 
 

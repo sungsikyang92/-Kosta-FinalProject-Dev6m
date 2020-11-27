@@ -15,7 +15,6 @@ public class MemberVO {
 	private String signupDate;
 	private String agreement;
 	private AccStatusVO accStatusVO;
-	
 	public MemberVO() {
 		super();
 	}
