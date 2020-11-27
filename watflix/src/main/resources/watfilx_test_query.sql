@@ -85,6 +85,8 @@ SELECT row_number() over(order by notice_no desc) as rnum, notice_no, id, notice
 FROM notice
 ) WHERE rnum BETWEEN 7 AND 25
 
+UPDATE notice SET notice_title = '오늘 점심은 청년다방', notice_contents = '배부르다' WHERE notice_no = 1
+
 select count(*) from product_order
 select count(*) from member
 select count(*) from apply

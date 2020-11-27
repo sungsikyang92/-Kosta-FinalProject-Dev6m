@@ -7,12 +7,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	<select id="mNoticeGetTotalPostCount" resultType="int">
  		SELECT COUNT(*) FROM notice
  	</select>
-	<select id="mNoticeGetList" parameterType="pagingBean" resultType="noticeVO">
+ 	<resultMap type="noticeVO" id="boardRM">
+		<result property="memberVO.id" column="id"/>
+	</resultMap>
+	<select id="mNoticeGetList" parameterType="pagingBean" resultMap="boardRM">
 		SELECT notice_no, id, notice_title, notice_hits FROM(
 		SELECT row_number() over(order by notice_no desc) as rnum, notice_no, id, notice_title, notice_hits
-		FROM notice
-		) WHERE rnum BETWEEN #{startRowNumber} AND #{endRowNumber}
+		FROM notice) WHERE rnum BETWEEN #{startRowNumber} AND #{endRowNumber}
 	</select>
+	<select id="mNoticeGetDetail" parameterType="int" resultMap="boardRM">
+		SELECT notice_no, id, notice_title, notice_contents,
+		to_char(notice_posted_time, 'YYYY.MM.DD') AS notice_posted_time, notice_hits
+		FROM notice WHERE notice_no=#{value}
+	</select>
+	<!-- <insert id="mNoticeWrite" parameterType="noticeVO">
+		<selectKey keyProperty="noticeNo" resultType="int" order="BEFORE">
+			INSERT INTO notice_seq.nextval from dual
+		</selectKey>
+		INSERT INTO notice(notice_no, id, notice_title, notice_contents, notice_posted_time, notice_hits)
+		VALUES(#{noticeNo}, #{id}, #{noticeTitle}, #{noticeContents}, sysdate, #{notice)
+		
+	</insert> -->
+	<update id="mNoticeUpdate" parameterType="noticeVO">
+		UPDATE notice SET notice_title = #{noticeTitle}, notice_contents = #{noticeContents}
+		WHERE notice_no = #{noticeNo}
+	</update>
 	
 </mapper>
 
