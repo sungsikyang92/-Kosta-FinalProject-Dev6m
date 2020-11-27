@@ -15,7 +15,7 @@ CREATE TABLE MEMBER(
 	ADDRESS VARCHAR2(100),
 	LOGIN_TIME DATE,
 	LOGIN_FAIL NUMBER DEFAULT 0,
-	POINT NUMBER DEFULT 0,
+	POINT NUMBER DEFAULT 0,
 	SIGNUP_DATE DATE DEFAULT SYSDATE,
 	AGREEMENT VARCHAR2(100) CHECK (AGREEMENT IN ('동의', '비동의')),
 	ACC_STAUTS_NO NUMBER DEFAULT 0,
@@ -209,6 +209,23 @@ INSERT INTO MEMBERSHIP VALUES(1,'베이식',1);
 INSERT INTO MEMBERSHIP VALUES(2,'스탠다드',2);
 INSERT INTO MEMBERSHIP VALUES(3,'프리미엄',4);
 
+
+drop table apply;
+drop table party;
+drop table membership;
+drop table faq;
+drop table grade;
+drop table product_order;
+drop table product;
+drop table report;
+drop table report_type;
+drop table notice;
+drop table review;
+drop table comments;
+drop table contents cascade constraint;
+drop table genre;
+drop table member cascade constraint;
+drop table acc_status cascade constraint;
 
 
 
