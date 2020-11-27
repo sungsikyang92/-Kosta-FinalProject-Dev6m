@@ -9,9 +9,14 @@ INSERT INTO REVIEW VALUES(#{reviewNo},{memberVO.id},#{contentsVO.contentsNo},#{r
 /*ReviewWrite쿼리문 테스트를 위한 MEMBER TABLE 데이터 추가*/
 INSERT INTO MEMBER VALUES('tiamo','1','Dan','010',null,null,'tiamo',null,null,null,null,null,null,null)
 INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL,ACC_STAUTS_NO) VALUES('a','1','깡상','gmail',0)
+INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL,ACC_STAUTS_NO) VALUES('jikang','1','지강','gmail',0)
+
 
 /*ReviewWrite쿼리문 테스트를 위한 CONTENTS TABLE 데이터 추가*/
 INSERT INTO CONTENTS VALUES(CONTENTS_SEQ.NEXTVAL,'트랜스포머','타입','장르','요약','트레일러',0,1,1)
+
+/*Notice 테스트를 위한 데이터 추가*/
+INSERT INTO NOTICE VALUES (NOTICE_SEQ.NEXTVAL, 'jikang', '점심은 뭐 먹지?', '점심 뭐가 맛있나요?', SYSDATE, 0)
 
 select count(*) from product_order
 select count(*) from member
@@ -21,8 +26,7 @@ select * from contents
 select * from genre
 
 
-INSERT INTO MEMBER VALUES ('jikang', '1', '강지', '000-0000-0000', SYSDATE, '남성', '강지@naver.com', '분당', SYSDATE, 0, 1000, SYSDATE, '비동의', 0)
-INSERT INTO NOTICE VALUES (NOTICE_SEQ.NEXTVAL, 'jikang', '점심은 뭐 먹지?', '점심 뭐가 맛있나요?', SYSDATE, 0)
+
 
 delete from genre
 delete from contents;
