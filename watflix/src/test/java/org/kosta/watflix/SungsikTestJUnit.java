@@ -29,11 +29,11 @@ public class SungsikTestJUnit {
 //		System.out.println(totalReviewCount);
 //		
 		//리뷰 리스트
-		int totalCount=reviewMapper.mGetTotalReviewCount();
-		PagingBean pagingBean = new PagingBean(totalCount);
-		ReviewListVO vo = reviewService.sGetReviewList(pagingBean);
-		for(ReviewVO reviewVO:vo.getReviewList())
-			System.out.println(reviewVO);
+//		int totalCount=reviewMapper.mGetTotalReviewCount();
+//		PagingBean pagingBean = new PagingBean(totalCount);
+//		ReviewListVO vo = reviewService.sGetReviewList(pagingBean);
+//		for(ReviewVO reviewVO:vo.getReviewList())
+//			System.out.println(reviewVO);
 		
 //		//리뷰등록 테스트 >> 테스트 정상 작동
 //		MemberVO memberVO = new MemberVO();
@@ -51,7 +51,17 @@ public class SungsikTestJUnit {
 //		reviewVO.setReviewContents("테스트중인디?");
 //		reviewMapper.mReviewWrite(reviewVO);
 		
-	
+		//리뷰 상세보기
+//		System.out.println(reviewMapper.mGetReviewDetail("8"));
+		
+		//리뷰수정
+		System.out.println(reviewMapper.mGetReviewDetail("8"));		//리뷰 수정 전
+		ReviewVO reviewVO = reviewService.sGetReviewDetailNoHits("8");
+		reviewVO.setReviewTitle("깨랑까랑");
+		reviewVO.setReviewContents("경영이형 축지법 알려줭");
+		reviewMapper.mReviewUpdate(reviewVO);
+		System.out.println(reviewMapper.mGetReviewDetail("8"));		//리뷰 수정 후 		
+		
 	
 	}
 }

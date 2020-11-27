@@ -15,6 +15,7 @@ public interface NoticeMapper {
 	NoticeVO mNoticeGetDetail(int noticeNo);
 	
 	void mNoticeUpdate(NoticeVO noticeVO);
+
 }
 
 
