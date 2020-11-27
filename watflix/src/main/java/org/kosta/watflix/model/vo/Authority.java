@@ -2,37 +2,36 @@ package org.kosta.watflix.model.vo;
 
 import java.io.Serializable;
 
+//계정권한
 public class Authority implements Serializable {
 	private static final long serialVersionUID = 5188280555844223102L;
-	private String username;
-	private String authority;
-	
-	public Authority(){}
-
-	public Authority(String username, String authority) {
-		this.username = username;
-		this.authority = authority;
+	private String grade;
+	private String id;
+	public Authority() {
+		super();
 	}
-  
-	public String getUsername() {
-		return username;
+	public Authority(String grade, String id) {
+		super();
+		this.grade = grade;
+		this.id = id;
 	}
-
-	public void setUsername(String username) {
-		this.username = username;
+	public String getGrade() {
+		return grade;
 	}
-
-	public String getAuthority() {
-		return authority;
+	public void setGrade(String grade) {
+		this.grade = grade;
 	}
-
-	public void setAuthority(String authority) {
-		this.authority = authority;
+	public String getId() {
+		return id;
 	}
-
+	public void setId(String id) {
+		this.id = id;
+	}
 	@Override
 	public String toString() {
-		return "Authority [username=" + username + ", authority=" + authority
-				+ "]";
+		return "Authority [grade=" + grade + ", id=" + id + "]";
 	}	
+	
+	
+
 }
