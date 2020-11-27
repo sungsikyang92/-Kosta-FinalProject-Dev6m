@@ -4,7 +4,8 @@ import javax.annotation.Resource;
 
 import org.kosta.watflix.model.mapper.FaqMapper;
 import org.kosta.watflix.model.vo.FaqVO;
-
+import org.springframework.stereotype.Service;
+@Service
 public class FaqServiceImpl implements FaqService {
 
 	@Resource

@@ -10,6 +10,7 @@ INSERT INTO REVIEW VALUES(#{reviewNo},{memberVO.id},#{contentsVO.contentsNo},#{r
 INSERT INTO MEMBER VALUES('tiamo','1','Dan','010',null,null,'tiamo',null,null,null,null,null,null,null)
 INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL,ACC_STAUTS_NO) VALUES('a','1','깡상','gmail',0)
 INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL,ACC_STAUTS_NO) VALUES('jikang','1','지강','gmail',0)
+INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('yuki','1','유리','gmail')
 
 
 /*ReviewWrite쿼리문 테스트를 위한 CONTENTS TABLE 데이터 추가*/
@@ -49,3 +50,23 @@ drop table member;
 drop table acc_status;
 
 select * from contents
+
+
+/* Faq test */
+insert into faq(FAQ_NO,ID,FAQ_TITLE,FAQ_CONTENTS)
+ 		values(faq_seq.nextval,'yuki','자주 묻는 질문','이용 요금')
+ 		
+ 		select * from faq;
+ 		select * from member;
+ 		
+ 		delete from faq;
+ 		
+CREATE TABLE FAQ(
+   FAQ_NO VARCHAR2(100) PRIMARY KEY,
+   ID VARCHAR2(100) NOT NULL,
+   FAQ_TITLE VARCHAR2(1000) NOT NULL,
+   FAQ_CONTENTS CLOB NOT NULL,
+   FAQ_POSTED_TIME DATE DEFAULT SYSDATE,
+   FAQ_HITS NUMBER DEFAULT 0,
+   CONSTRAINT FAQ_SERVICE_ID_FK FOREIGN KEY(ID) REFERENCES MEMBER(ID) ON DELETE CASCADE
+)

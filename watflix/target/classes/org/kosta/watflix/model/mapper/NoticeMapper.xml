@@ -10,10 +10,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<resultMap type = "noticeVO" id = "noticeBoardRM">
 		<result property = "memberVO.id" column="id"/>
 	</resultMap>
-	<select id="mNoticeGetList" parameterType="pagingBean" resultType="noticeBoardRM">
+	<!-- <select id="mNoticeGetList" parameterType="pagingBean" resultType="noticeBoardRM">
 		SELECT row_number() over(order by notice_no desc) as rnum, notice_no, notice_title,
 		
-	</select>
+	</select> -->
 	
 </mapper>
 
