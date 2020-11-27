@@ -18,7 +18,9 @@ public interface ReviewMapper {
 
 	List<ReviewVO> mGetReviewList(PagingBean pagingBean);
 
+	ReviewVO mGetReviewDetail(String reviewNo);
 
+	
 }
 
 

@@ -29,11 +29,11 @@ public class SungsikTestJUnit {
 //		System.out.println(totalReviewCount);
 //		
 		//리뷰 리스트
-		int totalCount=reviewMapper.mGetTotalReviewCount();
-		PagingBean pagingBean = new PagingBean(totalCount);
-		ReviewListVO vo = reviewService.sGetReviewList(pagingBean);
-		for(ReviewVO reviewVO:vo.getReviewList())
-			System.out.println(reviewVO);
+//		int totalCount=reviewMapper.mGetTotalReviewCount();
+//		PagingBean pagingBean = new PagingBean(totalCount);
+//		ReviewListVO vo = reviewService.sGetReviewList(pagingBean);
+//		for(ReviewVO reviewVO:vo.getReviewList())
+//			System.out.println(reviewVO);
 		
 //		//리뷰등록 테스트 >> 테스트 정상 작동
 //		MemberVO memberVO = new MemberVO();
@@ -51,7 +51,25 @@ public class SungsikTestJUnit {
 //		reviewVO.setReviewContents("테스트중인디?");
 //		reviewMapper.mReviewWrite(reviewVO);
 		
-	
+		//리뷰 상세보기
+		System.out.println(reviewMapper.mGetReviewDetail("8"));
+		
+		
+		//리뷰수정
+//		System.out.println(reviewMapper.get);
+		
+		
+		
+		
+		/*
+		System.out.println(boardMapper.getPostDetail(1));	//수정전
+		PostVO pvo=new PostVO();
+		pvo.setTitle("크크루삥뽕");
+		pvo.setContent("ㅋㅋ루삥뽕~");
+		pvo.setNo(1);
+		boardMapper.updatePost(pvo);
+		System.out.println(boardMapper.getPostDetail(1));	//수정후
+		*/
 	
 	}
 }

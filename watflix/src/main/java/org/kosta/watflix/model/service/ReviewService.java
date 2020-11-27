@@ -11,5 +11,5 @@ public interface ReviewService {
 	
 	void sReviewUpdate(ReviewVO reviewVO);
 	
-	
+	ReviewVO sGetReviewDetailNoHits(String reviewNo);
 }

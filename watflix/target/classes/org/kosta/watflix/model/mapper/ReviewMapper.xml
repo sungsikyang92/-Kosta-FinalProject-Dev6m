@@ -33,6 +33,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		UPDATE REVIEW SET REVIEW_TITLE = #{reviewTitle}, REVIEW_CONTENTS = #{reviewContents}
 		WHERE REVIEW_NO = #{reviewNo}
 	</update>
+	<!-- 리뷰 디테일 -->
+	<select id="mGetReviewDetail" resultMap="reviewRM">
+		SELECT R.REVIEW_NO,R.REVIEW_TITLE,R.REVIEW_LIKES,TO_CHAR(R.REVIEW_POSTED_TIME, 'YYYY.MM.DD HH24:MI:SS') 
+		AS REVIEW_POSTED_TIME,M.ID,R.REVIEW_HITS,R.REVIEW_CONTENTS 
+		FROM REVIEW R, MEMBER M 
+		WHERE R.ID = M.ID AND REVIEW_NO = #{VALUE}
+	</select>
 </mapper>
 
 

@@ -31,5 +31,12 @@ public class ReviewServiceImpl implements ReviewService {
 		reviewMapper.mReviewUpdate(reviewVO);
 	}
 
+	@Override
+	public ReviewVO sGetReviewDetailNoHits(String reviewNo) {
+		return reviewMapper.mGetReviewDetail(reviewNo);
+	}
+
+
+
 
 }
