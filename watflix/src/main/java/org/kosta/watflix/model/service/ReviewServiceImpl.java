@@ -42,6 +42,14 @@ public class ReviewServiceImpl implements ReviewService {
 	public void sReviewDelete(int reviewNo) {
 		reviewMapper.mReviewDelete(reviewNo);
 	}
+	
+	//리뷰 조회수 증가
+	@Override
+	public void sReviewHitsUpdate(int reviewNo) {
+		reviewMapper.mReviewHitsUpdate(reviewNo);
+	}
+
+	
 
 
 
