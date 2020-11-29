@@ -1,18 +1,15 @@
 /*ReviewWrite쿼리문 테스트*/
-INSERT INTO REVIEW VALUES(#{reviewNo},#{reviewTitle},#{reviewContents},#{reviewHits},#{reviewLikes},sysdate,#{memberVO.id},#{contentsVO.contentsNo})
-
-INSERT INTO REVIEW VALUES('1','Test1','테스트중입니다',1,1,sysdate,'tiamo','1',)
-INSERT INTO REVIEW VALUES(REVIEW_SEQ.NEXTVAL,'tiamo','1','Test1','테스트중입니다',1,1,sysdate)
-
-INSERT INTO REVIEW VALUES(#{reviewNo},{memberVO.id},#{contentsVO.contentsNo},#{reviewTitle},#{reviewContents},#{reviewHits},#{reviewLikes},sysdate)
+INSERT INTO REVIEW(REVIEW_NO,ID,CONTENTS_NO,REVIEW_TITLE,REVIEW_CONTENTS) VALUES(REVIEW_NO.SEQ.NEXTVAL,);
 
 /*ReviewWrite쿼리문 테스트를 위한 MEMBER TABLE 데이터 추가*/
 INSERT INTO MEMBER VALUES('tiamo','1','Dan','010',null,null,'tiamo',null,null,null,null,null,null,null)
 INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL,ACC_STAUTS_NO) VALUES('a','1','깡상','gmail',0)
+INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('b','1','깡상','gmail')
+INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('c','1','똘이','gmail')
+INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('ㅇ','1','앵식','gmail')
+
 INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL,ACC_STAUTS_NO) VALUES('jikang','1','지강','gmail',0)
 INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('yuki','1','유리','gmail')
-
-
 /*ReviewWrite쿼리문 테스트를 위한 CONTENTS TABLE 데이터 추가*/
 INSERT INTO CONTENTS VALUES(CONTENTS_SEQ.NEXTVAL,'트랜스포머','타입','장르','요약','트레일러',0,1,1)
 
@@ -22,7 +19,7 @@ SELECT R.REVIEW_NO, M.ID, R.REVIEW_TITLE, R.REVIEW_CONTENTS
 FROM REVIEW R
 INNER JOIN MEMBER M
 ON R.ID = M.ID
-
+select review_title from review where review_no = 11
 /*ReviewList 불러오는 쿼리문 테스트를 위한 MEMBER TABLE, REVIEW TABLE, CONTENTS TABLE 결합 TEST*/
 SELECT R.REVIEW_NO, M.ID, C.CONTENTS_NO, R.REVIEW_TITLE, R.REVIEW_CONTENTS
 FROM REVIEW R
@@ -30,7 +27,7 @@ INNER JOIN MEMBER M
 ON R.ID = M.ID
 INNER JOIN CONTENTS C
 ON R.CONTENTS_NO = C.CONTENTS_NO
-
+select * from review
 /*ReviewList를 위한 두개의 테이블(REVIEW, MEMBER) PagingBean 결합 테스트*/
 SELECT R.REVIEW_NO, M.ID, R.REVIEW_TITLE, R.REVIEW_CONTENTS
 FROM(SELECT ROW_NUMBER() OVER(ORDER BY REVIEW_NO DESC) AS RNUM, REVIEW_NO, ID, REVIEW_TITLE, REVIEW_CONTENTS 
@@ -126,6 +123,7 @@ VALUES(comments_seq.nextval, 'jikang', '60004481', '스파이더맨이 되는 �
 select count(*) from product_order
 select count(*) from member
 select count(*) from apply
+select count(*) from review
 
 select * from contents
 select * from genre
