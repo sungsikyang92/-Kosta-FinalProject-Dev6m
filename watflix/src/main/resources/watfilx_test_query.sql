@@ -120,6 +120,14 @@ FROM comments) WHERE rnum BETWEEN 3 AND 8
 INSERT INTO comments(comments_no, id, contents_no, comments, comments_stars, comments_posted_time)
 VALUES(comments_seq.nextval, 'jikang', '60004481', '스파이더맨이 되는 방법을 알고싶나요?', 6, sysdate)
 
+/* comments 갯수 순 content 리스트 조회 */
+SELECT b.contents_no, b.contents_title, b.contents_type, b.genre_code, b.contents_small_thumbnail, b.contents_big_thumbnail, b.contents_avg_stars, b.contents_likes, b.contents_hits, count(a.comments_no) as comments_count
+FROM comments a, contents b
+WHERE a.contents_no(+)=b.contents_no
+GROUP BY b.contents_no, b.contents_title, b.contents_type, b.genre_code, b.contents_small_thumbnail, b.contents_big_thumbnail, b.contents_avg_stars, b.contents_likes, b.contents_hits
+ORDER BY comments_count DESC;
+
+
 select count(*) from product_order
 select count(*) from member
 select count(*) from apply
@@ -194,3 +202,6 @@ ALTER TABLE FAQ  MODIFY FAQ_NO number;
 delete from PARTY;
 ALTER TABLE PARTY  MODIFY PARTY_NO number;
 select * from contents
+
+
+
