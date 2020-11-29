@@ -14,4 +14,6 @@ public interface ReviewService {
 	ReviewVO sGetReviewDetailNoHits(int reviewNo);
 	//리뷰삭제
 	void sReviewDelete(int reviewNo);
+	//리뷰조회수증가
+	void sReviewHitsUpdate(int reviewNo);
 }

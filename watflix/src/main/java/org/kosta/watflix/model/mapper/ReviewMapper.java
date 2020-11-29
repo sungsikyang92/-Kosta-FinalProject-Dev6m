@@ -21,8 +21,9 @@ public interface ReviewMapper {
 	ReviewVO mGetReviewDetail(int reviewNo);
 	//리뷰 삭제
 	void mReviewDelete(int reviewNo);
+	//리뷰 조회수 업데이트
+	void mReviewHitsUpdate(int reviewNo);
 
-	
 }
 
 

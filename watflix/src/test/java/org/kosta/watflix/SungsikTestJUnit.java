@@ -55,16 +55,16 @@ public class SungsikTestJUnit {
 //		
  */
 		//리뷰등록 테스트 2>> 테스트 정상 작동
-		MemberVO memberVO2 = new MemberVO();
-		memberVO2.setId("b");
-		ContentsVO contentsVO2 = new ContentsVO();
-		contentsVO2.setContentsNo("81171201");
-		ReviewVO reviewVO2=new ReviewVO();
-		reviewVO2.setMemberVO(memberVO2);
-		reviewVO2.setContentsVO(contentsVO2);
-		reviewVO2.setReviewTitle("Test1");
-		reviewVO2.setReviewContents("테스트중입니다.");
-		reviewMapper.mReviewWrite(reviewVO2);
+//		MemberVO memberVO2 = new MemberVO();
+//		memberVO2.setId("b");
+//		ContentsVO contentsVO2 = new ContentsVO();
+//		contentsVO2.setContentsNo("81171201");
+//		ReviewVO reviewVO2=new ReviewVO();
+//		reviewVO2.setMemberVO(memberVO2);
+//		reviewVO2.setContentsVO(contentsVO2);
+//		reviewVO2.setReviewTitle("Test1");
+//		reviewVO2.setReviewContents("테스트중입니다.");
+//		reviewMapper.mReviewWrite(reviewVO2);
 
 		//리뷰 상세보기
 //		System.out.println(reviewMapper.mGetReviewDetail(8));
@@ -81,5 +81,10 @@ public class SungsikTestJUnit {
 //		int reviewNo=8;
 //		reviewMapper.mReviewDelete(reviewNo);
 //		System.out.println(reviewMapper.mGetReviewDetail(reviewNo));
+		
+		//리뷰 조회수 증가
+		System.out.println(reviewMapper.mGetReviewDetail(16).getReviewHits());	//조회수 증가 전
+		reviewMapper.mReviewHitsUpdate(16);
+		System.out.println(reviewMapper.mGetReviewDetail(16).getReviewHits());	//죄호수 증가 후 
 	}
 }
