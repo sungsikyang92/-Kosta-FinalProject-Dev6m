@@ -5,15 +5,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.kosta.watflix.model.mapper.ContentsMapper">
  	<resultMap type="contentsVO" id="contentsRM">
-		<result property="genreVO.genreCode" column="genreCode"/>
-		<result property="genreVO.genreName" column="genreName"/>
+		<result property="genreVO.genreCode" column="GENRE_CODE"/>
+		<result property="genreVO.genreName" column="GENRE_NAME"/>
 	</resultMap>
 	
  	<sql id="selectGenre">
  		select GENRE_CODE,GENRE_NAME from genre
  	</sql>
  
- 	
  	<select id="mFindGenreByCode" resultType="genreVO">
  		<include refid="selectGenre"></include>
  		where GENRE_CODE=#{value}

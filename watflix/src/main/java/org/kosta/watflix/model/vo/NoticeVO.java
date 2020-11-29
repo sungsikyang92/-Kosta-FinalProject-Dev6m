@@ -1,32 +1,36 @@
 package org.kosta.watflix.model.vo;
 
 public class NoticeVO {
-	private String noticeNo;
+	private int noticeNo;
 	private MemberVO memberVO;
 	private String noticeTitle;
 	private String noticeContents;
 	private String noticePostedTime;
-	private String noticeHits;
+	private int noticeHits;
 	public NoticeVO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public NoticeVO(MemberVO memberVO, String noticeTitle, String noticeContents) {
+	public NoticeVO(int noticeNo, MemberVO memberVO, String noticeTitle, String noticeContents,
+			String noticePostedTime, int noticeHits) {
 		super();
+		this.noticeNo = noticeNo;
 		this.memberVO = memberVO;
 		this.noticeTitle = noticeTitle;
 		this.noticeContents = noticeContents;
+		this.noticePostedTime = noticePostedTime;
+		this.noticeHits = noticeHits;
 	}
-	public String getNoticeNo() {
+	public int getNoticeNo() {
 		return noticeNo;
 	}
-	public void setNoticeNo(String noticeNo) {
+	public void setNoticeNo(int noticeNo) {
 		this.noticeNo = noticeNo;
 	}
 	public MemberVO getMemberVO() {
 		return memberVO;
 	}
-	public void setId(MemberVO memberVO) {
+	public void setMemberVO(MemberVO memberVO) {
 		this.memberVO = memberVO;
 	}
 	public String getNoticeTitle() {
@@ -47,15 +51,17 @@ public class NoticeVO {
 	public void setNoticePostedTime(String noticePostedTime) {
 		this.noticePostedTime = noticePostedTime;
 	}
-	public String getNoticeHits() {
+	public int getNoticeHits() {
 		return noticeHits;
 	}
-	public void setNoticeHits(String noticeHits) {
+	public void setNoticeHits(int noticeHits) {
 		this.noticeHits = noticeHits;
 	}
 	@Override
 	public String toString() {
-		return "NoticeVO [noticeNo=" + noticeNo + ", memberVO=" + memberVO + ", noticeTitle=" + noticeTitle + ", noticeContents="
-				+ noticeContents + ", noticePostedTime=" + noticePostedTime + ", noticeHits=" + noticeHits + "]";
+		return "NoticeVO [noticeNo=" + noticeNo + ", memberVO=" + memberVO + ", noticeTitle=" + noticeTitle
+				+ ", noticeContents=" + noticeContents + ", noticePostedTime=" + noticePostedTime + ", noticeHits="
+				+ noticeHits + "]";
 	}
+	
 }

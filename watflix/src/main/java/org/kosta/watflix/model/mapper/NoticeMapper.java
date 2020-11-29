@@ -11,6 +11,17 @@ public interface NoticeMapper {
 	int mNoticeGetTotalPostCount();
 	
 	List<NoticeVO> mNoticeGetList(PagingBean pageingBean);
+	
+	NoticeVO mNoticeGetDetailNoHits(int noticeNo);
+	
+	void mNoticeUpdateHits(int noticeNo);
+	
+	void mNoticeUpdate(NoticeVO noticeVO);
+
+	void mNoticeWrite(NoticeVO noticeVO);
+	
+	void mNoticeDelete(int noticeNo);
+
 }
 
 
