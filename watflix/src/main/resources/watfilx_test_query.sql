@@ -94,6 +94,10 @@ SELECT * FROM REVIEW
 /*Notice 테스트를 위한 데이터 추가*/
 INSERT INTO NOTICE VALUES (NOTICE_SEQ.NEXTVAL, 'jikang', '점심은 뭐 먹지?', '점심 뭐가 맛있나요?', SYSDATE, 0)
 
+/*Comment 테스트를 위한 데이터 추가*/
+INSERT INTO Comments VALUES (COMMENTS_SEQ.NEXTVAL, 'jikang', '81004276', '쉐보레 카마로 멋지지 않나요?', 8, SYSDATE);
+INSERT INTO Comments VALUES (COMMENTS_SEQ.NEXTVAL, 'jikang', '60004481', '나도 스파이더맨 처럼 날아다닐 수 있으면?', 8, SYSDATE);
+
 /*Notice 테스트용*/
 SELECT notice_no, id, notice_title, notice_hits FROM(
 SELECT row_number() over(order by notice_no desc) as rnum, notice_no, id, notice_title, notice_hits
@@ -101,6 +105,22 @@ FROM notice
 ) WHERE rnum BETWEEN 7 AND 25
 
 UPDATE notice SET notice_title = '오늘 점심은 청년다방', notice_contents = '배부르다' WHERE notice_no = 1
+
+DELETE FROM notice WHERE notice_no=3
+/*Comments 테스트용*/
+SELECT comments_no, id, contents_no, comments, comments_stars, comments_posted_time FROM comments
+
+SELECT comments_no, id, contents_no, comments, comments_stars, comments_posted_time FROM(
+SELECT row_number() over(order by comments_no desc) as rnum, comments_no, id, contents_no, comments, comments_stars, comments_posted_time
+FROM comments WHERE contents_no = '81004276') WHERE rnum BETWEEN 3 AND 8
+
+
+SELECT comments_no, id, contents_no, comments, comments_stars, comments_posted_time FROM(
+SELECT row_number() over(order by comments_no desc) as rnum, comments_no, id, contents_no, comments, comments_stars, comments_posted_time
+FROM comments) WHERE rnum BETWEEN 3 AND 8
+
+INSERT INTO comments(comments_no, id, contents_no, comments, comments_stars, comments_posted_time)
+VALUES(comments_seq.nextval, 'jikang', '60004481', '스파이더맨이 되는 방법을 알고싶나요?', 6, sysdate)
 
 select count(*) from product_order
 select count(*) from member
