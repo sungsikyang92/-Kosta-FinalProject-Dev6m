@@ -22,7 +22,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	<!-- 리뷰 작성 -->
 	<insert id="mReviewWrite" parameterType="reviewVO">
-		<selectKey keyProperty="reviewNo" resultType="string" order="BEFORE">
+		<selectKey keyProperty="reviewNo" resultType="int" order="BEFORE">
 			SELECT REVIEW_SEQ.NEXTVAL FROM DUAL
 		</selectKey>
 		INSERT INTO REVIEW(REVIEW_NO,ID,CONTENTS_NO,REVIEW_TITLE,REVIEW_CONTENTS) 
@@ -41,6 +41,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM REVIEW R, MEMBER M 
 		WHERE R.ID = M.ID AND REVIEW_NO = #{VALUE}
 	</select>
+	<!-- 리뷰 삭제 -->
+	<delete id="mReviewDelete">
+		DELETE FROM REVIEW WHERE REVIEW_NO = #{VALUE}
+	</delete>
 </mapper>
 
 
