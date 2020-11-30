@@ -18,9 +18,12 @@ public interface ReviewMapper {
 	//리뷰리스트 with 페이징
 	List<ReviewVO> mGetReviewList(PagingBean pagingBean);
 	//리뷰상세보기
-	ReviewVO mGetReviewDetail(String reviewNo);
+	ReviewVO mGetReviewDetail(int reviewNo);
+	//리뷰 삭제
+	void mReviewDelete(int reviewNo);
+	//리뷰 조회수 업데이트
+	void mReviewHitsUpdate(int reviewNo);
 
-	
 }
 
 

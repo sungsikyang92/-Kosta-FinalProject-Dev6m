@@ -65,6 +65,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		values(#{contentsNo},#{contentsTitle},#{contentsType},#{genreVO.genreCode},#{contentsSummary},#{contentsSmallThumbnail},#{contentsBigThumbnail})
  	</insert>
  	
+ 	<!-- comment 많은 순으로 content 불러오기 전체 장르(resultType 고민) -->
+ 	<select id="mContentsGetListByCommentCount">
+ 		SELECT b.contents_no, b.contents_title, b.contents_type, b.genre_code, b.contents_small_thumbnail, b.contents_big_thumbnail, b.contents_avg_stars, b.contents_likes, b.contents_hits, count(a.comments_no) as comments_count
+		FROM comments a, contents b
+		WHERE a.contents_no(+)=b.contents_no
+		GROUP BY b.contents_no, b.contents_title, b.contents_type, b.genre_code, b.contents_small_thumbnail, b.contents_big_thumbnail, b.contents_avg_stars, b.contents_likes, b.contents_hits
+		ORDER BY comments_count DESC;
+ 	</select>
 </mapper>
 
 
