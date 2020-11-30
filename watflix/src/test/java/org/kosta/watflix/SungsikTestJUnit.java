@@ -83,8 +83,8 @@ public class SungsikTestJUnit {
 //		System.out.println(reviewMapper.mGetReviewDetail(reviewNo));
 		
 		//리뷰 조회수 증가
-		System.out.println(reviewMapper.mGetReviewDetail(16).getReviewHits());	//조회수 증가 전
-		reviewMapper.mReviewHitsUpdate(16);
-		System.out.println(reviewMapper.mGetReviewDetail(16).getReviewHits());	//죄호수 증가 후 
+//		System.out.println(reviewMapper.mGetReviewDetail(16).getReviewHits());	//조회수 증가 전
+//		reviewMapper.mReviewHitsUpdate(16);
+//		System.out.println(reviewMapper.mGetReviewDetail(16).getReviewHits());	//죄호수 증가 후 
 	}
 }
