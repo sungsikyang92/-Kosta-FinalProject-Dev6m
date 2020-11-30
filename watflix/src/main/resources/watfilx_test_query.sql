@@ -10,7 +10,7 @@ INSERT INTO REVIEW VALUES(#{reviewNo},{memberVO.id},#{contentsVO.contentsNo},#{r
 INSERT INTO MEMBER VALUES('tiamo','1','Dan','010',null,null,'tiamo',null,null,null,null,null,null,null)
 INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL,ACC_STAUTS_NO) VALUES('a','1','깡상','gmail',0)
 INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL,ACC_STAUTS_NO) VALUES('jikang','1','지강','gmail',0)
-INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('yuki','1','유리','gmail')
+INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('spring','1','강상훈','gmail')
 
 
 /*ReviewWrite쿼리문 테스트를 위한 CONTENTS TABLE 데이터 추가*/
@@ -137,6 +137,7 @@ insert into party value(party_no , id, party_title,membership_no, party_headcoun
 values (PARTY_SEQ.nextval,'java','파티원제목1',1,1)
 
 select * from party
+delete from party
 
 
 /* Faq test */
@@ -176,3 +177,41 @@ ALTER TABLE FAQ  MODIFY FAQ_NO number;
 delete from PARTY;
 ALTER TABLE PARTY  MODIFY PARTY_NO number;
 select * from contents
+
+
+
+
+
+
+
+
+select * from member;
+select * from membership;
+select * from party;
+select * from party where party_no=14
+
+insert into party values ( 
+PARTY_SEQ.nextval, 'java', '제목', 3, 4, 0, sysdate, '진행중');
+
+
+select party_seq.nextval from dual
+select count(*) from party;
+
+
+select ms.membership_name, p.PARTY_NO, m.ID, 
+p.PARTY_TITLE,  p.MEMBERSHIP_NO, 
+p.PARTY_HEADCOUNT, 
+p.PARTY_APPLYCOUNT,
+to_char(p.PARTY_POSTED_TIME,'yyyy-mm-dd') as posted_time, 
+p.PARTY_STATUS
+from PARTY p, member m, MEMBERSHIP ms
+where p.id=m.id and p.membership_no = ms.membership_no and party_no=14
+
+
+update party set id = 'spring' ,membership_no = 2 where party_no = 2
+
+
+
+
+
+
