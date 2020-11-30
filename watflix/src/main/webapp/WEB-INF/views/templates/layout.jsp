@@ -1,20 +1,54 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib prefix="tiles"  uri="http://tiles.apache.org/tags-tiles" %>    
+<%-- tiles framework 선언부 --%>
+<%@taglib prefix="tiles"  uri="http://tiles.apache.org/tags-tiles" %>
 <!DOCTYPE html>
 <html>
 <head>
-<!-- title이 null인 경우는 무시된다 -->
-<title><tiles:insertAttribute name="title" ignore="true" /></title>
-<script src="//code.jquery.com/jquery.min.js"></script>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/home.css">
+    <meta charset="utf-8">
+    
+    <!-- title -->
+     <title>
+  		<tiles:insertAttribute name="title" ignore="true" />	
+  	</title>
+
+    <!-- Bootstrap 4.4.1 -->
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/bootstrap.css">
+    <!-- Flickity 2.2.1 -->
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/flickity.css">
+    <!-- JQuery UI -->
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/jquery-ui.css">
+    <!-- Main CSS -->
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css">
+
+    <!-- FAVICONS -->
+    <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/media/images/netflix_icon.png">
+    <link rel="shortcut icon" sizes="16x16" href="${pageContext.request.contextPath}/resources/media/favicon/favicon-16x16.png">
+    <link rel="shortcut icon" sizes="32x32" href="${pageContext.request.contextPath}/resources/media/favicon/favicon-32x32.png">
 </head>
+
 <body>
-<div id="container">
-	<div id="header"><tiles:insertAttribute name="header" /></div>
-	<div id="left"><tiles:insertAttribute name="left" /></div>
-	<div id="main"><tiles:insertAttribute name="main" /></div>
-	<div id="footer"><tiles:insertAttribute name="footer" /></div>
-</div>
+	<!-- Tiles header 영역 -->
+	<tiles:insertAttribute name="header"/>	
+  	<!-- Tiles main 영역 -->
+	<tiles:insertAttribute name="main"/>	
+	<!-- Tiles main 영역 -->
+	<tiles:insertAttribute name="footer"/>	
+   
+
+    <!-- JQuery -->
+    <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+    <!-- JQuery UI -->
+    <script src="${pageContext.request.contextPath}/resources/js/jquery-ui.min.js" defer></script>
+    <!-- Pooper JS -->
+    <script src="${pageContext.request.contextPath}/resources/js/popper.min.js" defer></script>
+    <!-- Bootstrap 4.4.1 -->
+    <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js" defer></script>
+    <!-- Flickity 2.2.1 -->
+    <script src="${pageContext.request.contextPath}/resources/js/flickity.min.js" defer></script>
+    <!-- Main JS -->
+    <script src="${pageContext.request.contextPath}/resources/js/main.js" defer></script>
+
 </body>
+
 </html>

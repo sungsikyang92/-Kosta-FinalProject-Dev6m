@@ -33,9 +33,23 @@ public class ReviewServiceImpl implements ReviewService {
 
 	//리뷰상세보기와 조회수증가방지
 	@Override
-	public ReviewVO sGetReviewDetailNoHits(String reviewNo) {
+	public ReviewVO sGetReviewDetailNoHits(int reviewNo) {
 		return reviewMapper.mGetReviewDetail(reviewNo);
 	}
+
+	//리뷰 삭제 
+	@Override
+	public void sReviewDelete(int reviewNo) {
+		reviewMapper.mReviewDelete(reviewNo);
+	}
+	
+	//리뷰 조회수 증가
+	@Override
+	public void sReviewHitsUpdate(int reviewNo) {
+		reviewMapper.mReviewHitsUpdate(reviewNo);
+	}
+
+	
 
 
 

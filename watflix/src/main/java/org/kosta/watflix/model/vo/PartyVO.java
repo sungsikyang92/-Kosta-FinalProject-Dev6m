@@ -5,7 +5,6 @@ public class PartyVO {
 	private String partyPostedTime;
 	private String partyStatus;
 	private int partyNo;
-	private int partyMembershipNo;
 	private int partyHeadCount;
 	private int partyApplyCount;
 	MemberVO memberVO;
@@ -14,14 +13,13 @@ public class PartyVO {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public PartyVO(String partyTitle, String partyPostedTime, String partyStatus, int partyNo, int partyMembershipNo,
-			int partyHeadCount, int partyApplyCount, MemberVO memberVO, MembershipVO membershipVO) {
+	public PartyVO(String partyTitle, String partyPostedTime, String partyStatus, int partyNo, int partyHeadCount,
+			int partyApplyCount, MemberVO memberVO, MembershipVO membershipVO) {
 		super();
 		this.partyTitle = partyTitle;
 		this.partyPostedTime = partyPostedTime;
 		this.partyStatus = partyStatus;
 		this.partyNo = partyNo;
-		this.partyMembershipNo = partyMembershipNo;
 		this.partyHeadCount = partyHeadCount;
 		this.partyApplyCount = partyApplyCount;
 		this.memberVO = memberVO;
@@ -51,12 +49,6 @@ public class PartyVO {
 	public void setPartyNo(int partyNo) {
 		this.partyNo = partyNo;
 	}
-	public int getPartyMembershipNo() {
-		return partyMembershipNo;
-	}
-	public void setPartyMembershipNo(int partyMembershipNo) {
-		this.partyMembershipNo = partyMembershipNo;
-	}
 	public int getPartyHeadCount() {
 		return partyHeadCount;
 	}
@@ -84,12 +76,10 @@ public class PartyVO {
 	@Override
 	public String toString() {
 		return "PartyVO [partyTitle=" + partyTitle + ", partyPostedTime=" + partyPostedTime + ", partyStatus="
-				+ partyStatus + ", partyNo=" + partyNo + ", partyMembershipNo=" + partyMembershipNo
-				+ ", partyHeadCount=" + partyHeadCount + ", partyApplyCount=" + partyApplyCount + ", memberVO="
-				+ memberVO + ", membershipVO=" + membershipVO + "]";
+				+ partyStatus + ", partyNo=" + partyNo + ", partyHeadCount=" + partyHeadCount + ", partyApplyCount="
+				+ partyApplyCount + ", memberVO=" + memberVO + ", membershipVO=" + membershipVO + "]";
 	}
-	
-	
+
 	
 	
 }

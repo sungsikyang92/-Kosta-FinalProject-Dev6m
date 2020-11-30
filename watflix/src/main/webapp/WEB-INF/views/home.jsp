@@ -1,5 +1,1616 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-메인<br>
+  <!-- Slider - OPEN -->
+    <div id="mainCarousel" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#mainCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#mainCarousel" data-slide-to="1"></li>
+            <li data-target="#mainCarousel" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
 
-<a href="${pageContext.request.contextPath}/partyWriteForm.do">파티게시글 쓰러 가기</a>
+            <!-- Stranger Things - OPEN -->
+            <div class="carousel-item active">
+                <img class="d-block w-100" src="${pageContext.request.contextPath}/resources/media/images/banner/banner_stranger_things.png" alt="Second slide">
+                <div class="carousel-caption d-none d-md-block container-lg align-middle">
+                    <h1> Stranger Things </h1>
+                    <p> <a href="#">2016</a> | +16 | 3 Seasons | <a href="#">TV Shows</a> </p>
+                    <p class="margin-top-under-sm">
+                        When a young boy vanishes, a small town uncovers a mystery involving secret experiments, terrifying supernatural forces and one strange little girl.
+                    </p>
+                    <p>
+                        Starring: <a href="#">Winona Ryder</a>, <a href="#">David Harbour</a>, <a href="#">Finn Wolfhard</a>
+                    </p>
+                    <p> Creators: <a href="#">The Duffer Brothers</a> </p>
+                    <div class="margin-top-under-sm">
+                        <a href="#" class="btn btn-primary btn-lg margin-right" role="button" aria-pressed="true">
+                            <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="20" alt="">
+                            Watch
+                        </a>
+                        <a href="#" class="btn btn-secondary btn-lg margin-right" role="button" aria-pressed="true">
+                            <img src="${pageContext.request.contextPath}/resources/media/icons/plus.png" width="15" alt="">
+                            Add List
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- Stranger Things - CLOSE -->
+
+            <!-- Money Heist - OPEN -->
+            <div class="carousel-item">
+                <img class="d-block w-100" src="${pageContext.request.contextPath}/resources/media/images/banner/banner_money_heist.jpg" alt="First slide">
+                <div class="carousel-caption d-none d-md-block container-lg align-middle">
+                    <h1> Money Heist </h1>
+                    <p> <a href="#">2017</a> | +16 | 3 Seasons | <a href="#">TV Shows</a> </p>
+                    <p class="margin-top-under-sm">
+                        Eight thieves take hostages and lock themselves in the Royal Mint of Spain as a criminal mastermind manipulates the police to carry out his plan.
+                    </p>
+                    <p>
+                        Starring: <a href="#">Úrsula Corberó</a>, <a href="#">Álvaro Morte</a>, <a href="#">Pedro Alonso</a>
+                    </p>
+                    <p> Creators: <a href="#">Álex Pina</a> </p>
+                    <div class="margin-top-under-sm">
+                        <a href="#" class="btn btn-primary btn-lg margin-right" role="button" aria-pressed="true">
+                            <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="20" alt="">
+                            Watch
+                        </a>
+                        <a href="#" class="btn btn-secondary btn-lg margin-right" role="button" aria-pressed="true">
+                            <img src="${pageContext.request.contextPath}/resources/media/icons/plus.png" width="15" alt="">
+                            Add List
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- Money Heist - OPEN -->
+
+            <!-- The Witcher - OPEN -->
+            <div class="carousel-item">
+                <img class="d-block w-100" src="${pageContext.request.contextPath}/resources/media/images/banner/banner_the_witcher.png" alt="Third slide">
+                <div class="carousel-caption d-none d-md-block container-lg align-middle">
+                    <h1> The Witcher </h1>
+                    <p> <a href="#">2019</a> | +16 | 1 Season | <a href="#">TV Shows</a> </p>
+                    <p class="margin-sm">
+                        Geralt of Rivia, a mutated monster-hunter for hire, journeys toward his destiny in a turbulent world where people often prove more wicked than beasts.
+                    </p>
+                    <p>
+                        Starring: <a href="#">Henry Cavill</a>, <a href="#">Anya Chalotra</a>, <a href="#">Freya Allan</a>
+                    </p>
+                    <p> Creators: <a href="#">Lauren Schmidt Hissrich</a> </p>
+                    <div class="margin-top-under-sm">
+                        <a href="#" class="btn btn-primary btn-lg margin-right" role="button" aria-pressed="true">
+                            <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="20" alt="">
+                            Watch
+                        </a>
+                        <a href="#" class="btn btn-secondary btn-lg margin-right" role="button" aria-pressed="true">
+                            <img src="${pageContext.request.contextPath}/resources/media/icons/plus.png" width="15" alt="">
+                            Add List
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- The Witcher - OPEN -->
+
+        </div>
+    </div>
+    <!-- Slider - CLOSE -->
+    <!-- Content - OPEN -->
+    <div class="container-lg margin-top margin-bottom">
+
+        <!-- Tabs nav - OPEN -->
+        <nav class="nav nav-fill nav-pills" id="pills-tab" role="tablist">
+            <a class="nav-item nav-link active" id="trend-tab" data-toggle="pill" href="#trend" role="tab" aria-controls="trend-tab" aria-selected="true">
+                <div class="icon-nav">
+                    <img src="${pageContext.request.contextPath}/resources/media/icons/trend.png" width="20" alt="" class="margin-right-sm">
+                    Trends Now
+                </div>
+            </a>
+            <a class="nav-item nav-link" id="popular-tab" data-toggle="pill" href="#popular" role="tab" aria-controls="popular-tab" aria-selected="false">
+                <div class="icon-nav">
+                    <img src="${pageContext.request.contextPath}/resources/media/icons/fire.png" width="15" alt="" class="margin-right-sm">
+                    Popular
+                </div>
+            </a>
+            <a class="nav-item nav-link" id="new-tab" data-toggle="pill" href="#new" role="tab" aria-controls="new-tab" aria-selected="false">
+                <div class="icon-nav">
+                    <img src="${pageContext.request.contextPath}/resources/media/icons/clock.png" width="15" alt="" class="margin-right-sm">
+                    New
+                </div>
+            </a>
+            <a class="nav-item nav-link" id="oscars-tab" data-toggle="pill" href="#oscars" role="tab" aria-controls="oscars-tab" aria-selected="false">
+                <div class="icon-nav">
+                    <img src="${pageContext.request.contextPath}/resources/media/icons/oscars.png" width="15" alt="" class="margin-right-sm">
+                    Oscars 2020
+                </div>
+            </a>
+        </nav>
+        <!-- Tabs nav - CLOSE -->
+
+        <!-- Tabs content - OPEN -->
+        <div class="tab-content" id="myTabContent">
+
+            <!-- Trend tab - OPEN -->
+            <div class="margin-top-under-sm tab-pane fade show active" id="trend" role="tabpanel" aria-labelledby="trend-tab">
+
+                <!-- Carousel - OPEN -->
+                <div class="carousel" data-flickity='{ "groupCells": true, "cellAlign": "center", "pageDots": false, "wrapAround": true, "draggable": false }' style="height: 400px">
+
+                    <!-- The Irishman - OPEN -->
+                    <div class="carousel-cell">
+                        <img class="carousel-cell-image" src="${pageContext.request.contextPath}/resources/media/images/posters/the_irishman.jpg" />
+                        <h5 class="text-center"> The Irishman </h5>
+                        <div class="row">
+                            <div class="col-3 text-left no-padding">
+                                2019
+                            </div>
+                            <div class="col-3 text-center no-padding">
+                                <a href="">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/eye.png" width="10" alt="">
+                                </a>
+                            </div>
+                            <div class="col-3 text-left no-padding">
+                                <a href="">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/heart.png" width="10" alt="">
+                                </a>
+                            </div>
+                            <div class="col-3 text-right no-padding rating">
+                                <img src="${pageContext.request.contextPath}/resources/media/icons/star.png" width="10" alt="" style="padding-bottom: 3px">
+                                8.0
+                            </div>
+                        </div>
+                        <div class="overlay">
+                            <div class="text">
+                                <a href="#" class="btn btn-secondary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/info.png" width="10" alt="">
+                                    Info
+                                </a>
+                                <a href="#" class="btn btn-primary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="10" alt="">
+                                    Watch
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- The Irishman - CLOSE -->
+
+                    <!-- Parasite - OPEN -->
+                    <div class="carousel-cell">
+                        <img class="carousel-cell-image" src="${pageContext.request.contextPath}/resources/media/images/posters/parasite.jpg" />
+                        <h5 class="text-center"> Parasite </h5>
+                        <div class="row">
+                            <div class="col-3 text-left no-padding">
+                                2019
+                            </div>
+                            <div class="col-3 text-center no-padding selected">
+                                <a href="">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/eye-selected.png" width="10" alt="">
+                                </a>
+                            </div>
+                            <div class="col-3 text-left no-padding selected">
+                                <a href="">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/heart-selected.png" width="10" alt="">
+                                </a>
+                            </div>
+                            <div class="col-3 text-right no-padding rating">
+                                <img src="${pageContext.request.contextPath}/resources/media/icons/star.png" width="10" alt="" style="padding-bottom: 3px">
+                                8.6
+                            </div>
+                        </div>
+                        <div class="overlay">
+                            <div class="text">
+                                <a href="#" class="btn btn-secondary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/info.png" width="10" alt="">
+                                    Info
+                                </a>
+                                <a href="#" class="btn btn-primary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="10" alt="">
+                                    Watch
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Parasite - CLOSE -->
+
+                    <!-- 1917 - OPEN -->
+                    <div class="carousel-cell">
+                        <img class="carousel-cell-image" src="${pageContext.request.contextPath}/resources/media/images/posters/1917.jpg" />
+                        <h5 class="text-center"> 1917 </h5>
+                        <div class="row">
+                            <div class="col-3 text-left no-padding">
+                                2019
+                            </div>
+                            <div class="col-3 text-center no-padding selected">
+                                <a href="">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/eye-selected.png" width="10" alt="">
+                                </a>
+                            </div>
+                            <div class="col-3 text-left no-padding">
+                                <a href="">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/heart.png" width="10" alt="">
+                                </a>
+                            </div>
+                            <div class="col-3 text-right no-padding rating">
+                                <img src="${pageContext.request.contextPath}/resources/media/icons/star.png" width="10" alt="" style="padding-bottom: 3px">
+                                8.5
+                            </div>
+                        </div>
+                        <div class="overlay">
+                            <div class="text">
+                                <a href="#" class="btn btn-secondary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/info.png" width="10" alt="">
+                                    Info
+                                </a>
+                                <a href="#" class="btn btn-primary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="10" alt="">
+                                    Watch
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 1917 - CLOSE -->
+
+                    <!-- Roma - OPEN -->
+                    <div class="carousel-cell">
+                        <img class="carousel-cell-image" src="${pageContext.request.contextPath}/resources/media/images/posters/roma.jpeg" />
+                        <h5 class="text-center"> Roma </h5>
+                        <div class="row">
+                            <div class="col-3 text-left no-padding">
+                                2018
+                            </div>
+                            <div class="col-3 text-center no-padding">
+                                <a href="">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/eye.png" width="10" alt="">
+                                </a>
+                            </div>
+                            <div class="col-3 text-left no-padding">
+                                <a href="">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/heart.png" width="10" alt="">
+                                </a>
+                            </div>
+                            <div class="col-3 text-right no-padding rating">
+                                <img src="${pageContext.request.contextPath}/resources/media/icons/star.png" width="10" alt="" style="padding-bottom: 3px">
+                                7.7
+                            </div>
+                        </div>
+                        <div class="overlay">
+                            <div class="text">
+                                <a href="#" class="btn btn-secondary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/info.png" width="10" alt="">
+                                    Info
+                                </a>
+                                <a href="#" class="btn btn-primary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="10" alt="">
+                                    Watch
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Roma - CLOSE -->
+
+                    <!-- Uncut Gems - OPEN -->
+                    <div class="carousel-cell">
+                        <img class="carousel-cell-image" src="${pageContext.request.contextPath}/resources/media/images/posters/uncut_gems.jpg" />
+                        <h5 class="text-center"> Uncut Gems </h5>
+                        <div class="row">
+                            <div class="col-3 text-left no-padding">
+                                2019
+                            </div>
+                            <div class="col-3 text-center no-padding">
+                                <a href="">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/eye.png" width="10" alt="">
+                                </a>
+                            </div>
+                            <div class="col-3 text-left no-padding selected">
+                                <a href="">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/heart-selected.png" width="10" alt="">
+                                </a>
+                            </div>
+                            <div class="col-3 text-right no-padding rating">
+                                <img src="${pageContext.request.contextPath}/resources/media/icons/star.png" width="10" alt="" style="padding-bottom: 3px">
+                                7.8
+                            </div>
+                        </div>
+                        <div class="overlay">
+                            <div class="text">
+                                <a href="#" class="btn btn-secondary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/info.png" width="10" alt="">
+                                    Info
+                                </a>
+                                <a href="#" class="btn btn-primary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="10" alt="">
+                                    Watch
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Uncut Gems - CLOSE -->
+
+                    <!-- Zodiac - OPEN -->
+                    <div class="carousel-cell">
+                        <img class="carousel-cell-image" src="${pageContext.request.contextPath}/resources/media/images/posters/zodiac.jpg" />
+                        <h5 class="text-center"> Zodiac </h5>
+                        <div class="row">
+                            <div class="col-3 text-left no-padding">
+                                2007
+                            </div>
+                            <div class="col-3 text-center no-padding">
+                                <a href="">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/eye.png" width="10" alt="">
+                                </a>
+                            </div>
+                            <div class="col-3 text-left no-padding selected">
+                                <a href="">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/heart-selected.png" width="10" alt="">
+                                </a>
+                            </div>
+                            <div class="col-3 text-right no-padding rating">
+                                <img src="${pageContext.request.contextPath}/resources/media/icons/star.png" width="10" alt="" style="padding-bottom: 3px">
+                                7.7
+                            </div>
+                        </div>
+                        <div class="overlay">
+                            <div class="text">
+                                <a href="#" class="btn btn-secondary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/info.png" width="10" alt="">
+                                    Info
+                                </a>
+                                <a href="#" class="btn btn-primary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="10" alt="">
+                                    Watch
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Zodiac - CLOSE -->
+
+                    <!-- 1922 - OPEN -->
+                    <div class="carousel-cell">
+                        <img class="carousel-cell-image" src="${pageContext.request.contextPath}/resources/media/images/posters/1922.jpg" />
+                        <h5 class="text-center"> 1922 </h5>
+                        <div class="row">
+                            <div class="col-3 text-left no-padding">
+                                2017
+                            </div>
+                            <div class="col-3 text-center no-padding">
+                                <a href="">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/eye.png" width="10" alt="">
+                                </a>
+                            </div>
+                            <div class="col-3 text-left no-padding">
+                                <a href="">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/heart.png" width="10" alt="">
+                                </a>
+                            </div>
+                            <div class="col-3 text-right no-padding rating">
+                                <img src="${pageContext.request.contextPath}/resources/media/icons/star.png" width="10" alt="" class="padding-bottom-sm">
+                                6.3
+                            </div>
+                        </div>
+                        <div class="overlay">
+                            <div class="text">
+                                <a href="#" class="btn btn-secondary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/info.png" width="10" alt="">
+                                    Info
+                                </a>
+                                <a href="#" class="btn btn-primary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="10" alt="">
+                                    Watch
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 1922 - OPEN -->
+
+                    <!-- Marriage Story - OPEN -->
+                    <div class="carousel-cell">
+                        <img class="carousel-cell-image" src="${pageContext.request.contextPath}/resources/media/images/posters/marriage_story.jpeg" />
+                        <h5 class="text-center"> Marriage Story </h5>
+                        <div class="row">
+                            <div class="col-3 text-left no-padding">
+                                2019
+                            </div>
+                            <div class="col-3 text-center no-padding">
+                                <a href="">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/eye.png" width="10" alt="">
+                                </a>
+                            </div>
+                            <div class="col-3 text-left no-padding">
+                                <a href="">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/heart.png" width="10" alt="">
+                                </a>
+                            </div>
+                            <div class="col-3 text-right no-padding rating">
+                                <img src="${pageContext.request.contextPath}/resources/media/icons/star.png" width="10" alt="" class="padding-bottom-sm">
+                                8.0
+                            </div>
+                        </div>
+                        <div class="overlay">
+                            <div class="text">
+                                <a href="#" class="btn btn-secondary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/info.png" width="10" alt="">
+                                    Info
+                                </a>
+                                <a href="#" class="btn btn-primary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="10" alt="">
+                                    Watch
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Marriage Story - OPEN -->
+
+                    <!-- Mowgli - OPEN -->
+                    <div class="carousel-cell">
+                        <img class="carousel-cell-image" src="${pageContext.request.contextPath}/resources/media/images/posters/mowgli.jpg" />
+                        <h5 class="text-center"> Mowgli </h5>
+                        <div class="row">
+                            <div class="col-3 text-left no-padding">
+                                2018
+                            </div>
+                            <div class="col-3 text-center no-padding">
+                                <a href="">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/eye.png" width="10" alt="">
+                                </a>
+                            </div>
+                            <div class="col-3 text-left no-padding">
+                                <a href="">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/heart.png" width="10" alt="">
+                                </a>
+                            </div>
+                            <div class="col-3 text-right no-padding rating">
+                                <img src="${pageContext.request.contextPath}/resources/media/icons/star.png" width="10" alt="" class="padding-bottom-sm">
+                                6.5
+                            </div>
+                        </div>
+                        <div class="overlay">
+                            <div class="text">
+                                <a href="#" class="btn btn-secondary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/info.png" width="10" alt="">
+                                    Info
+                                </a>
+                                <a href="#" class="btn btn-primary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="10" alt="">
+                                    Watch
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Mowgli - OPEN -->
+
+                    <!-- Darkest Hour - OPEN -->
+                    <div class="carousel-cell">
+                        <img class="carousel-cell-image" src="${pageContext.request.contextPath}/resources/media/images/posters/darkest_hour.jpg" />
+                        <h5 class="text-center"> Darkest Hour </h5>
+                        <div class="row">
+                            <div class="col-3 text-left no-padding">
+                                2017
+                            </div>
+                            <div class="col-3 text-center no-padding">
+                                <a href="">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/eye.png" width="10" alt="">
+                                </a>
+                            </div>
+                            <div class="col-3 text-left no-padding">
+                                <a href="">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/heart.png" width="10" alt="">
+                                </a>
+                            </div>
+                            <div class="col-3 text-right no-padding rating">
+                                <img src="${pageContext.request.contextPath}/resources/media/icons/star.png" width="10" alt="" class="padding-bottom-sm">
+                                7.4
+                            </div>
+                        </div>
+                        <div class="overlay">
+                            <div class="text">
+                                <a href="#" class="btn btn-secondary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/info.png" width="10" alt="">
+                                    Info
+                                </a>
+                                <a href="#" class="btn btn-primary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="10" alt="">
+                                    Watch
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Darkest Hour - OPEN -->
+
+                </div>
+                <!-- Carousel - CLOSE -->
+
+            </div>
+            <!-- Trend tab - CLOSE -->
+
+            <!-- Popular tab - OPEN -->
+            <div class="margin-top-under-sm tab-pane fade" id="popular" role="tabpanel" aria-labelledby="popular-tab">
+                Popular
+            </div>
+            <!-- Popular tab - CLOSE -->
+
+            <!-- New tab - OPEN -->
+            <div class="margin-top-under-sm tab-pane fade" id="new" role="tabpanel" aria-labelledby="new-tab">
+                New
+            </div>
+            <!-- New tab - CLOSE -->
+
+            <!-- Oscars tab - OPEN -->
+            <div class="margin-top-under-sm tab-pane fade" id="oscars" role="tabpanel" aria-labelledby="oscars-tab">
+                Oscars 2020
+            </div>
+            <!-- Oscars tab - CLOSE -->
+
+        </div>
+        <!-- Tabs content - OPEN -->
+
+        <!-- Tabs nav - OPEN -->
+        <nav class="nav nav-fill nav-pills" id="explore-tabs" role="tablist">
+            <a class="nav-item nav-link active" id="movies-tab" data-toggle="pill" href="#movies" role="tab" aria-controls="movies-tab" aria-selected="true">
+                <div class="icon-nav">
+                    <img src="${pageContext.request.contextPath}/resources/media/icons/cinema.png" width="15" alt="" class="margin-right-sm padding-bottom-sm">
+                    Movies
+                </div>
+            </a>
+            <a class="nav-item nav-link" id="tvshows-tab" data-toggle="pill" href="#tvshows" role="tab" aria-controls="tvshows-tab" aria-selected="false">
+                <div class="icon-nav">
+                    <img src="${pageContext.request.contextPath}/resources/media/icons/tv.png" width="15" alt="" class="margin-right-sm padding-bottom-sm">
+                    TV Shows
+                </div>
+            </a>
+        </nav>
+        <!-- Tabs nav - CLOSE -->
+
+        <!-- Tabs content - OPEN -->
+        <div class="tab-content" id="exploreContent">
+
+            <!-- Movies tab - OPEN -->
+            <div class="margin-top-under-sm tab-pane fade show active" id="movies" role="tabpanel" aria-labelledby="movies-tab">
+
+                <!-- Genre Filters - OPEN -->
+                <div class="carousel" data-flickity='{ "groupCells": true, "cellAlign": "left", "pageDots": false, "wrapAround": false, "draggable": false, "contain": true }' id="genreFilters">
+
+                    <!-- Genre Action - OPEN -->
+                    <div class="carousel-filter-cell text-center">
+                        <button class="btn btn-outline-primary btn-md margin-top-under-sm" data-filter=".Action">
+                            Action
+                        </button>
+                    </div>
+                    <!-- Genre Action - CLOSE -->
+
+                    <!-- Genre Adventure - OPEN -->
+                    <div class="carousel-filter-cell text-center">
+                        <button class="btn btn-outline-primary btn-md margin-top-under-sm" data-filter=".Adventure">
+                            Adventure
+                        </button>
+                    </div>
+                    <!-- Genre Adventure - CLOSE -->
+
+                    <!-- Genre Animation - OPEN -->
+                    <div class="carousel-filter-cell text-center">
+                        <button class="btn btn-outline-primary btn-md margin-top-under-sm" data-filter=".Animation">
+                            Animation
+                        </button>
+                    </div>
+                    <!-- Genre Animation - CLOSE -->
+
+                    <!-- Genre Comedy - OPEN -->
+                    <div class="carousel-filter-cell text-center">
+                        <button class="btn btn-outline-primary btn-md margin-top-under-sm" data-filter=".Comedy">
+                            Comedy
+                        </button>
+                    </div>
+                    <!-- Genre Comedy - CLOSE -->
+
+                    <!-- Genre Crime - OPEN -->
+                    <div class="carousel-filter-cell text-center">
+                        <button class="btn btn-outline-primary btn-md margin-top-under-sm" data-filter=".Crime">
+                            Crime
+                        </button>
+                    </div>
+                    <!-- Genre Crime - CLOSE -->
+
+                    <!-- Genre Drama - OPEN -->
+                    <div class="carousel-filter-cell text-center">
+                        <button class="btn btn-outline-primary btn-md margin-top-under-sm" data-filter=".Drama">
+                            Drama
+                        </button>
+                    </div>
+                    <!-- Genre Drama - CLOSE -->
+
+                    <!-- Genre Fantasy - OPEN -->
+                    <div class="carousel-filter-cell text-center">
+                        <button class="btn btn-outline-primary btn-md margin-top-under-sm" data-filter=".Fantasy">
+                            Fantasy
+                        </button>
+                    </div>
+                    <!-- Genre Fantasy - CLOSE -->
+
+                    <!-- Genre Historical - OPEN -->
+                    <div class="carousel-filter-cell text-center">
+                        <button class="btn btn-outline-primary btn-md margin-top-under-sm" data-filter=".Historical">
+                            Historical
+                        </button>
+                    </div>
+                    <!-- Genre Historical - CLOSE -->
+
+                    <!-- Genre Historical Fiction - OPEN -->
+                    <div class="carousel-filter-cell text-center">
+                        <button class="btn btn-outline-primary btn-md margin-top-under-sm" data-filter=".Historical-Fiction">
+                            Historical Fiction
+                        </button>
+                    </div>
+                    <!-- Genre Historical Fiction - CLOSE -->
+
+                    <!-- Genre Horror - OPEN -->
+                    <div class="carousel-filter-cell text-center">
+                        <button class="btn btn-outline-primary btn-md margin-top-under-sm" data-filter=".Horror">
+                            Horror
+                        </button>
+                    </div>
+                    <!-- Genre Horror - CLOSE -->
+
+                    <!-- Genre Magical Realism - OPEN -->
+                    <div class="carousel-filter-cell text-center">
+                        <button class="btn btn-outline-primary btn-md margin-top-under-sm" data-filter=".Magical_Realism">
+                            Magical Realism
+                        </button>
+                    </div>
+                    <!-- Genre Magical Realism - CLOSE -->
+
+                    <!-- Genre Mystery - OPEN -->
+                    <div class="carousel-filter-cell text-center">
+                        <button class="btn btn-outline-primary btn-md margin-top-under-sm" data-filter=".Mystery">
+                            Mystery
+                        </button>
+                    </div>
+                    <!-- Genre Mystery - CLOSE -->
+
+                    <!-- Genre Paranoid Fiction - OPEN -->
+                    <div class="carousel-filter-cell text-center">
+                        <button class="btn btn-outline-primary btn-md margin-top-under-sm" data-filter=".Paranoid_Fiction">
+                            Paranoid Fiction
+                        </button>
+                    </div>
+                    <!-- Genre Paranoid Fiction - CLOSE -->
+
+                    <!-- Genre Philosophical - OPEN -->
+                    <div class="carousel-filter-cell text-center">
+                        <button class="btn btn-outline-primary btn-md margin-top-under-sm" data-filter=".Philosophical">
+                            Philosophical
+                        </button>
+                    </div>
+                    <!-- Genre Philosophical - CLOSE -->
+
+                    <!-- Genre Political - OPEN -->
+                    <div class="carousel-filter-cell text-center">
+                        <button class="btn btn-outline-primary btn-md margin-top-under-sm" data-filter=".Political">
+                            Political
+                        </button>
+                    </div>
+                    <!-- Genre Political - CLOSE -->
+
+                    <!-- Genre Romance - OPEN -->
+                    <div class="carousel-filter-cell text-center">
+                        <button class="btn btn-outline-primary btn-md margin-top-under-sm" data-filter=".Romance">
+                            Romance
+                        </button>
+                    </div>
+                    <!-- Genre Romance - CLOSE -->
+
+                    <!-- Genre Saga - OPEN -->
+                    <div class="carousel-filter-cell text-center">
+                        <button class="btn btn-outline-primary btn-md margin-top-under-sm" data-filter=".Saga">
+                            Saga
+                        </button>
+                    </div>
+                    <!-- Genre Saga - CLOSE -->
+
+                    <!-- Genre Satire - OPEN -->
+                    <div class="carousel-filter-cell text-center">
+                        <button class="btn btn-outline-primary btn-md margin-top-under-sm" data-filter=".Satire">
+                            Satire
+                        </button>
+                    </div>
+                    <!-- Genre Satire - CLOSE -->
+
+                    <!-- Genre Science Fiction - OPEN -->
+                    <div class="carousel-filter-cell text-center">
+                        <button class="btn btn-outline-primary btn-md margin-top-under-sm" data-filter=".Science_Fiction">
+                            Science Fiction
+                        </button>
+                    </div>
+                    <!-- Genre Science Fiction - CLOSE -->
+
+                    <!-- Genre Social - OPEN -->
+                    <div class="carousel-filter-cell text-center">
+                        <button class="btn btn-outline-primary btn-md margin-top-under-sm" data-filter=".Social">
+                            Social
+                        </button>
+                    </div>
+                    <!-- Genre Social - CLOSE -->
+
+                    <!-- Genre Speculative - OPEN -->
+                    <div class="carousel-filter-cell text-center">
+                        <button class="btn btn-outline-primary btn-md margin-top-under-sm" data-filter=".Speculative">
+                            Speculative
+                        </button>
+                    </div>
+                    <!-- Genre Speculative - CLOSE -->
+
+                    <!-- Genre Surrealism - OPEN -->
+                    <div class="carousel-filter-cell text-center">
+                        <button class="btn btn-outline-primary btn-md margin-top-under-sm" data-filter=".Surrealism">
+                            Surrealism
+                        </button>
+                    </div>
+                    <!-- Genre Surrealism - CLOSE -->
+
+                    <!-- Genre Thriller - OPEN -->
+                    <div class="carousel-filter-cell text-center">
+                        <button class="btn btn-outline-primary btn-md margin-top-under-sm" data-filter=".Thriller">
+                            Thriller
+                        </button>
+                    </div>
+                    <!-- Genre Thriller - CLOSE -->
+
+                    <!-- Genre Urban - OPEN -->
+                    <div class="carousel-filter-cell text-center">
+                        <button class="btn btn-outline-primary btn-md margin-top-under-sm" data-filter=".Urban">
+                            Urban
+                        </button>
+                    </div>
+                    <!-- Genre Urban - CLOSE -->
+
+                    <!-- Genre Western - OPEN -->
+                    <div class="carousel-filter-cell text-center">
+                        <button class="btn btn-outline-primary btn-md margin-top-under-sm" data-filter=".Western">
+                            Western
+                        </button>
+                    </div>
+                    <!-- Genre Western - CLOSE -->
+
+                </div>
+                <!-- Genre Filters - CLOSE -->
+
+                <!-- Rating filter and sorting - OPEN -->
+                <div class="margin-top-under-sm">
+                    <div class="row">
+
+                        <div class="col-auto no-padding text-right margin-right-md">
+                            Filter by Rating
+                        </div>
+
+                        <div class="col-4 no-padding text-left">
+                            <!-- Rating Filter - OPEN -->
+                            <div id="slider"></div>
+                            <!-- Rating Filter - CLOSE -->
+                        </div>
+
+                        <div class="col-4 no-padding text-right ml-auto">
+                            <!-- Sorting - OPEN -->
+                            <h5 class="inline"> Sort by </h5>
+                            <select id="sorting" class="custom-select my-select inline">
+                                <option value="popular"> Popular </option>
+                                <option value="year_recent"> Year newest </option>
+                                <option value="year_oldest"> Year oldest </option>
+                                <option value="rating_best"> Rating best </option>
+                                <option value="rating_worst"> Rating worst </option>
+                            </select>
+                            <!-- Sorting - CLOSE -->
+                        </div>
+
+                    </div>
+                </div>
+                <!-- Rating filter and sorting - CLOSE -->
+
+                <!-- Grid cards films - OPEN -->
+                <div id="grid-movies">
+
+                    <!-- First row of Card Deck Layout - OPEN -->
+                    <div class="card-deck margin-top">
+
+                        <!-- Beasts of No Nation - OPEN -->
+                        <div class="card carousel-cell">
+                            <img class="card-img-top" src="${pageContext.request.contextPath}/resources/media/images/posters/beasts_of_no_nation.jpg" />
+                            <h5 class="card-title text-center"> Beasts of No Nation </h5>
+                            <div class="row">
+                                <div class="col-3 text-left no-padding">
+                                    2015
+                                </div>
+                                <div class="col-3 text-center no-padding">
+                                    <a href="">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/eye.png" width="10" alt="">
+                                    </a>
+                                </div>
+                                <div class="col-3 text-left no-padding">
+                                    <a href="">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/heart.png" width="10" alt="">
+                                    </a>
+                                </div>
+                                <div class="col-3 text-right no-padding rating">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/star.png" width="10" alt="" class="padding-bottom-sm">
+                                    7.7
+                                </div>
+                            </div>
+                            <div class="overlay">
+                                <div class="text">
+                                    <a href="#" class="btn btn-secondary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/info.png" width="10" alt="">
+                                        Info
+                                    </a>
+                                    <a href="#" class="btn btn-primary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="10" alt="">
+                                        Watch
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Beasts of No Nation - OPEN -->
+
+                        <!-- El Camino - OPEN -->
+                        <div class="card carousel-cell Action">
+                            <img class="card-img-top" src="${pageContext.request.contextPath}/resources/media/images/posters/el_camino.jpg" />
+                            <h5 class="card-title text-center"> El Camino </h5>
+                            <div class="row">
+                                <div class="col-3 text-left no-padding">
+                                    2019
+                                </div>
+                                <div class="col-3 text-center no-padding">
+                                    <a href="">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/eye.png" width="10" alt="">
+                                    </a>
+                                </div>
+                                <div class="col-3 text-left no-padding">
+                                    <a href="">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/heart.png" width="10" alt="">
+                                    </a>
+                                </div>
+                                <div class="col-3 text-right no-padding rating">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/star.png" width="10" alt="" class="padding-bottom-sm">
+                                    8.0
+                                </div>
+                            </div>
+                            <div class="overlay">
+                                <div class="text">
+                                    <a href="#" class="btn btn-secondary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/info.png" width="10" alt="">
+                                        Info
+                                    </a>
+                                    <a href="#" class="btn btn-primary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="10" alt="">
+                                        Watch
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- El Camino - OPEN -->
+
+                        <!-- The Dark Knight - OPEN -->
+                        <div class="card carousel-cell">
+                            <img class="card-img-top" src="${pageContext.request.contextPath}/resources/media/images/posters/dark_knight.jpg" />
+                            <h5 class="card-title text-center"> The Dark Knight </h5>
+                            <div class="row">
+                                <div class="col-3 text-left no-padding">
+                                    2008
+                                </div>
+                                <div class="col-3 text-center no-padding selected">
+                                    <a href="">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/eye-selected.png" width="10" alt="">
+                                    </a>
+                                </div>
+                                <div class="col-3 text-left no-padding selected">
+                                    <a href="">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/heart-selected.png" width="10" alt="">
+                                    </a>
+                                </div>
+                                <div class="col-3 text-right no-padding rating">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/star.png" width="10" alt="" class="padding-bottom-sm">
+                                    9.0
+                                </div>
+                            </div>
+                            <div class="overlay">
+                                <div class="text">
+                                    <a href="#" class="btn btn-secondary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/info.png" width="10" alt="">
+                                        Info
+                                    </a>
+                                    <a href="#" class="btn btn-primary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="10" alt="">
+                                        Watch
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- The Dark Knight - OPEN -->
+
+                        <!-- Inception - OPEN -->
+                        <div class="card carousel-cell">
+                            <img class="card-img-top" src="${pageContext.request.contextPath}/resources/media/images/posters/inception.png" />
+                            <h5 class="card-title text-center"> Inception </h5>
+                            <div class="row">
+                                <div class="col-3 text-left no-padding">
+                                    2010
+                                </div>
+                                <div class="col-3 text-center no-padding">
+                                    <a href="">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/eye.png" width="10" alt="">
+                                    </a>
+                                </div>
+                                <div class="col-3 text-left no-padding">
+                                    <a href="">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/heart.png" width="10" alt="">
+                                    </a>
+                                </div>
+                                <div class="col-3 text-right no-padding rating">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/star.png" width="10" alt="" class="padding-bottom-sm">
+                                    8.8
+                                </div>
+                            </div>
+                            <div class="overlay">
+                                <div class="text">
+                                    <a href="#" class="btn btn-secondary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/info.png" width="10" alt="">
+                                        Info
+                                    </a>
+                                    <a href="#" class="btn btn-primary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="10" alt="">
+                                        Watch
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Inception - OPEN -->
+
+                        <!-- Okja - OPEN -->
+                        <div class="card carousel-cell">
+                            <img class="card-img-top" src="${pageContext.request.contextPath}/resources/media/images/posters/okja.jpg" />
+                            <h5 class="card-title text-center"> Okja </h5>
+                            <div class="row">
+                                <div class="col-3 text-left no-padding">
+                                    2017
+                                </div>
+                                <div class="col-3 text-center no-padding selected">
+                                    <a href="">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/eye-selected.png" width="10" alt="">
+                                    </a>
+                                </div>
+                                <div class="col-3 text-left no-padding">
+                                    <a href="">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/heart.png" width="10" alt="">
+                                    </a>
+                                </div>
+                                <div class="col-3 text-right no-padding rating">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/star.png" width="10" alt="" class="padding-bottom-sm">
+                                    7.3
+                                </div>
+                            </div>
+                            <div class="overlay">
+                                <div class="text">
+                                    <a href="#" class="btn btn-secondary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/info.png" width="10" alt="">
+                                        Info
+                                    </a>
+                                    <a href="#" class="btn btn-primary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="10" alt="">
+                                        Watch
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Okja - OPEN -->
+
+                    </div>
+                    <!-- First row of Card Deck Layout - OPEN -->
+
+                    <!-- Second row of Card Deck Layout -->
+                    <div class="card-deck">
+
+                        <!-- Birdman - OPEN -->
+                        <div class="card carousel-cell">
+                            <img class="card-img-top" src="${pageContext.request.contextPath}/resources/media/images/posters/birdman.jpg" />
+                            <h5 class="card-title text-center"> Birdman </h5>
+                            <div class="row">
+                                <div class="col-3 text-left no-padding">
+                                    2014
+                                </div>
+                                <div class="col-3 text-center no-padding selected">
+                                    <a href="">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/eye-selected.png" width="10" alt="">
+                                    </a>
+                                </div>
+                                <div class="col-3 text-left no-padding">
+                                    <a href="">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/heart.png" width="10" alt="">
+                                    </a>
+                                </div>
+                                <div class="col-3 text-right no-padding rating">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/star.png" width="10" alt="" class="padding-bottom-sm">
+                                    7.7
+                                </div>
+                            </div>
+                            <div class="overlay">
+                                <div class="text">
+                                    <a href="#" class="btn btn-secondary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/info.png" width="10" alt="">
+                                        Info
+                                    </a>
+                                    <a href="#" class="btn btn-primary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="10" alt="">
+                                        Watch
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Birdman - OPEN -->
+
+                        <!-- Jaws - OPEN -->
+                        <div class="card carousel-cell">
+                            <img class="card-img-top" src="${pageContext.request.contextPath}/resources/media/images/posters/jaws.jpeg" />
+                            <h5 class="card-title text-center"> Jaws </h5>
+                            <div class="row">
+                                <div class="col-3 text-left no-padding">
+                                    1975
+                                </div>
+                                <div class="col-3 text-center no-padding selected">
+                                    <a href="">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/eye-selected.png" width="10" alt="">
+                                    </a>
+                                </div>
+                                <div class="col-3 text-left no-padding">
+                                    <a href="">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/heart.png" width="10" alt="">
+                                    </a>
+                                </div>
+                                <div class="col-3 text-right no-padding rating">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/star.png" width="10" alt="" class="padding-bottom-sm">
+                                    8.0
+                                </div>
+                            </div>
+                            <div class="overlay">
+                                <div class="text">
+                                    <a href="#" class="btn btn-secondary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/info.png" width="10" alt="">
+                                        Info
+                                    </a>
+                                    <a href="#" class="btn btn-primary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="10" alt="">
+                                        Watch
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Jaws - OPEN -->
+
+                        <!-- Blade Runner - OPEN -->
+                        <div class="card carousel-cell">
+                            <img class="card-img-top" src="${pageContext.request.contextPath}/resources/media/images/posters/blade_runner.jpg" />
+                            <h5 class="card-title text-center"> Blade Runner </h5>
+                            <div class="row">
+                                <div class="col-3 text-left no-padding">
+                                    1982
+                                </div>
+                                <div class="col-3 text-center no-padding">
+                                    <a href="">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/eye.png" width="10" alt="">
+                                    </a>
+                                </div>
+                                <div class="col-3 text-left no-padding">
+                                    <a href="">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/heart.png" width="10" alt="">
+                                    </a>
+                                </div>
+                                <div class="col-3 text-right no-padding rating">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/star.png" width="10" alt="" class="padding-bottom-sm">
+                                    8.1
+                                </div>
+                            </div>
+                            <div class="overlay">
+                                <div class="text">
+                                    <a href="#" class="btn btn-secondary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/info.png" width="10" alt="">
+                                        Info
+                                    </a>
+                                    <a href="#" class="btn btn-primary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="10" alt="">
+                                        Watch
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Blade Runner - OPEN -->
+
+                        <!-- Blade Runner 2049 - OPEN -->
+                        <div class="card carousel-cell">
+                            <img class="card-img-top" src="${pageContext.request.contextPath}/resources/media/images/posters/blade_runner_2049.jpg" />
+                            <h5 class="card-title text-center"> Blade Runner 2049 </h5>
+                            <div class="row">
+                                <div class="col-3 text-left no-padding">
+                                    2017
+                                </div>
+                                <div class="col-3 text-center no-padding">
+                                    <a href="">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/eye.png" width="10" alt="">
+                                    </a>
+                                </div>
+                                <div class="col-3 text-left no-padding">
+                                    <a href="">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/heart.png" width="10" alt="">
+                                    </a>
+                                </div>
+                                <div class="col-3 text-right no-padding rating">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/star.png" width="10" alt="" class="padding-bottom-sm">
+                                    7.0
+                                </div>
+                            </div>
+                            <div class="overlay">
+                                <div class="text">
+                                    <a href="#" class="btn btn-secondary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/info.png" width="10" alt="">
+                                        Info
+                                    </a>
+                                    <a href="#" class="btn btn-primary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="10" alt="">
+                                        Watch
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Blade Runner 2049 - OPEN -->
+
+                        <!-- Call Me by Your Name - OPEN -->
+                        <div class="card carousel-cell">
+                            <img class="card-img-top" src="${pageContext.request.contextPath}/resources/media/images/posters/call_me_by_your_name.jpg" />
+                            <h5 class="card-title text-center"> Call Me by Your Name </h5>
+                            <div class="row">
+                                <div class="col-3 text-left no-padding">
+                                    2017
+                                </div>
+                                <div class="col-3 text-center no-padding">
+                                    <a href="">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/eye.png" width="10" alt="">
+                                    </a>
+                                </div>
+                                <div class="col-3 text-left no-padding">
+                                    <a href="">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/heart.png" width="10" alt="">
+                                    </a>
+                                </div>
+                                <div class="col-3 text-right no-padding rating">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/star.png" width="10" alt="" class="padding-bottom-sm">
+                                    7.9
+                                </div>
+                            </div>
+                            <div class="overlay">
+                                <div class="text">
+                                    <a href="#" class="btn btn-secondary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/info.png" width="10" alt="">
+                                        Info
+                                    </a>
+                                    <a href="#" class="btn btn-primary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="10" alt="">
+                                        Watch
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Call Me by Your Name - OPEN -->
+
+                    </div>
+                    <!-- Second row of Card Deck Layout - OPEN -->
+
+                    <!-- Third row of Card Deck Layout - OPEN -->
+                    <div class="card-deck">
+
+                        <!-- Wonder Woman - OPEN -->
+                        <div class="card carousel-cell">
+                            <img class="card-img-top" src="${pageContext.request.contextPath}/resources/media/images/posters/wonder_woman.jpg" />
+                            <h5 class="card-title text-center"> Wonder Woman </h5>
+                            <div class="row">
+                                <div class="col-3 text-left no-padding">
+                                    2017
+                                </div>
+                                <div class="col-3 text-center no-padding">
+                                    <a href="">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/eye.png" width="10" alt="">
+                                    </a>
+                                </div>
+                                <div class="col-3 text-left no-padding">
+                                    <a href="">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/heart.png" width="10" alt="">
+                                    </a>
+                                </div>
+                                <div class="col-3 text-right no-padding rating">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/star.png" width="10" alt="" class="padding-bottom-sm">
+                                    7.4
+                                </div>
+                            </div>
+                            <div class="overlay">
+                                <div class="text">
+                                    <a href="#" class="btn btn-secondary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/info.png" width="10" alt="">
+                                        Info
+                                    </a>
+                                    <a href="#" class="btn btn-primary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="10" alt="">
+                                        Watch
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Wonder Woman - OPEN -->
+
+                        <!-- Dallas Buyers Club - OPEN -->
+                        <div class="card carousel-cell">
+                            <img class="card-img-top" src="${pageContext.request.contextPath}/resources/media/images/posters/dallas_buyers_club.jpg" />
+                            <h5 class="card-title text-center"> Dallas Buyers Club </h5>
+                            <div class="row">
+                                <div class="col-3 text-left no-padding">
+                                    2013
+                                </div>
+                                <div class="col-3 text-center no-padding">
+                                    <a href="">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/eye.png" width="10" alt="">
+                                    </a>
+                                </div>
+                                <div class="col-3 text-left no-padding">
+                                    <a href="">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/heart.png" width="10" alt="">
+                                    </a>
+                                </div>
+                                <div class="col-3 text-right no-padding rating">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/star.png" width="10" alt="" class="padding-bottom-sm">
+                                    8.0
+                                </div>
+                            </div>
+                            <div class="overlay">
+                                <div class="text">
+                                    <a href="#" class="btn btn-secondary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/info.png" width="10" alt="">
+                                        Info
+                                    </a>
+                                    <a href="#" class="btn btn-primary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="10" alt="">
+                                        Watch
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Dallas Buyers Club - OPEN -->
+
+                        <!-- The Revenant - OPEN -->
+                        <div class="card carousel-cell">
+                            <img class="card-img-top" src="${pageContext.request.contextPath}/resources/media/images/posters/the_revenant.jpg" />
+                            <h5 class="card-title text-center"> The Revenant </h5>
+                            <div class="row">
+                                <div class="col-3 text-left no-padding">
+                                    2015
+                                </div>
+                                <div class="col-3 text-center no-padding">
+                                    <a href="">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/eye.png" width="10" alt="">
+                                    </a>
+                                </div>
+                                <div class="col-3 text-left no-padding">
+                                    <a href="">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/heart.png" width="10" alt="">
+                                    </a>
+                                </div>
+                                <div class="col-3 text-right no-padding rating">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/star.png" width="10" alt="" class="padding-bottom-sm">
+                                    8.0
+                                </div>
+                            </div>
+                            <div class="overlay">
+                                <div class="text">
+                                    <a href="#" class="btn btn-secondary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/info.png" width="10" alt="">
+                                        Info
+                                    </a>
+                                    <a href="#" class="btn btn-primary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="10" alt="">
+                                        Watch
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- The Revenant - OPEN -->
+
+                        <!-- The Terminator - OPEN -->
+                        <div class="card carousel-cell">
+                            <img class="card-img-top" src="${pageContext.request.contextPath}/resources/media/images/posters/the_terminator.jpg" />
+                            <h5 class="card-title text-center"> The Terminator </h5>
+                            <div class="row">
+                                <div class="col-3 text-left no-padding">
+                                    1984
+                                </div>
+                                <div class="col-3 text-center no-padding">
+                                    <a href="">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/eye.png" width="10" alt="">
+                                    </a>
+                                </div>
+                                <div class="col-3 text-left no-padding">
+                                    <a href="">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/heart.png" width="10" alt="">
+                                    </a>
+                                </div>
+                                <div class="col-3 text-right no-padding rating">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/star.png" width="10" alt="" class="padding-bottom-sm">
+                                    8.0
+                                </div>
+                            </div>
+                            <div class="overlay">
+                                <div class="text">
+                                    <a href="#" class="btn btn-secondary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/info.png" width="10" alt="">
+                                        Info
+                                    </a>
+                                    <a href="#" class="btn btn-primary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="10" alt="">
+                                        Watch
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- The Terminator - OPEN -->
+
+                        <!-- Ex Machina - OPEN -->
+                        <div class="card carousel-cell">
+                            <img class="card-img-top" src="${pageContext.request.contextPath}/resources/media/images/posters/ex_machina.jpg" />
+                            <h5 class="card-title text-center"> Ex Machina </h5>
+                            <div class="row">
+                                <div class="col-3 text-left no-padding">
+                                    2014
+                                </div>
+                                <div class="col-3 text-center no-padding">
+                                    <a href="">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/eye.png" width="10" alt="">
+                                    </a>
+                                </div>
+                                <div class="col-3 text-left no-padding">
+                                    <a href="">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/heart.png" width="10" alt="">
+                                    </a>
+                                </div>
+                                <div class="col-3 text-right no-padding rating">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/star.png" width="10" alt="" class="padding-bottom-sm">
+                                    7.7
+                                </div>
+                            </div>
+                            <div class="overlay">
+                                <div class="text">
+                                    <a href="#" class="btn btn-secondary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/info.png" width="10" alt="">
+                                        Info
+                                    </a>
+                                    <a href="#" class="btn btn-primary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="10" alt="">
+                                        Watch
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Ex Machina - OPEN -->
+
+                    </div>
+                    <!-- Third row of Card Deck Layout - OPEN -->
+
+                    <!-- Fourth row of Card Deck Layout -->
+                    <div class="card-deck">
+
+                        <!-- Spotlight- OPEN -->
+                        <div class="card carousel-cell">
+                            <img class="card-img-top" src="${pageContext.request.contextPath}/resources/media/images/posters/spotlight.jpg" />
+                            <h5 class="card-title text-center"> Spotlight </h5>
+                            <div class="row">
+                                <div class="col-3 text-left no-padding">
+                                    2015
+                                </div>
+                                <div class="col-3 text-center no-padding">
+                                    <a href="">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/eye.png" width="10" alt="">
+                                    </a>
+                                </div>
+                                <div class="col-3 text-left no-padding">
+                                    <a href="">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/heart.png" width="10" alt="">
+                                    </a>
+                                </div>
+                                <div class="col-3 text-right no-padding rating">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/star.png" width="10" alt="" class="padding-bottom-sm">
+                                    8.1
+                                </div>
+                            </div>
+                            <div class="overlay">
+                                <div class="text">
+                                    <a href="#" class="btn btn-secondary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/info.png" width="10" alt="">
+                                        Info
+                                    </a>
+                                    <a href="#" class="btn btn-primary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="10" alt="">
+                                        Watch
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Spotlight - OPEN -->
+
+                        <!--Reservoir Dogs - OPEN -->
+                        <div class="card carousel-cell">
+                            <img class="card-img-top" src="${pageContext.request.contextPath}/resources/media/images/posters/reservoir_dogs.jpg" />
+                            <h5 class="card-title text-center"> Reservoir Dogs </h5>
+                            <div class="row">
+                                <div class="col-3 text-left no-padding">
+                                    1992
+                                </div>
+                                <div class="col-3 text-center no-padding">
+                                    <a href="">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/eye.png" width="10" alt="">
+                                    </a>
+                                </div>
+                                <div class="col-3 text-left no-padding">
+                                    <a href="">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/heart.png" width="10" alt="">
+                                    </a>
+                                </div>
+                                <div class="col-3 text-right no-padding rating">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/star.png" width="10" alt="" class="padding-bottom-sm">
+                                    8.0
+                                </div>
+                            </div>
+                            <div class="overlay">
+                                <div class="text">
+                                    <a href="#" class="btn btn-secondary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/info.png" width="10" alt="">
+                                        Info
+                                    </a>
+                                    <a href="#" class="btn btn-primary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="10" alt="">
+                                        Watch
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Reservoir Dogs - OPEN -->
+
+                        <!-- Annihilation - OPEN -->
+                        <div class="card carousel-cell">
+                            <img class="card-img-top" src="${pageContext.request.contextPath}/resources/media/images/posters/annihilation.jpg" />
+                            <h5 class="card-title text-center"> Annihilation </h5>
+                            <div class="row">
+                                <div class="col-3 text-left no-padding">
+                                    2018
+                                </div>
+                                <div class="col-3 text-center no-padding">
+                                    <a href="">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/eye.png" width="10" alt="">
+                                    </a>
+                                </div>
+                                <div class="col-3 text-left no-padding">
+                                    <a href="">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/heart.png" width="10" alt="">
+                                    </a>
+                                </div>
+                                <div class="col-3 text-right no-padding rating">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/star.png" width="10" alt="" class="padding-bottom-sm">
+                                    6.9
+                                </div>
+                            </div>
+                            <div class="overlay">
+                                <div class="text">
+                                    <a href="#" class="btn btn-secondary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/info.png" width="10" alt="">
+                                        Info
+                                    </a>
+                                    <a href="#" class="btn btn-primary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="10" alt="">
+                                        Watch
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Annihilation - OPEN -->
+
+                        <!-- Prisoners - OPEN -->
+                        <div class="card carousel-cell">
+                            <img class="card-img-top" src="${pageContext.request.contextPath}/resources/media/images/posters/prisoners.jpg" />
+                            <h5 class="card-title text-center"> Prisoners </h5>
+                            <div class="row">
+                                <div class="col-3 text-left no-padding">
+                                    2013
+                                </div>
+                                <div class="col-3 text-center no-padding">
+                                    <a href="">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/eye.png" width="10" alt="">
+                                    </a>
+                                </div>
+                                <div class="col-3 text-left no-padding">
+                                    <a href="">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/heart.png" width="10" alt="">
+                                    </a>
+                                </div>
+                                <div class="col-3 text-right no-padding rating">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/star.png" width="10" alt="" class="padding-bottom-sm">
+                                    8.1
+                                </div>
+                            </div>
+                            <div class="overlay">
+                                <div class="text">
+                                    <a href="#" class="btn btn-secondary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/info.png" width="10" alt="">
+                                        Info
+                                    </a>
+                                    <a href="#" class="btn btn-primary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="10" alt="">
+                                        Watch
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Prisoners - OPEN -->
+
+                        <!-- Fargo - OPEN -->
+                        <div class="card carousel-cell">
+                            <img class="card-img-top" src="${pageContext.request.contextPath}/resources/media/images/posters/fargo.jpg" />
+                            <h5 class="card-title text-center"> Fargo </h5>
+                            <div class="row">
+                                <div class="col-3 text-left no-padding">
+                                    1996
+                                </div>
+                                <div class="col-3 text-center no-padding selected">
+                                    <a href="">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/eye-selected.png" width="10" alt="">
+                                    </a>
+                                </div>
+                                <div class="col-3 text-left no-padding">
+                                    <a href="">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/heart.png" width="10" alt="">
+                                    </a>
+                                </div>
+                                <div class="col-3 text-right no-padding rating">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/star.png" width="10" alt="" class="padding-bottom-sm">
+                                    8.1
+                                </div>
+                            </div>
+                            <div class="overlay">
+                                <div class="text">
+                                    <a href="#" class="btn btn-secondary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/info.png" width="10" alt="">
+                                        Info
+                                    </a>
+                                    <a href="#" class="btn btn-primary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                        <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="10" alt="">
+                                        Watch
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Fargo - OPEN -->
+
+                    </div>
+                    <!-- Fourth row of Card Deck Layout - OPEN -->
+
+                </div>
+                <!-- Grid cards films - OPEN -->
+
+                <!-- Load more button - OPEN -->
+                <div class="margin-top-under-sm text-center">
+                    <a href="#" class="btn btn-outline-secondary btn-lg margin-top-under-sm" role="button" id="loadMore">
+                        <img src="${pageContext.request.contextPath}/resources/media/icons/plus.png" width="15" alt="" class="margin-right-sm padding-bottom-sm">
+                        Load More
+                    </a>
+                </div>
+                <!-- Load more button - CLOSE -->
+
+            </div>
+            <!-- Movies tab - CLOSE -->
+
+            <!-- TV Shows tab - OPEN -->
+            <div class="margin-bottom tab-pane fade show" id="tvshows" role="tabpanel" aria-labelledby="tvshows-tab">
+                TV Shows
+            </div>
+            <!-- TV Shows tab - CLOSE -->
+
+        </div>
+        <!-- Tabs content - CLOSE -->
+
+    </div>
+    <!-- Content - CLOSE -->

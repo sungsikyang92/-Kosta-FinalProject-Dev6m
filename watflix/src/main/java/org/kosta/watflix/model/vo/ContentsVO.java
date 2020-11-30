@@ -129,6 +129,15 @@ public class ContentsVO {
 	public void setContentsHits(int contentsHits) {
 		this.contentsHits = contentsHits;
 	}
+
+	@Override
+	public String toString() {
+		return "ContentsVO [contentsNo=" + contentsNo + ", contentsTitle=" + contentsTitle + ", contentsType="
+				+ contentsType + ", genreVO=" + genreVO + ", contentsSummary=" + contentsSummary
+				+ ", contentsSmallThumbnail=" + contentsSmallThumbnail + ", contentsBigThumbnail="
+				+ contentsBigThumbnail + ", contentsAvgStars=" + contentsAvgStars + ", contentsLikes=" + contentsLikes
+				+ ", contentsHits=" + contentsHits + "]";
+	}
 	
 	
 }
