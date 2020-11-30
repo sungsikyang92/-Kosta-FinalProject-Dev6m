@@ -23,6 +23,7 @@ public class AdminController {
    
    @RequestMapping("contentsUpdateAdmin.do")
    public String updateContents() {
+	  int count;
       String[] genreArr= {"1568"};
       //크롤링할 웹페이지 주소
       String stemplateURL = "https://www.netflix.com/kr/browse/genre/";
@@ -33,8 +34,10 @@ public class AdminController {
       Document sDoc,bDoc;
       Elements sElems,bElems;
       for(int i=0; i<genreArr.length;i++) {
+    	  System.out.println(genreArr.length+"중"+i+"번째 장르 다운 시작");
            try {
-              sThumbnailURL=stemplateURL+genreArr[i];
+        	   count = 0;
+        	   sThumbnailURL=stemplateURL+genreArr[i];
                sDoc = Jsoup.connect(sThumbnailURL).get();
                sElems = sDoc.select("h1.nm-collections-header-name");
                String genreName = sElems.text();
@@ -52,6 +55,7 @@ public class AdminController {
                    //이미지
                      String sImgUrl = sElem.attr("src");
                      if(sImgUrl.startsWith("http")) {
+                    	 count++;
                         //제목
                         String title=sElem.attr("alt");
                         //컨텐츠id, //장르 ID는 해당 컨텐츠에 들어가야지만 수집가능함, 장르는 1개인걸로 가야함
@@ -75,10 +79,10 @@ public class AdminController {
                         
                         //이미지 다운받고 저장하기
                         adminService.saveThumbnail(sImgUrl,bImgUrl,path,contentsId,title,summary,type,genreCode,genreName);  
-                        
-                        
+                        System.out.println((double)(count/sElems.size())+"% 완료");
                      }      
                }
+               System.out.println(genreArr.length+"중"+i+"번째 장르 다운 끝");
           } catch (IOException e) {
              // TODO Auto-generated catch block
              e.printStackTrace();
