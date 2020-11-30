@@ -23,5 +23,4 @@ public interface NoticeService {
 
 	void sNoticeDelete(int noticeNo);
 
-
 }

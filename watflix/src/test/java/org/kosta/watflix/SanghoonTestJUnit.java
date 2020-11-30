@@ -1,5 +1,8 @@
 package org.kosta.watflix;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.junit.Test;
@@ -17,21 +20,27 @@ public class SanghoonTestJUnit {
 	@Resource
 	MemberService memberService;
 	
+	@Resource
+	MemberMapper memberMapper;
+/*	회원가입 테스트 완료
 	@Test
 	public void test(){
-		/*
-			MemberVO memberVO = new MemberVO();
-			memberVO.setId("java14");
-			memberVO.setPassword("123");
-			memberVO.setName("테스트");
-			memberVO.setEmail("email");
-			memberVO.setTel("123");
-			memberVO.setBirth("1992-09-03");
-			memberVO.setSex("남성");
-			memberVO.setAddress("경기도");
-			memberVO.setAgreement("동의");
-			System.out.println(memberService.sFindMemberById("java14"));
-		
+		MemberVO memberVO = new MemberVO();
+		memberVO.setId("java14");
+		memberVO.setPassword("123");
+		memberVO.setName("테스트");
+		memberVO.setEmail("email");
+		memberVO.setTel("123");
+		memberVO.setBirth("1992-09-03");
+		memberVO.setSex("남성");
+		memberVO.setAddress("경기도");
+		memberVO.setAgreement("동의");
+		System.out.println(memberService.sFindMemberById("java14"));
+	}
+*/
+/* 회원정보수정 테스트 및 로그인시간,로그인실패횟수 증가 테스트 완료
+	@Test
+	public void test(){
 		MemberVO memberVO = new MemberVO();
 		memberVO.setId("java14");
 		memberVO.setPassword("123");
@@ -45,13 +54,22 @@ public class SanghoonTestJUnit {
 		System.out.println(memberService.sFindMemberById("java14"));
 		memberService.sMemberUpdate(memberVO);
 		System.out.println(memberService.sFindMemberById("java14"));
-		*/
 		
 		memberService.sMemberLoginTimeUpdate("java14");
-		
 		System.out.println(memberService.sFindMemberById("java14"));
 	}
+*/
 
+	@Test
+	public void test(){
+		System.out.println(memberService.sMemberPointCheck("java"));
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id","java");
+		map.put("pointUp",4);
+		memberMapper.mMemberPointUp(map);
+		System.out.println(memberService.sMemberPointCheck("java"));
+		memberService.sMemberProductOrderHistory("java14");	
+	}
 }
 
 

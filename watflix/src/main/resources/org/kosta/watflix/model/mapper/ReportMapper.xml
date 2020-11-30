@@ -4,7 +4,39 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.kosta.watflix.model.mapper.ReportMapper">
- 
+ 	<!-- ReportVO에 MemberVO의 id, ReviewVO의 reviewNo, CommentsVO의 commentsNo, ReportTypeVO의 reportTypeNo(has a 관계)를 넣을 수 있도록 ResaultMap을 셋팅한다. -->
+ 	<resultMap type="reportVO" id="reportBoardRM">
+		<result property="memberVO.id" column="id"/>
+		<result property="reviewVO.reviewNo" column="review_no"/>
+		<result property="commentsVO.commentsNo" column="comments_no"/>
+		<result property="reportTypeVO.reportTypeNo" column="report_type_no"/>
+	</resultMap>
+	<!-- 신고게시글 디테일 조회에 필요한 데이터를 셋팅된 ResultMap(reportVO)에 넣는다.(조회수는 올라가지 않는다.)  -->
+	<select id="mReportGetDetailNoHits" parameterType="int" resultMap="reportBoardRM">
+		SELECT r.report_no, r.id, r.review_no, r.comments_no, r.report_type_no, r.report_contents, r.report_posted_time, t.report_type_info
+		FROM report r, report_type t WHERE r.report_type_no=t.report_type_no AND r.report_no=#{value}
+	</select>
+	<!-- 신고게시글 쓰기 -->
+ 	<insert id="mReportWrite" parameterType="reportVO">
+ 		<selectKey keyProperty="reportNo"  resultType="int" order="BEFORE">
+ 			SELECT report_seq.nextval FROM DUAL
+ 		</selectKey>
+		INSERT INTO report(report_no, id, comments_no, report_type_no, report_contents, report_posted_time)
+		VALUES(#{reportNo}, #{memberVO.id}, #{commentsVO.commentsNo}, #{reportTypeVO.reportTypeNo}, #{reportContents}, sysdate)
+ 	</insert>
+	<!-- 조회수 증가 -->
+	<select id="mNoticeUpdateHits" parameterType="int">
+		UPDATE notice SET notice_hits = notice_hits+1 WHERE notice_no=#{noticeNo}
+	</select>
+	<!-- 공지게시글 수정 -->
+	<update id="mNoticeUpdate" parameterType="noticeVO">
+		UPDATE notice SET notice_title = #{noticeTitle}, notice_contents = #{noticeContents}
+		WHERE notice_no = #{noticeNo}
+	</update>
+ 	<!-- 공지게시글 삭제 -->
+ 	<delete id="mReportDelete" parameterType="int">
+ 		DELETE FROM REPORT WHERE REPORT_NO=#{value}
+ 	</delete>
 </mapper>
 
 

@@ -6,9 +6,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kosta.watflix.model.service.CommentsService;
 import org.kosta.watflix.model.service.NoticeService;
+import org.kosta.watflix.model.service.ReportService;
 import org.kosta.watflix.model.vo.CommentsVO;
-import org.kosta.watflix.model.vo.ContentsVO;
 import org.kosta.watflix.model.vo.MemberVO;
+import org.kosta.watflix.model.vo.ReportTypeVO;
+import org.kosta.watflix.model.vo.ReportVO;
+import org.kosta.watflix.model.vo.ReviewVO;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -40,6 +43,8 @@ public class JihunTestJUnit {
 	private NoticeService noticeService;
 	@Resource
 	private CommentsService commentsService;
+	@Resource
+	private ReportService reportService;
 	@Test
 	public void test(){
 		
@@ -116,6 +121,29 @@ public class JihunTestJUnit {
 		// 10. Comments 삭제 테스트 >> 테스트 완료
 		//int commentsNo = 34;
 		//commentsService.sCommentsDelete(commentsNo);
+		
+		// 11. Report디테일 출력 테스트 >> 테스트 완료
+		//int reportNo = 1;
+		//ReportVO reportVO = reportService.sReportGetDetailNoHits(reportNo);
+		//System.out.println(reportVO);
+		
+		// 12. Report(Comment)쓰기 테스트 >> 테스트 완료
+		ReportVO reportVO = new ReportVO();
+		MemberVO memberVO = new MemberVO();
+		//ReviewVO reviewVO = new ReviewVO();
+		CommentsVO commentsVO = new CommentsVO();
+		ReportTypeVO reportTypeVO = new ReportTypeVO();
+		memberVO.setId("jikang");
+		//reviewVO.setReviewNo(reviewNo);
+		commentsVO.setCommentsNo(1);
+		reportTypeVO.setReportTypeNo(2);
+		reportVO.setMemberVO(memberVO);
+		//reportVO.setReviewVO(reviewVO);
+		reportVO.setCommentsVO(commentsVO);
+		reportVO.setReportTypeVO(reportTypeVO);
+		reportVO.setReportContents("코로나입니다 집에 머무시기를");
+		reportService.sReportWrite(reportVO);
+		System.out.println(reportService.sReportGetDetailNoHits(7)); 
 	}
 }
 
