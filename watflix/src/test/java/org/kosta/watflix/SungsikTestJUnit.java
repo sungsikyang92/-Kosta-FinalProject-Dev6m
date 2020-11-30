@@ -9,8 +9,6 @@ import org.junit.runner.RunWith;
 import org.kosta.watflix.model.mapper.ReviewMapper;
 import org.kosta.watflix.model.service.PagingBean;
 import org.kosta.watflix.model.service.ReviewService;
-import org.kosta.watflix.model.vo.ContentsVO;
-import org.kosta.watflix.model.vo.MemberVO;
 import org.kosta.watflix.model.vo.ReviewListVO;
 import org.kosta.watflix.model.vo.ReviewVO;
 import org.springframework.test.context.ContextConfiguration;
@@ -33,9 +31,10 @@ public class SungsikTestJUnit {
 		//리뷰 리스트
 //		int totalCount=reviewMapper.mGetTotalReviewCount();
 //		PagingBean pagingBean = new PagingBean(totalCount);
-//		ReviewListVO vo = reviewService.sGetReviewList(pagingBean);
-//		for(ReviewVO reviewVO:vo.getReviewList())
+//		List<ReviewVO> reviewList = reviewMapper.mGetReviewList(pagingBean);
+//		for(ReviewVO reviewVO:reviewList)
 //			System.out.println(reviewVO);
+		
 /*		
 //		//리뷰등록 테스트 >> 테스트 정상 작동
 		MemberVO memberVO = new MemberVO();
@@ -60,12 +59,33 @@ public class SungsikTestJUnit {
 //		ContentsVO contentsVO2 = new ContentsVO();
 //		contentsVO2.setContentsNo("81171201");
 //		ReviewVO reviewVO2=new ReviewVO();
-//		reviewVO2.setMemberVO(memberVO2);
-//		reviewVO2.setContentsVO(contentsVO2);
-//		reviewVO2.setReviewTitle("Test1");
-//		reviewVO2.setReviewContents("테스트중입니다.");
+//		reviewVO2.setMemberVO(memberVO2);				v
+//		reviewVO2.setContentsVO(contentsVO2);			v
+//		reviewVO2.setReviewTitle("Test1");				v
+//		reviewVO2.setReviewContents("테스트중입니다.");		v
 //		reviewMapper.mReviewWrite(reviewVO2);
-
+		
+		//리뷰등록 테스트3
+//		for(int i = 0; i<40; i++) {
+//			ReviewVO reviewVO = new ReviewVO();
+//			reviewVO.setReviewTitle("TestReview"+i);
+//			reviewVO.setReviewContents("리뷰콘텐츠테스트"+i);
+//			reviewVO.setMemberVO(new MemberVO("b",null,null,null,null,null,null,null,null,0,0,null,null,null));
+//			reviewVO.setContentsVO(new ContentsVO("81171201",null,null,null,null,null,null,0,0,0));
+//			reviewMapper.mReviewWrite(reviewVO);
+//			
+//			ReviewVO reviewVO2 = new ReviewVO();
+//			reviewVO2.setReviewTitle("리뷰테스트"+i);
+//			reviewVO2.setReviewContents("review contents test"+i);
+//			reviewVO2.setMemberVO(new MemberVO("b",null,null,null,null,null,null,null,null,0,0,null,null,null));
+//			reviewVO2.setContentsVO(new ContentsVO("81171201",null,null,null,null,null,null,0,0,0));
+//			reviewMapper.mReviewWrite(reviewVO2);
+//			
+//			System.out.println("review table에 insert한다 뭐를? " + reviewVO);
+//			System.out.println("리뷰 table에 insert한다 뭐를? " + reviewVO2);
+//			System.out.println(reviewMapper.mGetTotalReviewCount());
+//			
+//		}
 		//리뷰 상세보기
 //		System.out.println(reviewMapper.mGetReviewDetail(8));
 		
@@ -86,5 +106,9 @@ public class SungsikTestJUnit {
 //		System.out.println(reviewMapper.mGetReviewDetail(16).getReviewHits());	//조회수 증가 전
 //		reviewMapper.mReviewHitsUpdate(16);
 //		System.out.println(reviewMapper.mGetReviewDetail(16).getReviewHits());	//죄호수 증가 후 
+		ReviewListVO vo = reviewService.sGetReviewList("1");
+		for(ReviewVO rao :vo.getReviewList()) {
+			System.out.println(rao);
+		}
 	}
 }
