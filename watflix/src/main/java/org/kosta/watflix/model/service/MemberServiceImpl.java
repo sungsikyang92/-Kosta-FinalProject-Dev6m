@@ -1,13 +1,14 @@
 package org.kosta.watflix.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.annotation.Resources;
 
 import org.kosta.watflix.model.mapper.MemberMapper;
 import org.kosta.watflix.model.vo.Authority;
 import org.kosta.watflix.model.vo.MemberVO;
+import org.kosta.watflix.model.vo.ProductOrderVO;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -76,7 +77,7 @@ public class MemberServiceImpl implements MemberService {
 		memberMapper.mMemberUpdate(memberVO);
 	}
 
-	//로그인시 로그인 시간 업데이트
+	//로그인시 로그인 시간 및 실패횟수 0로 업데이트
 	@Override
 	public void sMemberLoginTimeUpdate(String id) {
 		memberMapper.mMemberLoginTimeUpdate(id);
@@ -87,6 +88,25 @@ public class MemberServiceImpl implements MemberService {
 	public void sMemberLoginFailUp(String id) {
 		memberMapper.mMemberLoginFailUp(id);
 	}
+
+	//포인트 조회
+	@Override
+	public int sMemberPointCheck(String id) {
+		return memberMapper.mMemberPointCheck(id);
+	}
+	//포인트 증가, 이 기능은 로그인을 위한 기능임,
+	//리뷰쓰기,평점쓰기등의 포인트를 증가시켜야하는 서비스에서는 mapper쪽에 있는 기능을 사용하기 바람
+	@Override
+	public void sMemberPointUp(Map<String, Object> map) {
+		memberMapper.mMemberPointUp(map);
+	}
+
+	//포인트 사용내역(상품 구매내역)
+	@Override
+	public List<ProductOrderVO> sMemberProductOrderHistory(String id) {
+		return memberMapper.mMemberProductOrderHistory(id);
+	}
+
 }
 
 
