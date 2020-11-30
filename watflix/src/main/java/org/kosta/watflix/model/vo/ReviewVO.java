@@ -1,7 +1,7 @@
 package org.kosta.watflix.model.vo;
 
 public class ReviewVO {
-	private String reviewNo;
+	private int reviewNo;
 	private String reviewTitle;
 	private String reviewContents;
 	private int reviewHits;
@@ -13,7 +13,7 @@ public class ReviewVO {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public ReviewVO(String reviewNo, String reviewTitle, String reviewContents, int reviewHits, int reviewLikes,
+	public ReviewVO(int reviewNo, String reviewTitle, String reviewContents, int reviewHits, int reviewLikes,
 			String reviewPostedDate, MemberVO memberVO, ContentsVO contentsVO) {
 		super();
 		this.reviewNo = reviewNo;
@@ -25,10 +25,10 @@ public class ReviewVO {
 		this.memberVO = memberVO;
 		this.contentsVO = contentsVO;
 	}
-	public String getReviewNo() {
+	public int getReviewNo() {
 		return reviewNo;
 	}
-	public void setReviewNo(String reviewNo) {
+	public void setReviewNo(int reviewNo) {
 		this.reviewNo = reviewNo;
 	}
 	public String getReviewTitle() {

@@ -18,6 +18,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		where GENRE_CODE=#{value}
  	</select>
  	
+ 	<!-- 모든 컨텐츠 개수 출력 -->
+ 	<select id="mGetTotalContentsCount" resultType="int">
+ 		select count(*) from contents
+ 	</select>
+ 	
+ 	<!-- 특정 카테고리의 컨텐츠 개수 출력 -->
+ 	<select id="mGetTotalContentsCountForType" resultType="int">
+ 		select count(*) from contents where CONTENTS_TYPE=#{value}
+ 	</select>
+ 	
+ 	<!-- 모든 컨텐츠 리스트 출력 -->
+ 	<select id="mGetAllContentsList" resultType="contentsRM" parameterType="pagingBean">
+ 		select C.CONTENTS_NO,C.CONTENTS_TITLE,C.CONTENTS_TYPE,G.GENRE_CODE,G.GENRE_NAME,C.CONTENTS_SUMMARY,C.CONTENTS_SMALL_THUMBNAIL,C.CONTENTS_BIG_THUMBNAIL,C.CONTENTS_AVG_STARS,C.CONTENTS_LIKES,C.CONTENTS_HITS
+		from (select row_number() over(order by CONTENTS_NO DESC) as rnum,CONTENTS_NO,CONTENTS_TITLE,CONTENTS_TYPE,GENRE_CODE,CONTENTS_SUMMARY,CONTENTS_SMALL_THUMBNAIL,CONTENTS_BIG_THUMBNAIL,
+		CONTENTS_AVG_STARS,CONTENTS_LIKES,CONTENTS_HITS from contents) C, 
+		GENRE G
+		where C.GENRE_CODE=G.GENRE_CODE and rnum BETWEEN #{startRowNumber} AND #{endRowNumber}
+ 	</select>
+ 	
+ 	<!-- 특정 카테고리의 컨텐츠 리스트 출력 -->
+ 	<select id="mGetAllContentsListForType" resultType="contentsRM" parameterType="map">
+ 		select C.CONTENTS_NO,C.CONTENTS_TITLE,C.CONTENTS_TYPE,G.GENRE_CODE,G.GENRE_NAME,C.CONTENTS_SUMMARY,C.CONTENTS_SMALL_THUMBNAIL,C.CONTENTS_BIG_THUMBNAIL,C.CONTENTS_AVG_STARS,C.CONTENTS_LIKES,C.CONTENTS_HITS
+		from (select row_number() over(order by CONTENTS_NO DESC) as rnum,CONTENTS_NO,CONTENTS_TITLE,CONTENTS_TYPE,GENRE_CODE,CONTENTS_SUMMARY,CONTENTS_SMALL_THUMBNAIL,CONTENTS_BIG_THUMBNAIL,
+		CONTENTS_AVG_STARS,CONTENTS_LIKES,CONTENTS_HITS from contents where CONTENTS_TYPE=#{contentsType}) C, 
+		GENRE G
+		where C.GENRE_CODE=G.GENRE_CODE and rnum BETWEEN #{pagingBean.startRowNumber} AND #{pagingBean.endRowNumber}
+ 	</select>
+ 	
+ 	
+ 	<!-- 컨텐츠 검색 -->
 	<select id="mFindContentsByNo" resultMap="contentsRM">
  		select C.CONTENTS_NO,C.CONTENTS_TITLE,C.CONTENTS_TYPE,G.GENRE_CODE,G.GENRE_NAME,C.CONTENTS_SUMMARY,C.CONTENTS_SMALL_THUMBNAIL,C.CONTENTS_BIG_THUMBNAIL,C.CONTENTS_AVG_STARS,C.CONTENTS_LIKES,C.CONTENTS_HITS
 		from (select CONTENTS_NO,CONTENTS_TITLE,CONTENTS_TYPE,GENRE_CODE,CONTENTS_SUMMARY,CONTENTS_SMALL_THUMBNAIL,CONTENTS_BIG_THUMBNAIL,CONTENTS_AVG_STARS,CONTENTS_LIKES,CONTENTS_HITS from contents) C, GENRE G
@@ -35,6 +65,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		values(#{contentsNo},#{contentsTitle},#{contentsType},#{genreVO.genreCode},#{contentsSummary},#{contentsSmallThumbnail},#{contentsBigThumbnail})
  	</insert>
  	
+ 	<!-- comment 많은 순으로 content 불러오기 전체 장르(resultType 고민) -->
+ 	<select id="mContentsGetListByCommentCount">
+ 		SELECT b.contents_no, b.contents_title, b.contents_type, b.genre_code, b.contents_small_thumbnail, b.contents_big_thumbnail, b.contents_avg_stars, b.contents_likes, b.contents_hits, count(a.comments_no) as comments_count
+		FROM comments a, contents b
+		WHERE a.contents_no(+)=b.contents_no
+		GROUP BY b.contents_no, b.contents_title, b.contents_type, b.genre_code, b.contents_small_thumbnail, b.contents_big_thumbnail, b.contents_avg_stars, b.contents_likes, b.contents_hits
+		ORDER BY comments_count DESC;
+ 	</select>
 </mapper>
 
 
