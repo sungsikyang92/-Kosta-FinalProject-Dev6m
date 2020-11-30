@@ -9,6 +9,8 @@ import org.junit.runner.RunWith;
 import org.kosta.watflix.model.mapper.ReviewMapper;
 import org.kosta.watflix.model.service.PagingBean;
 import org.kosta.watflix.model.service.ReviewService;
+import org.kosta.watflix.model.vo.ContentsVO;
+import org.kosta.watflix.model.vo.MemberVO;
 import org.kosta.watflix.model.vo.ReviewListVO;
 import org.kosta.watflix.model.vo.ReviewVO;
 import org.springframework.test.context.ContextConfiguration;
@@ -34,34 +36,55 @@ public class SungsikTestJUnit {
 //		ReviewListVO vo = reviewService.sGetReviewList(pagingBean);
 //		for(ReviewVO reviewVO:vo.getReviewList())
 //			System.out.println(reviewVO);
-		
+/*		
 //		//리뷰등록 테스트 >> 테스트 정상 작동
-//		MemberVO memberVO = new MemberVO();
-//		memberVO.setId("a");
+		MemberVO memberVO = new MemberVO();
+		memberVO.setId("a");
 //		memberVO.setPassword("1");
 //		memberVO.setName("깡상");
 //		memberVO.setEmail("gmail");
-//		ContentsVO contentsVO = new ContentsVO();
-//		contentsVO.setContentsNo("81171201");
-//		ReviewVO reviewVO=new ReviewVO();
-//		reviewVO.setReviewNo("1");
-//		reviewVO.setMemberVO(memberVO);
-//		reviewVO.setContentsVO(contentsVO);
-//		reviewVO.setReviewTitle("Test2");
-//		reviewVO.setReviewContents("테스트중인디?");
-//		reviewMapper.mReviewWrite(reviewVO);
-		
+		ContentsVO contentsVO = new ContentsVO();
+		contentsVO.setContentsNo("81171201");
+		ReviewVO reviewVO=new ReviewVO();
+		reviewVO.setReviewNo(1);
+		reviewVO.setMemberVO(memberVO);
+		reviewVO.setContentsVO(contentsVO);
+		reviewVO.setReviewTitle("Test");
+		reviewVO.setReviewContents("테스트중입니다.");
+		reviewMapper.mReviewWrite(reviewVO);
+//		
+ */
+		//리뷰등록 테스트 2>> 테스트 정상 작동
+//		MemberVO memberVO2 = new MemberVO();
+//		memberVO2.setId("b");
+//		ContentsVO contentsVO2 = new ContentsVO();
+//		contentsVO2.setContentsNo("81171201");
+//		ReviewVO reviewVO2=new ReviewVO();
+//		reviewVO2.setMemberVO(memberVO2);
+//		reviewVO2.setContentsVO(contentsVO2);
+//		reviewVO2.setReviewTitle("Test1");
+//		reviewVO2.setReviewContents("테스트중입니다.");
+//		reviewMapper.mReviewWrite(reviewVO2);
+
 		//리뷰 상세보기
-//		System.out.println(reviewMapper.mGetReviewDetail("8"));
+//		System.out.println(reviewMapper.mGetReviewDetail(8));
 		
 		//리뷰수정
-		System.out.println(reviewMapper.mGetReviewDetail("8"));		//리뷰 수정 전
-		ReviewVO reviewVO = reviewService.sGetReviewDetailNoHits("8");
-		reviewVO.setReviewTitle("깨랑까랑");
-		reviewVO.setReviewContents("경영이형 축지법 알려줭");
-		reviewMapper.mReviewUpdate(reviewVO);
-		System.out.println(reviewMapper.mGetReviewDetail("8"));		//리뷰 수정 후 		
+//		System.out.println(reviewMapper.mGetReviewDetail(8));		//리뷰 수정 전
+//		ReviewVO reviewVO = reviewService.sGetReviewDetailNoHits(8);
+//		reviewVO.setReviewTitle("깨랑까랑");
+//		reviewVO.setReviewContents("경영이형 축지법 알려줭");
+//		reviewMapper.mReviewUpdate(reviewVO);
+//		System.out.println(reviewMapper.mGetReviewDetail(8));		//리뷰 수정 후 		
+
+		//리뷰삭제
+//		int reviewNo=8;
+//		reviewMapper.mReviewDelete(reviewNo);
+//		System.out.println(reviewMapper.mGetReviewDetail(reviewNo));
 		
-	
+		//리뷰 조회수 증가
+		System.out.println(reviewMapper.mGetReviewDetail(16).getReviewHits());	//조회수 증가 전
+		reviewMapper.mReviewHitsUpdate(16);
+		System.out.println(reviewMapper.mGetReviewDetail(16).getReviewHits());	//죄호수 증가 후 
 	}
 }
