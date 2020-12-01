@@ -110,17 +110,11 @@ public class AdminController {
              // TODO Auto-generated catch block
              e.printStackTrace();
           }
-<<<<<<< HEAD
+
       }
 	}catch (Exception e) {
     		  e.printStackTrace();
 	}
 	return "contents/contentsUpdateAdminComplete";
-	}
-=======
-        }        
-      return "contents/contentsUpdateAdminComplete.jsp";
-   }
-   
->>>>>>> branch 'master' of https://github.com/Minikanko/-Kosta-FinalProject-Dev6m.git
+	}   
 }

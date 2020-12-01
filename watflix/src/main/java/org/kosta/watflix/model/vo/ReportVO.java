@@ -7,13 +7,13 @@ public class ReportVO {
 	private CommentsVO commentsVO;
 	private ReportTypeVO reportTypeVO;
 	private String reportContents;
-	private String reprotPostedTime;
+	private String reportPostedTime;
 	public ReportVO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	public ReportVO(int reportNo, MemberVO memberVO, ReviewVO reviewVO, CommentsVO commentsVO,
-			ReportTypeVO reportTypeVO, String reportContents, String reprotPostedTime) {
+			ReportTypeVO reportTypeVO, String reportContents, String reportPostedTime) {
 		super();
 		this.reportNo = reportNo;
 		this.memberVO = memberVO;
@@ -21,7 +21,7 @@ public class ReportVO {
 		this.commentsVO = commentsVO;
 		this.reportTypeVO = reportTypeVO;
 		this.reportContents = reportContents;
-		this.reprotPostedTime = reprotPostedTime;
+		this.reportPostedTime = reportPostedTime;
 	}
 	public int getReportNo() {
 		return reportNo;
@@ -59,16 +59,16 @@ public class ReportVO {
 	public void setReportContents(String reportContents) {
 		this.reportContents = reportContents;
 	}
-	public String getReprotPostedTime() {
-		return reprotPostedTime;
+	public String getreportPostedTime() {
+		return reportPostedTime;
 	}
-	public void setReprotPostedTime(String reprotPostedTime) {
-		this.reprotPostedTime = reprotPostedTime;
+	public void setreportPostedTime(String reportPostedTime) {
+		this.reportPostedTime = reportPostedTime;
 	}
 	@Override
 	public String toString() {
 		return "ReportVO [reportNo=" + reportNo + ", memberVO=" + memberVO + ", reviewVO=" + reviewVO + ", commentsVO="
 				+ commentsVO + ", reportTypeVO=" + reportTypeVO + ", reportContents=" + reportContents
-				+ ", reprotPostedTime=" + reprotPostedTime + "]";
+				+ ", reportPostedTime=" + reportPostedTime + "]";
 	}
 }

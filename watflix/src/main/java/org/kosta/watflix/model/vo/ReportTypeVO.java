@@ -29,3 +29,4 @@ public class ReportTypeVO {
 		return "ReportTypeVO [reportTypeNo=" + reportTypeNo + ", reprotTypeInfo=" + reprotTypeInfo + "]";
 	}
 }
+
