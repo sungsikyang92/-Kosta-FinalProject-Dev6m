@@ -45,6 +45,9 @@
                         <a class="nav-link navbar-nav-item" href="#">
                             영화
                         </a>
+                        <a class="nav-link navbar-nav-item" href="${pageContext.request.contextPath}/reviewList.do">
+                        리뷰리스트보기
+                        </a>
                     </li>
                 </ul>
                 <!-- Left - CLOSE -->

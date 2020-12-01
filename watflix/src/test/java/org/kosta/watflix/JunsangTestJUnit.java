@@ -1,13 +1,15 @@
 package org.kosta.watflix;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kosta.watflix.model.mapper.PartyMapper;
 import org.kosta.watflix.model.service.PagingBean;
-import org.kosta.watflix.model.vo.MemberVO;
-import org.kosta.watflix.model.vo.MembershipVO;
+import org.kosta.watflix.model.service.PartyService;
+import org.kosta.watflix.model.vo.PartyListVO;
 import org.kosta.watflix.model.vo.PartyVO;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -40,7 +42,8 @@ public class JunsangTestJUnit {
 	
 	@Resource
 	private PartyMapper partyMapper;
-	
+	@Resource
+	private PartyService partyService;
 	//파티 게시글 작성하기
 	/*
 	 * @Test public void partyWrite(){ MemberVO mvo = new MemberVO();
@@ -99,6 +102,32 @@ public class JunsangTestJUnit {
 	 * System.out.println(partyMapper.getPartyDetail(no)); }
 	 */
 	
+	// 파티게시물 지원하기
+	/*
+	 * @Test public void PartyApply() { PartyVO pvo = new PartyVO(); ApplyVO avo =
+	 * new ApplyVO(); MemberVO mvo = new MemberVO(); mvo.setId("java"); int no=14;
+	 * pvo = partyService.sPartyGetDetail(no); //지원할 게시글 정보 받아오기
+	 * avo.setMemberVO(mvo); //지원자 VO set avo.setPartyVO(pvo); //지원할 게시물 set
+	 * 
+	 * System.out.println(pvo); System.out.println(avo); if(pvo.getPartyHeadCount()
+	 * > pvo.getPartyApplyCount()) { //지원가능 여부 check partyService.sPartyApply(avo);
+	 * //지원테이블에 지원자 정보 입력 }else { System.out.println("모집인원이 꽉찼습니다."); } pvo =
+	 * partyService.sPartyGetDetail(no); System.out.println(pvo);
+	 * 
+	 * }
+	 */
+	
+	//파티 게시글 리스트 가져오기
+	/*
+	 * @Test public void PartyGetAllList() { PartyListVO partyListVO =
+	 * partyService.sPartyGetAllList();
+	 * System.out.println(partyListVO.getPagingBean().getTotalPage());
+	 * //System.out.println(partyListVO.getPagingBean().getStartRowNumber());
+	 * //System.out.println(partyListVO.getPagingBean().getEndRowNumber());
+	 * 
+	 * List<PartyVO> list = partyListVO.getPartyList(); for(int i = 0; i <
+	 * list.size(); i++) { System.out.println(list.get(i)); } }
+	 */
 }
 
 

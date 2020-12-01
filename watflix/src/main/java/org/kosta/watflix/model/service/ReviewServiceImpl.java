@@ -14,7 +14,13 @@ public class ReviewServiceImpl implements ReviewService {
 	
 	//리뷰리스트불러오기
 	@Override
-	public ReviewListVO sGetReviewList(PagingBean pagingBean) {
+	public ReviewListVO sGetReviewList(String pageNo) {
+		int reviewTotalCount = reviewMapper.mGetTotalReviewCount();
+		PagingBean pagingBean = null;
+		if(pageNo == null)
+			pagingBean = new PagingBean(reviewTotalCount);
+		else
+			pagingBean = new PagingBean(reviewTotalCount, Integer.parseInt(pageNo));
 		ReviewListVO reviewListVO=new ReviewListVO(reviewMapper.mGetReviewList(pagingBean),pagingBean);
 		return reviewListVO;
 	}

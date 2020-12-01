@@ -6,7 +6,7 @@ public class ReviewVO {
 	private String reviewContents;
 	private int reviewHits;
 	private int reviewLikes;
-	private String reviewPostedDate;
+	private String reviewPostedTime;
 	private MemberVO memberVO;
 	private ContentsVO contentsVO;
 	public ReviewVO() {
@@ -14,14 +14,14 @@ public class ReviewVO {
 		// TODO Auto-generated constructor stub
 	}
 	public ReviewVO(int reviewNo, String reviewTitle, String reviewContents, int reviewHits, int reviewLikes,
-			String reviewPostedDate, MemberVO memberVO, ContentsVO contentsVO) {
+			String reviewPostedTime, MemberVO memberVO, ContentsVO contentsVO) {
 		super();
 		this.reviewNo = reviewNo;
 		this.reviewTitle = reviewTitle;
 		this.reviewContents = reviewContents;
 		this.reviewHits = reviewHits;
 		this.reviewLikes = reviewLikes;
-		this.reviewPostedDate = reviewPostedDate;
+		this.reviewPostedTime = reviewPostedTime;
 		this.memberVO = memberVO;
 		this.contentsVO = contentsVO;
 	}
@@ -55,11 +55,11 @@ public class ReviewVO {
 	public void setReviewLikes(int reviewLikes) {
 		this.reviewLikes = reviewLikes;
 	}
-	public String getReviewPostedDate() {
-		return reviewPostedDate;
+	public String getreviewPostedTime() {
+		return reviewPostedTime;
 	}
-	public void setReviewPostedDate(String reviewPostedDate) {
-		this.reviewPostedDate = reviewPostedDate;
+	public void setreviewPostedTime(String reviewPostedTime) {
+		this.reviewPostedTime = reviewPostedTime;
 	}
 	public MemberVO getMemberVO() {
 		return memberVO;
@@ -76,8 +76,8 @@ public class ReviewVO {
 	@Override
 	public String toString() {
 		return "ReviewVO [reviewNo=" + reviewNo + ", reviewTitle=" + reviewTitle + ", reviewContents=" + reviewContents
-				+ ", reviewHits=" + reviewHits + ", reviewLikes=" + reviewLikes + ", reviewPostedDate="
-				+ reviewPostedDate + ", memberVO=" + memberVO + ", contentsVO=" + contentsVO + "]";
+				+ ", reviewHits=" + reviewHits + ", reviewLikes=" + reviewLikes + ", reviewPostedTime="
+				+ reviewPostedTime + ", memberVO=" + memberVO + ", contentsVO=" + contentsVO + "]";
 	}
 	
 }

@@ -21,6 +21,8 @@ FROM REVIEW R
 INNER JOIN MEMBER M
 ON R.ID = M.ID
 select review_title from review where review_no = 11
+
+select * from review
 /*ReviewList 불러오는 쿼리문 테스트를 위한 MEMBER TABLE, REVIEW TABLE, CONTENTS TABLE 결합 TEST*/
 SELECT R.REVIEW_NO, M.ID, C.CONTENTS_NO, R.REVIEW_TITLE, R.REVIEW_CONTENTS
 FROM REVIEW R
@@ -62,8 +64,8 @@ SELECT REVIEW_NO, ID, CONTENTS_NO, REVIEW_TITLE, REVIEW_CONTENTS FROM REVIEW
 SELECT REVIEW_NO, ID, CONTENTS_NO, REVIEW_TITLE, REVIEW_CONTENTS FROM REVIEW LEFT JOIN MEMBER ON REVIEW.ID = MEMBER.ID
 
 /*ReviewList 와 PagingBean 결합 테스트 성공(Where절은 and로 묶어서 연결한다)*/
-SELECT R.REVIEW_NO, M.ID,C.CONTENTS_NO,R.REVIEW_TITLE, R.REVIEW_CONTENTS
-FROM (SELECT ROW_NUMBER() OVER(ORDER BY REVIEW_NO DESC) AS RNUM, REVIEW_NO, ID, CONTENTS_NO, REVIEW_TITLE, REVIEW_CONTENTS FROM REVIEW) 
+SELECT R.REVIEW_NO, M.ID,C.CONTENTS_NO,R.REVIEW_TITLE, R.REVIEW_CONTENTS, R.REVIEW_POSTED_TIME
+FROM (SELECT ROW_NUMBER() OVER(ORDER BY REVIEW_NO DESC) AS RNUM, REVIEW_NO, ID, CONTENTS_NO, REVIEW_TITLE, REVIEW_CONTENTS ,REVIEW_POSTED_TIME FROM REVIEW) 
 R, MEMBER M, CONTENTS C
 WHERE R.ID = M.ID AND R.CONTENTS_NO = C.CONTENTS_NO 
 AND R.RNUM BETWEEN 1 AND 5 ORDER BY REVIEW_NO DESC;
@@ -99,6 +101,12 @@ INSERT INTO NOTICE VALUES (NOTICE_SEQ.NEXTVAL, 'jikang', '점심은 뭐 먹지?'
 INSERT INTO Comments VALUES (COMMENTS_SEQ.NEXTVAL, 'jikang', '81004276', '쉐보레 카마로 멋지지 않나요?', 8, SYSDATE);
 INSERT INTO Comments VALUES (COMMENTS_SEQ.NEXTVAL, 'jikang', '60004481', '나도 스파이더맨 처럼 날아다닐 수 있으면?', 8, SYSDATE);
 
+/*report 테스트를 위한 데이터 추가*/
+INSERT INTO report VALUES (report_seq.nextval, 'jikang', null, 1, 1, '신고합니다', sysdate)
+INSERT INTO report VALUES (report_seq.nextval, 'jikang', 1, null, 2, '신고합니다', sysdate)
+
+INSERT INTO review VALUES (review_seq.nextval, 'jikang', '81004276', '리뷰 제목', '리뷰 내용', 0, 0, sysdate)
+
 /*Notice 테스트용*/
 SELECT notice_no, id, notice_title, notice_hits FROM(
 SELECT row_number() over(order by notice_no desc) as rnum, notice_no, id, notice_title, notice_hits
@@ -122,6 +130,13 @@ FROM comments) WHERE rnum BETWEEN 3 AND 8
 
 INSERT INTO comments(comments_no, id, contents_no, comments, comments_stars, comments_posted_time)
 VALUES(comments_seq.nextval, 'jikang', '60004481', '스파이더맨이 되는 방법을 알고싶나요?', 6, sysdate)
+
+/* report 테스트용*/
+SELECT report_no, id, review_no, comments_no, report_type_no, report_contents, report_posted_time
+FROM report WHERE report_no=#{value}
+
+SELECT r.report_no, r.id, r.review_no, r.comments_no, r.report_type_no, r.report_contents, r.report_posted_time, t.report_type_info
+FROM report r, report_type t WHERE r.report_type_no=t.report_type_no AND r.report_no = 1
 
 /* comments 갯수 순 content 리스트 조회 */
 SELECT b.contents_no, b.contents_title, b.contents_type, b.genre_code, b.contents_small_thumbnail, b.contents_big_thumbnail, b.contents_avg_stars, b.contents_likes, b.contents_hits, count(a.comments_no) as comments_count
@@ -167,7 +182,6 @@ values (PARTY_SEQ.nextval,'java','파티원제목1',1,1)
 
 select * from party
 delete from party
-
 
 /* Faq test */
 insert into faq(FAQ_NO,ID,FAQ_TITLE,FAQ_CONTENTS)
@@ -219,7 +233,7 @@ PARTY_SEQ.nextval, 'java', '제목', 3, 4, 0, sysdate, '진행중');
 
 
 select party_seq.nextval from dual
-select count(*) from party;
+select * from party;
 
 
 select ms.membership_name, p.PARTY_NO, m.ID, 
@@ -233,5 +247,11 @@ where p.id=m.id and p.membership_no = ms.membership_no and party_no=14
 
 
 update party set id = 'spring' ,membership_no = 2 where party_no = 2
+select * from apply;
 
 
+insert into APPLY(ID, PARTY_NO )
+values ('java',13);
+
+select * from party
+delete from apply

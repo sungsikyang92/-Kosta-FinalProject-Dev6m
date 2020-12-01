@@ -4,6 +4,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.kosta.watflix.model.mapper.FaqMapper">
+ 	<!-- FAQ 작성 -->
  	<insert id="mFaqWrite" parameterType="faqVO">
  		<selectKey keyProperty="faqNo" resultType="string" order="BEFORE">
  			select faq_seq.nextval from dual
@@ -11,6 +12,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		 insert into faq(FAQ_NO,ID,FAQ_TITLE,FAQ_CONTENTS)
  		values(#{faqNo},#{memberVO.id},#{faqTitle},#{faqContents})
  	</insert>
+ 	<!-- FAQ 수정 -->
+ 	 <update id="mFaqUpdate" parameterType="faqVO">
+       update faq set FAQ_TITLE=#{faqTitle},FAQ_CONTENTS=#{faqContents}
+    </update>
+    <!--  FAQ 삭제 -->
+    <delete id="mFaqDelete" parameterType="faqVO">
+       delete from faq where FAQ_NO=#{faqNo}
+    </delete>
+    <!--  FAQ 상세보기 -->
+    <select id="mFaqDetail" resultType="faqVO">
+       select FAQ_NO,FAQ_TITLE,to_char(FAQ_POSTED_TIME,'YYYY.MM.DD HH24:MI:SS') as
+      FAQ_POSTED_TIME,ID,FAQ_CONTENTS
+      from faq
+      where FAQ_NO=#{faqNo}
+    </select>
+    <!-- FAQ 갯수 가져오기 -->
+    <select id="mGetTotalFaqCount" resultType="int">
+    	select COUNT(*) from FAQ
+    </select>
+ 	<!-- FAQ 리스트 가져오기 -->
+ 	<select id="mGetFaqList" resultMap="faqRM" parameterType="pagingBean">
+ 	select FAQ_NO,ID,FAQ_TITLE,FAQ_CONTENTS,FAQ_POSTED_TIME
+ 	from (select ROW_NUMBER() OVER(ORDER BY FAQ_NO DESC) AS RNUM, ID, FAQ_NO, FAQ_TITLE,FAQ_CONTENTS,FAQ_POSTED_TIME FROM FAQ)
+ 	where RNUM BETWEEN #{startRowNumber} and #{endRowNumber} ORDER BY FAQ_NO DESC
+ 	</select>
+ 	<!-- FaqVO에 MemberVO의 id(has a 관계)를 넣을 수 있도록 ResaultMap을 셋팅한다. -->
+    <resultMap type="faqVO" id="faqRM">
+      <result property="memberVO.id" column="id"/>
+   </resultMap>
+ 	
 </mapper>
 
 

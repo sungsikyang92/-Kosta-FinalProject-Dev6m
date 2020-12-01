@@ -17,11 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 
 public class AdminController {
-
-	@Resource
-	AdminService adminService;
-
-	@RequestMapping("contentsUpdateAdmin.do")
+   
+   @Resource
+   AdminService adminService;
+      
+   @RequestMapping("contentsUpdateAdmin.do")
    public String updateContents() {
 	  double count;
       String[] genreArr= {"1568"};
@@ -110,10 +110,17 @@ public class AdminController {
              // TODO Auto-generated catch block
              e.printStackTrace();
           }
+<<<<<<< HEAD
       }
 	}catch (Exception e) {
     		  e.printStackTrace();
 	}
 	return "contents/contentsUpdateAdminComplete";
 	}
+=======
+        }        
+      return "contents/contentsUpdateAdminComplete.jsp";
+   }
+   
+>>>>>>> branch 'master' of https://github.com/Minikanko/-Kosta-FinalProject-Dev6m.git
 }
