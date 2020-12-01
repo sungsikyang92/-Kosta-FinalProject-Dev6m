@@ -1,8 +1,8 @@
-package org.kosta.watflix.model.service;
+package org.kosta.watflix.model.vo;
 
 import java.util.List;
 
-import org.kosta.watflix.model.vo.FaqVO;
+import org.kosta.watflix.model.service.PagingBean;
 
 public class FaqListVO {
 	private List<FaqVO> faqList;

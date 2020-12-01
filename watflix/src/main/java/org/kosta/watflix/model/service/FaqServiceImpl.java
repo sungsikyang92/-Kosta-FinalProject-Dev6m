@@ -3,6 +3,7 @@ package org.kosta.watflix.model.service;
 import javax.annotation.Resource;
 
 import org.kosta.watflix.model.mapper.FaqMapper;
+import org.kosta.watflix.model.vo.FaqListVO;
 import org.kosta.watflix.model.vo.FaqVO;
 import org.springframework.stereotype.Service;
 @Service
