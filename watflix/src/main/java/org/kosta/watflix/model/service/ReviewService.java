@@ -5,7 +5,7 @@ import org.kosta.watflix.model.vo.ReviewVO;
 
 public interface ReviewService {
 	//리뷰리스트
-	ReviewListVO sGetReviewList(PagingBean pagingBean);
+	ReviewListVO sGetReviewList(String pageNo);
 	//리뷰작성
 	void sReviewWrite(ReviewVO reviewVO);
 	//리뷰수정

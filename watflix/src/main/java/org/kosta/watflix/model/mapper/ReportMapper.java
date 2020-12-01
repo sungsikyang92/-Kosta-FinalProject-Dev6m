@@ -10,6 +10,8 @@ public interface ReportMapper {
 	
 	void mReportWriteReview(ReportVO reportVO);
 
+	void mReportDelete(int reviewNo);
+
 }
 
 

@@ -26,4 +26,9 @@ public class ReportServiceImpl implements ReportService {
 	public void sReportWriteReview(ReportVO reportVO) {
 		reportMapper.mReportWriteReview(reportVO);
 	}
+
+	@Override
+	public void sReportDelete(int reviewNo) {
+		reportMapper.mReportDelete(reviewNo);
+	}
 }

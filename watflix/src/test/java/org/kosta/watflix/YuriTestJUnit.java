@@ -4,7 +4,10 @@ import javax.annotation.Resource;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.kosta.watflix.model.mapper.FaqMapper;
+import org.kosta.watflix.model.service.FaqListVO;
 import org.kosta.watflix.model.service.FaqService;
+import org.kosta.watflix.model.service.PagingBean;
 import org.kosta.watflix.model.vo.FaqVO;
 import org.kosta.watflix.model.vo.MemberVO;
 import org.springframework.test.context.ContextConfiguration;
@@ -15,10 +18,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class YuriTestJUnit {
 	@Resource
 	FaqService faqService;
+	@Resource
+	FaqMapper faqMapper;
 
 	@Test
 	public void test(){
-		//FAQ 등록 테스트
+		//FAQ 등록 테스트  - ok
+		/*
 		FaqVO faqVO = new FaqVO();
 		MemberVO memberVO = new MemberVO();
 		
@@ -27,14 +33,14 @@ public class YuriTestJUnit {
 		memberVO.setName("유리");
 		memberVO.setEmail("gmail");
 		faqVO.setMemberVO(memberVO);
-		/*
+		
 		faqVO.setFaqTitle("테스츄");
 		faqVO.setFaqContents("테스형");
 		faqService.sFaqWrite(faqVO);
 		System.out.println();
 		*/
 		
-		//FAQ 수정 테스트
+		//FAQ 수정 테스트 - ok
 		/*
 		faqVO.setFaqTitle("테스테스");
 		faqVO.setFaqContents("테스태스테슬라");
@@ -42,17 +48,31 @@ public class YuriTestJUnit {
 		System.out.println();
 		*/
 		
-		//FAQ 삭제 테스트
+		//FAQ 삭제 테스트 - ok
 		/*
 		faqVO.setFaqNo(7);
 		faqService.sFaqDelete(faqVO);
 		System.out.println();
 		*/
 		
-		//FAQ 상세보기 테스트
+		//FAQ 상세보기 테스트 - ok
+		/*
 		int faqNo=8;
 		faqService.sFaqDetail(faqNo);
 		System.out.println();
+		*/
+		//FAQ 개수 - ok
+		/*
+		int totalFaqCount=faqMapper.mGetTotalFaqCount();
+		System.out.println(totalFaqCount);
+		*/
+		//FAQ 리스트 테스트 - ok
+		int totalFaqCount=faqMapper.mGetTotalFaqCount();
+		PagingBean pagingBean = new PagingBean(totalFaqCount);
+		FaqListVO fvo = faqService.sGetFaqList(pagingBean);
+		for(FaqVO faqVO:fvo.getFaqList())
+			System.out.println(faqVO);
+		
 	}
 	
 }

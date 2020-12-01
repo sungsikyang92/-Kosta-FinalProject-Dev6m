@@ -42,8 +42,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE notice_no = #{noticeNo}
 	</update>
  	<!-- 공지게시글 삭제 -->
- 	<delete id="mNoticeDelete" parameterType="int">
- 		DELETE FROM notice WHERE notice_no=#{value}
+ 	<delete id="mReportDelete" parameterType="int">
+ 		DELETE FROM REPORT WHERE REPORT_NO=#{value}
  	</delete>
 </mapper>
 
