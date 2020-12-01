@@ -1,20 +1,31 @@
 package org.kosta.watflix.model.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
+import org.kosta.watflix.model.service.PagingBean;
+import org.kosta.watflix.model.vo.ApplyVO;
 import org.kosta.watflix.model.vo.PartyVO;
 @Mapper
 public interface PartyMapper {
 
-	void write(PartyVO pvo);
+	void mPartyWrite(PartyVO pvo);
 
-	int getTotalPartyCount();
+	int mPartyGetTotalCount();
 
-	PartyVO getPartyDetail(int no);
+	PartyVO mPartyGetDetail(int no);
 
-	void updateParty(PartyVO partyvo);
+	void mPartyUpdate(PartyVO partyvo);
 
-	void deleteParty(int no); 
+	void mPartyDelete(int no);
 
+	void mPartyApply(ApplyVO avo);
+
+	void mPartyApplyCountPlus(int partyNo);
+
+	void mPartyEnd(PartyVO pvo);
+	
+	List<PartyVO> mPartyGetAllList (PagingBean pagingBean);
 
 }
 

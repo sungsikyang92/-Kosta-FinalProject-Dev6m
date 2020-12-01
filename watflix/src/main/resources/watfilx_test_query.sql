@@ -222,7 +222,7 @@ PARTY_SEQ.nextval, 'java', '제목', 3, 4, 0, sysdate, '진행중');
 
 
 select party_seq.nextval from dual
-select count(*) from party;
+select * from party;
 
 
 select ms.membership_name, p.PARTY_NO, m.ID, 
@@ -236,5 +236,11 @@ where p.id=m.id and p.membership_no = ms.membership_no and party_no=14
 
 
 update party set id = 'spring' ,membership_no = 2 where party_no = 2
+select * from apply;
 
 
+insert into APPLY(ID, PARTY_NO )
+values ('java',13);
+
+select * from party
+delete from apply
