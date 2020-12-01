@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
   <!-- Slider - OPEN -->
     <div id="mainCarousel" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
@@ -8,87 +8,66 @@
             <li data-target="#mainCarousel" data-slide-to="2"></li>
         </ol>
         <div class="carousel-inner">
-
-            <!-- Stranger Things - OPEN -->
-            <div class="carousel-item active">
-                <img class="d-block w-100" src="${pageContext.request.contextPath}/resources/media/images/banner/banner_stranger_things.png" alt="Second slide">
-                <div class="carousel-caption d-none d-md-block container-lg align-middle">
-                    <h1> Stranger Things </h1>
-                    <p> <a href="#">2016</a> | +16 | 3 Seasons | <a href="#">TV Shows</a> </p>
-                    <p class="margin-top-under-sm">
-                        When a young boy vanishes, a small town uncovers a mystery involving secret experiments, terrifying supernatural forces and one strange little girl.
-                    </p>
-                    <p>
-                        Starring: <a href="#">Winona Ryder</a>, <a href="#">David Harbour</a>, <a href="#">Finn Wolfhard</a>
-                    </p>
-                    <p> Creators: <a href="#">The Duffer Brothers</a> </p>
-                    <div class="margin-top-under-sm">
-                        <a href="#" class="btn btn-primary btn-lg margin-right" role="button" aria-pressed="true">
-                            <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="20" alt="">
-                            Watch
-                        </a>
-                        <a href="#" class="btn btn-secondary btn-lg margin-right" role="button" aria-pressed="true">
-                            <img src="${pageContext.request.contextPath}/resources/media/icons/plus.png" width="15" alt="">
-                            Add List
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <!-- Stranger Things - CLOSE -->
-
-            <!-- Money Heist - OPEN -->
-            <div class="carousel-item">
-                <img class="d-block w-100" src="${pageContext.request.contextPath}/resources/media/images/banner/banner_money_heist.jpg" alt="First slide">
-                <div class="carousel-caption d-none d-md-block container-lg align-middle">
-                    <h1> Money Heist </h1>
-                    <p> <a href="#">2017</a> | +16 | 3 Seasons | <a href="#">TV Shows</a> </p>
-                    <p class="margin-top-under-sm">
-                        Eight thieves take hostages and lock themselves in the Royal Mint of Spain as a criminal mastermind manipulates the police to carry out his plan.
-                    </p>
-                    <p>
-                        Starring: <a href="#">Úrsula Corberó</a>, <a href="#">Álvaro Morte</a>, <a href="#">Pedro Alonso</a>
-                    </p>
-                    <p> Creators: <a href="#">Álex Pina</a> </p>
-                    <div class="margin-top-under-sm">
-                        <a href="#" class="btn btn-primary btn-lg margin-right" role="button" aria-pressed="true">
-                            <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="20" alt="">
-                            Watch
-                        </a>
-                        <a href="#" class="btn btn-secondary btn-lg margin-right" role="button" aria-pressed="true">
-                            <img src="${pageContext.request.contextPath}/resources/media/icons/plus.png" width="15" alt="">
-                            Add List
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <!-- Money Heist - OPEN -->
-
-            <!-- The Witcher - OPEN -->
-            <div class="carousel-item">
-                <img class="d-block w-100" src="${pageContext.request.contextPath}/resources/media/images/banner/banner_the_witcher.png" alt="Third slide">
-                <div class="carousel-caption d-none d-md-block container-lg align-middle">
-                    <h1> The Witcher </h1>
-                    <p> <a href="#">2019</a> | +16 | 1 Season | <a href="#">TV Shows</a> </p>
-                    <p class="margin-sm">
-                        Geralt of Rivia, a mutated monster-hunter for hire, journeys toward his destiny in a turbulent world where people often prove more wicked than beasts.
-                    </p>
-                    <p>
-                        Starring: <a href="#">Henry Cavill</a>, <a href="#">Anya Chalotra</a>, <a href="#">Freya Allan</a>
-                    </p>
-                    <p> Creators: <a href="#">Lauren Schmidt Hissrich</a> </p>
-                    <div class="margin-top-under-sm">
-                        <a href="#" class="btn btn-primary btn-lg margin-right" role="button" aria-pressed="true">
-                            <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="20" alt="">
-                            Watch
-                        </a>
-                        <a href="#" class="btn btn-secondary btn-lg margin-right" role="button" aria-pressed="true">
-                            <img src="${pageContext.request.contextPath}/resources/media/icons/plus.png" width="15" alt="">
-                            Add List
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <!-- The Witcher - OPEN -->
+        <!-- FOR문 Start : 메인 상단에 랜덤으로 컨텐츠를 슬라이드 형식으로 보여주기 -->
+        <c:forEach items="${requestScope.contentsListVO.contentsList}" var="contentsVO" varStatus="th">
+        <!-- IF문 Start : 첫번째 게시물의 div class에 active를 주기 위함  -->
+        	<c:choose>
+        		<c:when test="${th.count==1}">
+        			<!-- Stranger Things - OPEN -->
+		            <div class="carousel-item active">
+		                <img class="d-block w-100" src="${pageContext.request.contextPath}/${contentsVO.contentsBigThumbnail}" alt="Second slide">
+		                <div class="carousel-caption d-none d-md-block container-lg align-middle">
+		                   	<!-- 제목 -->
+		                    <h1>${contentsVO.contentsTitle}</h1>
+		                    <p> <a href="#">2016</a> | +16 | <a href="#">${contentsVO.contentsType}</a> | <a href="#">${contentsVO.genreVO.genreName}</a> </p>
+		                    <!-- 줄거리 -->
+		                    <p class="margin-top-under-sm">
+		                        ${contentsVO.contentsSummary}
+		                    </p>
+		                    <div class="margin-top-under-sm">
+		                        <a href="#" class="btn btn-primary btn-lg margin-right" role="button" aria-pressed="true">
+		                            <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="20" alt="">
+		                            상세보기
+		                        </a>
+		                        <a href="#" class="btn btn-secondary btn-lg margin-right" role="button" aria-pressed="true">
+		                            <img src="${pageContext.request.contextPath}/resources/media/icons/plus.png" width="15" alt="">
+		                           찜하기
+		                        </a>
+		                    </div>
+		                </div>
+		            </div>
+		            <!-- Stranger Things - CLOSE -->
+        		</c:when>
+        		<c:otherwise>
+        			<!-- Stranger Things - OPEN -->
+		            <div class="carousel-item">
+		                <img class="d-block w-100" src="${pageContext.request.contextPath}/${contentsVO.contentsBigThumbnail}" alt="Second slide">
+		                <div class="carousel-caption d-none d-md-block container-lg align-middle">
+		                   	<!-- 제목 -->
+		                    <h1>${contentsVO.contentsTitle}</h1>
+		                    <p> <a href="#">2016</a> | +16 | <a href="#">${contentsVO.contentsType}</a> | <a href="#">${contentsVO.genreVO.genreName}</a> </p>
+		                    <!-- 줄거리 -->
+		                    <p class="margin-top-under-sm">
+		                        ${contentsVO.contentsSummary}
+		                    </p>
+		                    <div class="margin-top-under-sm">
+		                        <a href="#" class="btn btn-primary btn-lg margin-right" role="button" aria-pressed="true">
+		                            <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="20" alt="">
+		                            상세보기
+		                        </a>
+		                        <a href="#" class="btn btn-secondary btn-lg margin-right" role="button" aria-pressed="true">
+		                            <img src="${pageContext.request.contextPath}/resources/media/icons/plus.png" width="15" alt="">
+		                            찜하기
+		                        </a>
+		                    </div>
+		                </div>
+		            </div>
+		            <!-- Stranger Things - CLOSE -->
+        		</c:otherwise>
+        	</c:choose>
+        	<!-- IF문 END  -->
+        </c:forEach>
+        <!-- FOR문 END -->
 
         </div>
     </div>
@@ -101,37 +80,82 @@
             <a class="nav-item nav-link active" id="trend-tab" data-toggle="pill" href="#trend" role="tab" aria-controls="trend-tab" aria-selected="true">
                 <div class="icon-nav">
                     <img src="${pageContext.request.contextPath}/resources/media/icons/trend.png" width="20" alt="" class="margin-right-sm">
-                    Trends Now
+                    인기컨텐츠
                 </div>
             </a>
             <a class="nav-item nav-link" id="popular-tab" data-toggle="pill" href="#popular" role="tab" aria-controls="popular-tab" aria-selected="false">
                 <div class="icon-nav">
                     <img src="${pageContext.request.contextPath}/resources/media/icons/fire.png" width="15" alt="" class="margin-right-sm">
-                    Popular
+                   	평점높은 컨텐츠
                 </div>
             </a>
             <a class="nav-item nav-link" id="new-tab" data-toggle="pill" href="#new" role="tab" aria-controls="new-tab" aria-selected="false">
                 <div class="icon-nav">
                     <img src="${pageContext.request.contextPath}/resources/media/icons/clock.png" width="15" alt="" class="margin-right-sm">
-                    New
+                    최다등록평점
                 </div>
             </a>
-            <a class="nav-item nav-link" id="oscars-tab" data-toggle="pill" href="#oscars" role="tab" aria-controls="oscars-tab" aria-selected="false">
-                <div class="icon-nav">
-                    <img src="${pageContext.request.contextPath}/resources/media/icons/oscars.png" width="15" alt="" class="margin-right-sm">
-                    Oscars 2020
-                </div>
-            </a>
+           
         </nav>
         <!-- Tabs nav - CLOSE -->
 
         <!-- Tabs content - OPEN -->
         <div class="tab-content" id="myTabContent">
-
-            <!-- Trend tab - OPEN -->
+            <!-- 인기 컨텐츠 tab - OPEN -->
             <div class="margin-top-under-sm tab-pane fade show active" id="trend" role="tabpanel" aria-labelledby="trend-tab">
-
                 <!-- Carousel - OPEN -->
+                <div class="carousel" data-flickity='{ "groupCells": true, "cellAlign": "center", "pageDots": false, "wrapAround": true, "draggable": false }' style="height: 400px">
+					<!--컨텐츠 리스트 출력 For문 START  -->
+                  	<c:forEach items="${requestScope.contentsHighHits}" var="contentsVO">
+                  	<div class="carousel-cell">
+                  			<!-- 컨텐츠 작은 썸네일 -->
+                        	<img class="carousel-cell-image" src="${pageContext.request.contextPath}/${contentsVO.contentsSmallThumbnail}" />
+                        	<!-- 컨텐츠 제목 -->
+                        	<h5 class="text-center">${contentsVO.contentsTitle}</h5>
+                        	
+                        	<div class="row">
+                            <div class="col-3 text-left no-padding">
+                                년도
+                            </div>
+                            <div class="col-3 text-center no-padding">
+                                <a href="">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/eye.png" width="10" alt="">
+                                </a>
+                            </div>
+                            <div class="col-3 text-left no-padding">
+                                <a href="">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/heart.png" width="10" alt="">
+                                </a>
+                            </div>
+                            <div class="col-3 text-right no-padding rating">
+                                <img src="${pageContext.request.contextPath}/resources/media/icons/star.png" width="10" alt="" style="padding-bottom: 3px">
+                                8.0
+                            </div>
+                        </div>
+                        <div class="overlay">
+                            <div class="text">
+                                <a href="#" class="btn btn-secondary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/info.png" width="10" alt="">
+                                    Info
+                                </a>
+                                <a href="#" class="btn btn-primary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="10" alt="">
+                                    Watch
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                  	</c:forEach>
+					<!--컨텐츠 리스트 출력 For문 END  -->
+                </div>
+                <!-- Carousel - CLOSE -->
+
+            </div>
+            <!-- Trend tab - CLOSE -->
+
+            <!-- Popular tab - OPEN -->
+            <div class="margin-top-under-sm tab-pane fade" id="popular" role="tabpanel" aria-labelledby="popular-tab">
+                 <!-- Carousel - OPEN -->
                 <div class="carousel" data-flickity='{ "groupCells": true, "cellAlign": "center", "pageDots": false, "wrapAround": true, "draggable": false }' style="height: 400px">
 
                     <!-- The Irishman - OPEN -->
@@ -171,358 +195,8 @@
                         </div>
                     </div>
                     <!-- The Irishman - CLOSE -->
-
-                    <!-- Parasite - OPEN -->
-                    <div class="carousel-cell">
-                        <img class="carousel-cell-image" src="${pageContext.request.contextPath}/resources/media/images/posters/parasite.jpg" />
-                        <h5 class="text-center"> Parasite </h5>
-                        <div class="row">
-                            <div class="col-3 text-left no-padding">
-                                2019
-                            </div>
-                            <div class="col-3 text-center no-padding selected">
-                                <a href="">
-                                    <img src="${pageContext.request.contextPath}/resources/media/icons/eye-selected.png" width="10" alt="">
-                                </a>
-                            </div>
-                            <div class="col-3 text-left no-padding selected">
-                                <a href="">
-                                    <img src="${pageContext.request.contextPath}/resources/media/icons/heart-selected.png" width="10" alt="">
-                                </a>
-                            </div>
-                            <div class="col-3 text-right no-padding rating">
-                                <img src="${pageContext.request.contextPath}/resources/media/icons/star.png" width="10" alt="" style="padding-bottom: 3px">
-                                8.6
-                            </div>
-                        </div>
-                        <div class="overlay">
-                            <div class="text">
-                                <a href="#" class="btn btn-secondary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
-                                    <img src="${pageContext.request.contextPath}/resources/media/icons/info.png" width="10" alt="">
-                                    Info
-                                </a>
-                                <a href="#" class="btn btn-primary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
-                                    <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="10" alt="">
-                                    Watch
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Parasite - CLOSE -->
-
-                    <!-- 1917 - OPEN -->
-                    <div class="carousel-cell">
-                        <img class="carousel-cell-image" src="${pageContext.request.contextPath}/resources/media/images/posters/1917.jpg" />
-                        <h5 class="text-center"> 1917 </h5>
-                        <div class="row">
-                            <div class="col-3 text-left no-padding">
-                                2019
-                            </div>
-                            <div class="col-3 text-center no-padding selected">
-                                <a href="">
-                                    <img src="${pageContext.request.contextPath}/resources/media/icons/eye-selected.png" width="10" alt="">
-                                </a>
-                            </div>
-                            <div class="col-3 text-left no-padding">
-                                <a href="">
-                                    <img src="${pageContext.request.contextPath}/resources/media/icons/heart.png" width="10" alt="">
-                                </a>
-                            </div>
-                            <div class="col-3 text-right no-padding rating">
-                                <img src="${pageContext.request.contextPath}/resources/media/icons/star.png" width="10" alt="" style="padding-bottom: 3px">
-                                8.5
-                            </div>
-                        </div>
-                        <div class="overlay">
-                            <div class="text">
-                                <a href="#" class="btn btn-secondary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
-                                    <img src="${pageContext.request.contextPath}/resources/media/icons/info.png" width="10" alt="">
-                                    Info
-                                </a>
-                                <a href="#" class="btn btn-primary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
-                                    <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="10" alt="">
-                                    Watch
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- 1917 - CLOSE -->
-
-                    <!-- Roma - OPEN -->
-                    <div class="carousel-cell">
-                        <img class="carousel-cell-image" src="${pageContext.request.contextPath}/resources/media/images/posters/roma.jpeg" />
-                        <h5 class="text-center"> Roma </h5>
-                        <div class="row">
-                            <div class="col-3 text-left no-padding">
-                                2018
-                            </div>
-                            <div class="col-3 text-center no-padding">
-                                <a href="">
-                                    <img src="${pageContext.request.contextPath}/resources/media/icons/eye.png" width="10" alt="">
-                                </a>
-                            </div>
-                            <div class="col-3 text-left no-padding">
-                                <a href="">
-                                    <img src="${pageContext.request.contextPath}/resources/media/icons/heart.png" width="10" alt="">
-                                </a>
-                            </div>
-                            <div class="col-3 text-right no-padding rating">
-                                <img src="${pageContext.request.contextPath}/resources/media/icons/star.png" width="10" alt="" style="padding-bottom: 3px">
-                                7.7
-                            </div>
-                        </div>
-                        <div class="overlay">
-                            <div class="text">
-                                <a href="#" class="btn btn-secondary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
-                                    <img src="${pageContext.request.contextPath}/resources/media/icons/info.png" width="10" alt="">
-                                    Info
-                                </a>
-                                <a href="#" class="btn btn-primary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
-                                    <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="10" alt="">
-                                    Watch
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Roma - CLOSE -->
-
-                    <!-- Uncut Gems - OPEN -->
-                    <div class="carousel-cell">
-                        <img class="carousel-cell-image" src="${pageContext.request.contextPath}/resources/media/images/posters/uncut_gems.jpg" />
-                        <h5 class="text-center"> Uncut Gems </h5>
-                        <div class="row">
-                            <div class="col-3 text-left no-padding">
-                                2019
-                            </div>
-                            <div class="col-3 text-center no-padding">
-                                <a href="">
-                                    <img src="${pageContext.request.contextPath}/resources/media/icons/eye.png" width="10" alt="">
-                                </a>
-                            </div>
-                            <div class="col-3 text-left no-padding selected">
-                                <a href="">
-                                    <img src="${pageContext.request.contextPath}/resources/media/icons/heart-selected.png" width="10" alt="">
-                                </a>
-                            </div>
-                            <div class="col-3 text-right no-padding rating">
-                                <img src="${pageContext.request.contextPath}/resources/media/icons/star.png" width="10" alt="" style="padding-bottom: 3px">
-                                7.8
-                            </div>
-                        </div>
-                        <div class="overlay">
-                            <div class="text">
-                                <a href="#" class="btn btn-secondary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
-                                    <img src="${pageContext.request.contextPath}/resources/media/icons/info.png" width="10" alt="">
-                                    Info
-                                </a>
-                                <a href="#" class="btn btn-primary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
-                                    <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="10" alt="">
-                                    Watch
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Uncut Gems - CLOSE -->
-
-                    <!-- Zodiac - OPEN -->
-                    <div class="carousel-cell">
-                        <img class="carousel-cell-image" src="${pageContext.request.contextPath}/resources/media/images/posters/zodiac.jpg" />
-                        <h5 class="text-center"> Zodiac </h5>
-                        <div class="row">
-                            <div class="col-3 text-left no-padding">
-                                2007
-                            </div>
-                            <div class="col-3 text-center no-padding">
-                                <a href="">
-                                    <img src="${pageContext.request.contextPath}/resources/media/icons/eye.png" width="10" alt="">
-                                </a>
-                            </div>
-                            <div class="col-3 text-left no-padding selected">
-                                <a href="">
-                                    <img src="${pageContext.request.contextPath}/resources/media/icons/heart-selected.png" width="10" alt="">
-                                </a>
-                            </div>
-                            <div class="col-3 text-right no-padding rating">
-                                <img src="${pageContext.request.contextPath}/resources/media/icons/star.png" width="10" alt="" style="padding-bottom: 3px">
-                                7.7
-                            </div>
-                        </div>
-                        <div class="overlay">
-                            <div class="text">
-                                <a href="#" class="btn btn-secondary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
-                                    <img src="${pageContext.request.contextPath}/resources/media/icons/info.png" width="10" alt="">
-                                    Info
-                                </a>
-                                <a href="#" class="btn btn-primary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
-                                    <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="10" alt="">
-                                    Watch
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Zodiac - CLOSE -->
-
-                    <!-- 1922 - OPEN -->
-                    <div class="carousel-cell">
-                        <img class="carousel-cell-image" src="${pageContext.request.contextPath}/resources/media/images/posters/1922.jpg" />
-                        <h5 class="text-center"> 1922 </h5>
-                        <div class="row">
-                            <div class="col-3 text-left no-padding">
-                                2017
-                            </div>
-                            <div class="col-3 text-center no-padding">
-                                <a href="">
-                                    <img src="${pageContext.request.contextPath}/resources/media/icons/eye.png" width="10" alt="">
-                                </a>
-                            </div>
-                            <div class="col-3 text-left no-padding">
-                                <a href="">
-                                    <img src="${pageContext.request.contextPath}/resources/media/icons/heart.png" width="10" alt="">
-                                </a>
-                            </div>
-                            <div class="col-3 text-right no-padding rating">
-                                <img src="${pageContext.request.contextPath}/resources/media/icons/star.png" width="10" alt="" class="padding-bottom-sm">
-                                6.3
-                            </div>
-                        </div>
-                        <div class="overlay">
-                            <div class="text">
-                                <a href="#" class="btn btn-secondary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
-                                    <img src="${pageContext.request.contextPath}/resources/media/icons/info.png" width="10" alt="">
-                                    Info
-                                </a>
-                                <a href="#" class="btn btn-primary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
-                                    <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="10" alt="">
-                                    Watch
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- 1922 - OPEN -->
-
-                    <!-- Marriage Story - OPEN -->
-                    <div class="carousel-cell">
-                        <img class="carousel-cell-image" src="${pageContext.request.contextPath}/resources/media/images/posters/marriage_story.jpeg" />
-                        <h5 class="text-center"> Marriage Story </h5>
-                        <div class="row">
-                            <div class="col-3 text-left no-padding">
-                                2019
-                            </div>
-                            <div class="col-3 text-center no-padding">
-                                <a href="">
-                                    <img src="${pageContext.request.contextPath}/resources/media/icons/eye.png" width="10" alt="">
-                                </a>
-                            </div>
-                            <div class="col-3 text-left no-padding">
-                                <a href="">
-                                    <img src="${pageContext.request.contextPath}/resources/media/icons/heart.png" width="10" alt="">
-                                </a>
-                            </div>
-                            <div class="col-3 text-right no-padding rating">
-                                <img src="${pageContext.request.contextPath}/resources/media/icons/star.png" width="10" alt="" class="padding-bottom-sm">
-                                8.0
-                            </div>
-                        </div>
-                        <div class="overlay">
-                            <div class="text">
-                                <a href="#" class="btn btn-secondary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
-                                    <img src="${pageContext.request.contextPath}/resources/media/icons/info.png" width="10" alt="">
-                                    Info
-                                </a>
-                                <a href="#" class="btn btn-primary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
-                                    <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="10" alt="">
-                                    Watch
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Marriage Story - OPEN -->
-
-                    <!-- Mowgli - OPEN -->
-                    <div class="carousel-cell">
-                        <img class="carousel-cell-image" src="${pageContext.request.contextPath}/resources/media/images/posters/mowgli.jpg" />
-                        <h5 class="text-center"> Mowgli </h5>
-                        <div class="row">
-                            <div class="col-3 text-left no-padding">
-                                2018
-                            </div>
-                            <div class="col-3 text-center no-padding">
-                                <a href="">
-                                    <img src="${pageContext.request.contextPath}/resources/media/icons/eye.png" width="10" alt="">
-                                </a>
-                            </div>
-                            <div class="col-3 text-left no-padding">
-                                <a href="">
-                                    <img src="${pageContext.request.contextPath}/resources/media/icons/heart.png" width="10" alt="">
-                                </a>
-                            </div>
-                            <div class="col-3 text-right no-padding rating">
-                                <img src="${pageContext.request.contextPath}/resources/media/icons/star.png" width="10" alt="" class="padding-bottom-sm">
-                                6.5
-                            </div>
-                        </div>
-                        <div class="overlay">
-                            <div class="text">
-                                <a href="#" class="btn btn-secondary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
-                                    <img src="${pageContext.request.contextPath}/resources/media/icons/info.png" width="10" alt="">
-                                    Info
-                                </a>
-                                <a href="#" class="btn btn-primary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
-                                    <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="10" alt="">
-                                    Watch
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Mowgli - OPEN -->
-
-                    <!-- Darkest Hour - OPEN -->
-                    <div class="carousel-cell">
-                        <img class="carousel-cell-image" src="${pageContext.request.contextPath}/resources/media/images/posters/darkest_hour.jpg" />
-                        <h5 class="text-center"> Darkest Hour </h5>
-                        <div class="row">
-                            <div class="col-3 text-left no-padding">
-                                2017
-                            </div>
-                            <div class="col-3 text-center no-padding">
-                                <a href="">
-                                    <img src="${pageContext.request.contextPath}/resources/media/icons/eye.png" width="10" alt="">
-                                </a>
-                            </div>
-                            <div class="col-3 text-left no-padding">
-                                <a href="">
-                                    <img src="${pageContext.request.contextPath}/resources/media/icons/heart.png" width="10" alt="">
-                                </a>
-                            </div>
-                            <div class="col-3 text-right no-padding rating">
-                                <img src="${pageContext.request.contextPath}/resources/media/icons/star.png" width="10" alt="" class="padding-bottom-sm">
-                                7.4
-                            </div>
-                        </div>
-                        <div class="overlay">
-                            <div class="text">
-                                <a href="#" class="btn btn-secondary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
-                                    <img src="${pageContext.request.contextPath}/resources/media/icons/info.png" width="10" alt="">
-                                    Info
-                                </a>
-                                <a href="#" class="btn btn-primary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
-                                    <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="10" alt="">
-                                    Watch
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Darkest Hour - OPEN -->
-
                 </div>
                 <!-- Carousel - CLOSE -->
-
-            </div>
-            <!-- Trend tab - CLOSE -->
-
-            <!-- Popular tab - OPEN -->
-            <div class="margin-top-under-sm tab-pane fade" id="popular" role="tabpanel" aria-labelledby="popular-tab">
-                Popular
             </div>
             <!-- Popular tab - CLOSE -->
 

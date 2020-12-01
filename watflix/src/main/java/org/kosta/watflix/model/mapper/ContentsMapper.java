@@ -19,6 +19,8 @@ public interface ContentsMapper {
 	int mGetTotalContentsCountForType(String contentsType);
 	List<ContentsVO> mGetAllContentsList(PagingBean pagingBean);
 	List<ContentsVO> mGetAllContentsListForType(PagingBean pagingBean);
+	List<ContentsVO> mContentsHighHits();
+	List<ContentsVO> mContentsHighAvgStars();
 	
 
 }
