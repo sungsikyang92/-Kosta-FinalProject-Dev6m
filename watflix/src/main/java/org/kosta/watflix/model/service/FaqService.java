@@ -1,5 +1,6 @@
 package org.kosta.watflix.model.service;
 
+import org.kosta.watflix.model.vo.FaqListVO;
 import org.kosta.watflix.model.vo.FaqVO;
 
 
@@ -8,4 +9,6 @@ public interface FaqService {
 	void sFaqUpdate(FaqVO faqVO);
 	void sFaqDelete(FaqVO faqVO);
 	FaqVO sFaqDetail(int faqNo);
+	FaqListVO sGetFaqList(PagingBean pagingBean);
+	int sGetTotalFaqCount();
 }

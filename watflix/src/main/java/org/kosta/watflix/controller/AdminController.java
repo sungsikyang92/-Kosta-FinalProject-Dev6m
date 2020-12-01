@@ -9,8 +9,6 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.kosta.watflix.model.service.AdminService;
-import org.kosta.watflix.model.service.AdminServiceImpl;
-import org.kosta.watflix.model.vo.ContentsVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -20,7 +18,7 @@ public class AdminController {
    
    @Resource
    AdminService adminService;
-   
+      
    @RequestMapping("contentsUpdateAdmin.do")
    public String updateContents() {
 	  int count;
@@ -87,8 +85,8 @@ public class AdminController {
              // TODO Auto-generated catch block
              e.printStackTrace();
           }
-        }
-        
+        }        
       return "contents/contentsUpdateAdminComplete.jsp";
    }
+   
 }
