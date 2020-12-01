@@ -18,8 +18,12 @@ public class ReportServiceImpl implements ReportService {
 	}
 
 	@Override
-	public void sReportWrite(ReportVO reportVO) {
-		reportMapper.mReportWrite(reportVO);
-		
+	public void sReportWriteComments(ReportVO reportVO) {
+		reportMapper.mReportWriteComments(reportVO);
+	}
+	
+	@Override
+	public void sReportWriteReview(ReportVO reportVO) {
+		reportMapper.mReportWriteReview(reportVO);
 	}
 }

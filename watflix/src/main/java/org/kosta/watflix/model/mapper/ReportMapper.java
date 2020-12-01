@@ -6,7 +6,9 @@ import org.kosta.watflix.model.vo.ReportVO;
 public interface ReportMapper {
 	ReportVO mReportGetDetailNoHits(int reportNo);
 
-	void mReportWrite(ReportVO reportVO);
+	void mReportWriteComments(ReportVO reportVO);
+	
+	void mReportWriteReview(ReportVO reportVO);
 
 }
 

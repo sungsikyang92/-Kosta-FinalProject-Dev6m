@@ -16,13 +16,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT r.report_no, r.id, r.review_no, r.comments_no, r.report_type_no, r.report_contents, r.report_posted_time, t.report_type_info
 		FROM report r, report_type t WHERE r.report_type_no=t.report_type_no AND r.report_no=#{value}
 	</select>
-	<!-- 신고게시글 쓰기 -->
- 	<insert id="mReportWrite" parameterType="reportVO">
+	<!-- 신고게시글(comments) 쓰기 -->
+ 	<insert id="mReportWriteComments" parameterType="reportVO">
  		<selectKey keyProperty="reportNo"  resultType="int" order="BEFORE">
  			SELECT report_seq.nextval FROM DUAL
  		</selectKey>
 		INSERT INTO report(report_no, id, comments_no, report_type_no, report_contents, report_posted_time)
 		VALUES(#{reportNo}, #{memberVO.id}, #{commentsVO.commentsNo}, #{reportTypeVO.reportTypeNo}, #{reportContents}, sysdate)
+ 	</insert>
+	<!-- 신고게시글(review) 쓰기 -->
+ 	<insert id="mReportWriteReview" parameterType="reportVO">
+ 		<selectKey keyProperty="reportNo"  resultType="int" order="BEFORE">
+ 			SELECT report_seq.nextval FROM DUAL
+ 		</selectKey>
+		INSERT INTO report(report_no, id, review_no, report_type_no, report_contents, report_posted_time)
+		VALUES(#{reportNo}, #{memberVO.id}, #{reviewVO.reviewNo}, #{reportTypeVO.reportTypeNo}, #{reportContents}, sysdate)
  	</insert>
 	<!-- 조회수 증가 -->
 	<select id="mNoticeUpdateHits" parameterType="int">

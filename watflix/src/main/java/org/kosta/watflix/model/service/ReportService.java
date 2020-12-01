@@ -6,5 +6,7 @@ public interface ReportService {
 	
 	ReportVO sReportGetDetailNoHits(int reportNo);
 
-	void sReportWrite(ReportVO reportVO);
+	void sReportWriteComments(ReportVO reportVO);
+
+	void sReportWriteReview(ReportVO reportVO);
 }
