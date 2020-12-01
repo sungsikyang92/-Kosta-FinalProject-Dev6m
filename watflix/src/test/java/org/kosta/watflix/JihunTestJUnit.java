@@ -128,22 +128,34 @@ public class JihunTestJUnit {
 		//System.out.println(reportVO);
 		
 		// 12. Report(Comment)쓰기 테스트 >> 테스트 완료
-		ReportVO reportVO = new ReportVO();
-		MemberVO memberVO = new MemberVO();
+		//ReportVO reportVO = new ReportVO();
+		//MemberVO memberVO = new MemberVO();
+		//CommentsVO commentsVO = new CommentsVO();
+		//ReportTypeVO reportTypeVO = new ReportTypeVO();
+		//memberVO.setId("jikang");
+		//commentsVO.setCommentsNo(1);
+		//reportTypeVO.setReportTypeNo(2);
+		//reportVO.setMemberVO(memberVO);
+		//reportVO.setCommentsVO(commentsVO);
+		//reportVO.setReportTypeVO(reportTypeVO);
+		//reportVO.setReportContents("코로나입니다 집에 머무시기를");
+		//reportService.sReportWriteComments(reportVO);
+		//System.out.println(reportService.sReportGetDetailNoHits(7)); 
+		
+		// 12. Report(Review)쓰기 테스트 >> 테스트 완료
+		//ReportVO reportVO = new ReportVO();
+		//MemberVO memberVO = new MemberVO();
 		//ReviewVO reviewVO = new ReviewVO();
-		CommentsVO commentsVO = new CommentsVO();
-		ReportTypeVO reportTypeVO = new ReportTypeVO();
-		memberVO.setId("jikang");
-		//reviewVO.setReviewNo(reviewNo);
-		commentsVO.setCommentsNo(1);
-		reportTypeVO.setReportTypeNo(2);
-		reportVO.setMemberVO(memberVO);
+		//ReportTypeVO reportTypeVO = new ReportTypeVO();
+		//memberVO.setId("jikang");
+		//reviewVO.setReviewNo(2);
+		//reportTypeVO.setReportTypeNo(2);
+		//reportVO.setMemberVO(memberVO);
 		//reportVO.setReviewVO(reviewVO);
-		reportVO.setCommentsVO(commentsVO);
-		reportVO.setReportTypeVO(reportTypeVO);
-		reportVO.setReportContents("코로나입니다 집에 머무시기를");
-		reportService.sReportWrite(reportVO);
-		System.out.println(reportService.sReportGetDetailNoHits(7)); 
+		//reportVO.setReportTypeVO(reportTypeVO);
+		//reportVO.setReportContents("코로나입니다 집에 머무시기를");
+		//reportService.sReportWriteReview(reportVO);
+		//System.out.println(reportService.sReportGetDetailNoHits(1)); 
 	}
 }
 
