@@ -67,14 +67,12 @@ public class YuriTestJUnit {
 		System.out.println(totalFaqCount);
 		*/
 		//FAQ 리스트 테스트 - ok
-		int totalFaqCount=faqMapper.mGetTotalFaqCount();
-		PagingBean pagingBean = new PagingBean(totalFaqCount);
-		FaqListVO fvo = faqService.sGetFaqList(pagingBean);
+		String pageNo = null;
+		FaqListVO fvo = faqService.sGetFaqList();
+		System.out.println(faqService.sGetTotalFaqCount());
 		for(FaqVO faqVO:fvo.getFaqList())
 			System.out.println(faqVO);
-		
 	}
-	
 }
 
 

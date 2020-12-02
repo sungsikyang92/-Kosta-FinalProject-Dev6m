@@ -9,6 +9,7 @@ public interface FaqService {
 	void sFaqUpdate(FaqVO faqVO);
 	void sFaqDelete(FaqVO faqVO);
 	FaqVO sFaqDetail(int faqNo);
-	FaqListVO sGetFaqList(PagingBean pagingBean);
 	int sGetTotalFaqCount();
+	FaqListVO sGetFaqList(String pageNo);
+	FaqListVO sGetFaqList();
 }
