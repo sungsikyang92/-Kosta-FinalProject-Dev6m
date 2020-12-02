@@ -109,6 +109,3 @@ buildNumber.properties
 .mvn/wrapper/maven-wrapper.jar
 
 # End of https://www.toptal.com/developers/gitignore/api/eclipse,java,java-web,maven
-/watflix/
-
-pom.properties
