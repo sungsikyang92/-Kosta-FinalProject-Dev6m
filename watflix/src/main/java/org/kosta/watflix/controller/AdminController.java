@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AdminController {
    
    @Resource
-   AdminService adminService;
+   AdminService adminService;//
       
    @RequestMapping("contentsUpdateAdmin.do")
    public String updateContents() {
