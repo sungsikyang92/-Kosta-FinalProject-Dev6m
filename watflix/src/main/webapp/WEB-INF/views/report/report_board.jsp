@@ -39,10 +39,11 @@
 							<!-- 조건이 맞으면 왼쪽 화살표 -->
 							<c:if test="${pb.previousPageGroup}">
 								<li>
-									&laquo;
+									<a href="${pageContext.request.contextPath }/reportReviewBoardNext.do?pageNo=${pb.startPageOfPageGroup-1}">
+										&laquo;
+									</a>
 								</li>
 							</c:if>
-							<li>
 							<!-- 페이지 넘버 표시 -->
 							<c:forEach var="pageNumber"
 								begin="${pb.startPageOfPageGroup}"
@@ -50,17 +51,29 @@
 								<c:choose>
 									<c:when test="${pb.nowPage!=pageNumber }">
 										<li>
-											${pageNumber}
+											<a href="${pageContext.request.contextPath }/reportReviewBoardNext.do?pageNo=${pageNumber}">
+												${pageNumber}
+											</a>
 										</li>
 									</c:when>
 									<c:otherwise>
 										<li>
-											${pageNumber }
+											<a href="${pageContext.request.contextPath }/reportReviewBoardNext.do?pageNo=${pageNumber}">
+												${pageNumber }
+											</a>
 										</li>
 									</c:otherwise>
 								</c:choose>
+								&nbsp;
 							</c:forEach>
-							</li>
+							<!-- 조건에 맞으면 오른쪽 화살표 -->
+							<c:if test="${pb.nextPageGroup}">
+								<li>
+									<a href="${pageContext.request.contextPath }/reportReviewBoardNext.do?pageNo=${pb.endPageOfPageGroup+1}">
+										&raquo;
+									</a>
+								</li>
+							</c:if>
 						</ul>
 					</div>
 				</td>

@@ -13,9 +13,14 @@ public class ReportController {
 	private ReportService reportService;
 	
 	// 신고 게시판(리뷰)으로 이동
-	@RequestMapping("reporBoard.do")
-	public ModelAndView reportWriteFrom() {
+	@RequestMapping("reportReviewBoard.do")
+	public ModelAndView reportReviewBoard() {
 		return new ModelAndView("report/report_board","ReportReviewList",reportService.sGetReportReviewList());
+	}
+	// 신고 게시판(리뷰) 페이지 편경
+	@RequestMapping("reportReviewBoardNext.do")
+	public ModelAndView reportReviewBoardNext(String pageNo) {
+		return new ModelAndView("report/report_board","ReportReviewList",reportService.sGetReportReviewList(pageNo));
 	}
 	
 	// 신고 게시판(평점)으로 이동
