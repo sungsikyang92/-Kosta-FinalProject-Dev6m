@@ -98,6 +98,7 @@ target/
 
 ### Maven ###
 pom.xml.tag
+pom.properties
 pom.xml.releaseBackup
 pom.xml.versionsBackup
 pom.xml.next
