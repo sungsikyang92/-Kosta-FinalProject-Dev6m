@@ -109,4 +109,7 @@ buildNumber.properties
 .mvn/wrapper/maven-wrapper.jar
 
 # End of https://www.toptal.com/developers/gitignore/api/eclipse,java,java-web,maven
+<<<<<<< HEAD
 /watflix/
+=======
+>>>>>>> branch 'master' of https://github.com/Minikanko/-Kosta-FinalProject-Dev6m.git
