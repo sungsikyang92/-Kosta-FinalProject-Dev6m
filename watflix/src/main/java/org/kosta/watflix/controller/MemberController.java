@@ -15,4 +15,14 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class MemberController {
 	
+	@RequestMapping("loginForm.do")
+	public String loginForm() {
+		return "loginForm.tiles";
+	}
+	
+	//로그아웃완료 후 이동할 페이지 ( spring-security.xml 에 설정 ) 
+	@RequestMapping("login_fail.do")
+	public String loginFail() {
+		return "member/login_fail";
+	}
 }

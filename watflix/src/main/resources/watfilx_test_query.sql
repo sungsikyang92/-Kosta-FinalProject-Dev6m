@@ -11,12 +11,9 @@ INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('ㅇ','1','앵식','gmail')
 INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL,ACC_STAUTS_NO) VALUES('jikang','1','지강','gmail',0)
 INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('spring','1','강상훈','gmail')
 
-
-
 INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('yuki','1','유리','gmail')
 /*ReviewWrite쿼리문 테스트를 위한 CONTENTS TABLE 데이터 추가*/
 INSERT INTO CONTENTS VALUES(CONTENTS_SEQ.NEXTVAL,'트랜스포머','타입','장르','요약','트레일러',0,1,1)
-
 
 /*ReviewList 불러오는 쿼리문 테스트를 위한 MEMBER TABLE과 REVIEW TABLE JOIN*/
 SELECT R.REVIEW_NO, M.ID, R.REVIEW_TITLE, R.REVIEW_CONTENTS
@@ -236,7 +233,7 @@ PARTY_SEQ.nextval, 'java', '제목', 3, 4, 0, sysdate, '진행중');
 
 
 select party_seq.nextval from dual
-select count(*) from party;
+select * from party;
 
 
 select ms.membership_name, p.PARTY_NO, m.ID, 
@@ -250,5 +247,11 @@ where p.id=m.id and p.membership_no = ms.membership_no and party_no=14
 
 
 update party set id = 'spring' ,membership_no = 2 where party_no = 2
+select * from apply;
 
 
+insert into APPLY(ID, PARTY_NO )
+values ('java',13);
+
+select * from party
+delete from apply

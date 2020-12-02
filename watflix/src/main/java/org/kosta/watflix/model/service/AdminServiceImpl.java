@@ -50,6 +50,10 @@ public class AdminServiceImpl implements AdminService {
 		gvo.setGenreName(genreName);
 
 		cvo.setGenreVO(gvo);
+		//이미지 파일 생성시 ":"는 인식 못해서 인위적으로 변경해줌
+		if(title.contains(":")) {
+			title = title.replaceAll(":", "-");
+		}
 		//작은 썸네일 다운로드
 		String fileName = "S_"+title + ".jpg";
 		cvo.setContentsSmallThumbnail("resources\\contents\\"+contentsId+"\\"+fileName);
@@ -80,7 +84,7 @@ public class AdminServiceImpl implements AdminService {
 			File fileDir = new File(path);
 
 			// 디렉토리 생성
-			if (!fileDir.exists()) {
+			if(!fileDir.exists()) {
 				fileDir.mkdirs();
 			}
 

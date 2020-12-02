@@ -3,33 +3,66 @@ package org.kosta.watflix.model.service;
 import javax.annotation.Resource;
 
 import org.kosta.watflix.model.mapper.PartyMapper;
+import org.kosta.watflix.model.vo.ApplyVO;
+import org.kosta.watflix.model.vo.PartyListVO;
 import org.kosta.watflix.model.vo.PartyVO;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 @Service
 public class PartyServiceImpl implements PartyService{
 	@Resource 
 	private PartyMapper partyMapper;
 	@Override
-	public void write(PartyVO partyVO) {
-		partyMapper.write(partyVO);
+	public void sPartyWrite(PartyVO partyVO) {
+		partyMapper.mPartyWrite(partyVO);
 	}
 	@Override
-	public int getTotalPartyCount() {
-		return partyMapper.getTotalPartyCount(); 
+	public int sPartyGetTotalCount() {
+		return partyMapper.mPartyGetTotalCount(); 
 	}
 	@Override
-	public PartyVO getPartyDetail(int no) {
+	public PartyVO sPartyGetDetail(int no) {
 		PartyVO pvo = new PartyVO();
-		pvo=partyMapper.getPartyDetail(no);
+		pvo=partyMapper.mPartyGetDetail(no);
 		return pvo;
+		
 	}
 	@Override
-	public void updateParty(PartyVO partyvo) {
-		partyMapper.updateParty(partyvo);
+	public void sPartyUpdate(PartyVO partyvo) {
+		partyMapper.mPartyUpdate(partyvo);
 	}
 	@Override
-	public void deleteParty(int no) {
-		partyMapper.deleteParty(no);
+	public void sPartyDelete(int no) {
+		partyMapper.mPartyDelete(no);
 	}
+	@Transactional
+	@Override
+	public void sPartyApply(ApplyVO avo) {
+		partyMapper.mPartyApply(avo);
+		partyMapper.mPartyApplyCountPlus(avo.getPartyVO().getPartyNo());
+		PartyVO pvo = partyMapper.mPartyGetDetail(avo.getPartyVO().getPartyNo()) ;
+		if(pvo.getPartyHeadCount() == pvo.getPartyApplyCount()) {
+			partyMapper.mPartyEnd(pvo);
+		}
+	}
+	@Override
+	public PartyListVO sPartyGetAllList() {
+		return sPartyGetAllList("1");
+	}
+	@Override
+	public PartyListVO sPartyGetAllList(String pageNo) {
+		int totalPartyCount = partyMapper.mPartyGetTotalCount();
+		PagingBean pagingBean = null;
+		if(pageNo == null) {
+			pagingBean = new PagingBean(totalPartyCount);
+		}else {
+			pagingBean = new PagingBean(totalPartyCount, Integer.parseInt(pageNo));
+		}
+		PartyListVO partyListVO = new PartyListVO(partyMapper.mPartyGetAllList(pagingBean),pagingBean);
+		return partyListVO;
+	}
+	
+	
+	
 
 }
