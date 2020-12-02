@@ -41,7 +41,14 @@ public class FaqServiceImpl implements FaqService {
 	}
 
 	@Override
-	public FaqListVO sGetFaqList(PagingBean pagingBean) {
+	public FaqListVO sGetFaqList(String pageNo) {
+		int totalPostCount = faqMapper.mGetTotalFaqCount();
+		PagingBean pagingBean=null;
+		if(pageNo==null) {
+			pagingBean = new PagingBean(totalPostCount);
+		}else {
+			pagingBean = new PagingBean(totalPostCount,Integer.parseInt(pageNo));
+		}
 		FaqListVO faqListVO=new FaqListVO(faqMapper.mGetFaqList(pagingBean),pagingBean);
 		return faqListVO;
 	}
@@ -49,6 +56,11 @@ public class FaqServiceImpl implements FaqService {
 	@Override
 	public int sGetTotalFaqCount() {
 		return faqMapper.mGetTotalFaqCount();
+	}
+
+	@Override
+	public FaqListVO sGetFaqList() {
+		return sGetFaqList("1");
 	}
 
 }

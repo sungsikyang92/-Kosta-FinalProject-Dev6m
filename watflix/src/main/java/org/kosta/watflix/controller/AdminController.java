@@ -115,5 +115,6 @@ public class AdminController {
     		  e.printStackTrace();
 	}
 	return "contents/contentsUpdateAdminComplete";
-	}
+
+	}   
 }
