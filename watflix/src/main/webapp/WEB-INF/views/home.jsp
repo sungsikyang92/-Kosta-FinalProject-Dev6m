@@ -104,7 +104,7 @@
             <!-- 인기 컨텐츠 tab - OPEN -->
             <div class="margin-top-under-sm tab-pane fade show active" id="trend" role="tabpanel" aria-labelledby="trend-tab">
                 <!-- Carousel - OPEN -->
-                <div class="carousel" data-flickity='{ "groupCells": true, "cellAlign": "center", "pageDots": false, "wrapAround": true, "draggable": false }' style="height: 400px">
+                <div class="carousel" data-flickity='{ "groupCells": true, "cellAlign": "center", "pageDots": false, "wrapAround": true, "draggable": false }' style="height: 280px;padding-top: 15px;">
 					<!--컨텐츠 리스트 출력 For문 START  -->
                   	<c:forEach items="${requestScope.contentsHighHits}" var="contentsVO">
                   	<div class="carousel-cell">

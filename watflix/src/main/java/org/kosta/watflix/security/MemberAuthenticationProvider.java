@@ -78,11 +78,16 @@ public class MemberAuthenticationProvider implements AuthenticationProvider {
 		}
 
 		List<SimpleGrantedAuthority> authorities = new ArrayList<SimpleGrantedAuthority>();
+		for (Authority au : list) { // ROLE_ 형식의 db 정보가 아니라면 이 시점에 ROLE_ 를 접두어로 추가한다
+			authorities.add(new SimpleGrantedAuthority(au.getGrade()));
+		}
+		
 		/****************************************
 		 * 여기까지 왔으면 인증 완료 - Authentication객체 생성해서 리턴
 		 ***************************************/
 
 		Authentication auth = new UsernamePasswordAuthenticationToken(member, password, authorities);
+		System.out.println(auth.toString());
 		memberService.sMemberLoginTimeUpdate(member.getId());
 		System.out.println("로그인 인증완료");
 		return auth;

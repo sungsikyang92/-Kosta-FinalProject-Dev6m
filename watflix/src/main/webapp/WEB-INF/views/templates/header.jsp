@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <script type="text/javascript">
 	 $(document).ready(function(){
 		 $(".nav-toggle").click(function(){
@@ -11,7 +12,6 @@
 </script>
   <!-- Navbar - OPEN -->
     <nav class="navbar navbar-expand-lg fixed-top navbar-dark" id="navbar">
-
         <!-- Navbar content - OPEN -->
         <div class="container-lg">
             <!-- Logo - OPEN -->
@@ -82,21 +82,19 @@
 			        메뉴
 			      </li>
 			      <!--로그인 여부 판단  -->
-			      <c:choose>
-			      	<c:when test="${sessionScope.mvo==null }">
+			      	<sec:authorize access="!hasRole('ROLE_MEMBER')">
 						<li class="sidebar-nav-item">
 						  <a class="js-scroll-trigger" href="${pageContext.request.contextPath}/loginForm.do">로그인/회원가입</a>
 						</li>
-			      	</c:when>
-					<c:otherwise>
+					</sec:authorize>
+					<sec:authorize access="hasRole('ROLE_MEMBER')">
 						<li class="sidebar-nav-item">
-						   <a class="js-scroll-trigger" href="#page-top">로그아웃</a>
+						   <a class="js-scroll-trigger" href="${pageContext.request.contextPath}/logout.do">로그아웃</a>
 						 </li>
 						 <li class="sidebar-nav-item">
 						  <a class="js-scroll-trigger" href="#about">마이페이지</a>
 						</li>
-					</c:otherwise>						      
-			      </c:choose>
+					</sec:authorize>
 			      <li class="sidebar-nav-item">
 			        <a class="js-scroll-trigger" href="#services">파티게시판</a>
 			      </li>
