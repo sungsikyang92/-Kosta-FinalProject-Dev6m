@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sql Mapper -->
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.kosta.watflix.model.mapper.NoticeMapper">
+ 	<!-- 공지 게시글 수를 조회한다. -->
+ 	<select id="mNoticeGetTotalPostCount" resultType="int">
+ 		SELECT COUNT(*) FROM notice
+ 	</select>
+ 	<!-- NoticeVO에 MemberVO의 id(has a 관계)를 넣을 수 있도록 ResaultMap을 셋팅한다. -->
+ 	<resultMap type="noticeVO" id="noticeBoardRM">
+		<result property="memberVO.id" column="id"/>
+	</resultMap>
+	<!-- 공지게시글 목록 조회에 필요한 데이터를 셋팅된 ResultMap(noticeVO)에 넣는다. -->
+	<select id="mNoticeGetList" parameterType="pagingBean" resultMap="noticeBoardRM">
+		SELECT notice_no, id, notice_title, notice_hits FROM(
+		SELECT row_number() over(order by notice_no desc) as rnum, notice_no, id, notice_title, notice_hits
+		FROM notice) WHERE rnum BETWEEN #{startRowNumber} AND #{endRowNumber}
+	</select>
+	<!-- 공지게시글 디테일 조회에 필요한 데이터를 셋팅된 ResultMap(noticeVO)에 넣는다.(조회수는 올라가지 않는다.)  -->
+	<select id="mNoticeGetDetailNoHits" parameterType="int" resultMap="noticeBoardRM">
+		SELECT notice_no, id, notice_title, notice_contents,
+		to_char(notice_posted_time, 'YYYY.MM.DD') AS notice_posted_time, notice_hits
+		FROM notice WHERE notice_no=#{value}
+	</select>
+	<!-- 조회수 증가 -->
+	<select id="mNoticeUpdateHits" parameterType="int">
+		UPDATE notice SET notice_hits = notice_hits+1 WHERE notice_no=#{noticeNo}
+	</select>
+	<!-- 공지게시글 수정 -->
+	<update id="mNoticeUpdate" parameterType="noticeVO">
+		UPDATE notice SET notice_title = #{noticeTitle}, notice_contents = #{noticeContents}
+		WHERE notice_no = #{noticeNo}
+	</update>
+	<!-- 공지게시글 쓰기 -->
+ 	<insert id="mNoticeWrite" parameterType="noticeVO">
+ 		<selectKey keyProperty="noticeNo"  resultType="int" order="BEFORE">
+ 			SELECT notice_seq.nextval FROM DUAL
+ 		</selectKey>
+		INSERT INTO notice(notice_no, id, notice_title, notice_contents, notice_posted_time, notice_hits)
+		VALUES(#{noticeNo}, #{memberVO.id}, #{noticeTitle}, #{noticeContents}, sysdate, #{noticeHits})
+ 	</insert>
+ 	<!-- 공지게시글 삭제 -->
+ 	<delete id="mNoticeDelete" parameterType="int">
+ 		DELETE FROM notice WHERE notice_no=#{value}
+ 	</delete>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
