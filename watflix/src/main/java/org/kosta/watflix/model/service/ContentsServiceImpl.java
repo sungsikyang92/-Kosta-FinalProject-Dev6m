@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.kosta.watflix.model.mapper.ContentsMapper;
 import org.kosta.watflix.model.vo.ContentsListVO;
 import org.kosta.watflix.model.vo.ContentsVO;
+import org.kosta.watflix.model.vo.GenreVO;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -50,5 +51,11 @@ public class ContentsServiceImpl implements ContentsService {
 	@Override
 	public List<ContentsVO> sContentsHighAvgStars() {
 		return contentsMapper.mContentsHighAvgStars();
+	}
+
+	//장르 출력 리스트
+	@Override
+	public List<GenreVO> sGetAllGenreList() {
+		return contentsMapper.mGetAllGenreList();
 	}
 }

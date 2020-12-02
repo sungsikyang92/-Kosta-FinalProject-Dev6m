@@ -16,7 +16,7 @@
 								id="id" value="" tabindex="0" autocomplete="email"
 								dir="">
 								<label for="id_userLoginId" class="placeLabel">이메일
-									주소 또는 전화번호</label>
+									주소</label>
 									</label>
 						</div>
 					</div>
@@ -29,9 +29,6 @@
 								data-uia="password-field" name="password" class="nfTextField"
 								id="id_password" value="" tabindex="0" autocomplete="password"
 								dir=""><label for="id_password" class="placeLabel">비밀번호</label></label>
-							<button data-uia="password-visibility-toggle"
-								id="id_password_toggle" type="button" class="nfPasswordToggle"
-								title="비밀번호 표시">표시</button>
 						</div>
 					</div>
 				</div>

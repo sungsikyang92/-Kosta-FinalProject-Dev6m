@@ -45,18 +45,14 @@
 						username-parameter="id"
 						password-parameter="password"
 						authentication-failure-url="/login_fail.do"
-						default-target-url="/home.do"						
+						default-target-url="/login_result.do"						
 						/>						
-		<security:logout
-					logout-url="/logout.do" 
-		 			logout-success-url="/home.do"
-		/>
 	<!-- 
 		 security logout 설정 
 		 logout-url="/logout.do" : 로그아웃을 실행할 url 
 		 logout-success-url="/home.do" : 로그아웃 후 이동할  url
 	 -->					
-		<security:logout logout-url="/logout.do" logout-success-url="/home.do" />
+		<security:logout logout-url="/logout.do" logout-success-url="/logout_result.do"/>
 	<!-- 
 		  로그인 하였으나 권한이 없는 요청을 하였을 경우 보여지는 페이지를 지정  
 	 -->	
