@@ -1,0 +1,1 @@
+INSERT INTO spring_customer VALUES('javaking','조승우','판교')
