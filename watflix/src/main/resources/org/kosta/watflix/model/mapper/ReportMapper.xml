@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sql Mapper -->
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.kosta.watflix.model.mapper.ReportMapper">
+	<!-- 신고 게시글 전체 조회 (재사용 용도) -->
+ 	<sql id="selectReportALL">
+ 		SELECT REPORT_NO,ID,REVIEW_NO,COMMENTS_NO,REPORT_TYPE_NO,REPORT_CONTENTS,
+		to_char(REPORT_POSTED_TIME,'YYYY.MM.DD HH:MI:SS') as re_time
+		FROM REPORT
+ 	</sql>
+ 	
+ 	<!-- 리뷰 신고 수 조회  -->
+ 	<select id="mGetTotalReportReviewCount" resultType="int">
+ 		 select count(*) from report where REVIEW_NO is not NULL
+ 	</select>
+ 	<!-- 평점 신고 수 조회 -->
+ 	<select id="mGetTotalReportCommentsCount" resultType="int">
+ 		select count(*) from report where REVIEW_NO is NULL
+ 	</select>
+ 	
+ 	<!-- 리뷰 신고 리스트 조회 -->
+ 	<resultMap type="reportVO" id="reportReviewRM">
+ 		<result property="memberVO.id" column="id"/>
+ 		<result property="reviewVO.reviewNo" column="review_No"/>
+ 		<result property="reviewVO.memberVO.id" column="report_Id"/>
+ 		<!-- reportTypeNo를 reprotTypeInfo로 추후 수정할것 -->
+ 		<result property="reportTypeVO.reportTypeNo" column="report_Type_No"/>
+ 	</resultMap>
+ 	<select id="mGetReportReviewList" parameterType="pagingBean" resultMap="reportReviewRM">
+ 		SELECT REPORT_NO,ID,REVIEW_NO,REPORT_TYPE_NO,REPORT_CONTENTS,re_time,reportId as reportId
+		FROM(SELECT row_number() over(order by REPORT_NO desc) as re_num, r.REPORT_NO,r.ID,r.REVIEW_NO,r.COMMENTS_NO, r.REPORT_TYPE_NO, r.REPORT_CONTENTS, r.re_time, rv.id as reportId
+		FROM(
+			<include refid="selectReportALL"/>
+		) r, review rv where r.REVIEW_NO=rv.REVIEW_NO)
+		where re_num between #{startRowNumber} and #{endRowNumber}
+		order by report_no desc
+ 	</select>
+ 	
+ 	<!-- 평점 신고 리스트 조회 -->
+ 	<resultMap type="reportVO" id="reportCommentsRM">
+ 		<result property="memberVO.id" column="id"/>
+ 		<result property="commentsVO.commentsNo" column="comments_No"/>
+ 		<result property="commentsVO.memberVO.id" column="report_Id"/>
+ 		<!-- reportTypeNo를 reprotTypeInfo로 추후 수정할것 -->
+ 		<result property="reportTypeVO.reportTypeNo" column="report_Type_No"/>
+ 	</resultMap>
+ 	<select id="mGetReportCommentsList" parameterType="pagingBean" resultMap="reportCommentsRM">
+ 		SELECT REPORT_NO,ID,COMMENTS_NO,REPORT_TYPE_NO,REPORT_CONTENTS,re_time,reportId as reportId
+		FROM(SELECT row_number() over(order by r.REPORT_NO desc) as re_num, r.REPORT_NO,r.ID,r.REVIEW_NO,r.COMMENTS_NO, r.REPORT_TYPE_NO, r.REPORT_CONTENTS, r.re_time, c.id as reportId
+		FROM(
+			<include refid="selectReportALL"/>
+		) r, COMMENTS c where r.COMMENTS_NO=c.COMMENTS_NO)
+		where re_num between #{startRowNumber} and #{endRowNumber}
+		order by report_no desc
+ 	</select>
+
+ 	<!-- ReportVO에 MemberVO의 id, ReviewVO의 reviewNo, CommentsVO의 commentsNo, ReportTypeVO의 reportTypeNo(has a 관계)를 넣을 수 있도록 ResaultMap을 셋팅한다. -->
+ 	<resultMap type="reportVO" id="reportBoardRM">
+		<result property="memberVO.id" column="id"/>
+		<result property="reviewVO.reviewNo" column="review_no"/>
+		<result property="commentsVO.commentsNo" column="comments_no"/>
+		<result property="reportTypeVO.reportTypeNo" column="report_type_no"/>
+	</resultMap>
+	<!-- 신고게시글 디테일 조회에 필요한 데이터를 셋팅된 ResultMap(reportVO)에 넣는다.(조회수는 올라가지 않는다.)  -->
+	<select id="mReportGetDetailNoHits" parameterType="int" resultMap="reportBoardRM">
+		SELECT r.report_no, r.id, r.review_no, r.comments_no, r.report_type_no, r.report_contents, to_char(r.report_posted_time,'YYYY.MM.DD HH:MI:SS') as report_posted_time, t.report_type_info
+		FROM report r, report_type t WHERE r.report_type_no=t.report_type_no AND r.report_no=#{value}
+	</select>
+	
+	<!-- 신고게시글(comments) 쓰기 -->
+ 	<insert id="mReportWriteComments" parameterType="reportVO">
+ 		<selectKey keyProperty="reportNo"  resultType="int" order="BEFORE">
+ 			SELECT report_seq.nextval FROM DUAL
+ 		</selectKey>
+		INSERT INTO report(report_no, id, comments_no, report_type_no, report_contents)
+		VALUES(#{reportNo}, #{memberVO.id}, #{commentsVO.commentsNo}, #{reportTypeVO.reportTypeNo}, #{reportContents})
+ 	</insert>
+ 	
+	<!-- 신고게시글(review) 쓰기 -->
+ 	<insert id="mReportWriteReview" parameterType="reportVO">
+ 		<selectKey keyProperty="reportNo"  resultType="int" order="BEFORE">
+ 			SELECT report_seq.nextval FROM DUAL
+ 		</selectKey>
+		INSERT INTO report(report_no, id, review_no, report_type_no, report_contents)
+		VALUES(#{reportNo}, #{memberVO.id}, #{reviewVO.reviewNo}, #{reportTypeVO.reportTypeNo}, #{reportContents})
+ 	</insert>
+ 	
+ 	<!-- 공지게시글 삭제 -->
+    <delete id="mReportDelete" parameterType="int">
+       DELETE FROM REPORT WHERE REPORT_NO=#{value}
+    </delete>
+ 	<!-- 내 신고글 보기(comments) -->
+ 	<!-- 내 신고글 보기(review) -->
+	<!-- 내 신고글 보기는 구현 방식에 대해 질문을 한 이후 만들것  -->
+</mapper>
+
+
+
+
+
+
+
+
+
+

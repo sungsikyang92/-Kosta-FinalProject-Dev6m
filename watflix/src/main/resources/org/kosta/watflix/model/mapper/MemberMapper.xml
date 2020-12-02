@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sql Mapper -->
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.kosta.watflix.model.mapper.MemberMapper">
+	<resultMap type="memberVO" id="memberRM">
+		<result property="accStatusVO.accStatusNo" column="acc_status_no"/>
+		<result property="accStatusVO.accStatusInfo" column="acc_status_info"/>
+	</resultMap>
+	
+	<resultMap type="productOrderVO" id="productOrderRM">
+		<result property="productVO.productNo" column="PRODUCT_NO"/>
+		<result property="productVO.productName" column="PRODUCT_NAME"/>
+		<result property="productVO.productPoint" column="PRODUCT_POINT"/>
+		<result property="memberVO.id" column="id"/>
+	</resultMap>
+	
+	<!-- 아이디로 회원찾기 -->
+	<select id="mFindMemberById" resultMap="memberRM">
+		select m.id,m.password,m.name,m.tel,m.birth,m.sex,m.email,m.address,m.login_time,
+ 		m.login_fail,m.point,m.signup_date,m.agreement,m.acc_status_no,a.acc_status_info
+ 		from member m, (select * from acc_status) a
+ 		where a.acc_status_no=m.acc_status_no and m.id=#{value}
+	</select>
+	
+	<!-- 정상계정 회원찾기 -->
+	<select id="mFindMemberByIdWithStatusNormal" resultMap="memberRM">
+		select m.id,m.password,m.name,m.tel,m.birth,m.sex,m.email,m.address,m.login_time,
+ 		m.login_fail,m.point,m.signup_date,m.agreement,m.acc_status_no,a.acc_status_info
+ 		from member m, (select * from acc_status where acc_status_no=0) a
+ 		where a.acc_status_no=m.acc_status_no and m.id=#{value}
+	</select>
+	
+	<!-- 현재 포인트조회 -->
+	<select id="mMemberPointCheck" resultType="int">
+		select point from member where id=#{value}
+	</select>
+	
+	<!-- 로그인된 계정의 권한 가져오기 -->
+	<select id="mFindAuthorityById" resultType="authority">
+		select grade,id from grade where id=#{value} 
+	</select>
+	
+	<!-- 사용자 상품구매내역 가져오기(포인트사용내역 포함)  -->
+	<select id="mMemberProductOrderHistory" resultMap="productOrderRM">
+		SELECT O.ORDER_NO,O.PRODUCT_NO,P.PRODUCT_NAME,O.QUANTITY,O.ID,O.PURCHASED_TIME
+		FROM PRODUCT_ORDER O, PRODUCT P
+		WHERE P.PRODUCT_NO=O.PRODUCT_NO and O.ID=#{value}
+	</select>
+	
+	<!-- 회원가입 -->
+	<insert id="mMemberRegister" parameterType="memberVO">
+		INSERT INTO MEMBER(ID,PASSWORD,NAME,TEL,BIRTH,SEX,EMAIL,ADDRESS,AGREEMENT)
+		VALUES(#{id},#{password},#{name},#{tel},#{birth},#{sex},#{email},#{address},#{agreement})
+	</insert>
+	<!-- 회원가입시 권한 등록-->
+	<insert id="mGradeRegister" parameterType="authority">
+		insert into grade(GRADE,ID) values(#{grade},#{id})
+	</insert>
+	
+	<!-- 탈퇴 계정 상태 변경 (탈퇴 계정 상태 번호=2) -->
+	<update id="mMemberLeave">
+		update member set ACC_STATUS_NO=2 where id=#{value}
+	</update>
+
+	<!-- 회원정보 수정 성별은 주민등록번호 기준으로 설정했기때문에 변경 불가-->
+	<update id="mMemberUpdate" parameterType="memberVO">
+		update member set
+		PASSWORD=#{password},NAME=#{name},TEL=#{tel},EMAIL=#{email},ADDRESS=#{address},AGREEMENT=#{agreement}  
+		where id=#{id}
+	</update>
+	
+	<!-- 로그인 성공시 로그인 시간을 현재시간으로 변경 및 로그인 실패횟수 0 으로 초기-->
+	<update id="mMemberLoginTimeUpdate">
+		update member set LOGIN_TIME=SYSDATE,LOGIN_FAIL=0 where id=#{value}
+	</update>
+	
+	<!-- 로그인 실패시 실패횟수 1회 증가 -->
+	<update id="mMemberLoginFailUp">
+		update member set LOGIN_FAIL=LOGIN_FAIL+1 where id=#{value}
+	</update>
+	
+	<!-- 
+		포인트 증가 
+		포인트 증가시켜줄 ID와 몇 포인트를 증가 시킬것인지 값이 필요
+		두개이상의 parameter일때는 vo 또는 collection을 사용하여야함
+		현재 상황에서는 map을 사용함
+		사용법: service 단계에서
+		Map<String, Object> map = new HashMap<String, Object>();
+		선언 후 아래와 같이 id와 포인트 증가량을 추가한다.
+		참고로 hashmap이 아니라 map을 사용한는것은 다형성 때문에 사용한다. 언제든지 hashmap에서 linkedHashMap등을 변경시킬수 있도록 하기 위함
+		map.put("id", "java");
+		map.put("pointUp", 4);
+		예상 사용처: 리뷰쓰기, 평점쓰기,로그인 서비스에 해당 기능을 추가해야 할듯
+	-->
+	<update id="mMemberPointUp" parameterType="map">
+		update member set point=point+#{pointUp} where id=#{id}
+	</update>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
