@@ -1,9 +1,12 @@
 package org.kosta.watflix.model.service;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.kosta.watflix.model.mapper.PartyMapper;
 import org.kosta.watflix.model.vo.ApplyVO;
+import org.kosta.watflix.model.vo.MembershipVO;
 import org.kosta.watflix.model.vo.PartyListVO;
 import org.kosta.watflix.model.vo.PartyVO;
 import org.springframework.stereotype.Service;
@@ -54,12 +57,26 @@ public class PartyServiceImpl implements PartyService{
 		int totalPartyCount = partyMapper.mPartyGetTotalCount();
 		PagingBean pagingBean = null;
 		if(pageNo == null) {
-			pagingBean = new PagingBean(totalPartyCount);
+			int contentNumberPerPage=10;
+			int pageNumberPerPageGroup=5;
+			pagingBean = new PagingBean(totalPartyCount,contentNumberPerPage,pageNumberPerPageGroup);
 		}else {
-			pagingBean = new PagingBean(totalPartyCount, Integer.parseInt(pageNo));
+			int contentNumberPerPage=10;
+			int pageNumberPerPageGroup=5;
+			pagingBean = new PagingBean(totalPartyCount, contentNumberPerPage,pageNumberPerPageGroup,Integer.parseInt(pageNo));
 		}
 		PartyListVO partyListVO = new PartyListVO(partyMapper.mPartyGetAllList(pagingBean),pagingBean);
 		return partyListVO;
+	}
+	@Override
+	public MembershipVO sPartyGetMembershipDetail(int no) {
+		MembershipVO msvo = partyMapper.mPartyGetMembershipDetail(no);
+		return msvo;
+	}
+	@Override
+	public List<MembershipVO> sPartyMembershipInfo() {
+		List<MembershipVO> lmsvo = partyMapper.mPartyMembershipInfo();
+		return lmsvo;
 	}
 	
 	

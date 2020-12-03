@@ -28,13 +28,6 @@ public class FaqServiceImpl implements FaqService {
 	}
 
 	@Override
-	public void sFaqDelete(FaqVO faqVO) {
-		// TODO Auto-generated method stub
-		faqMapper.mFaqDelete(faqVO);
-		
-	}
-
-	@Override
 	public FaqVO sFaqDetail(int faqNo) {
 		// TODO Auto-generated method stub
 		return faqMapper.mFaqDetail(faqNo);
@@ -61,6 +54,11 @@ public class FaqServiceImpl implements FaqService {
 	@Override
 	public FaqListVO sGetFaqList() {
 		return sGetFaqList("1");
+	}
+
+	@Override
+	public void sFaqDelete(int faqNo) {
+			faqMapper.mFaqDelete(faqNo);
 	}
 
 }

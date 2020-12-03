@@ -24,7 +24,7 @@ public class YuriTestJUnit {
 	@Test
 	public void test(){
 		//FAQ 등록 테스트  - ok
-		/*
+		
 		FaqVO faqVO = new FaqVO();
 		MemberVO memberVO = new MemberVO();
 		
@@ -34,11 +34,10 @@ public class YuriTestJUnit {
 		memberVO.setEmail("gmail");
 		faqVO.setMemberVO(memberVO);
 		
-		faqVO.setFaqTitle("테스츄");
+		faqVO.setFaqTitle("졸려유");
 		faqVO.setFaqContents("테스형");
 		faqService.sFaqWrite(faqVO);
 		System.out.println();
-		*/
 		
 		//FAQ 수정 테스트 - ok
 		/*
@@ -67,30 +66,15 @@ public class YuriTestJUnit {
 		System.out.println(totalFaqCount);
 		*/
 		//FAQ 리스트 테스트 - ok
+		/*
 		String pageNo = null;
 		FaqListVO fvo = faqService.sGetFaqList();
 		System.out.println(faqService.sGetTotalFaqCount());
 		for(FaqVO faqVO:fvo.getFaqList())
 			System.out.println(faqVO);
+		 */
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
