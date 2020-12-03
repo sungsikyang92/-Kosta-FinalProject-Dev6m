@@ -6,7 +6,7 @@
 	 $(document).ready(function(){
 		 $(".nav-toggle").click(function(){
 			 $("#sidebar-wrapper").toggleClass("active")
-		 })
+		 });
 		 /* 권한이 있을때에만 로그아웃이벤트 활성화 */
 		 <sec:authorize access="hasRole('ROLE_MEMBER')">
 		 $("#logoutBtn").click(function() {
@@ -115,7 +115,7 @@
 						</li>
 					</sec:authorize>
 			      <li class="sidebar-nav-item">
-			        <a class="js-scroll-trigger" href="#services">파티게시판</a>
+			        <a class="js-scroll-trigger" href="${pageContext.request.contextPath}/partyList.do">파티게시판</a>
 			      </li>
 			      <li class="sidebar-nav-item">
 			        <a class="js-scroll-trigger" href="#portfolio">공지사항</a>

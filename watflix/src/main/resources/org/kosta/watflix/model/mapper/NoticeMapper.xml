@@ -14,8 +14,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</resultMap>
 	<!-- 공지게시글 목록 조회에 필요한 데이터를 셋팅된 ResultMap(noticeVO)에 넣는다. -->
 	<select id="mNoticeGetList" parameterType="pagingBean" resultMap="noticeBoardRM">
-		SELECT notice_no, id, notice_title, notice_hits FROM(
-		SELECT row_number() over(order by notice_no desc) as rnum, notice_no, id, notice_title, notice_hits
+		SELECT notice_no, id, notice_title, notice_hits, notice_posted_time FROM(
+		SELECT row_number() over(order by notice_no desc) as rnum, notice_no, id, notice_title, notice_hits, notice_posted_time
 		FROM notice) WHERE rnum BETWEEN #{startRowNumber} AND #{endRowNumber}
 	</select>
 	<!-- 공지게시글 디테일 조회에 필요한 데이터를 셋팅된 ResultMap(noticeVO)에 넣는다.(조회수는 올라가지 않는다.)  -->

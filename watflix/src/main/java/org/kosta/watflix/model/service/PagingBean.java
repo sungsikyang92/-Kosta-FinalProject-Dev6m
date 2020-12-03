@@ -13,8 +13,24 @@ public class PagingBean {
 	
 	public PagingBean() {
 	}
+	
+	public PagingBean(int totalContents, int contentNumberPerPage, int pageNumberPerPageGroup, int nowPage) {
+		super();
+		this.nowPage = nowPage;
+		this.contentNumberPerPage = contentNumberPerPage;
+		this.pageNumberPerPageGroup = pageNumberPerPageGroup;
+		this.totalContents = totalContents;
+	}
 
 	public PagingBean(int totalContents) {
+		this.totalContents = totalContents;
+	}
+	
+
+	public PagingBean(int totalContents,int contentNumberPerPage, int pageNumberPerPageGroup) {
+		super();
+		this.contentNumberPerPage = contentNumberPerPage;
+		this.pageNumberPerPageGroup = pageNumberPerPageGroup;
 		this.totalContents = totalContents;
 	}
 

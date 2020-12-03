@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="org.kosta.watflix.model.mapper.FaqMapper">
  	<!-- FAQ 작성 -->
  	<insert id="mFaqWrite" parameterType="faqVO">
- 		<selectKey keyProperty="faqNo" resultType="string" order="BEFORE">
+ 		<selectKey keyProperty="faqNo" resultType="int" order="BEFORE">
  			select faq_seq.nextval from dual
  		</selectKey>
  		 insert into faq(FAQ_NO,ID,FAQ_TITLE,FAQ_CONTENTS)
