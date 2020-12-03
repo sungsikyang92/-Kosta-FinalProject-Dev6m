@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kosta.watflix.model.mapper.MemberMapper;
+import org.kosta.watflix.model.service.ContentsService;
 import org.kosta.watflix.model.service.MemberService;
 import org.kosta.watflix.model.vo.MemberVO;
 import org.springframework.test.context.ContextConfiguration;
@@ -19,6 +20,8 @@ public class SanghoonTestJUnit {
 
 	@Resource
 	MemberService memberService;
+	@Resource
+	ContentsService contentsService;
 	
 	@Resource
 	MemberMapper memberMapper;
@@ -35,7 +38,7 @@ public class SanghoonTestJUnit {
 		memberVO.setSex("남성");
 		memberVO.setAddress("경기도");
 		memberVO.setAgreement("동의");
-		memberService.sMemberRegister(memberVO);
+	System.out.println(contentsService.sFindContentsByNo("70001473"));
 	}
 
 /* 회원정보수정 테스트 및 로그인시간,로그인실패횟수 증가 테스트 완료

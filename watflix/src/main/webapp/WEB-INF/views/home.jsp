@@ -23,7 +23,7 @@
 		                <div class="carousel-caption d-none d-md-block container-lg align-middle">
 		                   	<!-- 제목 -->
 		                    <h1>${contentsVO.contentsTitle}</h1>
-		                    <p> <a href="#">2016</a> | +16 | <a href="#">${contentsVO.contentsType}</a> | <a href="#">${contentsVO.genreVO.genreName}</a> </p>
+		                    <p> <a href="#">${contentsVO.contentsDate}</a> | ${contentsVO.contentsAge} | <a href="#">${contentsVO.contentsType}</a> | <a href="#">${contentsVO.genreVO.genreName}</a> </p>
 		                    <!-- 줄거리 -->
 		                    <p class="margin-top-under-sm">
 		                        ${contentsVO.contentsSummary}
@@ -49,13 +49,13 @@
 		                <div class="carousel-caption d-none d-md-block container-lg align-middle">
 		                   	<!-- 제목 -->
 		                    <h1>${contentsVO.contentsTitle}</h1>
-		                    <p> <a href="#">2016</a> | +16 | <a href="#">${contentsVO.contentsType}</a> | <a href="#">${contentsVO.genreVO.genreName}</a> </p>
+		                   	<p> <a href="#">${contentsVO.contentsDate}</a> | ${contentsVO.contentsAge} | <a href="#">${contentsVO.contentsType}</a> | <a href="#">${contentsVO.genreVO.genreName}</a> </p>
 		                    <!-- 줄거리 -->
 		                    <p class="margin-top-under-sm">
 		                        ${contentsVO.contentsSummary}
 		                    </p>
 		                    <div class="margin-top-under-sm">
-		                        <a href="#" class="btn btn-primary btn-lg margin-right" role="button" aria-pressed="true">
+		                        <a href="${pageContext.request.contextPath}/contentsDetail.do?contentsNo=${contentsVO.contentsNo}" class="btn btn-primary btn-lg margin-right" role="button" aria-pressed="true">
 		                            <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="20" alt="">
 		                            상세보기
 		                        </a>
