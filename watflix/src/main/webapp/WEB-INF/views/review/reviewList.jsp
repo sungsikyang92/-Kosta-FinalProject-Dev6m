@@ -8,6 +8,8 @@
 <title>ReviewList</title>
 </head>
 <body>
+<h3> <a class="nav-link navbar-nav-item" href="${pageContext.request.contextPath}/home.do">홈으로</a>
+</h3>
 <table class="table">
 	<caption>리뷰목록</caption>
 	<thead>
