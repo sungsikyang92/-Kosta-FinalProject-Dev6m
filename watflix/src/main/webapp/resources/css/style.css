@@ -26,6 +26,10 @@ h5 {
 	margin: 10px 0 40px 0;
 }
 
+.deck-diplayNone{
+	display: none;
+}
+
 .logo {
 	padding: 0;
 	margin-right: 100px;
@@ -628,7 +632,7 @@ a, a:hover {
 	box-sizing: border-box;
 	display: block;
 	box-shadow: none;
-	width: 214%;
+	width: 216%;
 	border-radius: 4px;
 	border: 0;
 	height: 50px;

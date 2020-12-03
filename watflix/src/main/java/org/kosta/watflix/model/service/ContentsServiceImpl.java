@@ -25,8 +25,8 @@ public class ContentsServiceImpl implements ContentsService {
 	
 	//모든 컨텐츠 리스트
 	@Override
-	public ContentsListVO sGetAllContentsList(PagingBean pagingBean) {
-		return new ContentsListVO(contentsMapper.mGetAllContentsList(pagingBean), pagingBean);
+	public List<ContentsVO> sGetAllContentsList() {
+		return contentsMapper.mGetAllContentsList();
 	}
 	
 	//특정 타입의 컨텐츠 총 개수
@@ -57,5 +57,10 @@ public class ContentsServiceImpl implements ContentsService {
 	@Override
 	public List<GenreVO> sGetAllGenreList() {
 		return contentsMapper.mGetAllGenreList();
+	}
+	//컨텐츠 상세보기
+	@Override
+	public ContentsVO sFindContentsByNo(String contentsNo) {
+		return contentsMapper.mFindContentsByNo(contentsNo);
 	}
 }
