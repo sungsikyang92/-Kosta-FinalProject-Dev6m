@@ -12,7 +12,9 @@ public interface ReportMapper {
 	// 평점 신고 작성하기
 	void mReportWriteComments(ReportVO reportVO);
 	// 리뷰 신고 작성하기
-	void mReportWriteReview(ReportVO reportVO);	
+	void mReportWriteReview(ReportVO reportVO);
+	// 신고 글 삭제
+	void mReportDelete(int reportNo);
 	// 리뷰 신고 수 조회
 	int mGetTotalReportReviewCount();
 	// 평점 신고 수 조회

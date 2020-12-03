@@ -36,7 +36,7 @@ public class JaeWooTestUnit {
 			System.out.println(vo);
 		}
 		//*/
-		//*/
+		/*/
 		ReportListVO lvo = reportService.sGetReportReviewList("1");
 		System.out.println(lvo.toString());
 		//*/
@@ -89,6 +89,10 @@ public class JaeWooTestUnit {
 		reportMapper.mReportWriteReview(reportVO);
 		//*/
 		
+		/*/
+		// 신고글 삭제
+		reportMapper.mReportDelete(2);
+		//*/
 		
 	}
 }

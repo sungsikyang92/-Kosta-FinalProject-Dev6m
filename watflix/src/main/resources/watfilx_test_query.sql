@@ -255,3 +255,11 @@ values ('java',13);
 
 select * from party
 delete from apply
+
+
+/* 재우 */
+
+
+
+
+

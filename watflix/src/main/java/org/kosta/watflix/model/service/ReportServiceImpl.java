@@ -11,22 +11,31 @@ import org.springframework.stereotype.Service;
 public class ReportServiceImpl implements ReportService {
 	@Resource
 	ReportMapper reportMapper;
-
+	// 신고글 상세보기
 	@Override
 	public ReportVO sReportGetDetailNoHits(int reportNo) {
 		ReportVO reportVO = reportMapper.mReportGetDetailNoHits(reportNo);
 		return reportVO;
 	}
-
+	
+	// 신고글 작성(평점)
 	@Override
 	public void sReportWriteComments(ReportVO reportVO) {
 		reportMapper.mReportWriteComments(reportVO);
 	}
 	
+	// 신고글 작성(리뷰)
 	@Override
 	public void sReportWriteReview(ReportVO reportVO) {
 		reportMapper.mReportWriteReview(reportVO);
 	}
+	
+	// 신고글 삭제
+	@Override
+	public void sReportDelete(int reportNo) {
+		reportMapper.mReportDelete(reportNo);		
+	}	
+	
 	// 신고 리스트(리뷰)
 	@Override
 	public ReportListVO sGetReportReviewList() {
@@ -60,5 +69,6 @@ public class ReportServiceImpl implements ReportService {
 		}
 		ReportListVO reportListVO = new ReportListVO(reportMapper.mGetReportCommentsList(pagingBean), pagingBean);
 		return reportListVO;
-	}	
+	}
+
 }
