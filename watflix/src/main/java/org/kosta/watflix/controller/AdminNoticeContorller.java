@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class AdminNoticeContorller {
@@ -30,9 +32,17 @@ public class AdminNoticeContorller {
 		return "notice/noticeWriteForm";
 	}
 	@PostMapping("noticeWrite.do")
-	public String noticeWrite(NoticeVO noticeVO, Model model) {
+	public String noticeWrite(NoticeVO noticeVO, Model model, RedirectAttributes redirectAttributes) {
+		MemberVO memberVO = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		noticeVO.setMemberVO(memberVO);
 		noticeService.sNoticeWrite(noticeVO);
-		return "notice/noticeDetail";
+		redirectAttributes.addAttribute("noticeNo", noticeVO.getNoticeNo());
+		return "redirect:noticeDetailNoHits.do";
+	}
+	
+	@RequestMapping("noticeDetailNoHits.do")
+	public ModelAndView noticeDetailNoHits(int noticeNo) {
+		return new ModelAndView("notice/noticeDetail", "noticeDetail", noticeService.sNoticeGetDetailNoHits(noticeNo));
 	}
 	
 	/**
@@ -44,12 +54,11 @@ public class AdminNoticeContorller {
 	 * @return
 	 */
 	@RequestMapping("noticeDetail.do")
-	public String noticeDetail(int noticeNo, Model model) {
+	public String noticeDetail(int noticeNo, RedirectAttributes redirectAttributes) {
 		// 조회수 올림(세션적용하지 않아 읽었던 글을 다시 읽더라고 조회수 증가함.
 		// 로그인시 조회 내역을 저장할 수 있는 리스트를 만들어 세션에 넣는 코드가 필요함. 
-		noticeService.sNoticeUpdateHits(noticeNo);
-		
-		model.addAttribute("noticeDetail", noticeService.sNoticeGetDetailNoHits(noticeNo));
+		noticeService.sNoticeUpdateHits(noticeNo);		
+		redirectAttributes.addAttribute("noticeDetail", noticeService.sNoticeGetDetailNoHits(noticeNo));
 		return "notice/noticeDetail";
 	}
 	
@@ -67,7 +76,6 @@ public class AdminNoticeContorller {
 		noticeVO.setMemberVO(memberVO);
 		noticeService.sNoticeUpdate(noticeVO);
 		model.addAttribute("noticeDetail", noticeService.sNoticeGetDetailNoHits(noticeNo));
-		// 조회수 증가 관련 기능 추가 필요
-		return "notice/noticeDetail";
+		return "redirect:noticeDetailNoHits.do";
 	}
 }
