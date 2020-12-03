@@ -7,8 +7,13 @@
 <head>
 <meta charset="UTF-8">
 <title>FAQ Detail Page</title>
-
 </head>
+<script type="text/javascript">
+function updateBtn() {
+	// alert("업뎃버튼을 눌렀츄");
+	location.href="${pageContext.request.contextPath}/faqUpdateForm.do?faqNo=${requestScope.fvo.faqNo}";
+}
+</script>
 <body>
 <form action="faqDelete.do" id="faqDelete" method="post">
 <table>
@@ -32,8 +37,8 @@
 			</tr>
 	</tbody>
 </table>
-<input type="submit" value="삭제하기" >
-<input type="submit" value="수정하기" >
+<input type="submit" value="삭제" >
 </form>
+<button id="updateBtn" onclick="updateBtn()">수정</button>
 </body>
 </html>
