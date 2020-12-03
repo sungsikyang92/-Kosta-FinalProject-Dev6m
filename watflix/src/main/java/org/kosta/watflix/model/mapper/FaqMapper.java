@@ -20,6 +20,7 @@ public interface FaqMapper {
 	List<FaqVO> mGetFaqList(PagingBean pagingBean);
 	// 총 FAQ 개수
 	int mGetTotalFaqCount();
+	void mFaqDelete(int faqNo);
 }
 
 
