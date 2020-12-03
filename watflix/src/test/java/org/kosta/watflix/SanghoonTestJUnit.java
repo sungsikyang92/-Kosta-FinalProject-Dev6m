@@ -22,7 +22,7 @@ public class SanghoonTestJUnit {
 	
 	@Resource
 	MemberMapper memberMapper;
-/*	회원가입 테스트 완료
+//	회원가입 테스트 완료
 	@Test
 	public void test(){
 		MemberVO memberVO = new MemberVO();
@@ -35,9 +35,9 @@ public class SanghoonTestJUnit {
 		memberVO.setSex("남성");
 		memberVO.setAddress("경기도");
 		memberVO.setAgreement("동의");
-		System.out.println(memberService.sFindMemberById("java14"));
+		memberService.sMemberRegister(memberVO);
 	}
-*/
+
 /* 회원정보수정 테스트 및 로그인시간,로그인실패횟수 증가 테스트 완료
 	@Test
 	public void test(){
@@ -59,7 +59,7 @@ public class SanghoonTestJUnit {
 		System.out.println(memberService.sFindMemberById("java14"));
 	}
 */
-
+/*
 	@Test
 	public void test(){
 		System.out.println(memberService.sMemberPointCheck("java"));
@@ -70,6 +70,7 @@ public class SanghoonTestJUnit {
 		System.out.println(memberService.sMemberPointCheck("java"));
 		memberService.sMemberProductOrderHistory("java14");	
 	}
+	*/
 }
 
 

@@ -9,7 +9,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT COUNT(*) FROM REVIEW
 	</select>
 	<resultMap type="reviewVO" id="reviewRM">
-		<result property="memberVO.id" column="id"/>
+		<result property="memberVO.id" column="ID"/>
 		<result property="contentsVO.contentsNo" column="CONTENTS_NO"/>
 	</resultMap>
 	<!-- 리뷰 리스트 가져오기 -->
@@ -25,7 +25,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<selectKey keyProperty="reviewNo" resultType="int" order="BEFORE">
 			SELECT REVIEW_SEQ.NEXTVAL FROM DUAL
 		</selectKey>
-		INSERT INTO REVIEW(REVIEW_NO,ID,CONTENTS_NO,REVIEW_TITLE,REVIEW_CONTENTS) 
+		INSERT INTO REVIEW(REVIEW_NO,ID,CONTENTS_NO,REVIEW_TITLE,REVIEW_CONTENTS)  
 		VALUES(#{reviewNo},#{memberVO.id},#{contentsVO.contentsNo},#{reviewTitle},#{reviewContents})
 	</insert>
 	<!-- 리뷰 수정 -->
