@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +9,9 @@
 <title>ReviewWriteForm</title>
 </head>
 <body>
-<form action="reviewWrite.do" method="post" id="reviewWrite_Form">
+<h3> <a class="nav-link navbar-nav-item" href="${pageContext.request.contextPath}/reviewList.do">리뷰리스트로</a>
+</h3>
+<form action="${pageContext.request.contextPath}/reviewWrite.do" method="post" id="reviewWriteForm">
 <sec:csrfInput/>
 <input type="hidden" name="contentsNo" value="${param.contentsNo}">
 <table class="table">
@@ -28,9 +31,10 @@
 	<button type="submit" class="btn">게시하기</button>
 </div>
 </form>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-		$("#reviewWrite_Form").submit(function(){
+		$("#reviewWriteForm").submit(function(){
 			return confirm("리뷰를 등록 하시겠습니까?");
 		});
 	});
