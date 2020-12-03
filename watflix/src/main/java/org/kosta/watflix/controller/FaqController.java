@@ -7,6 +7,7 @@ import org.kosta.watflix.model.service.FaqService;
 import org.kosta.watflix.model.service.PagingBean;
 import org.kosta.watflix.model.vo.FaqVO;
 import org.kosta.watflix.model.vo.MemberVO;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -46,6 +47,11 @@ public class FaqController {
 		MemberVO mvo=(MemberVO) session.getAttribute("mvo");
 		faqVO.setMemberVO(mvo);  // 작성자 아이디
 		*/	
+		// 아래의 1번 문장은 시큐리티를 통해서 세션을 가져와 MemberVO 값을 가져온다.
+		//1. SecurityContextHolder.getContext().getAuthentication().getPrincipal() : (MemberVO) 다운캐스팅 USERVO .
+		MemberVO memberVO = (MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		//System.out.println(memberVO.getId());
+		faqVO.setMemberVO(memberVO);
 		faqService.sFaqWrite(faqVO);
 		ra.addAttribute("faqNo",faqVO.getFaqNo());
 		return "redirect:faqDetail.do";
@@ -68,9 +74,17 @@ public class FaqController {
 		faqService.sFaqDelete(faqNo);
 		return "redirect:faqList.do";
 	}
+	@RequestMapping("faqUpdateForm.do")
+	public String faqUpdateForm(int faqNo, Model model) {
+		model.addAttribute("fvo",faqService.sFaqDetail(faqNo));
+	return "faq/faq_update_form";
+}
+	
 	@PostMapping("faqUpdate.do")
-		public String faqUpdate(FaqVO faqVO) {
+		public String faqUpdate(FaqVO faqVO, Model model) {
+		// System.out.println();
 		faqService.sFaqUpdate(faqVO);
-		return "redirect:faqDetail.do";
+		model.addAttribute("fvo",faqService.sFaqDetail(faqVO.getFaqNo()));
+		return "faq/faq_detail";
 	}
 }

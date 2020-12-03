@@ -19,6 +19,10 @@ INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('c','1','똘이','gmail')
 INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('ㅇ','1','앵식','gmail')
 INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL,ACC_STAUTS_NO) VALUES('jikang','1','지강','gmail',0)
 INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('spring','1','강상훈','gmail')
+<<<<<<< HEAD
+
+=======
+>>>>>>> branch 'master' of https://github.com/Minikanko/-Kosta-FinalProject-Dev6m.git
 INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('yuki','1','유리','gmail')
 INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('java','$2a$10$i2cyl1OhUeJ71PUTHozM9enjjiJ0rZVVjn/z7FVXnJA1pBi7gOUH2','앵앵앵','gmail')
 INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('spring',$2a$10$i2cyl1OhUeJ71PUTHozM9enjjiJ0rZVVjn/z7FVXnJA1pBi7gOUH2,'웨에엥','gmail')
@@ -267,7 +271,9 @@ values ('java',13);
 
 select * from party
 select * from contents
+delete from apply
 delete from genre
 drop table contents
+
 
 
