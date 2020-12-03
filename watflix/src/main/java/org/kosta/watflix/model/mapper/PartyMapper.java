@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.kosta.watflix.model.service.PagingBean;
 import org.kosta.watflix.model.vo.ApplyVO;
+import org.kosta.watflix.model.vo.MembershipVO;
 import org.kosta.watflix.model.vo.PartyVO;
 @Mapper
 public interface PartyMapper {
@@ -26,6 +27,8 @@ public interface PartyMapper {
 	void mPartyEnd(PartyVO pvo);
 	
 	List<PartyVO> mPartyGetAllList (PagingBean pagingBean);
+
+	MembershipVO mPartyGetMembershipDetail(int no);
 
 }
 

@@ -22,8 +22,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		select count(*) from party
  	</select>
  	
- 	
- 	
  	<resultMap type="partyVO" id="partyRM">
 		<result property="memberVO.id" column="ID"/>
 		<result property="membershipVO.membershipName" column="MEMBERSHIP_NAME"/>
@@ -52,9 +50,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		WHERE rnum BETWEEN #{startRowNumber} AND #{endRowNumber} and p.membership_no = ms.membership_no
  	</select>
  	
- 	
- 	
- 	
  	<!-- 파티게시판 게시글 수정
  		 이용권종류, 모집인원 변경 -->
  	<update id="mPartyUpdate" parameterType="partyVO">
@@ -63,7 +58,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		PARTY_HEADCOUNT=#{partyHeadCount} 
  		WHERE PARTY_NO=#{partyNo}
  	</update>
- 	
+ 	<!-- 게시글 삭제 -->
  	<delete id="mPartyDelete" parameterType="int">
  		delete from party where PARTY_NO=#{value}
  	</delete>
@@ -72,17 +67,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		update PARTY set PARTY_APPLYCOUNT = PARTY_APPLYCOUNT+1 
  		WHERE PARTY_NO = #{value}
  	</update>
- 	
+ 	<!-- 파티게시글 지원하기 -->
  	<insert id="mPartyApply" parameterType="applyVO">
  		insert into APPLY(ID,PARTY_NO)
  		values (#{memberVO.id},#{partyVO.partyNo})
  	</insert>
- 	
+ 	<!-- 파티게시글 상태 모집 종료처리 -->
  	<update id="mPartyEnd" parameterType="partyVO">
  		update PARTY SET PARTY_STATUS = '모집완료'
  		WHERE PARTY_NO = #{partyNo}
  	</update>
  	
+ 	<!-- 멤버십 정보 다 받아오기 -->
+ 	<sql id="selectMembership">
+ 	select MEMBERSHIP_NO , MEMBERSHIP_NAME , CONCURRENT_USERS FROM MEMBERSHIP WHERE MEMBERSHIP_NO = #{value}
+ 	</sql>
+ 	
+ 	<select id="mPartyGetMembershipDetail" parameterType="int" resultType="membershipVO">
+ 		<include refid="selectMembership"></include>
+ 	</select>
  	
 </mapper>
 

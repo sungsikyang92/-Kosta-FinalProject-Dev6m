@@ -3,6 +3,7 @@ package org.kosta.watflix.model.service;
 import java.util.List;
 
 import org.kosta.watflix.model.vo.ApplyVO;
+import org.kosta.watflix.model.vo.MembershipVO;
 import org.kosta.watflix.model.vo.PartyListVO;
 import org.kosta.watflix.model.vo.PartyVO;
 
@@ -15,6 +16,7 @@ public interface PartyService {
 	void sPartyApply(ApplyVO avo);
 	PartyListVO sPartyGetAllList();
 	PartyListVO sPartyGetAllList(String pageNo);
+	MembershipVO sPartyGetMembershipDetail(int no);
 	
 	
 }
