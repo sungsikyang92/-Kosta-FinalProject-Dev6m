@@ -126,6 +126,9 @@
 			      <li class="sidebar-nav-item">
 			        <a class="js-scroll-trigger" href="#contact">포인트마켓</a>
 			      </li>
+			      <li class="sidebar-nav-item">
+			        <a class="js-scroll-trigger" href="${pageContext.request.contextPath}/contentsUpdateAdmin.do">컨텐츠 다운로드</a>
+			      </li>
 			    </ul>
  			 </nav>
 		   <!-- Home Menu - CLOSE -->
