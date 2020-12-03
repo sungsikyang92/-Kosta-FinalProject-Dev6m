@@ -1,5 +1,7 @@
 package org.kosta.watflix.controller;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.kosta.watflix.model.mapper.PartyMapper;
@@ -47,7 +49,6 @@ public class PartyController {
 	@ResponseBody
 	public Object test(int no) {
 		MembershipVO msvo = partyService.sPartyGetMembershipDetail(no);
-		System.out.println(msvo);
 		return msvo;
 	}
 	
@@ -59,6 +60,22 @@ public class PartyController {
 		return "redirect:partyList.do";
 	}
 	
+	@RequestMapping("goPartyUpdate.do")
+	public String goPartyUpdate(Model model,PartyVO partyVO) {
+		//System.out.println(partyvo);
+		PartyVO pvo=partyService.sPartyGetDetail(partyVO.getPartyNo());
+	//	System.out.println(pvo);
+		model.addAttribute("pvo",pvo);
+		List<MembershipVO> lmsvo = partyService.sPartyMembershipInfo();
+		model.addAttribute("lmsvo",lmsvo);
+		return "party/party-Update.tiles";
+	}
 	
+	@PostMapping("partyUpdate.do")
+	public String partyUpdate(PartyVO partyVO) {
+		System.out.println(partyVO);
+		partyService.sPartyUpdate(partyVO);
+		return "redirect:partyList.do";
+	}
 	
 }

@@ -13,16 +13,12 @@
 <title>Insert title here</title>
 <script type="text/javascript">
 	$(document).ready(function() {
-		$(".partyDelete1").submit(function() {
-			//alert($(this));
+		$(".partyUpdate").submit(function(){
+    		return confirm("수정하시겠습니까?"); 
+    	})
+		$(".partyDelete").submit(function() {
 			return confirm("삭제하시겠습니까?");
-			//return false;
 		})
-		$("#partyUpdate").submit(function(){
-			alert($(this).parent().eq(0).text());
-    		/* return confirm("수정하시겠습니까?"); */
-    		return false;
-    	});
 	})
 </script>
 <style type="text/css">
@@ -35,7 +31,7 @@ width: 75%;
 </style>
 </head>
 <body>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br>
 <div id="partyList"">
 
 <table border="1">
@@ -57,21 +53,25 @@ width: 75%;
 
 ${plvo.memberVO.id  } --%>
 
-<td><button type="submit" form="partyDelete" class="checkBtn btn-outline-primary">삭제</button>
- 	<form action="partyDelete.do" id="partyDelete" class=partyDelete1 method="post">
- 	<sec:csrfInput/><!-- csrf 토큰 -->
-		<input type="hidden" name="partyNo" value="${plvo.partyNo}">			
-	</form>
-</td>
 
-
-<td><button type="submit" class="checkBtn btn-outline-primary" form="partyUpdate" >수정</button>
-	<form action="goPartyUpdate.do" id=partyUpdate method="get" class="partyUpdate">
+<td>
+	<form action="goPartyUpdate.do" class=partyUpdate method="get" class="partyUpdate">
 	<!--<sec:csrfInput/> csrf 토큰 -->
 		<input type="hidden" name="partyNo" value="${plvo.partyNo}" >
-			
+		<button class="checkBtn btn-outline-primary">수정</button>	
 	</form>
 </td>
+
+
+<td>
+ 	<form action="partyDelete.do" class=partyDelete method="post">
+ 	<sec:csrfInput/><!-- csrf 토큰 -->
+		<input type="hidden" name="partyNo" value="${plvo.partyNo}">			
+	<button class="checkBtn btn-outline-primary">삭제</button>
+	</form>
+</td>
+
+
 
 
 

@@ -17,6 +17,6 @@ public interface PartyService {
 	PartyListVO sPartyGetAllList();
 	PartyListVO sPartyGetAllList(String pageNo);
 	MembershipVO sPartyGetMembershipDetail(int no);
-	
+	List<MembershipVO> sPartyMembershipInfo();
 	
 }

@@ -254,4 +254,4 @@ insert into APPLY(ID, PARTY_NO )
 values ('java',13);
 
 select * from party
-delete from apply
+delete from genre

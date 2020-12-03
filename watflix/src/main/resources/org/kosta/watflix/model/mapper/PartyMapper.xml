@@ -55,7 +55,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	<update id="mPartyUpdate" parameterType="partyVO">
  		update PARTY set 
  		MEMBERSHIP_NO = #{membershipVO.membershipNo},
- 		PARTY_HEADCOUNT=#{partyHeadCount} 
+ 		PARTY_HEADCOUNT=#{partyHeadCount},
+ 		PARTY_TITLE=#{partyTitle}
+ 		
  		WHERE PARTY_NO=#{partyNo}
  	</update>
  	<!-- 게시글 삭제 -->
@@ -85,6 +87,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	
  	<select id="mPartyGetMembershipDetail" parameterType="int" resultType="membershipVO">
  		<include refid="selectMembership"></include>
+ 	</select>
+ 	
+ 	<sql id="MembershipInfo">
+ 	select * from MEMBERSHIP
+ 	</sql>
+ 	
+ 	<select id="mPartyMembershipInfo" resultType="membershipVO">
+ 		<include refid="MembershipInfo"></include>
  	</select>
  	
 </mapper>

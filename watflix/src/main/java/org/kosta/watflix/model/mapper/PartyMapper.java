@@ -29,7 +29,8 @@ public interface PartyMapper {
 	List<PartyVO> mPartyGetAllList (PagingBean pagingBean);
 
 	MembershipVO mPartyGetMembershipDetail(int no);
-
+	
+	List<MembershipVO> mPartyMembershipInfo();
 }
 
 

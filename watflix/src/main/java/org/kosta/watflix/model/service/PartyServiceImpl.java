@@ -1,5 +1,7 @@
 package org.kosta.watflix.model.service;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.kosta.watflix.model.mapper.PartyMapper;
@@ -70,6 +72,11 @@ public class PartyServiceImpl implements PartyService{
 	public MembershipVO sPartyGetMembershipDetail(int no) {
 		MembershipVO msvo = partyMapper.mPartyGetMembershipDetail(no);
 		return msvo;
+	}
+	@Override
+	public List<MembershipVO> sPartyMembershipInfo() {
+		List<MembershipVO> lmsvo = partyMapper.mPartyMembershipInfo();
+		return lmsvo;
 	}
 	
 	
