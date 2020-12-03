@@ -153,18 +153,21 @@
             </div>
             <!-- Trend tab - CLOSE -->
 
-            <!-- Popular tab - OPEN -->
+            <!-- 평점 높은 순 tab - OPEN -->
             <div class="margin-top-under-sm tab-pane fade" id="popular" role="tabpanel" aria-labelledby="popular-tab">
                  <!-- Carousel - OPEN -->
-                <div class="carousel" data-flickity='{ "groupCells": true, "cellAlign": "center", "pageDots": false, "wrapAround": true, "draggable": false }' style="height: 400px">
-
-                    <!-- The Irishman - OPEN -->
-                    <div class="carousel-cell">
-                        <img class="carousel-cell-image" src="${pageContext.request.contextPath}/resources/media/images/posters/the_irishman.jpg" />
-                        <h5 class="text-center"> The Irishman </h5>
-                        <div class="row">
+                <div class="carousel" data-flickity='{ "groupCells": true, "cellAlign": "center", "pageDots": false, "wrapAround": true, "draggable": false }' style="height: 280px;padding-top: 15px;">
+					<!--컨텐츠 리스트 출력 For문 START  -->
+                  	<c:forEach items="${requestScope.contentsHighAvgStars}" var="contentsVO">
+                  	<div class="carousel-cell">
+                  			<!-- 컨텐츠 작은 썸네일 -->
+                        	<img class="carousel-cell-image" src="${pageContext.request.contextPath}/${contentsVO.contentsSmallThumbnail}" />
+                        	<!-- 컨텐츠 제목 -->
+                        	<h5 class="text-center">${contentsVO.contentsTitle}</h5>
+                        	
+                        	<div class="row">
                             <div class="col-3 text-left no-padding">
-                                2019
+                                년도
                             </div>
                             <div class="col-3 text-center no-padding">
                                 <a href="">
@@ -194,23 +197,19 @@
                             </div>
                         </div>
                     </div>
-                    <!-- The Irishman - CLOSE -->
+                  	</c:forEach>
+					<!--컨텐츠 리스트 출력 For문 END  -->
+                    
                 </div>
                 <!-- Carousel - CLOSE -->
             </div>
-            <!-- Popular tab - CLOSE -->
+            <!-- 평점 높은 순 tab - CLOSE -->
 
             <!-- New tab - OPEN -->
             <div class="margin-top-under-sm tab-pane fade" id="new" role="tabpanel" aria-labelledby="new-tab">
-                New
+                최다등록평점
             </div>
             <!-- New tab - CLOSE -->
-
-            <!-- Oscars tab - OPEN -->
-            <div class="margin-top-under-sm tab-pane fade" id="oscars" role="tabpanel" aria-labelledby="oscars-tab">
-                Oscars 2020
-            </div>
-            <!-- Oscars tab - CLOSE -->
 
         </div>
         <!-- Tabs content - OPEN -->
@@ -220,15 +219,16 @@
             <a class="nav-item nav-link active" id="movies-tab" data-toggle="pill" href="#movies" role="tab" aria-controls="movies-tab" aria-selected="true">
                 <div class="icon-nav">
                     <img src="${pageContext.request.contextPath}/resources/media/icons/cinema.png" width="15" alt="" class="margin-right-sm padding-bottom-sm">
-                    Movies
+                    영화
                 </div>
             </a>
             <a class="nav-item nav-link" id="tvshows-tab" data-toggle="pill" href="#tvshows" role="tab" aria-controls="tvshows-tab" aria-selected="false">
                 <div class="icon-nav">
                     <img src="${pageContext.request.contextPath}/resources/media/icons/tv.png" width="15" alt="" class="margin-right-sm padding-bottom-sm">
-                    TV Shows
+                    TV프로그램
                 </div>
             </a>
+            
         </nav>
         <!-- Tabs nav - CLOSE -->
 
@@ -240,207 +240,15 @@
 
                 <!-- Genre Filters - OPEN -->
                 <div class="carousel" data-flickity='{ "groupCells": true, "cellAlign": "left", "pageDots": false, "wrapAround": false, "draggable": false, "contain": true }' id="genreFilters">
-
-                    <!-- Genre Action - OPEN -->
-                    <div class="carousel-filter-cell text-center">
-                        <button class="btn btn-outline-primary btn-md margin-top-under-sm" data-filter=".Action">
-                            Action
-                        </button>
-                    </div>
-                    <!-- Genre Action - CLOSE -->
-
-                    <!-- Genre Adventure - OPEN -->
-                    <div class="carousel-filter-cell text-center">
-                        <button class="btn btn-outline-primary btn-md margin-top-under-sm" data-filter=".Adventure">
-                            Adventure
-                        </button>
-                    </div>
-                    <!-- Genre Adventure - CLOSE -->
-
-                    <!-- Genre Animation - OPEN -->
-                    <div class="carousel-filter-cell text-center">
-                        <button class="btn btn-outline-primary btn-md margin-top-under-sm" data-filter=".Animation">
-                            Animation
-                        </button>
-                    </div>
-                    <!-- Genre Animation - CLOSE -->
-
-                    <!-- Genre Comedy - OPEN -->
-                    <div class="carousel-filter-cell text-center">
-                        <button class="btn btn-outline-primary btn-md margin-top-under-sm" data-filter=".Comedy">
-                            Comedy
-                        </button>
-                    </div>
-                    <!-- Genre Comedy - CLOSE -->
-
-                    <!-- Genre Crime - OPEN -->
-                    <div class="carousel-filter-cell text-center">
-                        <button class="btn btn-outline-primary btn-md margin-top-under-sm" data-filter=".Crime">
-                            Crime
-                        </button>
-                    </div>
-                    <!-- Genre Crime - CLOSE -->
-
-                    <!-- Genre Drama - OPEN -->
-                    <div class="carousel-filter-cell text-center">
-                        <button class="btn btn-outline-primary btn-md margin-top-under-sm" data-filter=".Drama">
-                            Drama
-                        </button>
-                    </div>
-                    <!-- Genre Drama - CLOSE -->
-
-                    <!-- Genre Fantasy - OPEN -->
-                    <div class="carousel-filter-cell text-center">
-                        <button class="btn btn-outline-primary btn-md margin-top-under-sm" data-filter=".Fantasy">
-                            Fantasy
-                        </button>
-                    </div>
-                    <!-- Genre Fantasy - CLOSE -->
-
-                    <!-- Genre Historical - OPEN -->
-                    <div class="carousel-filter-cell text-center">
-                        <button class="btn btn-outline-primary btn-md margin-top-under-sm" data-filter=".Historical">
-                            Historical
-                        </button>
-                    </div>
-                    <!-- Genre Historical - CLOSE -->
-
-                    <!-- Genre Historical Fiction - OPEN -->
-                    <div class="carousel-filter-cell text-center">
-                        <button class="btn btn-outline-primary btn-md margin-top-under-sm" data-filter=".Historical-Fiction">
-                            Historical Fiction
-                        </button>
-                    </div>
-                    <!-- Genre Historical Fiction - CLOSE -->
-
-                    <!-- Genre Horror - OPEN -->
-                    <div class="carousel-filter-cell text-center">
-                        <button class="btn btn-outline-primary btn-md margin-top-under-sm" data-filter=".Horror">
-                            Horror
-                        </button>
-                    </div>
-                    <!-- Genre Horror - CLOSE -->
-
-                    <!-- Genre Magical Realism - OPEN -->
-                    <div class="carousel-filter-cell text-center">
-                        <button class="btn btn-outline-primary btn-md margin-top-under-sm" data-filter=".Magical_Realism">
-                            Magical Realism
-                        </button>
-                    </div>
-                    <!-- Genre Magical Realism - CLOSE -->
-
-                    <!-- Genre Mystery - OPEN -->
-                    <div class="carousel-filter-cell text-center">
-                        <button class="btn btn-outline-primary btn-md margin-top-under-sm" data-filter=".Mystery">
-                            Mystery
-                        </button>
-                    </div>
-                    <!-- Genre Mystery - CLOSE -->
-
-                    <!-- Genre Paranoid Fiction - OPEN -->
-                    <div class="carousel-filter-cell text-center">
-                        <button class="btn btn-outline-primary btn-md margin-top-under-sm" data-filter=".Paranoid_Fiction">
-                            Paranoid Fiction
-                        </button>
-                    </div>
-                    <!-- Genre Paranoid Fiction - CLOSE -->
-
-                    <!-- Genre Philosophical - OPEN -->
-                    <div class="carousel-filter-cell text-center">
-                        <button class="btn btn-outline-primary btn-md margin-top-under-sm" data-filter=".Philosophical">
-                            Philosophical
-                        </button>
-                    </div>
-                    <!-- Genre Philosophical - CLOSE -->
-
-                    <!-- Genre Political - OPEN -->
-                    <div class="carousel-filter-cell text-center">
-                        <button class="btn btn-outline-primary btn-md margin-top-under-sm" data-filter=".Political">
-                            Political
-                        </button>
-                    </div>
-                    <!-- Genre Political - CLOSE -->
-
-                    <!-- Genre Romance - OPEN -->
-                    <div class="carousel-filter-cell text-center">
-                        <button class="btn btn-outline-primary btn-md margin-top-under-sm" data-filter=".Romance">
-                            Romance
-                        </button>
-                    </div>
-                    <!-- Genre Romance - CLOSE -->
-
-                    <!-- Genre Saga - OPEN -->
-                    <div class="carousel-filter-cell text-center">
-                        <button class="btn btn-outline-primary btn-md margin-top-under-sm" data-filter=".Saga">
-                            Saga
-                        </button>
-                    </div>
-                    <!-- Genre Saga - CLOSE -->
-
-                    <!-- Genre Satire - OPEN -->
-                    <div class="carousel-filter-cell text-center">
-                        <button class="btn btn-outline-primary btn-md margin-top-under-sm" data-filter=".Satire">
-                            Satire
-                        </button>
-                    </div>
-                    <!-- Genre Satire - CLOSE -->
-
-                    <!-- Genre Science Fiction - OPEN -->
-                    <div class="carousel-filter-cell text-center">
-                        <button class="btn btn-outline-primary btn-md margin-top-under-sm" data-filter=".Science_Fiction">
-                            Science Fiction
-                        </button>
-                    </div>
-                    <!-- Genre Science Fiction - CLOSE -->
-
-                    <!-- Genre Social - OPEN -->
-                    <div class="carousel-filter-cell text-center">
-                        <button class="btn btn-outline-primary btn-md margin-top-under-sm" data-filter=".Social">
-                            Social
-                        </button>
-                    </div>
-                    <!-- Genre Social - CLOSE -->
-
-                    <!-- Genre Speculative - OPEN -->
-                    <div class="carousel-filter-cell text-center">
-                        <button class="btn btn-outline-primary btn-md margin-top-under-sm" data-filter=".Speculative">
-                            Speculative
-                        </button>
-                    </div>
-                    <!-- Genre Speculative - CLOSE -->
-
-                    <!-- Genre Surrealism - OPEN -->
-                    <div class="carousel-filter-cell text-center">
-                        <button class="btn btn-outline-primary btn-md margin-top-under-sm" data-filter=".Surrealism">
-                            Surrealism
-                        </button>
-                    </div>
-                    <!-- Genre Surrealism - CLOSE -->
-
-                    <!-- Genre Thriller - OPEN -->
-                    <div class="carousel-filter-cell text-center">
-                        <button class="btn btn-outline-primary btn-md margin-top-under-sm" data-filter=".Thriller">
-                            Thriller
-                        </button>
-                    </div>
-                    <!-- Genre Thriller - CLOSE -->
-
-                    <!-- Genre Urban - OPEN -->
-                    <div class="carousel-filter-cell text-center">
-                        <button class="btn btn-outline-primary btn-md margin-top-under-sm" data-filter=".Urban">
-                            Urban
-                        </button>
-                    </div>
-                    <!-- Genre Urban - CLOSE -->
-
-                    <!-- Genre Western - OPEN -->
-                    <div class="carousel-filter-cell text-center">
-                        <button class="btn btn-outline-primary btn-md margin-top-under-sm" data-filter=".Western">
-                            Western
-                        </button>
-                    </div>
-                    <!-- Genre Western - CLOSE -->
-
+					<c:forEach items="${requestScope.GetAllGenreList}" var="genreVO">
+						<!-- Genre Action - OPEN -->
+	                    <div class="carousel-filter-cell text-center">
+	                        <button class="btn btn-outline-primary btn-md margin-top-under-sm" data-filter="${genreVO.genreCode}">
+	                            ${genreVO.genreName}
+	                        </button>
+	                    </div>
+	                    <!-- Genre Action - CLOSE -->
+					</c:forEach>
                 </div>
                 <!-- Genre Filters - CLOSE -->
 

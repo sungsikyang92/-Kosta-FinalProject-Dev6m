@@ -21,6 +21,7 @@ public interface ContentsMapper {
 	List<ContentsVO> mGetAllContentsListForType(PagingBean pagingBean);
 	List<ContentsVO> mContentsHighHits();
 	List<ContentsVO> mContentsHighAvgStars();
+	List<GenreVO> mGetAllGenreList();
 	
 
 }

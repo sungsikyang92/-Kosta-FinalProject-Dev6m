@@ -20,9 +20,21 @@ public class MemberController {
 		return "loginForm.tiles";
 	}
 	
-	//로그아웃완료 후 이동할 페이지 ( spring-security.xml 에 설정 ) 
+	//로그인 실패
 	@RequestMapping("login_fail.do")
 	public String loginFail() {
 		return "member/login_fail";
+	}
+	
+	//로그인 후 안내페이지
+	@RequestMapping("login_result.do")
+	public String login() {
+		return "member/login_result";
+	}
+	
+	//로그아웃 후 안내페이지
+	@RequestMapping("logout_result.do")
+	public String logout() {
+		return "member/logout_result";
 	}
 }

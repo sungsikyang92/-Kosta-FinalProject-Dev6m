@@ -26,7 +26,8 @@ public class HomeController {
 		model.addAttribute("contentsHighHits",contentsService.sContentsHighHits());
 		//평점 높은 컨텐츠 출력(1~10위)
 		model.addAttribute("contentsHighAvgStars",contentsService.sContentsHighAvgStars());
-
+		model.addAttribute("GetAllGenreList",contentsService.sGetAllGenreList());
+		
 		return "home.tiles";
 	}	
 	
