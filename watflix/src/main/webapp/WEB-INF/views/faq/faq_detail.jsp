@@ -10,6 +10,7 @@
 
 </head>
 <body>
+<form action="faqDelete.do" id="faqDelete" method="post">
 <table>
 	<caption> FAQ Detail</caption>
 	<thead>
@@ -31,5 +32,8 @@
 			</tr>
 	</tbody>
 </table>
+<input type="submit" value="삭제하기" >
+<input type="submit" value="수정하기" >
+</form>
 </body>
 </html>
