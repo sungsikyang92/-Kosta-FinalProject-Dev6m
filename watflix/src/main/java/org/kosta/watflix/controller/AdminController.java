@@ -15,7 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-//test32341
+//jh
 public class AdminController {
    
    @Resource
@@ -48,7 +48,7 @@ public class AdminController {
         	   sThumbnailURL=stemplateURL+genreArr[i];
                sDoc = Jsoup.connect(sThumbnailURL).get();
                sElems = sDoc.select("h1.nm-collections-header-name");
-               String genreName = sElems.text();
+               String genreName = sElems.text().substring(0, sElems.text().indexOf("영화"));
                String genreCode=genreArr[i];
                
                //장르 DB에 저장하기

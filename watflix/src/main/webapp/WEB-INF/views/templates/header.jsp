@@ -7,7 +7,14 @@
 		 $(".nav-toggle").click(function(){
 			 $("#sidebar-wrapper").toggleClass("active")
 		 })
+		 /* 권한이 있을때에만 로그아웃이벤트 활성화 */
+		 <sec:authorize access="hasRole('ROLE_MEMBER')">
+		 $("#logoutBtn").click(function() {
+				$("#logoutForm").submit();
+			});
+		 </sec:authorize> 
 	 })
+	 
 	
 </script>
   <!-- Navbar - OPEN -->
@@ -89,10 +96,22 @@
 					</sec:authorize>
 					<sec:authorize access="hasRole('ROLE_MEMBER')">
 						<li class="sidebar-nav-item">
-						   <a class="js-scroll-trigger" href="${pageContext.request.contextPath}/logout.do">로그아웃</a>
+						   <a class="js-scroll-trigger" href="#" id="logoutBtn">로그아웃</a>
+						   <form id="logoutForm" action="${pageContext.request.contextPath}/logout.do" method="post" style="display: none">
+							<sec:csrfInput />
+						</form>
 						 </li>
 						 <li class="sidebar-nav-item">
 						  <a class="js-scroll-trigger" href="#about">마이페이지</a>
+						  <!-- 하위 항목 -->
+						  <div>
+						  	<ul>
+						  		<li><a href="#">-회원정보수정</a></li>
+						  		<li><a href="#">-포인트조회</a></li>
+						  		<li><a href="#">-내 게시물 조회</a></li>
+						  		<li><a href="#">-1:1문의</a></li>
+						  	</ul>
+						  </div>
 						</li>
 					</sec:authorize>
 			      <li class="sidebar-nav-item">

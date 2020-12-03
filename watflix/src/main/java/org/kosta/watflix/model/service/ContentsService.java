@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.kosta.watflix.model.vo.ContentsListVO;
 import org.kosta.watflix.model.vo.ContentsVO;
+import org.kosta.watflix.model.vo.GenreVO;
 
 public interface ContentsService {
 
@@ -14,5 +15,6 @@ public interface ContentsService {
 	ContentsListVO sGetAllContentsListForType(PagingBean pagingBean);
 	List<ContentsVO> sContentsHighHits();
 	List<ContentsVO> sContentsHighAvgStars();
+	List<GenreVO> sGetAllGenreList();
 
 }
