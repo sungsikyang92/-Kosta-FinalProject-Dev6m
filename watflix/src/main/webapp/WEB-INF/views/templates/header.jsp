@@ -118,7 +118,7 @@
 			        <a class="js-scroll-trigger" href="${pageContext.request.contextPath}/partyList.do">파티게시판</a>
 			      </li>
 			      <li class="sidebar-nav-item">
-			        <a class="js-scroll-trigger" href="#portfolio">공지사항</a>
+			        <a class="js-scroll-trigger" href="${pageContext.request.contextPath}/getNoticeList.do">공지사항</a>
 			      </li>
 			      <li class="sidebar-nav-item">
 			        <a class="js-scroll-trigger" href="#contact">고객센터</a>
