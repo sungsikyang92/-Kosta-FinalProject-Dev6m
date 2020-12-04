@@ -87,6 +87,21 @@ public class AdminController {
                         bElems = bDoc.select("a.item-genre");
                         //타입
                         String type = bElems.text();
+                        //개봉일
+                        bElems = bDoc.select("span.item-year");
+                        String date = bElems.text();
+                        //상영시간
+                        bElems = bDoc.select(".item-runtime>.duration");
+                        String runningTime = bElems.text();
+                        //출연배우
+                        bElems = bDoc.select(".item-starring>.title-data-info-item-list");
+                        String actor = bElems.text();
+                        //관람등급
+                        bElems = bDoc.select(".maturity-number");
+                        String age = bElems.text();
+                        //제작자
+                        bElems = bDoc.select(".item-creators>.title-data-info-item-list");
+                        String producer = bElems.text();
                         //큰썸네일
                         bElems = bDoc.select("div.hero-image-desktop");
                         String[] bImgUrlAttr = bElems.attr("style").split("\"");
@@ -94,7 +109,7 @@ public class AdminController {
                         bw.write("bImgUrl: "+bImgUrl);
                         bw.newLine();
                         //이미지 다운받고 저장하기
-                        adminService.saveThumbnail(sImgUrl,bImgUrl,path,contentsId,title,summary,type,genreCode,genreName); 
+                        adminService.saveThumbnail(sImgUrl,bImgUrl,path,contentsId,title,summary,type,date,runningTime,actor,age,producer,genreCode,genreName); 
                         System.out.println((int)((++count/sElems.size())*100)+"% 완료");
                         System.out.println("count: "+count+" sElems.size() : "+sElems.size());
                         bw.write("==================================================");

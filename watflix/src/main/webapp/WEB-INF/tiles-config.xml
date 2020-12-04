@@ -2,7 +2,7 @@
 <!--
 타일즈 설정파일
 -->
-  <!DOCTYPE tiles-definitions PUBLIC 
+<!DOCTYPE tiles-definitions PUBLIC 
         "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" 
         "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">  
 <tiles-definitions>
@@ -19,7 +19,12 @@
  		<put-attribute name="main"  value="/WEB-INF/views/member/loginForm.jsp"/>
  		<put-attribute name="footer" value=""/>
  	</definition>
+
+	<definition name="*/*Form.tiles" extends="loginForm.tiles">
+		<put-attribute name="title"  value="{2}" />
+ 		<put-attribute name="main"  value="/WEB-INF/views/{1}/{2}Form.jsp"/>
 	
+	</definition>
 	 	<!-- 
  			definition name="*.tiles" : * 는 모든 문자열을 의미 
  			{1} 은 첫번째 * 에 해당하는 문자열을 의미한다 	
@@ -30,12 +35,11 @@
  	</definition>
  	<!-- 	첫번째 *  {1}  디렉토리명 
  			두번째 *  {2}  파일명 
- 			WEB-INF/views/member/findbyid_form.jsp
+ 			WEB-INF/views/member/findbyid_form.jsp	
  							     *			*
  							    {1}		 	{2}  
  	 -->
  	<definition name="*/*.tiles" extends="home.tiles">
- 		<put-attribute name="title"  value="{2}" />
  		<put-attribute name="main"  value="/WEB-INF/views/{1}/{2}.jsp"/>
  	</definition>
 </tiles-definitions>
