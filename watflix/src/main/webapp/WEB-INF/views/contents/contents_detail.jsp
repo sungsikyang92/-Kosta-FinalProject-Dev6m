@@ -22,7 +22,7 @@
                     </div>
                      <div class="margin-top-under-sm">
                         <a href="#"  role="button" aria-pressed="true">
-                            왓플리뷰 수 <font color="red"> </font>개
+                            왓플리뷰 수 <font color="red">${contentsVO.contentsReviewCount} </font>개
                         </a>
                     </div>
                      <div class="margin-top-under-sm">

@@ -6,12 +6,17 @@
 	 $(document).ready(function(){
 		 $(".nav-toggle").click(function(){
 			 $("#sidebar-wrapper").toggleClass("active")
+			 $("#mypageDiv").css('display','none');
 		 });
 		 /* 권한이 있을때에만 로그아웃이벤트 활성화 */
 		 <sec:authorize access="hasRole('ROLE_MEMBER')">
 		 $("#logoutBtn").click(function() {
 				$("#logoutForm").submit();
 			});
+		 
+		 $("#mypageBtn").click(function(){
+			 $("#mypageDiv").toggle('slow');
+		 })
 		 </sec:authorize> 
 	 })
 	 
@@ -52,9 +57,7 @@
                         <a class="nav-link navbar-nav-item" href="#">
                             영화
                         </a>
-                        <a class="nav-link navbar-nav-item" href="${pageContext.request.contextPath}/reviewList.do">
-                        리뷰리스트보기
-                        </a>
+                        
                     </li>
                 </ul>
                 <!-- Left - CLOSE -->
@@ -102,14 +105,14 @@
 						</form>
 						 </li>
 						 <li class="sidebar-nav-item">
-						  <a class="js-scroll-trigger" href="#about">마이페이지</a>
+						  <a class="js-scroll-trigger" href="#" id="mypageBtn">마이페이지</a>
 						  <!-- 하위 항목 -->
-						  <div>
-						  	<ul>
-						  		<li><a href="#">-회원정보수정</a></li>
-						  		<li><a href="#">-포인트조회</a></li>
-						  		<li><a href="#">-내 게시물 조회</a></li>
-						  		<li><a href="#">-1:1문의</a></li>
+						  <div class="mypageDiv" id="mypageDiv">
+						  	<ul class="mypageList">
+						  		<li><a href="#">- 회원정보수정</a></li>
+						  		<li><a href="#">- 포인트조회</a></li>
+						  		<li><a href="#">- 내 게시물 조회</a></li>
+						  		<li><a href="#">- 1:1문의</a></li>
 						  	</ul>
 						  </div>
 						</li>
