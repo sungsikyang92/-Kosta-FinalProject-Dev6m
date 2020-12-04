@@ -275,4 +275,19 @@ delete from apply
 
 delete from genre
 
+/*재우 test*/
+select * from report
+union (all)
+
+
+
+
+
+
+
+
+
+
+
+
 

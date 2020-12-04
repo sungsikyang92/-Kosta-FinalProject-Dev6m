@@ -7,6 +7,7 @@ import org.kosta.watflix.model.vo.ReportListVO;
 import org.kosta.watflix.model.vo.ReportVO;
 import org.springframework.stereotype.Service;
 
+// 트랜잭션 처리 필요함. springmvc12-transaction의 Service 참고
 @Service
 public class ReportServiceImpl implements ReportService {
 	@Resource
