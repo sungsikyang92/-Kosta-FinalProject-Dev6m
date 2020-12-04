@@ -42,7 +42,6 @@
 			<td>
 				<button form="noticeUpdateForm">수정</button>
 				<form action="noticeUpdateForm.do" id="noticeUpdateForm" method="post">
-					<sec:csrfInput/>
 					<input type="hidden" name="noticeNo" value="${requestScope.noticeDetail.noticeNo}">
 				</form>
 			</td>

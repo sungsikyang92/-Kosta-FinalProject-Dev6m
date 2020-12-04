@@ -19,8 +19,7 @@ public class AdminNoticeContorller {
 
 	@Resource
 	NoticeService noticeService;
-	
-	@Secured("ROLE_MEMBER")
+		
 	@RequestMapping("getNoticeList.do")
 	public String getNoticeList(String pageNo, Model model) {
 		model.addAttribute("noticeList", noticeService.sNoticeGetList(pageNo));
@@ -28,7 +27,7 @@ public class AdminNoticeContorller {
 	}
 	// 공지글 작성 관리자만 가능하게 시큐리티작업 필요
 	@RequestMapping("noticeWriteForm.do")
-	public String noticeWriteForm(Model model){
+	public String noticeWriteForm(){
 		return "notice/noticeWriteForm";
 	}
 	@PostMapping("noticeWrite.do")
