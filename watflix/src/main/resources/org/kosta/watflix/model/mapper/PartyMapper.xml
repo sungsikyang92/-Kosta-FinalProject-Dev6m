@@ -90,7 +90,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	</select>
  	
  	<sql id="MembershipInfo">
- 	select * from MEMBERSHIP
+ 	select * from MEMBERSHIP order by membership_NO 
  	</sql>
  	
  	<select id="mPartyMembershipInfo" resultType="membershipVO">

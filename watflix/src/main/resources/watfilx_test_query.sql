@@ -194,6 +194,12 @@ values (PARTY_SEQ.nextval,'java','파티원제목1',1,1)
 
 select * from party
 delete from party
+alter table ACC_STATUS 
+
+ALTER TABLE member
+RENAME COLUMN acc_stauts_no TO acc_status_no;
+
+
 
 /* Faq test */
 insert into faq(FAQ_NO,ID,FAQ_TITLE,FAQ_CONTENTS)
@@ -203,7 +209,11 @@ insert into faq(FAQ_NO,ID,FAQ_TITLE,FAQ_CONTENTS)
  		select * from member;
  		
  		delete from faq;
- 		
+ select m.id,m.password,m.name,m.tel,m.birth,m.sex,m.email,m.address,m.login_time,
+ 		m.login_fail,m.point,m.signup_date,m.agreement,a.acc_status_info
+ 		from member m, (select * from acc_status) a
+ 		where m.id='java14'
+ 		select * from member where id='java14'
 CREATE TABLE FAQ(
    FAQ_NO VARCHAR2(100) PRIMARY KEY,
    ID VARCHAR2(100) NOT NULL,
@@ -246,6 +256,8 @@ PARTY_SEQ.nextval, 'java', '제목', 3, 4, 0, sysdate, '진행중');
 
 select party_seq.nextval from dual
 select * from party;
+select * from member
+
 
 
 select ms.membership_name, p.PARTY_NO, m.ID, 
@@ -265,5 +277,5 @@ select * from apply;
 insert into APPLY(ID, PARTY_NO )
 values ('java',13);
 
-select * from party
-delete from genre
+select * from member
+delete from membership

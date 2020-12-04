@@ -58,7 +58,7 @@ $(document).ready(function () {
 </tr>
 </table>
 
-
+<!-- 이용권 셀렉박스 -->
 <select name="membershipVO.membershipNo" id="membershipType" required >
 <option value="">이용권 종류를 선택해주세요</option>
 <option value="1">BASIC</option>
@@ -66,6 +66,7 @@ $(document).ready(function () {
 <option value="3">PREMIUM</option>
 </select>
 
+<!-- 모집인원 셀렉박스 -->
 <select name="partyHeadCount" id="partyHeadCount" required>
 <option>모집할 인원을 선택해주세요</option>
 </select>

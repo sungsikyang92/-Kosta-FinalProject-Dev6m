@@ -36,6 +36,7 @@ public class SanghoonTestJUnit {
 		memberVO.setAddress("경기도");
 		memberVO.setAgreement("동의");
 		memberService.sMemberRegister(memberVO);
+		
 	}
 
 /* 회원정보수정 테스트 및 로그인시간,로그인실패횟수 증가 테스트 완료
