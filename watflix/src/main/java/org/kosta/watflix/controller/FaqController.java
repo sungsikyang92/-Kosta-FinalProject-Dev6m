@@ -29,13 +29,13 @@ public class FaqController {
 		}else {
 			model.addAttribute("lvo",faqService.sGetFaqList(pageNo));
 		}
-		return "faq/faq_list";
+		return "faq/faq_list.tiles";
 		
 	}
 	// faq 작성 폼 이동
 	@RequestMapping("faqWriteForm.do")
 	public String faqWriteForm() {
-		return "faq/faq_write_form";
+		return "faq/faq_write_form.tiles";
 	}
 	// faq 작성
 	
@@ -60,31 +60,27 @@ public class FaqController {
 	// faq 상세보기
 	@RequestMapping("faqDetail.do")
 	public ModelAndView faqDetail(int faqNo) {
-		return new ModelAndView("faq/faq_detail","fvo",faqService.sFaqDetail(faqNo));
+		return new ModelAndView("faq/faq_detail.tiles","fvo",faqService.sFaqDetail(faqNo));
 	}
 	
 	// faq 삭제
-	
 	@PostMapping("faqDelete.do")
 	public String faqDelete(int faqNo) {
-		/*
-		if(session.getAttribute("mvo")==null)  // 로그인상태가 아니면
-			return "redirect:home.do";
-		*/
 		faqService.sFaqDelete(faqNo);
 		return "redirect:faqList.do";
 	}
+	//faq 수정 폼 이동
 	@RequestMapping("faqUpdateForm.do")
 	public String faqUpdateForm(int faqNo, Model model) {
 		model.addAttribute("fvo",faqService.sFaqDetail(faqNo));
-	return "faq/faq_update_form";
+	return "faq/faq_update_form.tiles";
 }
-	
+	//faq 수정
 	@PostMapping("faqUpdate.do")
 		public String faqUpdate(FaqVO faqVO, Model model) {
 		// System.out.println();
 		faqService.sFaqUpdate(faqVO);
 		model.addAttribute("fvo",faqService.sFaqDetail(faqVO.getFaqNo()));
-		return "faq/faq_detail";
+		return "faq/faq_detail.tiles";
 	}
 }

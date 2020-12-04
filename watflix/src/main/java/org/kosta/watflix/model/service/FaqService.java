@@ -5,11 +5,18 @@ import org.kosta.watflix.model.vo.FaqVO;
 
 
 public interface FaqService {
+	// FAQ 작성
 	void sFaqWrite(FaqVO faqVO); 
+	// FAQ 수정
 	void sFaqUpdate(FaqVO faqVO);
+	// FAQ 상세보기
 	FaqVO sFaqDetail(int faqNo);
+	// FAQ 개수
 	int sGetTotalFaqCount();
+	// FAQ 리스트
 	FaqListVO sGetFaqList(String pageNo);
+	// FAQ 리스트
 	FaqListVO sGetFaqList();
+	// FAQ 삭제 
 	void sFaqDelete(int faqNo);
 }
