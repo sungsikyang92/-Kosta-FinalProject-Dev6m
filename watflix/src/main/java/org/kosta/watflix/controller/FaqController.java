@@ -64,22 +64,18 @@ public class FaqController {
 	}
 	
 	// faq 삭제
-	
 	@PostMapping("faqDelete.do")
 	public String faqDelete(int faqNo) {
-		/*
-		if(session.getAttribute("mvo")==null)  // 로그인상태가 아니면
-			return "redirect:home.do";
-		*/
 		faqService.sFaqDelete(faqNo);
 		return "redirect:faqList.do";
 	}
+	//faq 수정 폼 이동
 	@RequestMapping("faqUpdateForm.do")
 	public String faqUpdateForm(int faqNo, Model model) {
 		model.addAttribute("fvo",faqService.sFaqDetail(faqNo));
 	return "faq/faq_update_form";
 }
-	
+	//faq 수정
 	@PostMapping("faqUpdate.do")
 		public String faqUpdate(FaqVO faqVO, Model model) {
 		// System.out.println();

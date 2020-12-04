@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+ <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
     
 <!DOCTYPE html>
 <html>
@@ -15,7 +16,7 @@ function updateBtn() {
 }
 </script>
 <body>
-<form action="faqDelete.do" id="faqDelete" method="post">
+
 <table>
 	<caption> FAQ Detail</caption>
 	<thead>
@@ -36,9 +37,17 @@ function updateBtn() {
 				<td>${requestScope.fvo.faqContents}</td>
 			</tr>
 	</tbody>
-</table>
-<input type="submit" value="삭제" >
+
+<button form="faqDelete" type="submit">삭제</button>
+<form action="faqDelete.do" id="faqDelete" method="post">
+<sec:csrfInput/>
+<input type="hidden" name="faqNo" value="${requestScope.fvo.faqNo}">
 </form>
 <button id="updateBtn" onclick="updateBtn()">수정</button>
+</table>
 </body>
 </html>
+
+
+
+
