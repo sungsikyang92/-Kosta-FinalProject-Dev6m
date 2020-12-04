@@ -7,7 +7,6 @@ import org.kosta.watflix.model.vo.ContentsVO;
 import org.kosta.watflix.model.vo.MemberVO;
 import org.kosta.watflix.model.vo.ReviewVO;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,7 +27,7 @@ public class ReviewController {
 	//리뷰 작성 폼(세션 추가 해야 합니다. 현재 페이지 이동만 됨.)
 	@RequestMapping("reviewWriteForm.do")
 	public String reviewWriteForm() {
-		return "review/reviewWriteFrom";
+		return "review/reviewWriteForm";
 	}
 	
 	//리뷰 작성 submit(세션 추가 해야 합니다.)
@@ -65,6 +64,19 @@ public class ReviewController {
 		reviewService.sReviewHitsUpdate(reviewNo);
 		rd.addAttribute("reviewNo",reviewNo);
 		return "redirect:reviewDetailNoHits.do";
+	}
+	
+	//리뷰 업데이트폼 이동(세션 추가 필요함)
+	@RequestMapping("reviewUpdateForm.do")
+	public ModelAndView reviewUpdateForm(int reviewNo) {
+		return new ModelAndView("review/reviewUpdateForm","ru",reviewService.sGetReviewDetailNoHits(reviewNo));
+	}
+	
+	//리뷰 업데이트(세션 추가 필요함)
+	@PostMapping("reviewUpdate.do")
+	public ModelAndView reviewUpdate(ReviewVO reviewVO) {
+		reviewService.sReviewUpdate(reviewVO);
+		return new ModelAndView("redirect:reviewDetailNoHits.do?reviewNo="+reviewVO.getReviewNo());
 	}
 }
 
