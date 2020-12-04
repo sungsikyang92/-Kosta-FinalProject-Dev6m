@@ -7,7 +7,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board.css">
+  
 <title>FAQ Detail Page</title>
+
 </head>
 <script type="text/javascript">
 function updateBtn() {
@@ -34,17 +41,17 @@ function updateBtn() {
 				<td>${requestScope.fvo.faqTitle}</td>
 				<td>${requestScope.fvo.memberVO.id}</td>
 				<td>${requestScope.fvo.faqPostedTime}</td>
-				<td>${requestScope.fvo.faqContents}</td>
+				<td><br><br>${requestScope.fvo.faqContents}</td>
 			</tr>
 	</tbody>
 
-<button form="faqDelete" type="submit">삭제</button>
+</table>
+<button form="faqDelete" type="submit" id="faq-delete-btn">삭제</button>
 <form action="faqDelete.do" id="faqDelete" method="post">
 <sec:csrfInput/>
 <input type="hidden" name="faqNo" value="${requestScope.fvo.faqNo}">
 </form>
 <button id="updateBtn" onclick="updateBtn()">수정</button>
-</table>
 </body>
 </html>
 
