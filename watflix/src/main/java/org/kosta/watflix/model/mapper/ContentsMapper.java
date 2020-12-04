@@ -17,13 +17,11 @@ public interface ContentsMapper {
 	ContentsVO mFindContentsByNo(String contentsNo);
 	int mGetTotalContentsCount();
 	int mGetTotalContentsCountForType(String contentsType);
-	List<ContentsVO> mGetAllContentsList(PagingBean pagingBean);
+	List<ContentsVO> mGetAllContentsList();
 	List<ContentsVO> mGetAllContentsListForType(PagingBean pagingBean);
 	List<ContentsVO> mContentsHighHits();
 	List<ContentsVO> mContentsHighAvgStars();
 	List<GenreVO> mGetAllGenreList();
-	
-
 }
 
 

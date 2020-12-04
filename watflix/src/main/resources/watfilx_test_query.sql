@@ -111,7 +111,8 @@ INSERT INTO NOTICE VALUES (NOTICE_SEQ.NEXTVAL, 'jikang', '점심은 뭐 먹지?'
 
 /*Comment 테스트를 위한 데이터 추가*/
 INSERT INTO Comments VALUES (COMMENTS_SEQ.NEXTVAL, 'jikang', '81004276', '쉐보레 카마로 멋지지 않나요?', 8, SYSDATE);
-INSERT INTO Comments VALUES (COMMENTS_SEQ.NEXTVAL, 'jikang', '60004481', '나도 스파이더맨 처럼 날아다닐 수 있으면?', 8, SYSDATE);
+INSERT INTO Comments VALUES (COMMENTS_SEQ.NEXTVAL, 'java', '60004481', '나도 스파이더맨 처럼 날아다닐 수 있으면?', 8, SYSDATE);
+INSERT INTO Comments VALUES (COMMENTS_SEQ.NEXTVAL, 'java', '81095669', '진격의 거인이 그렇게 재미있냐?', 8, SYSDATE);
 
 /*report 테스트를 위한 데이터 추가*/
 INSERT INTO report VALUES (report_seq.nextval, 'jikang', null, 1, 1, '신고합니다', sysdate)
@@ -266,8 +267,8 @@ insert into APPLY(ID, PARTY_NO )
 values ('java',13);
 
 select * from party
+select * from contents
 delete from apply
-
 /*컨텐츠의 리뷰 갯수 구하기*/
 select * from REVIEW
 select count(*) CONTENTS_NO from review
@@ -277,3 +278,8 @@ ON REVIEW.CONTENTS_NO = CONTENTS.CONTENTS_NO
 SELECT * FROM CONTENTS
 SELECT COUNT(*) FROM REVIEW
 SELECT COUNT(REVIEW_TITLE) AS CONTENTS_REVIEW_NO FROM REVIEW WHERE CONTENTS_NO = '80204465'
+delete from genre
+drop table contents
+/*재우 test*/
+select * from report
+union (all)

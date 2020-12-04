@@ -8,6 +8,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="mGetTotalReviewCount" resultType="int">
 		SELECT COUNT(*) FROM REVIEW
 	</select>
+	
 	<resultMap type="reviewVO" id="reviewRM">
 		<result property="memberVO.id" column="ID"/>
 		<result property="contentsVO.contentsNo" column="CONTENTS_NO"/>
@@ -49,6 +50,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="mReviewHitsUpdate">
 		UPDATE REVIEW SET REVIEW_HITS=REVIEW_HITS+1 WHERE REVIEW_NO=#{VALUE}
 	</update>
+	
+	<!-- 특정컨텐츠에 대한 리뷰개수 -->
+	<select id="mGetContentsReviewCount" resultType="int">
+		SELECT COUNT(*) FROM REVIEW WHERE CONTENTS_NO = #{value}
+	</select>
 </mapper>
 
 
