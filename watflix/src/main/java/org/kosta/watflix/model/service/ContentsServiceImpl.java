@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.kosta.watflix.model.mapper.ContentsMapper;
+import org.kosta.watflix.model.mapper.ReviewMapper;
 import org.kosta.watflix.model.vo.ContentsListVO;
 import org.kosta.watflix.model.vo.ContentsVO;
 import org.kosta.watflix.model.vo.GenreVO;
@@ -16,6 +17,8 @@ public class ContentsServiceImpl implements ContentsService {
 	
 	@Resource
 	ContentsMapper contentsMapper;
+	@Resource
+	ReviewMapper reviewMapper;
 	
 	//컨텐츠 총 개수
 		@Override
@@ -61,6 +64,8 @@ public class ContentsServiceImpl implements ContentsService {
 	//컨텐츠 상세보기
 	@Override
 	public ContentsVO sFindContentsByNo(String contentsNo) {
-		return contentsMapper.mFindContentsByNo(contentsNo);
+		ContentsVO contentsVO = contentsMapper.mFindContentsByNo(contentsNo);
+		contentsVO.setContentsReviewCount(reviewMapper.mGetContentsReviewCount(contentsNo));
+		return contentsVO;
 	}
 }

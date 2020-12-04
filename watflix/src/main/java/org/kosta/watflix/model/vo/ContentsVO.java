@@ -19,6 +19,7 @@ public class ContentsVO {
 	private int contentsAvgStars;
 	private int contentsLikes;
 	private int contentsHits;
+	private int contentsReviewCount;
 	
 	
 	public ContentsVO() {
@@ -29,7 +30,7 @@ public class ContentsVO {
 	public ContentsVO(String contentsNo, String contentsTitle, String contentsType, GenreVO genreVO,
 			String contentsSummary, String contentsSmallThumbnail, String contentsBigThumbnail, String contentsDate,
 			String contentsRunningtime, String contentsActor, String contentsProducer, String contentsAge,
-			int contentsAvgStars, int contentsLikes, int contentsHits) {
+			int contentsAvgStars, int contentsLikes, int contentsHits, int contentsReviewCount) {
 		super();
 		this.contentsNo = contentsNo;
 		this.contentsTitle = contentsTitle;
@@ -46,6 +47,7 @@ public class ContentsVO {
 		this.contentsAvgStars = contentsAvgStars;
 		this.contentsLikes = contentsLikes;
 		this.contentsHits = contentsHits;
+		this.contentsReviewCount = contentsReviewCount;
 	}
 
 
@@ -199,6 +201,16 @@ public class ContentsVO {
 	}
 
 
+	public int getContentsReviewCount() {
+		return contentsReviewCount;
+	}
+
+
+	public void setContentsReviewCount(int contentsReviewCount) {
+		this.contentsReviewCount = contentsReviewCount;
+	}
+
+
 	@Override
 	public String toString() {
 		return "ContentsVO [contentsNo=" + contentsNo + ", contentsTitle=" + contentsTitle + ", contentsType="
@@ -207,13 +219,13 @@ public class ContentsVO {
 				+ contentsBigThumbnail + ", contentsDate=" + contentsDate + ", contentsRunningtime="
 				+ contentsRunningtime + ", contentsActor=" + contentsActor + ", contentsProducer=" + contentsProducer
 				+ ", contentsAge=" + contentsAge + ", contentsAvgStars=" + contentsAvgStars + ", contentsLikes="
-				+ contentsLikes + ", contentsHits=" + contentsHits + "]";
+				+ contentsLikes + ", contentsHits=" + contentsHits + ", contentsReviewCount=" + contentsReviewCount
+				+ "]";
 	}
 
-
 	
 
 	
-	
+
 	
 }
