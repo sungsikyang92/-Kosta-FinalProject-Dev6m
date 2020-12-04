@@ -23,6 +23,8 @@ public interface ReviewMapper {
 	void mReviewDelete(int reviewNo);
 	//리뷰 조회수 업데이트
 	void mReviewHitsUpdate(int reviewNo);
+	// 특정 컨텐츠에 대한 리뷰개수
+	int mGetContentsReviewCount(String contentsNo);
 
 }
 

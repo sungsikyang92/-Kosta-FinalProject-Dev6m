@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,9 +8,11 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
 	$(document).ready(function(){
-		$('#noticeUpdateFormButton').click(function(){
-			alert("1");
-			location.href="${pageContext.request.contextPath}/noticeUpdateForm.do?noticeNo=${requestScope.noticeDetail.noticeNo}";
+		$('#noticeUpdateForm').submit(function(){
+			return confirm("수정하시겠습니까?");
+		})
+		$('#noticeDeleteForm').submit(function(){
+			return confirm("삭제하시겠습니까?");
 		})
 	})
 </script>
@@ -36,8 +39,20 @@
 			<td>${requestScope.noticeDetail.noticeHits}</td>
 		</tr>
 		<tr>
-			<td><button id="noticeUpdateFormButton">수정</button></td>
-			<td><button id="noticeDeleteButon">삭제</button></td>
+			<td>
+				<button form="noticeUpdateForm">수정</button>
+				<form action="noticeUpdateForm.do" id="noticeUpdateForm" method="post">
+					<sec:csrfInput/>
+					<input type="hidden" name="noticeNo" value="${requestScope.noticeDetail.noticeNo}">
+				</form>
+			</td>
+			<td>
+				<button form="noticeDeleteForm" type="submit">삭제</button>
+				<form action="noticeDelete.do" id="noticeDeleteForm" method="post">
+					<sec:csrfInput />
+					<input type="hidden" name="noticeNo" value="${requestScope.noticeDetail.noticeNo}">
+				</form>
+			</td>
 		</tr>
 	</table>
 </body>
