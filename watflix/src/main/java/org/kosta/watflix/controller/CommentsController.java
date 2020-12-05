@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class CommentsController {
@@ -28,14 +29,19 @@ public class CommentsController {
 		return "comments/commentsListByContentsNo";
 	}
 	
-	@PostMapping("commentsWriteForm.do")
+	@RequestMapping("commentsWriteForm.do")
 	public String commentsWriteForm(int contentsNo, Model model) {
 		model.addAttribute("contentsNo", contentsNo);
 		return "comments/commentsWriteForm";
 	}
 	
-	/*
-	 * @PostMapping("commentsWrite.do") public String commentsWrite(CommentsVO
-	 * commentsVO) { return }
-	 */
+	
+	@PostMapping("commentsWrite.do")
+	public String commentsWrite(CommentsVO commentsVO, String contentsNo, RedirectAttributes redirectAttributes) {
+		System.out.println("commentsWrite.do 작동");
+		commentsService.sCommentsWrite(commentsVO);
+		redirectAttributes.addAttribute("contentsNo", contentsNo);
+		return "redirect:getCommentsListByContentsNo.do";
+	}
+	
 }

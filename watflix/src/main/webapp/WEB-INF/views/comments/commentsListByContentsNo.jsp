@@ -8,7 +8,6 @@
 <meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <title>commentList</title>
@@ -16,24 +15,25 @@
 <body>
 	<script type="text/javascript">
 		$(document).ready(function(){
-			$("#commentsWriteForm").submit(function(){
-				alert("작성하시겠습니까?")
+			$("#openCommentsWriteFormButton").click(function(){
+				alert('1');
+				var popupWidth = 500; // 팝업창 가로크기
+				var popupHeight = 600; // 팝업창 세로크기
+				
+				// window.screen.width로 현재 윈도우창의 가로크기를 가져온다.
+				// widdow.screen.height로 현재 윈도우창의 세로크기를 가져온다.
+				//아래 공식을 적용하여 팝업창을 현재 화면의 중간에 띄운다.
+				var popupX = (window.screen.width / 2) - (popupWidth / 2);
+				var popupY = (window.screen.height / 2) - (popupHeight / 2);
+								
+				window.open("${pageContext.request.contextPath}/commentsWriteForm.do?contentsNo=${requestScope.contentsNo}", "평점입력",
+						"width="+popupWidth+",height="+popupHeight+",left="+popupX+",top="+popupY);
 			})
 		})
 	</script>
 	평점  
-	<form action="commentsWrite.do" id="commentsWriteForm" method="post">
-	<sec:csrfInput/>
-	<table>
-		<tr>			
-			<td>별점</td><td><input type="number" name="commentsStars" min="1" max="10" required="required"></td>
-		</tr>
-		<tr>
-			<td>한줄평</td><td><textarea cols="90" rows="5" name="commentsContents" placeholder="한줄평을 입력해주세요!" required="required"></textarea></td>
-			<td><input type="submit" value="작성"></td>
-		</tr>
-	</table>	
-	</form>
+	<button type="button" id="openCommentsWriteFormButton">평점쓰기</button>
+	${requestScope.contentsNo}
 	<table class="table table-borderde table-hober boardlist">
 		<c:forEach items="${requestScope.commentsListByContentsNo.list}" var="commentsListByContentsNo">
 		<tr>
