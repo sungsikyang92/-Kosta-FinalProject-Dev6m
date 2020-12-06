@@ -4,6 +4,8 @@ import javax.annotation.Resource;
 
 import org.kosta.watflix.model.service.CommentsService;
 import org.kosta.watflix.model.vo.CommentsVO;
+import org.kosta.watflix.model.vo.MemberVO;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,6 +41,8 @@ public class CommentsController {
 	@PostMapping("commentsWrite.do")
 	public String commentsWrite(CommentsVO commentsVO, String contentsNo, RedirectAttributes redirectAttributes) {
 		System.out.println("commentsWrite.do 작동");
+		MemberVO memberVO = (MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		commentsVO.setMemberVO(memberVO);
 		commentsService.sCommentsWrite(commentsVO);
 		redirectAttributes.addAttribute("contentsNo", contentsNo);
 		return "redirect:getCommentsListByContentsNo.do";

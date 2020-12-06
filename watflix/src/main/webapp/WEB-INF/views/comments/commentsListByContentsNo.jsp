@@ -57,6 +57,8 @@
 			<td>
 				<a href="#">신고링크</a>
 			</td>
+			<td>
+			</td>
 		</tr>
 		</c:forEach>
 	</table>
