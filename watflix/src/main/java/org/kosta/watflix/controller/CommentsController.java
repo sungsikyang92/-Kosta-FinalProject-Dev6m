@@ -4,7 +4,9 @@ import javax.annotation.Resource;
 
 import org.kosta.watflix.model.service.CommentsService;
 import org.kosta.watflix.model.vo.CommentsVO;
+import org.kosta.watflix.model.vo.ContentsVO;
 import org.kosta.watflix.model.vo.MemberVO;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,17 +20,18 @@ public class CommentsController {
 	@Resource
 	CommentsService commentsService;
 	
+	@Secured("ROLE_ADMIN")
 	@RequestMapping("getCommentsList.do")
 	public String getCommentsList(String pageNo, Model model) {
 		model.addAttribute("commentsList", commentsService.sCommentsGetList(pageNo));
-		return "comments/commentsList";
+		return "comments/commentsList.tiles";
 	}
 	
 	@RequestMapping("getCommentsListByContentsNo.do")
 	public String getCommentsListByContentsNo(int contentsNo, String pageNo, Model model) {
 		model.addAttribute("commentsListByContentsNo", commentsService.sCommentsGetListByContentsNo(pageNo, contentsNo));
 		model.addAttribute("contentsNo", contentsNo);
-		return "comments/commentsListByContentsNo";
+		return "comments/commentsListByContentsNo.tiles";
 	}
 	
 	@RequestMapping("commentsWriteForm.do")
@@ -43,6 +46,9 @@ public class CommentsController {
 		System.out.println("commentsWrite.do 작동");
 		MemberVO memberVO = (MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		commentsVO.setMemberVO(memberVO);
+		ContentsVO contentsVO = new ContentsVO();
+		contentsVO.setContentsNo(contentsNo);
+		commentsVO.setContentsVO(contentsVO);
 		commentsService.sCommentsWrite(commentsVO);
 		redirectAttributes.addAttribute("contentsNo", contentsNo);
 		return "redirect:getCommentsListByContentsNo.do";

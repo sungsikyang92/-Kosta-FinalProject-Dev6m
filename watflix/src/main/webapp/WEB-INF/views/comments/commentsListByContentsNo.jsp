@@ -2,17 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
- 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<title>commentList</title>
-</head>
-<body>
+<div class="container-lg">
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$("#openCommentsWriteFormButton").click(function(){
@@ -29,11 +19,19 @@
 				window.open("${pageContext.request.contextPath}/commentsWriteForm.do?contentsNo=${requestScope.contentsNo}", "평점입력",
 						"width="+popupWidth+",height="+popupHeight+",left="+popupX+",top="+popupY);
 			})
+			$("form[name='commentsDeleteForm']").submit(function(){
+				alert(document.getElementByName("commentsDelete"));
+				
+				return confirm("삭제하시겠습니까?");
+			})
 		})
 	</script>
-	평점  
+	<h4>평점</h4>
+	<sec:authorize access="hasRole('ROLE_MEMBER')" >
 	<button type="button" id="openCommentsWriteFormButton">평점쓰기</button>
-	${requestScope.contentsNo}
+	</sec:authorize> 
+	<sec:authentication property="principal.id" var="userId"/>
+	<sec:authorize access="hasRole('ROLE_ADMIN')" var="isAdmin"/>
 	<table class="table table-borderde table-hober boardlist">
 		<c:forEach items="${requestScope.commentsListByContentsNo.list}" var="commentsListByContentsNo">
 		<tr>
@@ -57,8 +55,16 @@
 			<td>
 				<a href="#">신고링크</a>
 			</td>
+			<c:set var="writerId" value="${commentsListByContentsNo.memberVO.id }"/>
+			<c:if test="${writerId == userId || isAdmin == 'true'}">
 			<td>
+				<form action="${pageContext.request.contextPath}/commentsDelete.do" method="post" name="commentsDeleteForm">
+					<sec:csrfInput/>
+					<input type="hidden" name="commentsDelete" value="${commentsList.commentsNo}">
+					<input type="submit" value="삭제">
+				</form>
 			</td>
+			</c:if>
 		</tr>
 		</c:forEach>
 	</table>
@@ -84,5 +90,4 @@
 			</c:if>
 		</ul>
 	</div>
-</body>
-</html>
+</div>
