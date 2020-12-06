@@ -7,7 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 신고 게시글 전체 조회 (재사용 용도) -->
  	<sql id="selectReportALL">
  		SELECT REPORT_NO,ID,REVIEW_NO,COMMENTS_NO,REPORT_TYPE_NO,REPORT_CONTENTS,
-		to_char(REPORT_POSTED_TIME,'YYYY.MM.DD HH:MI:SS') as re_time
+		to_char(REPORT_POSTED_TIME,'YYYY.MM.DD HH:MI:SS') as REPORT_POSTED_TIME
 		FROM REPORT
  	</sql>
  	
@@ -24,13 +24,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	<resultMap type="reportVO" id="reportReviewRM">
  		<result property="memberVO.id" column="id"/>
  		<result property="reviewVO.reviewNo" column="review_No"/>
- 		<result property="reviewVO.memberVO.id" column="report_Id"/>
+ 		<result property="reviewVO.memberVO.id" column="reportId"/>
  		<!-- reportTypeNo를 reprotTypeInfo로 추후 수정할것 -->
  		<result property="reportTypeVO.reportTypeNo" column="report_Type_No"/>
  	</resultMap>
  	<select id="mGetReportReviewList" parameterType="pagingBean" resultMap="reportReviewRM">
- 		SELECT REPORT_NO,ID,REVIEW_NO,REPORT_TYPE_NO,REPORT_CONTENTS,re_time,reportId as reportId
-		FROM(SELECT row_number() over(order by REPORT_NO desc) as re_num, r.REPORT_NO,r.ID,r.REVIEW_NO,r.COMMENTS_NO, r.REPORT_TYPE_NO, r.REPORT_CONTENTS, r.re_time, rv.id as reportId
+ 		SELECT REPORT_NO,ID,REVIEW_NO,REPORT_TYPE_NO,REPORT_CONTENTS,REPORT_POSTED_TIME,reportId
+		FROM(SELECT row_number() over(order by REPORT_NO desc) as re_num, r.REPORT_NO,r.ID,r.REVIEW_NO,r.COMMENTS_NO, r.REPORT_TYPE_NO, r.REPORT_CONTENTS, r.REPORT_POSTED_TIME, rv.id as reportId
 		FROM(
 			<include refid="selectReportALL"/>
 		) r, review rv where r.REVIEW_NO=rv.REVIEW_NO)
@@ -42,13 +42,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	<resultMap type="reportVO" id="reportCommentsRM">
  		<result property="memberVO.id" column="id"/>
  		<result property="commentsVO.commentsNo" column="comments_No"/>
- 		<result property="commentsVO.memberVO.id" column="report_Id"/>
+ 		<result property="commentsVO.memberVO.id" column="reportId"/>
  		<!-- reportTypeNo를 reprotTypeInfo로 추후 수정할것 -->
  		<result property="reportTypeVO.reportTypeNo" column="report_Type_No"/>
  	</resultMap>
  	<select id="mGetReportCommentsList" parameterType="pagingBean" resultMap="reportCommentsRM">
- 		SELECT REPORT_NO,ID,COMMENTS_NO,REPORT_TYPE_NO,REPORT_CONTENTS,re_time,reportId as reportId
-		FROM(SELECT row_number() over(order by r.REPORT_NO desc) as re_num, r.REPORT_NO,r.ID,r.REVIEW_NO,r.COMMENTS_NO, r.REPORT_TYPE_NO, r.REPORT_CONTENTS, r.re_time, c.id as reportId
+ 		SELECT REPORT_NO,ID,COMMENTS_NO,REPORT_TYPE_NO,REPORT_CONTENTS,REPORT_POSTED_TIME,reportId
+		FROM(SELECT row_number() over(order by r.REPORT_NO desc) as re_num, r.REPORT_NO,r.ID,r.REVIEW_NO,r.COMMENTS_NO, r.REPORT_TYPE_NO, r.REPORT_CONTENTS, r.REPORT_POSTED_TIME, c.id as reportId
 		FROM(
 			<include refid="selectReportALL"/>
 		) r, COMMENTS c where r.COMMENTS_NO=c.COMMENTS_NO)

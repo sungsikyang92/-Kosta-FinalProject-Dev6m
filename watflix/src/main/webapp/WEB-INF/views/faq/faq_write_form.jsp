@@ -13,12 +13,12 @@
 <form action="${pageContext.request.contextPath}/faqWrite.do" method="post" id="faq_write">
  <sec:csrfInput/>  <!--  post 방식일 때 form안에 꼭 들어가 있어야 하는 토큰 -->
  <table>
- 		<tr>
- 			<td> 제목 <input type="text" name="faq_title" placeholder="게시글 제목을 입력하세요" required="required">
+ 		<tr>			<!-- name 의 "faqTitle"은 FaqVO에 있는 변수명  -->
+ 			<td> 제목 <input type="text" name="faqTitle" placeholder="게시글 제목을 입력하세요" required="required">
  			<br><br></td>
  			<td> 
  			<br><br>
- 		   <textarea cols="90" rows="15" name="faq_contents" required="required" placeholder="본문내용을 입력하세요"></textarea>
+ 		   <textarea cols="90" rows="15" name="faqContents" required="required" placeholder="본문내용을 입력하세요"></textarea>
  			</td>
  		</tr>
  </table>

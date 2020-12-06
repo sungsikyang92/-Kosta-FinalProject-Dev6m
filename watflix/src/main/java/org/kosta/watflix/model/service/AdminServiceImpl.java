@@ -36,7 +36,7 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Override
 	// 이미지 저장하기(이미지url, 저장경로, 제목, 컨텐츠id)
-	public void saveThumbnail(String sImgUrl, String bImgUrl, String path, String contentsId,String title,String summary,String type,String genreCode, String genreName) throws IOException  {
+	public void saveThumbnail(String sImgUrl, String bImgUrl, String path, String contentsId,String title,String summary,String type,String date, String runningTime, String actor, String age, String producer,String genreCode, String genreName) throws IOException  {
 	
 		//컨텐츠
 		ContentsVO cvo = new ContentsVO();
@@ -44,6 +44,11 @@ public class AdminServiceImpl implements AdminService {
 		cvo.setContentsTitle(title);
 		cvo.setContentsSummary(summary);
 		cvo.setContentsType(type);
+		cvo.setContentsDate(date);
+		cvo.setContentsRunningtime(runningTime);
+		cvo.setContentsActor(actor);
+		cvo.setContentsAge(age);
+		cvo.setContentsProducer(producer);
 		//장르
 		GenreVO gvo = new GenreVO();
 		gvo.setGenreCode(genreCode);

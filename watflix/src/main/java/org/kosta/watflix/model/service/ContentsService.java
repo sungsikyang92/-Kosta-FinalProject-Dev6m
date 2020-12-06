@@ -9,10 +9,11 @@ import org.kosta.watflix.model.vo.GenreVO;
 
 public interface ContentsService {
 
-	ContentsListVO sGetAllContentsList(PagingBean pagingBean);
+	List<ContentsVO> sGetAllContentsList();
 	int sGetTotalContentsCount();
 	int sGetTotalContentsCountForType(String contentsType);
 	ContentsListVO sGetAllContentsListForType(PagingBean pagingBean);
+	ContentsVO sFindContentsByNo(String contentsNo);
 	List<ContentsVO> sContentsHighHits();
 	List<ContentsVO> sContentsHighAvgStars();
 	List<GenreVO> sGetAllGenreList();

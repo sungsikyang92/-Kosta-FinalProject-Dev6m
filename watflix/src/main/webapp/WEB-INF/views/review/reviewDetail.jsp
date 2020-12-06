@@ -6,10 +6,22 @@
 <head>
 <meta charset="UTF-8">
 <title>Reviewdetail</title>
+<!-- JQuery에용 ㅎㅎ -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
 <h3> <a class="nav-link navbar-nav-item" href="${pageContext.request.contextPath}/reviewList.do">리뷰리스트로</a>
 </h3>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#reviewDelete").submit(function(){
+			return confirm("삭제하시겠습니까?(아직미완성, 버튼이랑 confirm만 만들어짐)");
+		});//reviewDelete
+		$("#reviewUpdateForm").submit(function(){
+			return confirm("수정하시겠습니까?");
+		});
+	});//ready
+</script>
 <table class="table">
 	<caption>리뷰상세보기</caption>
 	<c:set var="reviewDetail" value="${requestScope.rdvo}"></c:set>
@@ -34,5 +46,14 @@
 		</tr>
 	</tbody>
 </table>
+<!-- 삭제 아직 미완성 버튼이랑 confirm만 만들어짐 -->
+<button form="reviewDelete" type="submit">삭제</button>
+<button form="reviewUpdateForm" type="submit">수정</button>
+<form action="reviewDelete.do" id="reviewDelete">
+<input type="hidden" name="reviewNo" value="${reviewDetail.reviewNo}">
+</form>
+<form action="reviewUpdateForm.do" id="reviewUpdateForm">
+<input type="hidden" name="reviewNo" value="${reviewDetail.reviewNo}">
+</form>
 </body>
 </html>

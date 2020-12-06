@@ -26,6 +26,10 @@ h5 {
 	margin: 10px 0 40px 0;
 }
 
+.deck-diplayNone{
+	display: none;
+}
+
 .logo {
 	padding: 0;
 	margin-right: 100px;
@@ -33,7 +37,6 @@ h5 {
 
 .navbar, .nav-fill {
 	background-color: transparent;
-	border-bottom: 1px solid #1C1C1C;
 }
 
 .nav-link {
@@ -550,8 +553,8 @@ a, a:hover {
 .sidebar-nav>.sidebar-brand {
 	font-size: 1.0rem;
 	background: rgba(52, 58, 64, .1);
-	height: 80px;
-	line-height: 50px;
+	height: 58px;
+	line-height: 29px;
 	padding-top: 15px;
 	padding-bottom: 15px;
 	padding-left: 15px
@@ -588,7 +591,7 @@ a, a:hover {
 	border-radius: 4px;
 	box-sizing: border-box;
 	margin-left: -250px;
-	margin-top: 150px;
+	margin-top: 70px;
 	margin-bottom: 200px;
 	padding: 60px 68px 40px;
 	min-width: 380px;
@@ -624,15 +627,16 @@ a, a:hover {
 
 .nfTextField {
 	font: inherit;
+	font-size:50px;
 	margin: 0;
 	box-sizing: border-box;
 	display: block;
 	box-shadow: none;
-	width: 214%;
+	width: 100%;
 	border-radius: 4px;
 	border: 0;
-	height: 50px;
-	line-height: 50px;
+	height: 75px;
+	line-height: 70px;
 	padding: 16px 20px 0;
 	background: white;
 	position: relative;
@@ -647,7 +651,7 @@ a, a:hover {
 	font-size: 11px;
 	transform: translateY(0);
 	color: #000;
-	top: 7px;
+	top: 4px;
 }
 
 .login-button {
@@ -682,6 +686,7 @@ a, a:hover {
 color: #737373;
 font-weight: 500;
 margin-top: 16px;
+font-size:12px;
 }
 .recaptcha-terms-of-use{
 position: relative;
@@ -690,4 +695,25 @@ margin-top: 11px;
 font-size: 13px;
 color: #8c8c8c;
 }
+.sidebar-nav li.sidebar-nav-item a
+/*마이페이지 선택창 start*/
+.mypageDiv{
+	display:none;
+	font-size:5px;
+}
+.mypageDiv .mypageList{
+   list-style:none;
+   padding-left:5px;
+   
+   }
+.mypageDiv .mypageList li a{
+    padding-top: 5px;
+    padding-left: 15px;
+    padding-right: 0px;
+    padding-bottom: 10px;
+}
+/*마이페이지 선택창 end*/
+
 /*로그인 end*/
+
+

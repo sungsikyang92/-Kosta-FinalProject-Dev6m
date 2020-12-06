@@ -19,8 +19,7 @@ public class AdminNoticeContorller {
 
 	@Resource
 	NoticeService noticeService;
-	
-	@Secured("ROLE_MEMBER")
+		
 	@RequestMapping("getNoticeList.do")
 	public String getNoticeList(String pageNo, Model model) {
 		model.addAttribute("noticeList", noticeService.sNoticeGetList(pageNo));
@@ -28,7 +27,7 @@ public class AdminNoticeContorller {
 	}
 	// 공지글 작성 관리자만 가능하게 시큐리티작업 필요
 	@RequestMapping("noticeWriteForm.do")
-	public String noticeWriteForm(Model model){
+	public String noticeWriteForm(){
 		return "notice/noticeWriteForm";
 	}
 	@PostMapping("noticeWrite.do")
@@ -58,11 +57,10 @@ public class AdminNoticeContorller {
 		// 조회수 올림(세션적용하지 않아 읽었던 글을 다시 읽더라고 조회수 증가함.
 		// 로그인시 조회 내역을 저장할 수 있는 리스트를 만들어 세션에 넣는 코드가 필요함. 
 		noticeService.sNoticeUpdateHits(noticeNo);		
-		redirectAttributes.addAttribute("noticeDetail", noticeService.sNoticeGetDetailNoHits(noticeNo));
-		return "notice/noticeDetail";
-	}
-	
-	
+		//System.out.println(noticeService.sNoticeGetDetailNoHits(noticeNo));
+		redirectAttributes.addAttribute("noticeNo", noticeNo);
+		return "redirect:noticeDetailNoHits.do";
+	}	
 	
 	@RequestMapping("noticeUpdateForm.do")
 	public String noticeUpdateForm(int noticeNo, Model model) {
@@ -71,11 +69,16 @@ public class AdminNoticeContorller {
 	}
 	//@Secured("ROLE_MEMBER")
 	@PostMapping("noticeUpdate.do")
-	public String noticeUpdate(NoticeVO noticeVO, int noticeNo, Model model) {
+	public String noticeUpdate(NoticeVO noticeVO, int noticeNo, RedirectAttributes redirectAttributes) {
 		MemberVO memberVO = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		noticeVO.setMemberVO(memberVO);
 		noticeService.sNoticeUpdate(noticeVO);
-		model.addAttribute("noticeDetail", noticeService.sNoticeGetDetailNoHits(noticeNo));
+		redirectAttributes.addAttribute("noticeNo", noticeNo);
 		return "redirect:noticeDetailNoHits.do";
+	}
+	@PostMapping("noticeDelete.do")
+	public String noticeDelete(int noticeNo, RedirectAttributes redirectAttributes) {
+		noticeService.sNoticeDelete(noticeNo);
+		return "redirect:getNoticeList.do";
 	}
 }

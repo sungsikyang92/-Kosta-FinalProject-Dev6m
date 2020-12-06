@@ -10,6 +10,8 @@ public interface ReportService {
 	void sReportWriteComments(ReportVO reportVO);
 	// 신고 쓰기 (리뷰)
 	void sReportWriteReview(ReportVO reportVO);
+	// 신고 글 삭제
+	void sReportDelete(int reportNo);
 	// 신고 리스트(리뷰) 
 	ReportListVO sGetReportReviewList();
 	ReportListVO sGetReportReviewList(String pageNo);

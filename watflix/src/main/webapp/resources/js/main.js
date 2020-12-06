@@ -19,6 +19,7 @@ $(document).ready(function() {
 
         $("#loadMore").on('click', function (e) {
             e.preventDefault();
+			$(".card-deck:hidden").slice(0,11).attr('display','hidden');
             $(".card:hidden").slice(0, 10).slideDown();
             if ($(".card:hidden").length == 0) {
                 $("#loadMore").fadeOut('slow');
