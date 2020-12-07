@@ -7,10 +7,7 @@ SELECT * FROM CONTENTS
 select * from review
 INSERT INTO REVIEW(REVIEW_NO,ID,CONTENTS_NO,REVIEW_TITLE,REVIEW_CONTENTS) 
 VALUES('454','BOSE','81171201','블러드 샷 봤냐?','지린다 가슴이 웅장해진다...꼭봐라...')
-<<<<<<< HEAD
-=======
 SELECT * FROM COMMENTS
->>>>>>> branch 'master' of https://github.com/Minikanko/-Kosta-FinalProject-Dev6m.git
 SELECT * FROM REVIEW WHERE REVIEW_NO=777
 /*ReviewWrite쿼리문 테스트*/
 INSERT INTO REVIEW(REVIEW_NO,ID,CONTENTS_NO,REVIEW_TITLE,REVIEW_CONTENTS) VALUES(REVIEW_NO.SEQ.NEXTVAL,);
@@ -330,6 +327,7 @@ order by report_no desc;
 -- 내가 작성한 신고글 수 조회
 select count(*) from report where REVIEW_NO is not NULL and id='java'
 select count(*) from report where REVIEW_NO is NULL and id='java'
+
 
 select * from grade
 insert into grade values ( 'ROLE_MEMBER' , 'java');
