@@ -38,6 +38,9 @@ public class SanghoonTestJUnit {
 		memberVO.setSex("남성");
 		memberVO.setAddress("경기도");
 		memberVO.setAgreement("동의");
+		memberService.sMemberRegister(memberVO);
+		
+
 	System.out.println(contentsService.sFindContentsByNo("70001473"));
 	}
 
