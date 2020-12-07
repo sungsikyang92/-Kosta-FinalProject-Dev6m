@@ -93,4 +93,40 @@ public class ReportServiceImpl implements ReportService {
 		return false;
 	}
 
+	// 내 신고 리스트(리뷰)
+	@Override
+	public ReportListVO sGetMyReportReviewList(String id) {
+		return sGetMyReportReviewList(id, "1");
+	}
+	@Override
+	public ReportListVO sGetMyReportReviewList(String id, String pageNo) {
+		int myTotalPostCount = reportMapper.mGetMyTotalReportReviewCount(id);
+		PagingBean pagingBean = null;
+		if(pageNo == null) {
+			pagingBean = new PagingBean(myTotalPostCount);
+		}else {
+			pagingBean = new PagingBean(myTotalPostCount, Integer.parseInt(pageNo));
+		}
+		ReportListVO reportListVO= new ReportListVO(reportMapper.mGetMyReportReviewList(pagingBean, id), pagingBean);
+		return reportListVO;
+	}
+
+	// 내 신고 리스트(평점)
+	@Override
+	public ReportListVO sGetMyReportCommentsList(String id) {
+		return sGetMyReportCommentsList(id, "1");
+	}
+	@Override
+	public ReportListVO sGetMyReportCommentsList(String id, String pageNo) {
+		int myTotalPostCount = reportMapper.mGetMyTotalReportCommentsCount(id);
+		PagingBean pagingBean = null;
+		if(pageNo == null) {
+			pagingBean = new PagingBean(myTotalPostCount);
+		}else {
+			pagingBean = new PagingBean(myTotalPostCount, Integer.parseInt(pageNo));
+		}
+		ReportListVO reportListVO = new ReportListVO(reportMapper.mGetMyReportCommentsList(pagingBean, id),pagingBean);
+		return reportListVO;
+	}
+
 }

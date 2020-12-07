@@ -22,5 +22,11 @@ public interface ReportService {
 	boolean sReportCheckReview(ReportVO reportVO);
 	// 신고글 작성 여부 확인(평점)
 	boolean sReportCheckComments(ReportVO reportVO);
+	// 내 신고 리스트(리뷰)
+	ReportListVO sGetMyReportReviewList(String id);
+	ReportListVO sGetMyReportReviewList(String id, String pageNo);
+	// 내 신고 리스트(평점)
+	ReportListVO sGetMyReportCommentsList(String id);
+	ReportListVO sGetMyReportCommentsList(String id, String pageNo);
 }
 

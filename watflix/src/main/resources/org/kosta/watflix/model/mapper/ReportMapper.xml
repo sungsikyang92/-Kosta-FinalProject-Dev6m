@@ -24,13 +24,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	<resultMap type="reportVO" id="reportReviewRM">
  		<result property="memberVO.id" column="id"/>
  		<result property="reviewVO.reviewNo" column="review_No"/>
- 		<result property="reviewVO.memberVO.id" column="reportId"/>
+ 		<result property="reviewVO.memberVO.id" column="reportedId"/>
  		<!-- reportTypeNo를 reprotTypeInfo로 추후 수정할것 -->
  		<result property="reportTypeVO.reportTypeNo" column="report_Type_No"/>
  	</resultMap>
  	<select id="mGetReportReviewList" parameterType="pagingBean" resultMap="reportReviewRM">
- 		SELECT REPORT_NO,ID,REVIEW_NO,REPORT_TYPE_NO,REPORT_CONTENTS,REPORT_POSTED_TIME,reportId
-		FROM(SELECT row_number() over(order by REPORT_NO desc) as re_num, r.REPORT_NO,r.ID,r.REVIEW_NO,r.COMMENTS_NO, r.REPORT_TYPE_NO, r.REPORT_CONTENTS, r.REPORT_POSTED_TIME, rv.id as reportId
+ 		SELECT REPORT_NO,ID,REVIEW_NO,REPORT_TYPE_NO,REPORT_CONTENTS,REPORT_POSTED_TIME,reportedId
+		FROM(SELECT row_number() over(order by REPORT_NO desc) as re_num, r.REPORT_NO,r.ID,r.REVIEW_NO,r.COMMENTS_NO, r.REPORT_TYPE_NO, r.REPORT_CONTENTS, r.REPORT_POSTED_TIME, rv.id as reportedId
 		FROM(
 			<include refid="selectReportALL"/>
 		) r, review rv where r.REVIEW_NO=rv.REVIEW_NO)
@@ -42,13 +42,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	<resultMap type="reportVO" id="reportCommentsRM">
  		<result property="memberVO.id" column="id"/>
  		<result property="commentsVO.commentsNo" column="comments_No"/>
- 		<result property="commentsVO.memberVO.id" column="reportId"/>
+ 		<result property="commentsVO.memberVO.id" column="reportedId"/>
  		<!-- reportTypeNo를 reprotTypeInfo로 추후 수정할것 -->
  		<result property="reportTypeVO.reportTypeNo" column="report_Type_No"/>
  	</resultMap>
  	<select id="mGetReportCommentsList" parameterType="pagingBean" resultMap="reportCommentsRM">
- 		SELECT REPORT_NO,ID,COMMENTS_NO,REPORT_TYPE_NO,REPORT_CONTENTS,REPORT_POSTED_TIME,reportId
-		FROM(SELECT row_number() over(order by r.REPORT_NO desc) as re_num, r.REPORT_NO,r.ID,r.REVIEW_NO,r.COMMENTS_NO, r.REPORT_TYPE_NO, r.REPORT_CONTENTS, r.REPORT_POSTED_TIME, c.id as reportId
+ 		SELECT REPORT_NO,ID,COMMENTS_NO,REPORT_TYPE_NO,REPORT_CONTENTS,REPORT_POSTED_TIME,reportedId
+		FROM(SELECT row_number() over(order by r.REPORT_NO desc) as re_num, r.REPORT_NO,r.ID,r.REVIEW_NO,r.COMMENTS_NO, r.REPORT_TYPE_NO, r.REPORT_CONTENTS, r.REPORT_POSTED_TIME, c.id as reportedId
 		FROM(
 			<include refid="selectReportALL"/>
 		) r, COMMENTS c where r.COMMENTS_NO=c.COMMENTS_NO)
@@ -101,9 +101,56 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	select count(*) from report where id=#{memberVO.id} and comments_NO=#{commentsVO.commentsNo}
     </select>
     
- 	<!-- 내 신고글 보기(comments) -->
+    <!-- 삭제된 리뷰, 평점에 대한 신고 데이터를 관리하는 건 추후 상의 후에 할것 -->
+    <!-- 리뷰, 평점 삭제하는 controller를 수정해야 하기 때문 -->
+    <!-- foreign key 비활성화(리뷰) -->
+    <select id="mDisableForeignkeyReview">
+    	alter table REPORT disable constraint REPORT_REVIEW_NO_FK
+    </select>
+    <!-- foreign key 활성화(리뷰) -->
+    <select id="mEnableForeignkeyReview">
+    	alter table REPORT enable constraint REPORT_REVIEW_NO_FK
+    </select>
+    <!-- foreign key 비활성화(평점) -->
+    <select id="mDisableForeignkeyComments">
+    	alter table REPORT disable constraint REPORT_comments_NO_FK
+    </select>
+    <!-- foreign key 활성화(리뷰) -->
+    <select id="mEnableForeignkeyComments">
+    	alter table REPORT enable constraint REPORT_comments_NO_FK
+    </select>
+    
  	<!-- 내 신고글 보기(review) -->
-	<!-- 내 신고글 보기는 구현 방식에 대해 질문을 한 이후 만들것  -->
+	<select id="mGetMyReportReviewList" resultMap="reportReviewRM">
+ 		SELECT REPORT_NO,ID,REVIEW_NO,REPORT_TYPE_NO,REPORT_CONTENTS,REPORT_POSTED_TIME,reportedId
+		FROM(SELECT row_number() over(order by REPORT_NO desc) as re_num, r.REPORT_NO,r.ID,r.REVIEW_NO,r.COMMENTS_NO, r.REPORT_TYPE_NO, r.REPORT_CONTENTS, r.REPORT_POSTED_TIME, rv.id as reportedId
+		FROM(
+			<include refid="selectReportALL"/> where id = #{id}
+		) r, review rv where r.REVIEW_NO=rv.REVIEW_NO)
+		where re_num between #{pagingBean.startRowNumber} and #{pagingBean.endRowNumber}
+		order by report_no desc
+ 	</select>
+ 	
+ 	<!-- 내가 신고한 리뷰글 수 조회  -->
+ 	<select id="mGetMyTotalReportReviewCount" parameterType="string" resultType="int">
+ 		 select count(*) from report where REVIEW_NO is not NULL and id=#{value}
+ 	</select>
+ 	<!-- 내가 신고한 평점글 수 조회 -->
+ 	<select id="mGetMyTotalReportCommentsCount" parameterType="string" resultType="int">
+ 		select count(*) from report where REVIEW_NO is NULL and id=#{value}
+ 	</select>
+ 	
+ 	<!-- 내 신고글 보기(comments) -->
+ 	<select id="mGetMyReportCommentsList" resultMap="reportCommentsRM">
+ 		SELECT REPORT_NO,ID,COMMENTS_NO,REPORT_TYPE_NO,REPORT_CONTENTS,REPORT_POSTED_TIME,reportedId
+		FROM(SELECT row_number() over(order by r.REPORT_NO desc) as re_num, r.REPORT_NO,r.ID,r.REVIEW_NO,r.COMMENTS_NO, r.REPORT_TYPE_NO, r.REPORT_CONTENTS, r.REPORT_POSTED_TIME, c.id as reportedId
+		FROM(
+			<include refid="selectReportALL"/> where id = #{id}
+		) r, COMMENTS c where r.COMMENTS_NO=c.COMMENTS_NO)
+		where re_num between #{pagingBean.startRowNumber} and #{pagingBean.endRowNumber}
+		order by report_no desc
+ 	</select>
+
 </mapper>
 
 

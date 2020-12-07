@@ -283,15 +283,35 @@ drop table contents
 
 
 /*재우 test*/
-select count(*) from report where id='java' and comments_NO=1
-select count(*) from report where id='java' and comments_NO=4
-select count(*) from report where id='java' and review_No=1
-select count(*) from report where id='java' and review_No=4
-delete from review where REVIEW_NO='1'
-
-
-select * from report
-union (all)
+-- 제약 조건 비활성화, 확성화
+alter table REPORT disable constraint REPORT_REVIEW_NO_FK
+alter table REPORT enable constraint REPORT_REVIEW_NO_FK
+-- 제약 조건 검색
+SELECT * FROM ALL_CONSTRAINTS
+WHERE TABLE_NAME = 'REPORT'
+-- 제약조건후 부모 테이블 data 삭제 및 테이블 조회
+select * from report where comments_no is NULL;
+select * from review;
+delete from review where review_no=1
+-- 내 신고 게시물 보기(리뷰)
+SELECT REPORT_NO,ID,REVIEW_NO,REPORT_TYPE_NO,REPORT_CONTENTS,re_time,reportedId
+FROM(SELECT row_number() over(order by REPORT_NO desc) as re_num, r.REPORT_NO,r.ID,r.REVIEW_NO,r.COMMENTS_NO, r.REPORT_TYPE_NO, r.REPORT_CONTENTS, r.re_time, rv.id as reportedId
+FROM(SELECT REPORT_NO,ID,REVIEW_NO,COMMENTS_NO,REPORT_TYPE_NO,REPORT_CONTENTS,
+to_char(REPORT_POSTED_TIME,'YYYY.MM.DD HH:MI:SS') as re_time
+FROM REPORT where id='java') r, review rv where r.REVIEW_NO=rv.REVIEW_NO)
+where re_num between 1 and 5
+order by report_no desc;
+-- 내 신고 게시물 보기(평점)
+SELECT REPORT_NO,ID,COMMENTS_NO,REPORT_TYPE_NO,REPORT_CONTENTS,re_time,reportedId
+FROM(SELECT row_number() over(order by r.REPORT_NO desc) as re_num, r.REPORT_NO,r.ID,r.REVIEW_NO,r.COMMENTS_NO, r.REPORT_TYPE_NO, r.REPORT_CONTENTS, r.re_time, c.id as reportedId
+FROM(SELECT REPORT_NO,ID,REVIEW_NO,COMMENTS_NO,REPORT_TYPE_NO,REPORT_CONTENTS,
+to_char(REPORT_POSTED_TIME,'YYYY.MM.DD HH:MI:SS') as re_time
+FROM REPORT where id='java') r, COMMENTS c where r.COMMENTS_NO=c.COMMENTS_NO)
+where re_num between 1 and 5
+order by report_no desc;
+-- 내가 작성한 신고글 수 조회
+select count(*) from report where REVIEW_NO is not NULL and id='java'
+select count(*) from report where REVIEW_NO is NULL and id='java'
 
 /* 테이블 컬럼명 바꾸기*/
 ALTER TABLE member RENAME COLUMN acc_stauts_no TO acc_status_no

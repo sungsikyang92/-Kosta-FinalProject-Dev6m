@@ -24,7 +24,7 @@
 		</thead>
 		<!-- 신고 리스트(평점) -->
 		<tbody>
-			<c:forEach var="rvo" items="${requestScope.ReportCommentsList.list}">
+			<c:forEach var="rvo" items="${requestScope.reportCommentsList.list}">
 				<tr>
 					<td>${rvo.reportNo}</td>
 					<td>${rvo.memberVO.id}</td>
@@ -66,7 +66,7 @@
 				<td colspan="7">
 					<div>
 						<!-- pagingBean을 pb변수로 지정 -->
-						<c:set var="pb" value="${requestScope.ReportCommentsList.pagingBean }"></c:set>
+						<c:set var="pb" value="${requestScope.reportCommentsList.pagingBean }"></c:set>
 						<ul>
 							<!-- 조건이 맞으면 왼쪽 화살표 -->
 							<c:if test="${pb.previousPageGroup}">
@@ -128,7 +128,7 @@
 	</script>
     	<table>
     		<tbody>
-    			<c:forEach var="rvo" items="${requestScope.ReportCommentsList.list}" varStatus="status">
+    			<c:forEach var="rvo" items="${requestScope.reportCommentsList.list}" varStatus="status">
 					<tr>
 						<td>${status.count }</td>
 						<td>${rvo.reportNo}</td>

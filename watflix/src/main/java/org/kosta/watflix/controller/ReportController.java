@@ -23,21 +23,21 @@ public class ReportController {
 	// 신고 게시판(리뷰)
 	@RequestMapping("reportReviewBoard.do")
 	public ModelAndView reportReviewBoard() {
-		return new ModelAndView("report/report_review_board","ReportReviewList",reportService.sGetReportReviewList());
+		return new ModelAndView("report/report_review_board","reportReviewList",reportService.sGetReportReviewList());
 	}
 	@RequestMapping("reportReviewBoardNext.do")
 	public ModelAndView reportReviewBoardNext(String pageNo) {
-		return new ModelAndView("report/report_review_board","ReportReviewList",reportService.sGetReportReviewList(pageNo));
+		return new ModelAndView("report/report_review_board","reportReviewList",reportService.sGetReportReviewList(pageNo));
 	}
 	
 	// 신고 게시판(평점)
 	@RequestMapping("reportCommentsBoard.do")
 	public ModelAndView reportCommentsBoard() {
-		return new ModelAndView("report/report_comments_board","ReportCommentsList",reportService.sGetReportCommentsList());
+		return new ModelAndView("report/report_comments_board","reportCommentsList",reportService.sGetReportCommentsList());
 	}
 	@RequestMapping("reportCommentsBoardNext.do")
 	public ModelAndView reportCommentsBoard(String pageNo) {
-		return new ModelAndView("report/report_comments_board","ReportCommentsList",reportService.sGetReportCommentsList(pageNo));
+		return new ModelAndView("report/report_comments_board","reportCommentsList",reportService.sGetReportCommentsList(pageNo));
 	}
 	
 	// 신고 from(리뷰)으로 이동
@@ -113,6 +113,14 @@ public class ReportController {
 		}else {
 			return "redirect:reportReviewBoard.do";
 		}
+	}
+	
+	// 내 신고 리스트(리뷰)
+	@RequestMapping("myReportReviewBoard.do")
+	public ModelAndView myReportReviewBoard() {
+		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String id = mvo.getId();
+		return new ModelAndView("report/my_report_review_board","myReportReviewList",reportService.sGetMyReportReviewList(id));
 	}
 }
 
