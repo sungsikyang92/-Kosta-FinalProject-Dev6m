@@ -23,7 +23,11 @@
 	<definition name="*/*Form.tiles" extends="loginForm.tiles">
 		<put-attribute name="title"  value="{2}" />
  		<put-attribute name="main"  value="/WEB-INF/views/{1}/{2}Form.jsp"/>
+	</definition>
 	
+	<definition name="*/*FormTerms.tiles" extends="loginForm.tiles">
+		<put-attribute name="title"  value="{2}" />
+ 		<put-attribute name="main"  value="/WEB-INF/views/{1}/{2}FormTerms.jsp"/>
 	</definition>
 	 	<!-- 
  			definition name="*.tiles" : * 는 모든 문자열을 의미 
