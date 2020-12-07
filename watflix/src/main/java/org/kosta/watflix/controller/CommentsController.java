@@ -24,14 +24,14 @@ public class CommentsController {
 	@RequestMapping("getCommentsList.do")
 	public String getCommentsList(String pageNo, Model model) {
 		model.addAttribute("commentsList", commentsService.sCommentsGetList(pageNo));
-		return "comments/commentsList.tiles";
+		return "comments/commentsList";
 	}
 	
 	@RequestMapping("getCommentsListByContentsNo.do")
 	public String getCommentsListByContentsNo(int contentsNo, String pageNo, Model model) {
 		model.addAttribute("commentsListByContentsNo", commentsService.sCommentsGetListByContentsNo(pageNo, contentsNo));
 		model.addAttribute("contentsNo", contentsNo);
-		return "comments/commentsListByContentsNo.tiles";
+		return "comments/commentsListByContentsNo";
 	}
 	
 	@RequestMapping("commentsWriteForm.do")

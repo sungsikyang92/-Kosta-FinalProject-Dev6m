@@ -33,12 +33,12 @@ public class YuriTestJUnit {
 		memberVO.setName("유리");
 		memberVO.setEmail("gmail");
 		faqVO.setMemberVO(memberVO);
-		
+		/*
 		faqVO.setFaqTitle("졸려유");
 		faqVO.setFaqContents("테스형");
 		faqService.sFaqWrite(faqVO);
 		System.out.println();
-		
+		*/
 		//FAQ 수정 테스트 - ok
 		/*
 		faqVO.setFaqTitle("테스테스");
@@ -55,11 +55,11 @@ public class YuriTestJUnit {
 		*/
 		
 		//FAQ 상세보기 테스트 - ok
-		/*
+		
 		int faqNo=8;
-		faqService.sFaqDetail(faqNo);
-		System.out.println();
-		*/
+		//faqService.sFaqDetail(faqNo);
+		System.out.println(faqService.sFaqDetail(faqNo));
+		
 		//FAQ 개수 - ok
 		/*
 		int totalFaqCount=faqMapper.mGetTotalFaqCount();

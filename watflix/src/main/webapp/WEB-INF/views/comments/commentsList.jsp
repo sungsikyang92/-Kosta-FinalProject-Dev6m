@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<div>
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("#commentsDeleteButton").click(function(){
@@ -10,7 +11,6 @@
 	})
 </script>
 <sec:authorize access="hasRole('ROLE_ADMIN')">
-<div class="container-lg">
 	<table class="table table-hover">
 		<c:forEach items="${requestScope.commentsList.list}" var="commentsList">
 		<tr>
@@ -65,5 +65,5 @@
 			</c:if>
 		</ul>
 	</div>
-</div>
 </sec:authorize>
+</div>

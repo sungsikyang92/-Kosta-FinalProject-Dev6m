@@ -29,8 +29,8 @@ public class HomeController {
 		//컨테츠 리스트 출력
 		model.addAttribute("contentsList",contentsList);
 		//랜덤함수
-		int random = new Random().nextInt(contentsList.size()-5);
-		model.addAttribute("randomIndex",random);
+		//int random = new Random().nextInt(contentsList.size()-5);
+	//	model.addAttribute("randomIndex",random);
 		//조회수 높은 컨텐츠 출력(1~10위)
 		model.addAttribute("contentsHighHits",contentsService.sContentsHighHits());
 		//평점 높은 컨텐츠 출력(1~10위)

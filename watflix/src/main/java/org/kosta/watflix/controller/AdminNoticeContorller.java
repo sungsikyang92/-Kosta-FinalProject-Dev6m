@@ -31,7 +31,7 @@ public class AdminNoticeContorller {
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("noticeWriteForm.do")
 	public String noticeWriteForm(){
-		return "notice/noticeWriteForm";
+		return "notice/noticeWriteForm.tiles";
 	}
 	@PostMapping("noticeWrite.do")
 	public String noticeWrite(NoticeVO noticeVO, Model model, RedirectAttributes redirectAttributes) {
@@ -70,17 +70,19 @@ public class AdminNoticeContorller {
 	}	
 	
 	@PostMapping("noticeUpdateForm.do")
-	public String noticeUpdateForm(int noticeNo, Model model) {
-		model.addAttribute("noticeUpdateForm", noticeService.sNoticeGetDetailNoHits(noticeNo)); 
+	public String noticeUpdateForm(int noticeNo, String pageNo, Model model) {
+		model.addAttribute("noticeUpdateForm", noticeService.sNoticeGetDetailNoHits(noticeNo));
+		model.addAttribute("pageNo", pageNo);
 		return "notice/noticeUpdateForm.tiles";
 	}
 	//@Secured("ROLE_MEMBER")
 	@PostMapping("noticeUpdate.do")
-	public String noticeUpdate(NoticeVO noticeVO, int noticeNo, RedirectAttributes redirectAttributes) {
+	public String noticeUpdate(NoticeVO noticeVO, int noticeNo, String pageNo, RedirectAttributes redirectAttributes) {
 		MemberVO memberVO = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		noticeVO.setMemberVO(memberVO);
 		noticeService.sNoticeUpdate(noticeVO);
 		redirectAttributes.addAttribute("noticeNo", noticeNo);
+		redirectAttributes.addAttribute("pageNo", pageNo);
 		return "redirect:noticeDetailNoHits.do";
 	}
 	
@@ -91,7 +93,7 @@ public class AdminNoticeContorller {
 		return "redirect:getNoticeList.do";
 	}
 	
-	@PostMapping("noticeDeleteByCheckBox.do")
+	@PostMapping("noticeDeleteByCheckbox.do")
 	public String noticeDelete(int[] deleteCheckbox, Model model, String pageNo, RedirectAttributes redirectAttributes) {
 		for(int i = 0; i < deleteCheckbox.length; i++) {
 			noticeService.sNoticeDelete(deleteCheckbox[i]);

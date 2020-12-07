@@ -20,7 +20,7 @@ width: 75%;
 $(document).ready(function () {
 	$('#membershipType').change(function () {
 		var selectType=$(this).val();
-		//alert(selectType);
+		alert(selectType);
 		 $.ajax({
 			type : "get",
 			url : "${pageContext.request.contextPath}/select1.do",
@@ -29,8 +29,6 @@ $(document).ready(function () {
 			success : function(result) {
 				$("#partyHeadCount").html("");
 				$('#partyHeadCount').append('<option value="">모집할 인원을 선택해주세요</option>');	
-				//alert(result.membershipName);
-				//alert(result.concurrentUsers);}
 			var concurrentUsers = result.concurrentUsers;
 			for(var i = 1 ; i<=concurrentUsers ; i++){
 				$('#partyHeadCount').append("<option value="+i+">"+i+"명</option>");	
@@ -58,7 +56,7 @@ $(document).ready(function () {
 </tr>
 </table>
 
-
+<!-- 이용권 셀렉박스 -->
 <select name="membershipVO.membershipNo" id="membershipType" required >
 <option value="">이용권 종류를 선택해주세요</option>
 <option value="1">BASIC</option>
@@ -66,6 +64,7 @@ $(document).ready(function () {
 <option value="3">PREMIUM</option>
 </select>
 
+<!-- 모집인원 셀렉박스 -->
 <select name="partyHeadCount" id="partyHeadCount" required>
 <option>모집할 인원을 선택해주세요</option>
 </select>
