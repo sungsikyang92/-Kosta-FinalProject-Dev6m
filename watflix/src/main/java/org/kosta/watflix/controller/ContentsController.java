@@ -28,12 +28,12 @@ public class ContentsController {
 		modelAndView.addObject("contentsVO", contentsService.sFindContentsByNo(contentsVO.getContentsNo()));
 		modelAndView.addObject("contentsNo", contentsVO.getContentsNo());
 		
-		if(commentsPageNo==null) {
+		if(commentsPageNo==null)
 			commentsPageNo = "1"; 
-		}
-		if(reviewPageNo==null) {
+		
+		if(reviewPageNo==null)
 			reviewPageNo = "1";
-		}		
+		
 		if(commentsPageNo!=null) {
 			modelAndView.addObject("commentsListByContentsNo", commentsService.sCommentsGetListByContentsNo(commentsPageNo, contentsVO.getContentsNo()));
 		} 
