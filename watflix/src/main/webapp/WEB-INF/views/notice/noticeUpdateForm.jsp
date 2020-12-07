@@ -9,18 +9,18 @@
 <title>noticeUpdateForm</title>
 </head>
 <body>
-		<sec:authorize access="hasRole('ROLE_MEMBER')">
+		<sec:authorize access="hasRole('ROLE_ADMIN')">
 		<form method="post"
 		 action="${pageContext.request.contextPath}/noticeUpdate.do">
 		<sec:csrfInput />
 		<table>
 			<tr>
 				<td>번호</td>	<td>${requestScope.noticeUpdateForm.noticeNo}</td>
-				<td>제목</td>	<td><input type="text" name="noticeTitle" value="${requestScope.noticeUpdateForm.noticeTitle}" required="required"></td>
+				<td>제목</td>	<td colspan="3"><input type="text" size="70" name="noticeTitle" value="${requestScope.noticeUpdateForm.noticeTitle}" required="required"></td>
 			</tr>
 			<tr>
-				<td>내용</td>
-				<td><textarea cols="90" rows="15" name="noticeContents" required="required">${requestScope.noticeUpdateForm.noticeContents}</textarea></td>
+				<td colspan="2">내용</td>
+				<td colspan="5"><textarea cols="90" rows="15" name="noticeContents" required="required">${requestScope.noticeUpdateForm.noticeContents}</textarea></td>
 			</tr>
 			<tr>
 				<td>작성자</td><td>${requestScope.noticeUpdateForm.memberVO.id}</td>
@@ -31,6 +31,8 @@
 				<td>
 					<input type="hidden" name="noticeNo" value="${requestScope.noticeUpdateForm.noticeNo}">
 					<button type="submit">수정</button>
+				</td>
+				<td>
 					<button type="reset">취소</button>
 				</td>
 			</tr>
