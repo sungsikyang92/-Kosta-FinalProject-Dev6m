@@ -280,6 +280,14 @@ SELECT COUNT(*) FROM REVIEW
 SELECT COUNT(REVIEW_TITLE) AS CONTENTS_REVIEW_NO FROM REVIEW WHERE CONTENTS_NO = '80204465'
 delete from genre
 drop table contents
+
+
 /*재우 test*/
-select * from report
-union (all)
+select count(*) from report where id='java' and comments_NO=1
+select count(*) from report where id='java' and comments_NO=4
+select count(*) from report where id='java' and review_No=1
+select count(*) from report where id='java' and review_No=4
+delete from review where REVIEW_NO='1'
+
+
+

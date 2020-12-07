@@ -91,6 +91,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <delete id="mReportDelete" parameterType="int">
        DELETE FROM REPORT WHERE REPORT_NO=#{value}
     </delete>
+    
+    <!-- 신고 글 작성 여부 확인(review) -->
+    <select id="mReportCheckReview" parameterType="reportVO" resultType="int">
+    	select count(*) from report where id=#{memberVO.id} and review_no=#{reviewVO.reviewNo}
+    </select>
+    <!-- 신고 글 작성 여부 확인(comments) -->
+    <select id="mReportCheckComments" parameterType="reportVO" resultType="int">
+    	select count(*) from report where id=#{memberVO.id} and comments_NO=#{commentsVO.commentsNo}
+    </select>
+    
  	<!-- 내 신고글 보기(comments) -->
  	<!-- 내 신고글 보기(review) -->
 	<!-- 내 신고글 보기는 구현 방식에 대해 질문을 한 이후 만들것  -->

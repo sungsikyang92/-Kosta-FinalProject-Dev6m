@@ -23,6 +23,11 @@ public interface ReportMapper {
 	List<ReportVO> mGetReportReviewList(PagingBean pagingBean);
 	// 평점 신고리스트, 페이징
 	List<ReportVO> mGetReportCommentsList(PagingBean paginBean);
+	// 신고글 작성 여부 확인(리뷰)
+	int mReportCheckReview(ReportVO reportVO);
+	// 신고글 작성 여부 확인(평점)
+	int mReportCheckComments(ReportVO reportVO);
+	
 	// 내 신고글 보기(평점)
 	//List<ReportVO> mGetMyReportReviewList();
 	// 내 신고글 보기(리뷰)

@@ -6,7 +6,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kosta.watflix.model.mapper.ReportMapper;
 import org.kosta.watflix.model.service.ReportService;
-import org.kosta.watflix.model.vo.ReportListVO;
+import org.kosta.watflix.model.vo.CommentsVO;
+import org.kosta.watflix.model.vo.MemberVO;
+import org.kosta.watflix.model.vo.ReportVO;
+import org.kosta.watflix.model.vo.ReviewVO;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -92,6 +95,22 @@ public class JaeWooTestUnit {
 		/*/
 		// 신고글 삭제
 		reportMapper.mReportDelete(2);
+		//*/
+		
+		/*/
+		// 신고글 작성 여부 체크
+		ReportVO reportVO = new ReportVO();
+		MemberVO memberVO = new MemberVO();
+		memberVO.setId("java");
+		reportVO.setMemberVO(memberVO);
+		ReviewVO reviewVO = new ReviewVO();
+		reviewVO.setReviewNo(1);
+		reportVO.setReviewVO(reviewVO);
+		CommentsVO commentsVO = new CommentsVO();
+		commentsVO.setCommentsNo(1);
+		reportVO.setCommentsVO(commentsVO);
+		System.out.println(reportMapper.mReportCheckReview(reportVO));
+		System.out.println(reportMapper.mReportCheckComments(reportVO));
 		//*/
 		
 	}

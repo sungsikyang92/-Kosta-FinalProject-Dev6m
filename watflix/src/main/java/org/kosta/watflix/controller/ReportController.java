@@ -103,6 +103,17 @@ public class ReportController {
 		// 트랜잭션 처리 후 수정이 필요함
 		return "report/report_ok";
 	}
+	
+	// 신고글 삭제
+	@PostMapping("deleteReport.do")
+	public String deleteReportComments(int reportNo, String commentsNo) {
+		reportService.sReportDelete(reportNo);
+		if (commentsNo != null) {
+			return "redirect:reportCommentsBoard.do";
+		}else {
+			return "redirect:reportReviewBoard.do";
+		}
+	}
 }
 
 

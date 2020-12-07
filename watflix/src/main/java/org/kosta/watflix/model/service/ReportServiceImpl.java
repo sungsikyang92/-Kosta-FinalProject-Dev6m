@@ -72,4 +72,25 @@ public class ReportServiceImpl implements ReportService {
 		return reportListVO;
 	}
 
+	// 신고글 작성여부 확인(리뷰)
+	@Override
+	public boolean sReportCheckReview(ReportVO reportVO) {
+		int checkNo = reportMapper.mReportCheckReview(reportVO);
+		if (checkNo != 0) {
+			// 해당 contents에서 글(리뷰)을 작성한 적이 없다
+			return true;
+		}
+		return false;
+	}
+	// 신고글 작성여부 확인(평점)
+	@Override
+	public boolean sReportCheckComments(ReportVO reportVO) {
+		int checkNo = reportMapper.mReportCheckComments(reportVO);
+		if (checkNo != 0) {
+			// 해당 contents에서 글(평점)을 작성한 적이 없다
+			return true;
+		}
+		return false;
+	}
+
 }
