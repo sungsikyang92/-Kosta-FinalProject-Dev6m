@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import org.kosta.watflix.model.mapper.PartyMapper;
 import org.kosta.watflix.model.service.PartyService;
+import org.kosta.watflix.model.vo.ApplyVO;
 import org.kosta.watflix.model.vo.MemberVO;
 import org.kosta.watflix.model.vo.MembershipVO;
 import org.kosta.watflix.model.vo.PartyListVO;
@@ -38,14 +39,20 @@ public class PartyController {
 		//로그인 세션 멤버 정보
 		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		partyVO.setMemberVO(mvo);
+		
+		/*
+		 * MemberVO mvo = new MemberVO(); mvo.setId("java"); partyVO.setMemberVO(mvo);
+		 */
 		partyService.sPartyWrite(partyVO);
 		return "redirect:partyList.do";
 	}
 	
-	
+	//파티 리스트 
 	@RequestMapping("partyList.do")
 	public String partyList(Model model, String pageNo) {
-		PartyListVO partyListVO=partyService.sPartyGetAllList(pageNo);
+		PartyListVO partyListVO = new PartyListVO();
+		partyListVO=partyService.sPartyGetAllList(pageNo);
+		
 		model.addAttribute("PLVO",partyListVO);
 		return "party/party-List.tiles";
 	}
@@ -53,7 +60,7 @@ public class PartyController {
 	//글쓰기 폼에서 select box 선택시  두번째 select box 에 데이터 값 넘겨주는 기능
 	@RequestMapping("select1.do")
 	@ResponseBody
-	public Object test(int no) {
+	public Object select1(int no) {
 		MembershipVO msvo = partyService.sPartyGetMembershipDetail(no);
 		return msvo;
 	}
@@ -85,6 +92,20 @@ public class PartyController {
 	public String partyUpdate(PartyVO partyVO) {
 		partyService.sPartyUpdate(partyVO);
 		return "redirect:partyList.do";
+	}
+	
+	@PostMapping("partyApply.do")
+	@ResponseBody
+	public Object test(String partyNo) {
+		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		ApplyVO apvo = new ApplyVO();
+		PartyVO pvo = new PartyVO();
+		pvo.setPartyNo(Integer.parseInt(partyNo));
+		apvo.setMemberVO(mvo);
+		apvo.setPartyVO(pvo);
+		partyService.sPartyApply(apvo);
+		pvo = partyService.sPartyGetDetail(Integer.parseInt(partyNo));
+		return pvo;
 	}
 	
 }

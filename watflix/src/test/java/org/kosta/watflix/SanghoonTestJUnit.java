@@ -38,12 +38,10 @@ public class SanghoonTestJUnit {
 		memberVO.setSex("남성");
 		memberVO.setAddress("경기도");
 		memberVO.setAgreement("동의");
-<<<<<<< HEAD
 		memberService.sMemberRegister(memberVO);
 		
-=======
+
 	System.out.println(contentsService.sFindContentsByNo("70001473"));
->>>>>>> branch 'master' of https://github.com/Minikanko/-Kosta-FinalProject-Dev6m.git
 	}
 
 /* 회원정보수정 테스트 및 로그인시간,로그인실패횟수 증가 테스트 완료

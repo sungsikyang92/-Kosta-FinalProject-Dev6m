@@ -20,8 +20,8 @@ INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('ㅇ','1','앵식','gmail')
 INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL,ACC_STAUTS_NO) VALUES('jikang','1','지강','gmail',0)
 INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('spring','1','강상훈','gmail')
 INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('yuki','1','유리','gmail')
-INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('java','$2a$10$i2cyl1OhUeJ71PUTHozM9enjjiJ0rZVVjn/z7FVXnJA1pBi7gOUH2','앵앵앵','gmail')
-INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('spring',$2a$10$i2cyl1OhUeJ71PUTHozM9enjjiJ0rZVVjn/z7FVXnJA1pBi7gOUH2,'웨에엥','gmail')
+INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('java','$2a$10$i2cyl1OhUeJ71PUTHozM9enjjiJ0rZVVjn/z7FVXnJA1pBi7gOUH2','강상훈','gmail');
+INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('spring','$2a$10$i2cyl1OhUeJ71PUTHozM9enjjiJ0rZVVjn/z7FVXnJA1pBi7gOUH2','양성식','gmail');
 
 /*ReviewWrite쿼리문 테스트를 위한 CONTENTS TABLE 데이터 추가*/
 INSERT INTO CONTENTS VALUES(CONTENTS_SEQ.NEXTVAL,'트랜스포머','타입','장르','요약','트레일러',0,1,1)
@@ -166,6 +166,7 @@ select count(*) from review
 
 select * from contents
 select * from genre
+select * from grade
 
 delete from genre
 delete from contents;
@@ -278,10 +279,8 @@ select * from apply;
 insert into APPLY(ID, PARTY_NO )
 values ('java',13);
 
-<<<<<<< HEAD
 select * from member
 delete from membership
-=======
 select * from party
 select * from contents
 delete from apply
@@ -299,4 +298,43 @@ drop table contents
 /*재우 test*/
 select * from report
 union (all)
->>>>>>> branch 'master' of https://github.com/Minikanko/-Kosta-FinalProject-Dev6m.git
+
+select * from grade
+insert into grade values ( 'ROLE_MEMBER' , 'java');
+insert into grade values ( 'ROLE_MEMBER' , 'spring');
+
+/*컨텐츠*/
+CREATE TABLE CONTENTS(
+   CONTENTS_NO VARCHAR2(1000) PRIMARY KEY,
+   CONTENTS_TITLE VARCHAR2(4000) NOT NULL,
+   CONTENTS_TYPE VARCHAR2(100) NOT NULL,
+   GENRE_CODE VARCHAR2(1000) NOT NULL,
+   CONSTRAINT CONTENTS_GENRE_CODE_FK FOREIGN KEY(GENRE_CODE) REFERENCES GENRE(GENRE_CODE) on delete cascade,
+   CONTENTS_DATE VARCHAR2(100) NOT NULL,
+   CONTENTS_RUNNINGTIME VARCHAR2(100),
+   CONTENTS_ACTOR VARCHAR2(4000) NOT NULL,
+   CONTENTS_PRODUCER VARCHAR2(1000) DEFAULT '',
+   CONTENTS_SUMMARY CLOB NOT NULL,
+   CONTENTS_SMALL_THUMBNAIL VARCHAR2(4000) NOT NULL,
+   CONTENTS_BIG_THUMBNAIL VARCHAR2(4000) NOT NULL,
+   CONTENTS_AGE VARCHAR2(100) NOT NULL,
+   CONTENTS_AVG_STARS NUMBER DEFAULT 0,
+   CONTENTS_LIKES NUMBER DEFAULT 0,
+   CONTENTS_HITS NUMBER DEFAULT 0
+)
+
+select * from party
+
+select * from apply
+select * from party where party_no = 137
+
+  select ms.membership_name, ms.MEMBERSHIP_NO , ms.CONCURRENT_USERS,
+   p.PARTY_NO, m.ID, p.PARTY_TITLE, p.PARTY_HEADCOUNT, p.PARTY_APPLYCOUNT,
+  to_char(p.PARTY_POSTED_TIME,'yyyy-mm-dd') as PARTY_POSTED_TIME, p.PARTY_STATUS, 
+  CASE WHEN a.party_no = p.party_no THEN '지원' ELSE '미지원' END AS applys
+  From PARTY p, member m, MEMBERSHIP ms, (select * from apply where id='spring') a
+  
+  WHERE p.id=m.id and p.membership_no = ms.membership_no
+  
+  
+

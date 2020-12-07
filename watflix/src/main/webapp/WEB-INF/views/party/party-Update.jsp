@@ -34,7 +34,12 @@ $(document).ready(function () {
 	//뒤로가기 버튼
 	$('#goback').click(function(){
 		window.history.back();
-	});
+	})
+	
+	$('#submit').click(function(){
+		return confirm("수정하시겠습니까?");
+	})
+	
 })
 
 </script>
@@ -84,7 +89,7 @@ $(document).ready(function () {
 
 <br>
 제목:<input type="text" name=partyTitle required="required" value="${pvo.partyTitle}">
-<input type="submit" value="등록">
+<input type="submit" value="등록" id="submit">
 <input type="button" id="goback" value="취소" >
 </form>
 </body>

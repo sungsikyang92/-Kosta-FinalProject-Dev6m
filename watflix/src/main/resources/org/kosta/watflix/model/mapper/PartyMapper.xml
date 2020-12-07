@@ -31,11 +31,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	
  	<!-- 상세 파티 게시글 정보 가져오기 -->
  	<select id="mPartyGetDetail" resultMap="partyRM" parameterType="int">
- 		select ms.membership_name, ms.MEMBERSHIP_NO , ms.CONCURRENT_USERS,
+ 		 select ms.membership_name, ms.MEMBERSHIP_NO , ms.CONCURRENT_USERS,
  		p.PARTY_NO, m.ID, p.PARTY_TITLE, p.PARTY_HEADCOUNT, p.PARTY_APPLYCOUNT,
 		to_char(p.PARTY_POSTED_TIME,'yyyy-mm-dd') as PARTY_POSTED_TIME, p.PARTY_STATUS 
 		From PARTY p, member m, MEMBERSHIP ms
-		WHERE p.id=m.id and p.membership_no = ms.membership_no and party_no=#{value}
+		WHERE p.id=m.id and p.membership_no = ms.membership_no and party_no=#{value} 
+		<!--  select ms.membership_name, ms.MEMBERSHIP_NO , ms.CONCURRENT_USERS,
+   		p.PARTY_NO, m.ID, p.PARTY_TITLE, p.PARTY_HEADCOUNT, p.PARTY_APPLYCOUNT,
+  		to_char(p.PARTY_POSTED_TIME,'yyyy-mm-dd') as PARTY_POSTED_TIME, p.PARTY_STATUS, 
+  		CASE WHEN a.party_no = p.party_no THEN '지원' ELSE '미지원' END AS applys
+  		From PARTY p, member m, MEMBERSHIP ms, (select * from apply where id=#{memberVO.id}) a
+  
+ 		WHERE p.id=m.id and p.membership_no = ms.membership_no and party_no = #{partyNo} -->
  	</select>
  	
  	<!-- 게시글 리스트 가져오기 -->

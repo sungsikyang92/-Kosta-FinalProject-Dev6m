@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /*계정상태*/
 CREATE TABLE ACC_STATUS(
    ACC_STATUS_NO NUMBER PRIMARY KEY,
@@ -527,5 +526,3 @@ ALTER TABLE FAQ  MODIFY FAQ_NO number;
 delete from PARTY;
 ALTER TABLE PARTY  MODIFY PARTY_NO number;
 
-
->>>>>>> branch 'master' of https://github.com/Minikanko/-Kosta-FinalProject-Dev6m.git

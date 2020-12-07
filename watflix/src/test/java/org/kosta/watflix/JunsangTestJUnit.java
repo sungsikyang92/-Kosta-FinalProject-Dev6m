@@ -1,16 +1,13 @@
 package org.kosta.watflix;
 
-import java.util.List;
-
 import javax.annotation.Resource;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kosta.watflix.model.mapper.PartyMapper;
-import org.kosta.watflix.model.service.PagingBean;
+import org.kosta.watflix.model.service.MemberService;
 import org.kosta.watflix.model.service.PartyService;
-import org.kosta.watflix.model.vo.PartyListVO;
-import org.kosta.watflix.model.vo.PartyVO;
+import org.kosta.watflix.model.vo.MemberVO;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -44,6 +41,8 @@ public class JunsangTestJUnit {
 	private PartyMapper partyMapper;
 	@Resource
 	private PartyService partyService;
+	@Resource
+	MemberService memberService;
 	//파티 게시글 작성하기
 	/*
 	 * @Test public void partyWrite(){ MemberVO mvo = new MemberVO();
@@ -128,6 +127,22 @@ public class JunsangTestJUnit {
 	 * List<PartyVO> list = partyListVO.getPartyList(); for(int i = 0; i <
 	 * list.size(); i++) { System.out.println(list.get(i)); } }
 	 */
+	
+	
+	@Test
+	   public void test(){
+	      MemberVO memberVO = new MemberVO();
+	      memberVO.setId("java14");
+	      memberVO.setPassword("123");
+	      memberVO.setName("테스트");
+	      memberVO.setEmail("email");
+	      memberVO.setTel("123");
+	      memberVO.setBirth("1992-09-03");
+	      memberVO.setSex("남성");
+	      memberVO.setAddress("경기도");
+	      memberVO.setAgreement("동의");
+	      memberService.sMemberRegister(memberVO);
+	   }
 }
 
 
