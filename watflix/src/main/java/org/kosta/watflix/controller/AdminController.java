@@ -24,7 +24,7 @@ public class AdminController {
    @RequestMapping("contentsUpdateAdmin.do")
    public String updateContents() {
 	  double count;
-      String[] genreArr= {"1568"};
+      String[] genreArr= {"1568","2638104"};
       //크롤링할 웹페이지 주소
       String stemplateURL = "https://www.netflix.com/kr/browse/genre/";
       String btemplateURL = "https://www.netflix.com/kr/title/";   //게시물 상세보기 관련 URL
@@ -48,9 +48,9 @@ public class AdminController {
         	   sThumbnailURL=stemplateURL+genreArr[i];
                sDoc = Jsoup.connect(sThumbnailURL).get();
                sElems = sDoc.select("h1.nm-collections-header-name");
-               String genreName = sElems.text().substring(0, sElems.text().indexOf("영화"));
+        	   String genreName = sElems.text();
                String genreCode=genreArr[i];
-               
+
                //장르 DB에 저장하기
                if(adminService.findByGenreCode(genreCode)==null) {
                   adminService.genreRegister(genreCode,genreName);
@@ -60,7 +60,8 @@ public class AdminController {
                }
                
                sElems = sDoc.select("img.nm-collections-title-img");
-               for(Element sElem:sElems) {
+               for(int a=0;a<20;a++) {
+            	   Element sElem = sElems.get(a);
                   path="C:\\kosta203\\FinalProject\\-Kosta-FinalProject-Dev6m\\watflix\\src\\main\\webapp\\resources\\contents\\"; //사진을 저장할 물리적인 장소
                    //이미지
                      String sImgUrl = sElem.attr("src");
@@ -84,7 +85,7 @@ public class AdminController {
                         bElems = bDoc.select("div.title-info-synopsis");
                         //줄거리
                         String summary = bElems.text();
-                        bElems = bDoc.select("a.item-genre");
+                        bElems = bDoc.select("div.title-info-metadata-wrapper>.item-genre");
                         //타입
                         String type = bElems.text();
                         //개봉일

@@ -21,7 +21,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
        delete from faq where FAQ_NO=#{faqNo}
     </delete>
     <!--  FAQ 상세보기 -->
-    <select id="mFaqDetail" resultType="faqVO">
+    <select id="mFaqDetail" resultMap="faqRM">
        select FAQ_NO,FAQ_TITLE,to_char(FAQ_POSTED_TIME,'YYYY.MM.DD HH24:MI:SS') as
       FAQ_POSTED_TIME,ID,FAQ_CONTENTS
       from faq

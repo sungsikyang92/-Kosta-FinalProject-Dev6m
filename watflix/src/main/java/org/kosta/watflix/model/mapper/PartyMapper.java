@@ -15,7 +15,8 @@ public interface PartyMapper {
 	int mPartyGetTotalCount();
 
 	PartyVO mPartyGetDetail(int no);
-
+	//PartyVO mPartyGetDetail(PartyVO partyvo);
+	
 	void mPartyUpdate(PartyVO partyvo);
 
 	void mPartyDelete(int no);

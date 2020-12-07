@@ -2,8 +2,8 @@ package org.kosta.watflix.model.service;
 
 
 import java.util.List;
+import java.util.Map;
 
-import org.kosta.watflix.model.vo.ContentsListVO;
 import org.kosta.watflix.model.vo.ContentsVO;
 import org.kosta.watflix.model.vo.GenreVO;
 
@@ -12,10 +12,11 @@ public interface ContentsService {
 	List<ContentsVO> sGetAllContentsList();
 	int sGetTotalContentsCount();
 	int sGetTotalContentsCountForType(String contentsType);
-	ContentsListVO sGetAllContentsListForType(PagingBean pagingBean);
+	List<ContentsVO> sGetContentsAllForType(Map<String,String> map);
 	ContentsVO sFindContentsByNo(String contentsNo);
 	List<ContentsVO> sContentsHighHits();
 	List<ContentsVO> sContentsHighAvgStars();
 	List<GenreVO> sGetAllGenreList();
+	List<ContentsVO> sGetContentsSelectForType(String contentsType);
 
 }

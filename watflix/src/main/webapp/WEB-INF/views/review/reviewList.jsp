@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>ReviewList</title>
 </head>
-<body>
+<body> -->
 <h3> <a class="nav-link navbar-nav-item" href="${pageContext.request.contextPath}/home.do">홈으로</a>
 </h3>
 <table class="table">
@@ -58,5 +58,5 @@
 <a class="nav-link navbar-nav-item" href="${pageContext.request.contextPath}/reviewWriteForm.do?contentsNo=${requestScope.lvo.reviewList[0].contentsVO.contentsNo}">
 Go to ReviewWriteForm!!
 </a>
-</body>
-</html>
+<!-- </body>
+</html> -->

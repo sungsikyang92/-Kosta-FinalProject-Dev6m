@@ -1,14 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<title>noticeUpdateForm</title>
-</head>
-<body>
+<div class="container-lg" style="margin-top: 90px">
 		<sec:authorize access="hasRole('ROLE_ADMIN')">
 		<form method="post"
 		 action="${pageContext.request.contextPath}/noticeUpdate.do">
@@ -30,6 +23,7 @@
 			<tr>
 				<td>
 					<input type="hidden" name="noticeNo" value="${requestScope.noticeUpdateForm.noticeNo}">
+					<input type="hidden" name="pageNo" value="${requestScope.pageNo}">
 					<button type="submit">수정</button>
 				</td>
 				<td>
@@ -39,5 +33,4 @@
 		</table>
 		</form>
 		</sec:authorize>
-</body>
-</html>
+</div>

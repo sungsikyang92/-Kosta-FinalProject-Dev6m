@@ -6,6 +6,7 @@ import org.kosta.watflix.model.vo.ApplyVO;
 import org.kosta.watflix.model.vo.MembershipVO;
 import org.kosta.watflix.model.vo.PartyListVO;
 import org.kosta.watflix.model.vo.PartyVO;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 public interface PartyService {
 	void sPartyWrite(PartyVO partyVO);

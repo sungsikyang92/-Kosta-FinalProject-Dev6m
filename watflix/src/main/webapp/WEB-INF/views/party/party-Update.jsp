@@ -11,7 +11,6 @@
 $(document).ready(function () {
 	$('#membershipType').change(function () {
 		var selectType=$(this).val();
-		//alert(selectType);
 		 $.ajax({
 			type : "get",
 			url : "${pageContext.request.contextPath}/select1.do",
@@ -20,8 +19,6 @@ $(document).ready(function () {
 			success : function(result) {
 				$("#partyHeadCount").html("");
 				$('#partyHeadCount').append('<option value="">모집할 인원을 선택해주세요</option>');	
-				//alert(result.membershipName);
-				//alert(result.concurrentUsers);}
 			var concurrentUsers = result.concurrentUsers;
 			for(var i = 1 ; i<=concurrentUsers ; i++){
 				$('#partyHeadCount').append("<option value="+i+">"+i+"명</option>");	
@@ -30,9 +27,19 @@ $(document).ready(function () {
 		});//ajax 
 	})//첫번째 select 박스
 	$('#partyHeadCount').change(function () {
-		//alert($('#partyHeadCount').val());
 		
 	})// 두번째 select 박스
+	
+	
+	//뒤로가기 버튼
+	$('#goback').click(function(){
+		window.history.back();
+	})
+	
+	$('#submit').click(function(){
+		return confirm("수정하시겠습니까?");
+	})
+	
 })
 
 </script>
@@ -44,20 +51,28 @@ $(document).ready(function () {
 <form action="${pageContext.request.contextPath}/partyUpdate.do" method="post">
 <sec:csrfInput/><!-- csrf 토큰 -->
 <c:set var="pvo" value="${requestScope.pvo}"></c:set>
-${pvo.partyNo}
-<select name="membershipType" id="membershipType" required>
+
+<!-- 게시판번호 -->
+<input type="hidden" name="partyNo" value="${pvo.partyNo}">
+게시판 번호 :${pvo.partyNo}
+
+
+<!-- 이용권 셀렉박스 -->
+<select name="membershipVO.membershipNo" id="membershipType" required>
 <option>이용권을 선택해주세요</option>
-<c:forEach begin="1" end="3" var="status">
+<c:forEach items="${requestScope.lmsvo}" var="lmsvo">
 <c:choose>
-	<c:when test="${pvo.membershipVO.membershipNo == status }">
-		<option value="${pvo.membershipVO.membershipName}"selected>${pvo.membershipVO.membershipName}</option>
+	<c:when test="${pvo.membershipVO.membershipNo == lmsvo.membershipNo }">
+		<option value="${lmsvo.membershipNo}"selected>${pvo.membershipVO.membershipName}=${lmsvo.membershipNo}</option>
 	</c:when>
 	<c:otherwise>
-		<option value="${pvo.membershipVO.membershipName}">${pvo.membershipVO.membershipName}</option>
+		<option value="${lmsvo.membershipNo}">${lmsvo.membershipName} = ${lmsvo.membershipNo}</option>
 	</c:otherwise>
 </c:choose>
 </c:forEach>
 </select>
+
+<!-- 모집인원 셀렉박스 -->
 <select name="partyHeadCount" id="partyHeadCount" required>
 <option>모집할 인원을 선택해주세요</option>
 <c:forEach begin="1" end="${pvo.membershipVO.concurrentUsers}" var="status">
@@ -69,14 +84,13 @@ ${pvo.partyNo}
 		<option value="${status}">${status}명</option>
 		</c:otherwise>
 	</c:choose>
-	
 </c:forEach>
 </select>
 
-
 <br>
 제목:<input type="text" name=partyTitle required="required" value="${pvo.partyTitle}">
-<input type="submit" value="등록">
+<input type="submit" value="등록" id="submit">
+<input type="button" id="goback" value="취소" >
 </form>
 </body>
 </html>

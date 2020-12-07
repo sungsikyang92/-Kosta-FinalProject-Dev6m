@@ -11,7 +11,7 @@
 		})
 	})
 </script>
-<div class="container-lg">
+<div class="container-lg" style="margin-top: 90px">
 	<table class="table table-hover">
 		<tr>
 			<td>번호</td>
@@ -37,6 +37,7 @@
 				<button form="noticeUpdateForm">수정</button>
 				<form action="noticeUpdateForm.do" id="noticeUpdateForm" method="post">
 					<sec:csrfInput />
+					<input type="hidden" name="pageNo" value="${requestScope.pageNo}">
 					<input type="hidden" name="noticeNo" value="${requestScope.noticeDetail.noticeNo}">
 				</form>
 			</td>
@@ -44,7 +45,6 @@
 				<button form="noticeDeleteForm" type="submit">삭제</button>
 				<form action="noticeDelete.do" id="noticeDeleteForm" method="post">
 					<sec:csrfInput />
-					${requestScope.pageNo}
 					<input type="hidden" name="pageNo" value="${requestScope.pageNo}">
 					<input type="hidden" name="noticeNo" value="${requestScope.noticeDetail.noticeNo}">
 				</form>

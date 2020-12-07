@@ -46,6 +46,15 @@
  	<definition name="*/*.tiles" extends="home.tiles">
  		<put-attribute name="main"  value="/WEB-INF/views/{1}/{2}.jsp"/>
  	</definition>
+ 	
+ 	<definition name="contents/contents_detail.tiles" template="/WEB-INF/views/templates/contentsDetailLayout.jsp">
+ 		<put-attribute name="title"  value="Detail"/>
+ 		<put-attribute name="header" value="/WEB-INF/views/templates/header.jsp"/>
+ 		<put-attribute name="main" value="/WEB-INF/views/contents/contents_detail.jsp"/>
+ 		<put-attribute name="comments" value="/WEB-INF/views/comments/commentsListByContentsNo.jsp"/>
+ 		<put-attribute name="review" value="/WEB-INF/views/review/reviewList.jsp"/>
+ 		<put-attribute name="footer" value="/WEB-INF/views/templates/footer.jsp"/>
+ 	</definition>
 </tiles-definitions>
 
 
