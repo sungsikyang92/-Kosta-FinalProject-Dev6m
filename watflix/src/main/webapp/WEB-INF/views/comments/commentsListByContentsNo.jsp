@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<div class="container-lg">
+<div class="container-lg" style="margin-top: 100px">
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$("#openCommentsWriteFormButton").click(function(){
@@ -20,9 +20,9 @@
 						"width="+popupWidth+",height="+popupHeight+",left="+popupX+",top="+popupY);
 			})
 			$("form[name='commentsDeleteForm']").submit(function(){
-				alert(document.getElementByName("commentsDelete"));
+				alert('d');
+				var commentsNo = document.getElementsByName("commentsDelete");
 				
-				return confirm("삭제하시겠습니까?");
 			})
 		})
 	</script>
@@ -30,18 +30,18 @@
 	<sec:authorize access="hasRole('ROLE_MEMBER')" >
 	<button type="button" id="openCommentsWriteFormButton">평점쓰기</button>
 	</sec:authorize> 
-	<sec:authentication property="principal.id" var="userId"/>
-	<sec:authorize access="hasRole('ROLE_ADMIN')" var="isAdmin"/>
+	<%-- <sec:authentication property="principal.id" var="userId"/> --%>
+	<%-- <sec:authorize access="hasRole('ROLE_ADMIN')" var="isAdmin"/> --%>
 	<table class="table table-borderde table-hober boardlist">
 		<c:forEach items="${requestScope.commentsListByContentsNo.list}" var="commentsListByContentsNo">
 		<tr>
-			<td>
+			<td rowspan="2">
 				별점 : ${commentsListByContentsNo.commentsStars}
 			</td>
-			<td>
+			<td rowspan="2">
 				별점 점수 : ${commentsListByContentsNo.commentsStars}
 			</td>
-			<td>
+			<td colspan="3">
 				comments : ${commentsListByContentsNo.comments}
 			</td>
 		</tr>
@@ -55,8 +55,8 @@
 			<td>
 				<a href="#">신고링크</a>
 			</td>
-			<c:set var="writerId" value="${commentsListByContentsNo.memberVO.id }"/>
-			<c:if test="${writerId == userId || isAdmin == 'true'}">
+			<%-- <c:set var="writerId" value="${commentsListByContentsNo.memberVO.id }"/> --%>
+			<%-- <c:if test="${writerId == userId || isAdmin == 'true'}"> --%>
 			<td>
 				<form action="${pageContext.request.contextPath}/commentsDelete.do" method="post" name="commentsDeleteForm">
 					<sec:csrfInput/>
@@ -64,7 +64,7 @@
 					<input type="submit" value="삭제">
 				</form>
 			</td>
-			</c:if>
+			<%-- </c:if> --%>
 		</tr>
 		</c:forEach>
 	</table>

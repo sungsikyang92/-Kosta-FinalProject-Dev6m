@@ -28,7 +28,7 @@
 		})
 	})
 </script>
-<div class="container-lg">
+<div class="container-lg" style="margin-top: 90px">
 	<h4>공지사항</h4>
 	<!-- 공지사항 게시글 작성 폼으로 이동하는 버튼, ROLE_ADMIN 권한을 가진 관리자에게만 노출한다. -->
 	<sec:authorize access="hasRole('ROLE_ADMIN')">
