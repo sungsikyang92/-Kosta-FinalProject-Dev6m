@@ -371,3 +371,7 @@ select * from party where party_no = 137
 /* 테이블 컬럼명 바꾸기*/
 ALTER TABLE member RENAME COLUMN acc_stauts_no TO acc_status_no
 
+/* 리뷰 테스트를 위한 데이터 추가 */
+INSERT INTO review VALUES(review_seq.nextval, 'java', 60004481, '리뷰 테스트 용 스파이더맨!', '리뷰 테슷트입니다.', 0, 0, sysdate);
+INSERT INTO review VALUES(review_seq.nextval, 'java', 81095669, '리뷰 테스트 용 진격의거인!', '리뷰 테슷트입니다.', 0, 0, sysdate);
+

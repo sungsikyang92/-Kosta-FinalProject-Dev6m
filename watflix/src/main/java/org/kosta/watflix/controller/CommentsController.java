@@ -27,15 +27,22 @@ public class CommentsController {
 		return "comments/commentsList";
 	}
 	
+	//@RequestMapping("getCommentsListByContentsNo.do")
+	//public String getCommentsListByContentsNo(String contentsNo, String pageNo, Model model) {
+	//	model.addAttribute("commentsListByContentsNo", commentsService.sCommentsGetListByContentsNo(pageNo, contentsNo));
+	//	model.addAttribute("contentsNo", contentsNo);
+	//	return "comments/commentsListByContentsNo";
+	//}
+	
 	@RequestMapping("getCommentsListByContentsNo.do")
-	public String getCommentsListByContentsNo(int contentsNo, String pageNo, Model model) {
-		model.addAttribute("commentsListByContentsNo", commentsService.sCommentsGetListByContentsNo(pageNo, contentsNo));
-		model.addAttribute("contentsNo", contentsNo);
-		return "comments/commentsListByContentsNo";
+	public String getCommentsListByContentsNo(String contentsNo, String pageNo, RedirectAttributes redirectAttributes) {
+		redirectAttributes.addAttribute("commentsListByContentsNo", commentsService.sCommentsGetListByContentsNo(pageNo, contentsNo));
+		redirectAttributes.addAttribute("contentsNo", contentsNo);
+		return "redirect:contentsDetail.do";
 	}
 	
 	@RequestMapping("commentsWriteForm.do")
-	public String commentsWriteForm(int contentsNo, Model model) {
+	public String commentsWriteForm(String contentsNo, Model model) {
 		model.addAttribute("contentsNo", contentsNo);
 		return "comments/commentsWriteForm";
 	}

@@ -22,12 +22,24 @@ public class ContentsController {
 	CommentsService commentsService;
 	
 	@RequestMapping("contentsDetail.do")
-	public ModelAndView ContentsDetail(ContentsVO contentsVO, String pageNo) {
+	public ModelAndView ContentsDetail(ContentsVO contentsVO, String commentsPageNo, String reviewPageNo) {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("contents/contents_detail.tiles");
 		modelAndView.addObject("contentsVO", contentsService.sFindContentsByNo(contentsVO.getContentsNo()));
-		modelAndView.addObject("commentsListByContentsNo", commentsService.sCommentsGetListByContentsNo(pageNo, Integer.parseInt(contentsVO.getContentsNo())));
-		modelAndView.addObject("lvo", reviewService.sGetReviewList(pageNo));
+		modelAndView.addObject("contentsNo", contentsVO.getContentsNo());
+		
+		if(commentsPageNo==null) {
+			commentsPageNo = "1"; 
+		}
+		if(reviewPageNo==null) {
+			reviewPageNo = "1";
+		}		
+		if(commentsPageNo!=null) {
+			modelAndView.addObject("commentsListByContentsNo", commentsService.sCommentsGetListByContentsNo(commentsPageNo, contentsVO.getContentsNo()));
+		} 
+		if(reviewPageNo!=null) {
+			modelAndView.addObject("lvo", reviewService.sGetReviewList(reviewPageNo));
+		}
 		System.out.println(contentsVO.getContentsNo());
 		return modelAndView;
 	}
