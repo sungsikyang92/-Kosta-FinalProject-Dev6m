@@ -5,13 +5,10 @@ import javax.annotation.Resource;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kosta.watflix.model.service.CommentsService;
+import org.kosta.watflix.model.service.MemberService;
 import org.kosta.watflix.model.service.NoticeService;
 import org.kosta.watflix.model.service.ReportService;
-import org.kosta.watflix.model.vo.CommentsVO;
 import org.kosta.watflix.model.vo.MemberVO;
-import org.kosta.watflix.model.vo.ReportTypeVO;
-import org.kosta.watflix.model.vo.ReportVO;
-import org.kosta.watflix.model.vo.ReviewVO;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -45,6 +42,8 @@ public class JihunTestJUnit {
 	private CommentsService commentsService;
 	@Resource
 	private ReportService reportService;
+	@Resource
+	private MemberService memberService;
 	@Test
 	public void test(){
 		
@@ -156,6 +155,19 @@ public class JihunTestJUnit {
 		//reportVO.setReportContents("코로나입니다 집에 머무시기를");
 		//reportService.sReportWriteReview(reportVO);
 		//System.out.println(reportService.sReportGetDetailNoHits(1)); 
+		
+		//13. 회원등록
+		 MemberVO memberVO = new MemberVO();
+	      memberVO.setId("java14");
+	      memberVO.setPassword("123");
+	      memberVO.setName("테스트");
+	      memberVO.setEmail("email");
+	      memberVO.setTel("123");
+	      memberVO.setBirth("1992-09-03");
+	      memberVO.setSex("남성");
+	      memberVO.setAddress("경기도");
+	      memberVO.setAgreement("동의");
+	      memberService.sMemberRegister(memberVO);
 	}
 }
 

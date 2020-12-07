@@ -107,7 +107,7 @@
             <!-- 인기 컨텐츠 tab - OPEN -->
             <div class="margin-top-under-sm tab-pane fade show active" id="trend" role="tabpanel" aria-labelledby="trend-tab">
                 <!-- Carousel - OPEN -->
-                <div class="carousel" data-flickity='{ "groupCells": true, "cellAlign": "center", "pageDots": false, "wrapAround": true, "draggable": false }' style="height: 280px;padding-top: 15px;">
+                <div class="carousel" data-flickity='{ "groupCells": true, "cellAlign": "center", "pageDots": false, "wrapAround": true, "draggable": false }' style="height: 280px; padding-top: 15px;">
 					<!--컨텐츠 리스트 출력 For문 START  -->
                   	<c:forEach items="${requestScope.contentsHighHits}" var="contentsVO">
                   	<div class="carousel-cell">
@@ -117,22 +117,17 @@
                         	<h5 class="text-center">${contentsVO.contentsTitle}</h5>
                         	
                         	<div class="row">
-                            <div class="col-3 text-left no-padding">
-                                년도
+                            <div class="col-4 text-left no-padding">
+                                ${contentsVO.contentsDate}
                             </div>
-                            <div class="col-3 text-center no-padding">
-                                <a href="">
-                                    <img src="${pageContext.request.contextPath}/resources/media/icons/eye.png" width="10" alt="">
-                                </a>
-                            </div>
-                            <div class="col-3 text-left no-padding">
+                            <div class="col-4 text-center no-padding">
                                 <a href="">
                                     <img src="${pageContext.request.contextPath}/resources/media/icons/heart.png" width="10" alt="">
                                 </a>
                             </div>
-                            <div class="col-3 text-right no-padding rating">
+                            <div class="col-4 text-right no-padding rating">
                                 <img src="${pageContext.request.contextPath}/resources/media/icons/star.png" width="10" alt="" style="padding-bottom: 3px">
-                                8.0
+                                ${contentsVO.contentsAvgStars}
                             </div>
                         </div>
                         <div class="overlay">
@@ -141,9 +136,9 @@
                                     <img src="${pageContext.request.contextPath}/resources/media/icons/info.png" width="10" alt="">
                                     Info
                                 </a>
-                                <a href="#" class="btn btn-primary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                <a href="${pageContext.request.contextPath}/contentsDetail.do?contentsNo=${contentsVO.contentsNo}" class="btn btn-primary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
                                     <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="10" alt="">
-                                    Watch
+                                    상세보기
                                 </a>
                             </div>
                         </div>
@@ -152,7 +147,6 @@
 					<!--컨텐츠 리스트 출력 For문 END  -->
                 </div>
                 <!-- Carousel - CLOSE -->
-
             </div>
             <!-- Trend tab - CLOSE -->
 
@@ -283,14 +277,15 @@
                 <!-- Rating filter and sorting - CLOSE -->
 
                 <!-- Grid cards films - OPEN -->
-                <div id="grid-movies">
-               		 <!-- 컨텐츠 리스트의 행이 1일때 OPEN -->
-                	 <div class="card-deck margin-top">
-						<c:forEach items="${requestScope.contentsList}" var="contentsVO" end="5">
+                <div id="grid-movies" style="margin-top:50px;">
+                    <!-- 컨텐츠 리스트 행 Layout - OPEN -->
+                    <c:forEach var="index" begin="1" end="${fn:length(requestScope.contentsList)/5}">
+       				 	<div class="card-deck">
+							<c:forEach items="${requestScope.contentsList}" var="contentsVO"  begin="${(index-1)*5}" end="${index*5-1}">
 							  <!-- 컨텐츠 리스트 열 Layout - OPEN -->
 		                        <div class="card carousel-cell">
 		                            <img class="card-img-top" src="${pageContext.request.contextPath}/${contentsVO.contentsSmallThumbnail}" />
-		                            <h5 class="card-title text-center"> ${contentsVO.contentsTitle}</h5>
+		                            <h5 class="card-title text-center" style="font-size:13px;"> ${contentsVO.contentsTitle}</h5>
 		                            <div class="row">
 		                                <div class="col-3 text-left no-padding">
 		                                    년도
@@ -323,106 +318,11 @@
 		                                </div>
 		                            </div>
 		                        </div>
-               				 <!-- 컨텐츠 리스트 열 Layout  - Close -->
-						</c:forEach>
+                     				 <!-- 컨텐츠 리스트 열 Layout  - Close -->
+							</c:forEach>
 						</div>
-						<!-- 컨텐츠 리스트의 행이 1일때 CLOSE -->
-                    <!-- 컨텐츠 리스트 2행 Layout - OPEN -->
-                    <c:forEach var="index" begin="1" end="${fn:length(requestScope.contentsList)/5}">
-                    		<!-- 컨텐츠 리스트의 행이 행 OPEN -->
-                    		<!-- 행의 class 속성을 달리지기 위해 OPEN  -->
-                    		<c:choose>
-                    			<c:when test="${index==1}">
-                    				 <div class="card-deck">
-									<c:forEach items="${requestScope.contentsList}" var="contentsVO"  begin="${(index-1)*5+1 }" end="${index*5}">
-										  <!-- 컨텐츠 리스트 열 Layout - OPEN -->
-					                        <div class="card carousel-cell">
-					                            <img class="card-img-top" src="${pageContext.request.contextPath}/${contentsVO.contentsSmallThumbnail}" />
-					                            <h5 class="card-title text-center"> ${contentsVO.contentsTitle}</h5>
-					                            <div class="row">
-					                                <div class="col-3 text-left no-padding">
-					                                    년도
-					                                </div>
-					                                <div class="col-3 text-center no-padding">
-					                                    <a href="">
-					                                        <img src="${pageContext.request.contextPath}/resources/media/icons/eye.png" width="10" alt="상세보기">
-					                                    </a>
-					                                </div>
-					                                <div class="col-3 text-left no-padding">
-					                                    <a href="">
-					                                        <img src="${pageContext.request.contextPath}/resources/media/icons/heart.png" width="10" alt="좋아요">
-					                                    </a>
-					                                </div>
-					                                <div class="col-3 text-right no-padding rating">
-					                                    <img src="${pageContext.request.contextPath}/resources/media/icons/star.png" width="10" alt="" class="padding-bottom-sm">
-					                                    ${contentsVO.contentsAvgStars}
-					                                </div>
-					                            </div>
-					                            <div class="overlay">
-					                                <div class="text">
-					                                    <a href="#" class="btn btn-secondary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
-					                                        <img src="${pageContext.request.contextPath}/resources/media/icons/info.png" width="10" alt="">
-					                                        Info
-					                                    </a>
-					                                    <a href="#" class="btn btn-primary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
-					                                        <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="10" alt="">
-					                                        Watch
-					                                    </a>
-					                                </div>
-					                            </div>
-					                        </div>
-	                       				 <!-- 컨텐츠 리스트 열 Layout  - Close -->
-									</c:forEach>
-									</div>
-                    			</c:when>
-                    			<c:otherwise>
-                    				<div class="card-deck">
-									<c:forEach items="${requestScope.contentsList}" var="contentsVO"  begin="${(index-1)*5+1 }" end="${index*5}">
-										  <!-- 컨텐츠 리스트 열 Layout - OPEN -->
-					                        <div class="card carousel-cell">
-					                            <img class="card-img-top" src="${pageContext.request.contextPath}/${contentsVO.contentsSmallThumbnail}" />
-					                            <h5 class="card-title text-center"> ${contentsVO.contentsTitle}</h5>
-					                            <div class="row">
-					                                <div class="col-3 text-left no-padding">
-					                                    년도
-					                                </div>
-					                                <div class="col-3 text-center no-padding">
-					                                    <a href="">
-					                                        <img src="${pageContext.request.contextPath}/resources/media/icons/eye.png" width="10" alt="상세보기">
-					                                    </a>
-					                                </div>
-					                                <div class="col-3 text-left no-padding">
-					                                    <a href="">
-					                                        <img src="${pageContext.request.contextPath}/resources/media/icons/heart.png" width="10" alt="좋아요">
-					                                    </a>
-					                                </div>
-					                                <div class="col-3 text-right no-padding rating">
-					                                    <img src="${pageContext.request.contextPath}/resources/media/icons/star.png" width="10" alt="" class="padding-bottom-sm">
-					                                    ${contentsVO.contentsAvgStars}
-					                                </div>
-					                            </div>
-					                            <div class="overlay">
-					                                <div class="text">
-					                                    <a href="#" class="btn btn-secondary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
-					                                        <img src="${pageContext.request.contextPath}/resources/media/icons/info.png" width="10" alt="">
-					                                        Info
-					                                    </a>
-					                                    <a href="#" class="btn btn-primary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
-					                                        <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="10" alt="">
-					                                        Watch
-					                                    </a>
-					                                </div>
-					                            </div>
-					                        </div>
-	                       				 <!-- 컨텐츠 리스트 열 Layout  - Close -->
-									</c:forEach>
-									</div>
-                    			</c:otherwise>
-                    		</c:choose>
-                    		<!-- 행의 class 속성을 달리지기 위해 CLOSE  -->
-                    		<!-- 컨텐츠 리스트의 행 CLOSE -->
                     </c:forEach>
-                    <!-- 컨텐츠 리스트의 행이 2행이상 CLOSE -->
+                    <!-- 컨텐츠 리스트 행 CLOSE -->
                 </div>
                 <!-- Grid cards films - CLOSE -->
 
@@ -434,7 +334,6 @@
                     </a>
                 </div>
                 <!-- Load more button - CLOSE -->
-
             </div>
             <!-- Movies tab - CLOSE -->
 

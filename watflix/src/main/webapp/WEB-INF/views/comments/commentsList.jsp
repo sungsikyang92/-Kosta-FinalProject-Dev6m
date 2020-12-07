@@ -2,35 +2,25 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
- 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<script type="text/javascript">
-	$(doucment).ready(function(){
-		$('#commentsWriteForm').submit(function(){
-			return confirm("작성하시겠습니까?");
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#commentsDeleteButton").click(function(){
+			alert('1');
 		})
 	})
 </script>
-<title>commentList</title>
-</head>
-<body>
-	<table class="table table-borderde table-hober boardlist">
+<sec:authorize access="hasRole('ROLE_ADMIN')">
+<div class="container-lg">
+	<table class="table table-hover">
 		<c:forEach items="${requestScope.commentsList.list}" var="commentsList">
 		<tr>
-			<td>
+			<td rowspan="2">
 				별점 : ${commentsList.commentsStars}
 			</td>
-			<td>
+			<td rowspan="2">
 				별점 점수 : ${commentsList.commentsStars}
 			</td>
-			<td>
+			<td colspan="3">
 				comments : ${commentsList.comments}
 			</td>
 		</tr>
@@ -43,6 +33,12 @@
 			</td>
 			<td>
 				<a href="#">신고링크</a>
+			</td>
+			<td>
+				<form action="${pageContext.request.contextPath}/commentsDelete.do" method="post" id="commentsDeleteForm">
+					<input type="hidden" name="commentsDelete" value="${commentsList.commentsNo}">
+					<input type="submit" name="commentsDeleteButton" value="삭제">
+				</form>
 			</td>
 		</tr>
 		</c:forEach>
@@ -69,5 +65,5 @@
 			</c:if>
 		</ul>
 	</div>
-</body>
-</html>
+</div>
+</sec:authorize>

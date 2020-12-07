@@ -2,18 +2,25 @@
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+    <%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
+    
     
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/css/style.css">
 <title>faqList</title>
 </head>
 <body>
 FAQ Page
 <form >
-<table>
-	<caption> FAQ 목록</caption>
+<div class="container-lg">
+<hr>
+<hr>
+	<h2>FAQ</h2>
+<table class="table table-hover">
 	<thead>
 		<tr>
 			<th class="faqNo">NO</th>
@@ -34,8 +41,12 @@ FAQ Page
 		</c:forEach>
 	</tbody>
 </table>
-<a href="${pageContext.request.contextPath}/faqWriteForm.do"><input type="button" value="FAQ 작성"></a>
+</div>
+<div class="faqWriteBtn">
+<a href="${pageContext.request.contextPath}/faqWriteForm.do"><input type="button" value="FAQ 작성" ></a>
+</div>
 </form>
+
 <div class="pagingInfo">
 	<%-- 코드를 줄이기 위해 pb 변수에 pagingBean을 담는다. --%>
 	<c:set var="pb" value="${requestScope.lvo.pagingBean}"></c:set>
@@ -60,12 +71,15 @@ FAQ Page
 	end="${pb.endPageOfPageGroup}">
 	<c:choose>
 	<c:when test="${pb.nowPage!=i}">
+	<div class="pageNoBtn">
 	<li><a href="${pageContext.request.contextPath}/faqList.do?pageNo=${i}">${i}</a></li> 
+	</div>
 	</c:when>
 	<c:otherwise>
 	<li class="active"><a href="#" >${i}</a></li>
 	</c:otherwise>
 	</c:choose>
+	
 	&nbsp;
 	</c:forEach>
 	<c:if test="${pb.nextPageGroup}">	
