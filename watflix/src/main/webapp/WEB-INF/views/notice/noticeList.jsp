@@ -2,57 +2,79 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- 공지사항 게시판 목록 jsp -->
 <script>
 	$(document).ready(function(){
+		<!-- 공지사항 게시글 작성 폼으로 이동하는 메소드 -->
 		$("#noticeWriteButton").click(function(){
 			location.href="noticeWriteForm.do";
 		})
+		$("#checkAll").click(function(){
+			if($(this).is(":checked")){
+				$("input[type=checkbox]").prop("checked", true);
+			} else {
+				$("input[type=checkbox]").prop("checked", false);
+			}
+		})
+		$("#deleteNoticeByCheckboxForm").submit(function(){
+			var deleteCount = $("input[name='deleteCheckbox']:checked").length;
+			if(deleteCount == 0){
+				alert("삭제할 글을 선택해주세요.");
+				return false;
+			} else {
+				return confirm("삭제하시겠습니까?");
+			}
+					
+		})
 	})
 </script>
-<title>noticeListAdmin</title>
-</head>
-<body>
-<div class="cotainer-fluid">
-	<%-- <sec:authorize access="hasRole('ROLE_ADMIN')"> --%>
+<div class="container-lg">
+	<h4>공지사항</h4>
+	<!-- 공지사항 게시글 작성 폼으로 이동하는 버튼, ROLE_ADMIN 권한을 가진 관리자에게만 노출한다. -->
+	<sec:authorize access="hasRole('ROLE_ADMIN')">
+	<!-- 자바스크립트 메소드를 호출한다. -->
 	<button type="button" id="noticeWriteButton">글쓰기</button>
-	<%-- </sec:authorize> --%>
-	<table class="table table-bordered  table-hover boardlist">
+	</sec:authorize>
+	<form action="${pageContext.request.contextPath}/noticeDeleteByCheckbox.do"
+	id="deleteNoticeByCheckboxForm" method="post">
+	<sec:csrfInput/>
+	<table class="table table-hover">
 		<tr>
 			<td>번호</td>
 			<td>제목</td>
 			<td>아이디</td>
 			<td>작성일자</td>
 			<td>조회수</td>
-			<td></td>
+			<sec:authorize access="hasRole('ROLE_ADMIN')">
+			<td><input type="checkbox" id="checkAll"></td>
+			</sec:authorize>
 		</tr>
 		<c:forEach items="${requestScope.noticeList.list}" var="noticeList">
 		<tr>
 			<td>${noticeList.noticeNo}</td>
 			<td>
-				<a href="${pageContext.request.contextPath}/noticeDetail.do?noticeNo=${noticeList.noticeNo}">
-					${noticeList.noticeTitle}
-				</a>
+				<a href="${pageContext.request.contextPath}/noticeDetail.do?noticeNo=${noticeList.noticeNo}&pageNo=${requestScope.noticeList.pagingBean.nowPage}">
+					${noticeList.noticeTitle}</a> <!-- 공지사항 자세히보기 링크 -->
 			</td>
 			<td>${noticeList.memberVO.id}</td>
 			<td>${noticeList.noticePostedTime}</td>
 			<td>${noticeList.noticeHits}</td>
-			<td><input type="checkbox" value="${noticeList.noticeNo}" name="deleteCheckbox[]"></td>
+			<sec:authorize access="hasRole('ROLE_ADMIN')">
+			<td><input type="checkbox" value="${noticeList.noticeNo}" name="deleteCheckbox"></td>
+			</sec:authorize>
 		</tr>
 		</c:forEach>
+		<sec:authorize access="hasRole('ROLE_ADMIN')">
 		<tr>
 			<td colspan="5"></td>
-			<td><button id="deletePostByCheckboxbutton">삭제</button>
+			<td>
+				<input type="hidden" name="pageNo" value="${requestScope.noticeList.pagingBean.nowPage}">
+				<input type="submit" value="삭제">
+			</td>
 		</tr>
+		</sec:authorize>
 	</table>
+	</form>
 <div class="pagingInfo">
 	<c:set var="pagingBean" value="${requestScope.noticeList.pagingBean}"></c:set>
 		<ul class="pagination">
@@ -76,5 +98,5 @@
 	</ul>
 </div><!-- pagingInfo -->
 </div> <!-- container-fluid -->
-</body>
-</html>
+<!-- </body>
+</html> -->

@@ -81,21 +81,33 @@
 		</tfoot>
 	</table>
 
-	<!-- 신고 폼 test -->
-	<hr>
 	
+	<hr>
+	<h5>이 구간은 test 구간</h5>
+	<!-- comments 신고 폼 test -->
 	<script type="text/javascript">
-		function reportPopup(){
-			//리뷰, 평점 신고 별도로 만들 것
-			// 게시판No를 받아서 보내도록 수정해야함
-			var path = "${pageContext.request.contextPath}/reportReviewForm.do";
-			window.open(path, "reportReview","width=375, height=155, top=150, left=200");
+		function reportPopup(commentsNo, commentsWriter){
+			//alert(commentsNo +", "+ commentsWriter);
+			// commentsWriter id 혹은 네임 변수에 맞게 수정할 것
+			var path = "${pageContext.request.contextPath}/reportCommentsForm.do?commentsNo="+commentsNo+"&&"+"commentsWriter="+commentsWriter;
+			window.open(path, "reportComments","width=465, height=180, top=150, left=200");
+			
 		}
 	</script>
-	<!-- 신고 버튼 -->
-	<input type="button" value="신고 한다" onclick="reportPopup()">
-    <hr>
-    ${param.no }
+    	<table>
+    		<tbody>
+    			<c:forEach var="rvo" items="${requestScope.ReportCommentsList.list}" varStatus="status">
+					<tr>
+						<td>${status.count }</td>
+						<td>${rvo.reportNo}</td>
+						<td>${rvo.commentsVO.memberVO.id}</td>
+						<td>${rvo.reportPostedTime}</td>
+						<!-- 신고 버튼 : reportPopup함수에 변수값을 넣어서 보낸다 -->
+						<td><button onclick="reportPopup(${rvo.commentsVO.commentsNo},'${rvo.commentsVO.memberVO.id}')" >test</button></td>
+					</tr>
+				</c:forEach>
+    		</tbody>
+    	</table>    	
 </body>
 </html>
 

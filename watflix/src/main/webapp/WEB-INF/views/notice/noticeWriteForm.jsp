@@ -25,11 +25,11 @@
 			<sec:csrfInput/>
 			<table class="table">
 				<tr>
-					<td>제목</td>	<td><input type="text" name="noticeTitle" value="${requestScope.noticeUpdateForm.noticeTitle}" required="required"></td>
+					<td>제목</td>	<td><input type="text" name="noticeTitle" placeholder="공지사항의 제목을 입력해주세요!" required="required"></td>
 				</tr>
 				<tr>
 					<td>내용</td>
-					<td><textarea cols="90" rows="15" name="noticeContents" required="required">${requestScope.noticeUpdateForm.noticeContents}</textarea></td>
+					<td><textarea cols="90" rows="15" name="noticeContents" placeholder="공지사항의 내용을 입력해주세요!" required="required"></textarea></td>
 				</tr>				
 				<tr>
 					<td>

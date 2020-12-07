@@ -19,10 +19,6 @@ INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('c','1','똘이','gmail')
 INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('ㅇ','1','앵식','gmail')
 INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL,ACC_STAUTS_NO) VALUES('jikang','1','지강','gmail',0)
 INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('spring','1','강상훈','gmail')
-<<<<<<< HEAD
-
-=======
->>>>>>> branch 'master' of https://github.com/Minikanko/-Kosta-FinalProject-Dev6m.git
 INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('yuki','1','유리','gmail')
 INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('java','$2a$10$i2cyl1OhUeJ71PUTHozM9enjjiJ0rZVVjn/z7FVXnJA1pBi7gOUH2','앵앵앵','gmail')
 INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('spring',$2a$10$i2cyl1OhUeJ71PUTHozM9enjjiJ0rZVVjn/z7FVXnJA1pBi7gOUH2,'웨에엥','gmail')
@@ -111,11 +107,12 @@ UPDATE REVIEW SET REVIEW_HITS=REVIEW_HITS+1 WHERE REVIEW_NO= 16
 SELECT * FROM REVIEW
 
 /*Notice 테스트를 위한 데이터 추가*/
-INSERT INTO NOTICE VALUES (NOTICE_SEQ.NEXTVAL, 'jikang', '점심은 뭐 먹지?', '점심 뭐가 맛있나요?', SYSDATE, 0)
+INSERT INTO NOTICE VALUES (NOTICE_SEQ.NEXTVAL, 'java', '점심은 뭐 먹지?', '점심 뭐가 맛있나요?', SYSDATE, 0)
 
 /*Comment 테스트를 위한 데이터 추가*/
-INSERT INTO Comments VALUES (COMMENTS_SEQ.NEXTVAL, 'jikang', '81004276', '쉐보레 카마로 멋지지 않나요?', 8, SYSDATE);
-INSERT INTO Comments VALUES (COMMENTS_SEQ.NEXTVAL, 'jikang', '60004481', '나도 스파이더맨 처럼 날아다닐 수 있으면?', 8, SYSDATE);
+INSERT INTO Comments VALUES (COMMENTS_SEQ.NEXTVAL, 'java', '81004276', '쉐보레 카마로 멋지지 않나요?', 8, SYSDATE);
+INSERT INTO Comments VALUES (COMMENTS_SEQ.NEXTVAL, 'java', '60004481', '나도 스파이더맨 처럼 날아다닐 수 있으면?', 8, SYSDATE);
+INSERT INTO Comments VALUES (COMMENTS_SEQ.NEXTVAL, 'java', '81095669', '진격의 거인이 그렇게 재미있냐?', 8, SYSDATE);
 
 /*report 테스트를 위한 데이터 추가*/
 INSERT INTO report VALUES (report_seq.nextval, 'jikang', null, 1, 1, '신고합니다', sysdate)
@@ -272,8 +269,20 @@ values ('java',13);
 select * from party
 select * from contents
 delete from apply
+/*컨텐츠의 리뷰 갯수 구하기*/
+select * from REVIEW
+select count(*) CONTENTS_NO from review
+SELECT COUNT(*) R.CONTENTS_NO FROM REVIEW R, CONTENTS C WHERE R.CONTENTS_NO = C.CONTENTS_NO
+SELECT R.REVIEW_TITLE, C.CONTENTS_NO FROM REVIEW WHERE R.CONENTS_NO = C.CONTENTS_NO
+ON REVIEW.CONTENTS_NO = CONTENTS.CONTENTS_NO
+SELECT * FROM CONTENTS
+SELECT COUNT(*) FROM REVIEW
+SELECT COUNT(REVIEW_TITLE) AS CONTENTS_REVIEW_NO FROM REVIEW WHERE CONTENTS_NO = '80204465'
 delete from genre
 drop table contents
+/*재우 test*/
+select * from report
+union (all)
 
-
-
+/* 테이블 컬럼명 바꾸기*/
+ALTER TABLE member RENAME COLUMN acc_stauts_no TO acc_status_no
