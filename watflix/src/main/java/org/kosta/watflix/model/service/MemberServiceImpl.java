@@ -70,6 +70,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	//사용자 정보 업데이트
+	@Transactional
 	@Override
 	public void sMemberUpdate(MemberVO memberVO) {
 		String encodedPwd = passwordEncoder.encode(memberVO.getPassword());

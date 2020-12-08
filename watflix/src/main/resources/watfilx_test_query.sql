@@ -8,6 +8,8 @@ select * from review
 INSERT INTO REVIEW(REVIEW_NO,ID,CONTENTS_NO,REVIEW_TITLE,REVIEW_CONTENTS) 
 VALUES('454','BOSE','81171201','블러드 샷 봤냐?','지린다 가슴이 웅장해진다...꼭봐라...')
 
+SELECT * FROM COMMENTS
+
 SELECT * FROM REVIEW WHERE REVIEW_NO=777
 /*ReviewWrite쿼리문 테스트*/
 INSERT INTO REVIEW(REVIEW_NO,ID,CONTENTS_NO,REVIEW_TITLE,REVIEW_CONTENTS) VALUES(REVIEW_NO.SEQ.NEXTVAL,);
@@ -20,8 +22,8 @@ INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('ㅇ','1','앵식','gmail')
 INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL,ACC_STAUTS_NO) VALUES('jikang','1','지강','gmail',0)
 INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('spring','1','강상훈','gmail')
 INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('yuki','1','유리','gmail')
-INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('java','$2a$10$i2cyl1OhUeJ71PUTHozM9enjjiJ0rZVVjn/z7FVXnJA1pBi7gOUH2','앵앵앵','gmail')
-INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('spring',$2a$10$i2cyl1OhUeJ71PUTHozM9enjjiJ0rZVVjn/z7FVXnJA1pBi7gOUH2,'웨에엥','gmail')
+INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('java','$2a$10$i2cyl1OhUeJ71PUTHozM9enjjiJ0rZVVjn/z7FVXnJA1pBi7gOUH2','강상훈','gmail');
+INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('spring','$2a$10$i2cyl1OhUeJ71PUTHozM9enjjiJ0rZVVjn/z7FVXnJA1pBi7gOUH2','양성식','gmail');
 
 /*ReviewWrite쿼리문 테스트를 위한 CONTENTS TABLE 데이터 추가*/
 INSERT INTO CONTENTS VALUES(CONTENTS_SEQ.NEXTVAL,'트랜스포머','타입','장르','요약','트레일러',0,1,1)
@@ -166,6 +168,7 @@ select count(*) from review
 
 select * from contents
 select * from genre
+select * from grade
 
 delete from genre
 delete from contents;
@@ -195,6 +198,12 @@ values (PARTY_SEQ.nextval,'java','파티원제목1',1,1)
 
 select * from party
 delete from party
+alter table ACC_STATUS 
+
+ALTER TABLE member
+RENAME COLUMN acc_stauts_no TO acc_status_no;
+
+
 
 /* Faq test */
 insert into faq(FAQ_NO,ID,FAQ_TITLE,FAQ_CONTENTS)
@@ -204,9 +213,12 @@ insert into faq(FAQ_NO,ID,FAQ_TITLE,FAQ_CONTENTS)
  		select * from member;
  		
  		delete from faq;
- 		   	update faq set FAQ_HITS=FAQ_HITS+1 where faq_No='18'
 
- 		
+ select m.id,m.password,m.name,m.tel,m.birth,m.sex,m.email,m.address,m.login_time,
+ 		m.login_fail,m.point,m.signup_date,m.agreement,a.acc_status_info
+ 		from member m, (select * from acc_status) a
+ 		where m.id='java14'
+ 		select * from member where id='java14'
 CREATE TABLE FAQ(
    FAQ_NO VARCHAR2(100) PRIMARY KEY,
    ID VARCHAR2(100) NOT NULL,
@@ -249,6 +261,8 @@ PARTY_SEQ.nextval, 'java', '제목', 3, 4, 0, sysdate, '진행중');
 
 select party_seq.nextval from dual
 select * from party;
+select * from member
+
 
 
 select ms.membership_name, p.PARTY_NO, m.ID, 
@@ -268,6 +282,8 @@ select * from apply;
 insert into APPLY(ID, PARTY_NO )
 values ('java',13);
 
+select * from member
+delete from membership
 select * from party
 select * from contents
 delete from apply
@@ -282,9 +298,90 @@ SELECT COUNT(*) FROM REVIEW
 SELECT COUNT(REVIEW_TITLE) AS CONTENTS_REVIEW_NO FROM REVIEW WHERE CONTENTS_NO = '80204465'
 delete from genre
 drop table contents
+
+
 /*재우 test*/
-select * from report
-union (all)
+-- 제약 조건 비활성화, 확성화
+alter table REPORT disable constraint REPORT_REVIEW_NO_FK
+alter table REPORT enable constraint REPORT_REVIEW_NO_FK
+-- 제약 조건 검색
+SELECT * FROM ALL_CONSTRAINTS
+WHERE TABLE_NAME = 'REPORT'
+-- 제약조건후 부모 테이블 data 삭제 및 테이블 조회
+select * from report where comments_no is NULL;
+select * from review;
+delete from review where review_no=1
+-- 내 신고 게시물 보기(리뷰)
+SELECT REPORT_NO,ID,REVIEW_NO,REPORT_TYPE_NO,REPORT_CONTENTS,re_time,reportedId
+FROM(SELECT row_number() over(order by REPORT_NO desc) as re_num, r.REPORT_NO,r.ID,r.REVIEW_NO,r.COMMENTS_NO, r.REPORT_TYPE_NO, r.REPORT_CONTENTS, r.re_time, rv.id as reportedId
+FROM(SELECT REPORT_NO,ID,REVIEW_NO,COMMENTS_NO,REPORT_TYPE_NO,REPORT_CONTENTS,
+to_char(REPORT_POSTED_TIME,'YYYY.MM.DD HH:MI:SS') as re_time
+FROM REPORT where id='java') r, review rv where r.REVIEW_NO=rv.REVIEW_NO)
+where re_num between 1 and 5
+order by report_no desc;
+-- 내 신고 게시물 보기(평점)
+SELECT REPORT_NO,ID,COMMENTS_NO,REPORT_TYPE_NO,REPORT_CONTENTS,re_time,reportedId
+FROM(SELECT row_number() over(order by r.REPORT_NO desc) as re_num, r.REPORT_NO,r.ID,r.REVIEW_NO,r.COMMENTS_NO, r.REPORT_TYPE_NO, r.REPORT_CONTENTS, r.re_time, c.id as reportedId
+FROM(SELECT REPORT_NO,ID,REVIEW_NO,COMMENTS_NO,REPORT_TYPE_NO,REPORT_CONTENTS,
+to_char(REPORT_POSTED_TIME,'YYYY.MM.DD HH:MI:SS') as re_time
+FROM REPORT where id='java') r, COMMENTS c where r.COMMENTS_NO=c.COMMENTS_NO)
+where re_num between 1 and 5
+order by report_no desc;
+-- 내가 작성한 신고글 수 조회
+select count(*) from report where REVIEW_NO is not NULL and id='java'
+select count(*) from report where REVIEW_NO is NULL and id='java'
+
+
+select * from grade
+insert into grade values ( 'ROLE_MEMBER' , 'java');
+insert into grade values ( 'ROLE_MEMBER' , 'spring');
+
+/*컨텐츠*/
+CREATE TABLE CONTENTS(
+   CONTENTS_NO VARCHAR2(1000) PRIMARY KEY,
+   CONTENTS_TITLE VARCHAR2(4000) NOT NULL,
+   CONTENTS_TYPE VARCHAR2(100) NOT NULL,
+   GENRE_CODE VARCHAR2(1000) NOT NULL,
+   CONSTRAINT CONTENTS_GENRE_CODE_FK FOREIGN KEY(GENRE_CODE) REFERENCES GENRE(GENRE_CODE) on delete cascade,
+   CONTENTS_DATE VARCHAR2(100) NOT NULL,
+   CONTENTS_RUNNINGTIME VARCHAR2(100),
+   CONTENTS_ACTOR VARCHAR2(4000) NOT NULL,
+   CONTENTS_PRODUCER VARCHAR2(1000) DEFAULT '',
+   CONTENTS_SUMMARY CLOB NOT NULL,
+   CONTENTS_SMALL_THUMBNAIL VARCHAR2(4000) NOT NULL,
+   CONTENTS_BIG_THUMBNAIL VARCHAR2(4000) NOT NULL,
+   CONTENTS_AGE VARCHAR2(100) NOT NULL,
+   CONTENTS_AVG_STARS NUMBER DEFAULT 0,
+   CONTENTS_LIKES NUMBER DEFAULT 0,
+   CONTENTS_HITS NUMBER DEFAULT 0
+)
+
+select * from party
+
+select * from apply
+select * from party where party_no = 137
+
+  select ms.membership_name, ms.MEMBERSHIP_NO , ms.CONCURRENT_USERS,
+   p.PARTY_NO, m.ID, p.PARTY_TITLE, p.PARTY_HEADCOUNT, p.PARTY_APPLYCOUNT,
+  to_char(p.PARTY_POSTED_TIME,'yyyy-mm-dd') as PARTY_POSTED_TIME, p.PARTY_STATUS, 
+  CASE WHEN a.party_no = p.party_no THEN '지원' ELSE '미지원' END AS applys
+  From PARTY p, member m, MEMBERSHIP ms, (select * from apply where id='spring') a
+  
+  WHERE p.id=m.id and p.membership_no = ms.membership_no
+  
+  
 
 /* 테이블 컬럼명 바꾸기*/
 ALTER TABLE member RENAME COLUMN acc_stauts_no TO acc_status_no
+
+<<<<<<< HEAD
+select m.id,m.password,m.name,m.tel,to_char('m.birth','YYYY-MM-DD'),m.sex,m.email,m.address,m.login_time,
+ 		m.login_fail,m.point,m.signup_date,m.agreement,m.acc_status_no,a.acc_status_info
+ 		from member m, (select * from acc_status) a
+ 		where a.acc_status_no=m.acc_status_no and m.id='java1234'
+=======
+/* 리뷰 테스트를 위한 데이터 추가 */
+INSERT INTO review VALUES(review_seq.nextval, 'java', 60004481, '리뷰 테스트 용 스파이더맨!', '리뷰 테슷트입니다.', 0, 0, sysdate);
+INSERT INTO review VALUES(review_seq.nextval, 'java', 81095669, '리뷰 테스트 용 진격의거인!', '리뷰 테슷트입니다.', 0, 0, sysdate);
+
+>>>>>>> branch 'master' of https://github.com/Minikanko/-Kosta-FinalProject-Dev6m.git

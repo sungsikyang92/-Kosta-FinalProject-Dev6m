@@ -1,13 +1,11 @@
 package org.kosta.watflix.model.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.kosta.watflix.model.service.PagingBean;
-import org.kosta.watflix.model.vo.Authority;
 import org.kosta.watflix.model.vo.ContentsVO;
 import org.kosta.watflix.model.vo.GenreVO;
-import org.kosta.watflix.model.vo.MemberVO;
 @Mapper
 public interface ContentsMapper {
 
@@ -18,10 +16,12 @@ public interface ContentsMapper {
 	int mGetTotalContentsCount();
 	int mGetTotalContentsCountForType(String contentsType);
 	List<ContentsVO> mGetAllContentsList();
-	List<ContentsVO> mGetAllContentsListForType(PagingBean pagingBean);
+	List<ContentsVO> mGetContentsAllForType(Map<String,String> map);
 	List<ContentsVO> mContentsHighHits();
 	List<ContentsVO> mContentsHighAvgStars();
 	List<GenreVO> mGetAllGenreList();
+	List<GenreVO> mGetGenreSelectForType(String contentsType);
+	List<ContentsVO> mGetContentsSelectForType(String contentsType);
 }
 
 

@@ -28,6 +28,7 @@ public class SanghoonTestJUnit {
 //	회원가입 테스트 완료
 	@Test
 	public void test(){
+
 		MemberVO memberVO = new MemberVO();
 		memberVO.setId("java14");
 		memberVO.setPassword("123");
@@ -38,7 +39,11 @@ public class SanghoonTestJUnit {
 		memberVO.setSex("남성");
 		memberVO.setAddress("경기도");
 		memberVO.setAgreement("동의");
+		memberService.sMemberRegister(memberVO);
+		
+
 	System.out.println(contentsService.sFindContentsByNo("70001473"));
+
 	}
 
 /* 회원정보수정 테스트 및 로그인시간,로그인실패횟수 증가 테스트 완료

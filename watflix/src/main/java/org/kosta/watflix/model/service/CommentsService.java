@@ -10,15 +10,15 @@ public interface CommentsService {
 
 	int sCommentsGetTotalPostCount();
 
-	int sCommentsGetTotalPostCountByContentNo(int contentsNo);
+	int sCommentsGetTotalPostCountByContentNo(String contentsNo);
 
 	CommentsListVO sCommentsGetList();
 
 	CommentsListVO sCommentsGetList(String pageNo);
 
-	CommentsListVO sCommentsGetListByContentsNo(int contentsNo);
+	CommentsListVO sCommentsGetListByContentsNo(String contentsNo);
 
-	CommentsListVO sCommentsGetListByContentsNo(String pageNo, int contentsNo);
+	CommentsListVO sCommentsGetListByContentsNo(String pageNo, String contentsNo);
 	
 	void sCommentsWrite(CommentsVO commentsVO);
 	

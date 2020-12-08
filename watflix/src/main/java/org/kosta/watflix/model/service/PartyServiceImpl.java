@@ -43,7 +43,7 @@ public class PartyServiceImpl implements PartyService{
 	public void sPartyApply(ApplyVO avo) {
 		partyMapper.mPartyApply(avo);
 		partyMapper.mPartyApplyCountPlus(avo.getPartyVO().getPartyNo());
-		PartyVO pvo = partyMapper.mPartyGetDetail(avo.getPartyVO().getPartyNo()) ;
+		PartyVO pvo = partyMapper.mPartyGetDetail(avo.getPartyVO().getPartyNo());
 		if(pvo.getPartyHeadCount() == pvo.getPartyApplyCount()) {
 			partyMapper.mPartyEnd(pvo);
 		}
@@ -64,10 +64,11 @@ public class PartyServiceImpl implements PartyService{
 			int contentNumberPerPage=10;
 			int pageNumberPerPageGroup=5;
 			pagingBean = new PagingBean(totalPartyCount, contentNumberPerPage,pageNumberPerPageGroup,Integer.parseInt(pageNo));
-		}
+		}		
 		PartyListVO partyListVO = new PartyListVO(partyMapper.mPartyGetAllList(pagingBean),pagingBean);
 		return partyListVO;
 	}
+	
 	@Override
 	public MembershipVO sPartyGetMembershipDetail(int no) {
 		MembershipVO msvo = partyMapper.mPartyGetMembershipDetail(no);
