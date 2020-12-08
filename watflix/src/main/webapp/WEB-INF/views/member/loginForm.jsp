@@ -14,7 +14,7 @@
 						<div class="nfEmailPhoneControls">
 							<label class="input_id">
 							<input type="text" name="id" class="nfTextField" id="id" tabindex="0"> 
-							<label for="id_userLoginId" class="placeLabel">이메일 주소</label> </label>
+							<label for="id_userLoginId" class="placeLabel">아이디</label> </label>
 						</div>
 					</div>
 				</div>

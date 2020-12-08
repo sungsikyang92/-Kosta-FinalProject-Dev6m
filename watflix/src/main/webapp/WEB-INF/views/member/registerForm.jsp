@@ -93,7 +93,7 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 						<div class="nfEmailPhoneControls">
 							<label class="input_id">
 								<input type="text" name="id" class="registerForNfTextField" id="id" tabindex="0" required="required"> 
-								<label for="id_userLoginId" class="placeLabel">이메일 주소</label> 
+								<label for="id_userLoginId" class="placeLabel">아이디</label> 
 								<label for="id_userLoginId" class="confirmPlaceLabel" id="confirmId"></label> 
 							</label>
 						</div>
@@ -212,7 +212,7 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 				<!--이용약관동의 입력 START  -->
 				<input type="hidden" name="agreement" value="${requestScope.ISselectMarketing}">
 				<!--이용약관동의 입력 END  -->
-				<button class="btn login-button btn-submit btn-small" type="submit" tabindex="0">회원가입</button>
+				<button class="btn login-button btn-submit btn-small" type="submit" tabindex="0">가입완료</button>
 			</form>
 		</div>
 	</div>

@@ -98,7 +98,7 @@
 					<li><a href="#" id="mustSelectAll"><input type='checkbox'/>전체동의</a></li>
 				</ul>
 				<!-- 버튼 -->
-				<div class="row registerTermDiv">
+				<div class="row">
 				  <div class="col-sm-offset-4 col-sm-4">
 				  	<button class="btn login-button btn-submit btn-small" tabindex="0" onclick="cancel()">취소</button>
 				  </div>
