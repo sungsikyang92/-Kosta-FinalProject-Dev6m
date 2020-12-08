@@ -204,6 +204,8 @@ insert into faq(FAQ_NO,ID,FAQ_TITLE,FAQ_CONTENTS)
  		select * from member;
  		
  		delete from faq;
+ 		   	update faq set FAQ_HITS=FAQ_HITS+1 where faq_No='18'
+
  		
 CREATE TABLE FAQ(
    FAQ_NO VARCHAR2(100) PRIMARY KEY,

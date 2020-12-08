@@ -14,13 +14,14 @@ public interface FaqMapper {
 	void mFaqWrite(FaqVO faqVO);
 	// FAQ 수정
 	void mFaqUpdate(FaqVO faqVO);
-	// FAQ 삭제
-	void mFaqDelete(FaqVO faqVO);
 	// FAQ 리스트
 	List<FaqVO> mGetFaqList(PagingBean pagingBean);
 	// 총 FAQ 개수
 	int mGetTotalFaqCount();
+	// FAQ 삭제
 	void mFaqDelete(int faqNo);
+	// FAQ 조회 수
+	void mFaqUpdateHits(int faqNo);
 }
 
 

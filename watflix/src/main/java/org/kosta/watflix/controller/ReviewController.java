@@ -28,7 +28,7 @@ public class ReviewController {
 	@RequestMapping("reviewWriteForm.do")
 	public String reviewWriteForm() {
 		return "review/reviewWriteForm";
-	}
+	} 
 	
 	//리뷰 작성 submit(세션 추가 해야 합니다.)
 	@PostMapping("reviewWrite.do")
@@ -79,4 +79,7 @@ public class ReviewController {
 		return new ModelAndView("redirect:reviewDetailNoHits.do?reviewNo="+reviewVO.getReviewNo());
 	}
 }
+
+
+
 
