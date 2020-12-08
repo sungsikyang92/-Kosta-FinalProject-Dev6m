@@ -72,4 +72,61 @@ public class ReportServiceImpl implements ReportService {
 		return reportListVO;
 	}
 
+	// 신고글 작성여부 확인(리뷰)
+	@Override
+	public boolean sReportCheckReview(ReportVO reportVO) {
+		int checkNo = reportMapper.mReportCheckReview(reportVO);
+		if (checkNo != 0) {
+			// 해당 contents에서 글(리뷰)을 작성한 적이 없다
+			return true;
+		}
+		return false;
+	}
+	// 신고글 작성여부 확인(평점)
+	@Override
+	public boolean sReportCheckComments(ReportVO reportVO) {
+		int checkNo = reportMapper.mReportCheckComments(reportVO);
+		if (checkNo != 0) {
+			// 해당 contents에서 글(평점)을 작성한 적이 없다
+			return true;
+		}
+		return false;
+	}
+
+	// 내 신고 리스트(리뷰)
+	@Override
+	public ReportListVO sGetMyReportReviewList(String id) {
+		return sGetMyReportReviewList(id, "1");
+	}
+	@Override
+	public ReportListVO sGetMyReportReviewList(String id, String pageNo) {
+		int myTotalPostCount = reportMapper.mGetMyTotalReportReviewCount(id);
+		PagingBean pagingBean = null;
+		if(pageNo == null) {
+			pagingBean = new PagingBean(myTotalPostCount);
+		}else {
+			pagingBean = new PagingBean(myTotalPostCount, Integer.parseInt(pageNo));
+		}
+		ReportListVO reportListVO= new ReportListVO(reportMapper.mGetMyReportReviewList(pagingBean, id), pagingBean);
+		return reportListVO;
+	}
+
+	// 내 신고 리스트(평점)
+	@Override
+	public ReportListVO sGetMyReportCommentsList(String id) {
+		return sGetMyReportCommentsList(id, "1");
+	}
+	@Override
+	public ReportListVO sGetMyReportCommentsList(String id, String pageNo) {
+		int myTotalPostCount = reportMapper.mGetMyTotalReportCommentsCount(id);
+		PagingBean pagingBean = null;
+		if(pageNo == null) {
+			pagingBean = new PagingBean(myTotalPostCount);
+		}else {
+			pagingBean = new PagingBean(myTotalPostCount, Integer.parseInt(pageNo));
+		}
+		ReportListVO reportListVO = new ReportListVO(reportMapper.mGetMyReportCommentsList(pagingBean, id),pagingBean);
+		return reportListVO;
+	}
+
 }
