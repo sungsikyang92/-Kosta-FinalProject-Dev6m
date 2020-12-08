@@ -1,6 +1,48 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<script type="text/javascript">
+	$(document).ready(function(){
+		var pageNo = 2;
+		var contentsType
+		$("#loadMore").click(function(){
+			if($("#movie").hasClass("active") === true){
+				contentsType = "액션 & 어드벤처";
+			}
+			else{
+				contentsType ="tvshow";
+			}
+			$.ajax({
+				type: "get",
+				url:"${pageContext.request.contextPath}/getContentsAllForType.do",
+				data: {
+					"contentsType":contentsType,
+					"pageNo":pageNo
+				},
+				dataType: "json",
+				success:function(result){ // result변수로 응답정보가 전달된다.
+					pageNo++;
+					denote(result)
+				}			
+			})
+		})//click
+	})//ready
+	function denote(contentsList){
+		  $newTbody = $("<div class='card-deck'>")
+		  $("#grid-movies").append($newTbody)
+		  
+		  for(let contents of contentsList){
+		    let $cellsOfRow = 
+		    	$("<div class='card carousel-cell' style='display:block'>"+
+                 	"<img class='card-img-top' src='${pageContext.request.contextPath}/"+contents.contentsSmallThumbnail+"'/>" +
+                       "<h5 class='card-title text-center' style='font-size:13px;'>"+contents.contentsTitle+"</h5>"+
+                        "</div>"
+				);
+		    $newTbody.append($cellsOfRow);
+		  }
+	}
+</script>
+
   <!-- Slider - OPEN -->
     <div id="mainCarousel" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
@@ -213,13 +255,13 @@
 
         <!-- Tabs nav - OPEN -->
         <nav class="nav nav-fill nav-pills" id="explore-tabs" role="tablist">
-            <a class="nav-item nav-link active" id="movies-tab" data-toggle="pill" href="#movies" role="tab" aria-controls="movies-tab" aria-selected="true">
+            <a class="nav-item nav-link active" id="movie" data-toggle="pill" href="#movies" role="tab" aria-controls="movies-tab" aria-selected="true">
                 <div class="icon-nav">
                     <img src="${pageContext.request.contextPath}/resources/media/icons/cinema.png" width="15" alt="" class="margin-right-sm padding-bottom-sm">
                     영화
                 </div>
             </a>
-            <a class="nav-item nav-link" id="tvshows-tab" data-toggle="pill" href="#tvshows" role="tab" aria-controls="tvshows-tab" aria-selected="false">
+            <a class="nav-item nav-link" id="tvshow" data-toggle="pill" href="#tvshows" role="tab" aria-controls="tvshows-tab" aria-selected="false">
                 <div class="icon-nav">
                     <img src="${pageContext.request.contextPath}/resources/media/icons/tv.png" width="15" alt="" class="margin-right-sm padding-bottom-sm">
                     TV프로그램
@@ -278,57 +320,55 @@
 
                 <!-- Grid cards films - OPEN -->
                 <div id="grid-movies" style="margin-top:50px;">
-                    <!-- 컨텐츠 리스트 행 Layout - OPEN -->
-                    <c:forEach var="index" begin="1" end="${fn:length(requestScope.contentsList)/5}">
+                     <c:forEach var="index" begin="1" end="${fn:length(requestScope.contentListForType)/5}">
        				 	<div class="card-deck">
-							<c:forEach items="${requestScope.contentsList}" var="contentsVO"  begin="${(index-1)*5}" end="${index*5-1}">
-							  <!-- 컨텐츠 리스트 열 Layout - OPEN -->
-		                        <div class="card carousel-cell">
-		                            <img class="card-img-top" src="${pageContext.request.contextPath}/${contentsVO.contentsSmallThumbnail}" />
-		                            <h5 class="card-title text-center" style="font-size:13px;"> ${contentsVO.contentsTitle}</h5>
-		                            <div class="row">
-		                                <div class="col-3 text-left no-padding">
-		                                    년도
-		                                </div>
-		                                <div class="col-3 text-center no-padding">
-		                                    <a href="">
-		                                        <img src="${pageContext.request.contextPath}/resources/media/icons/eye.png" width="10" alt="상세보기">
-		                                    </a>
-		                                </div>
-		                                <div class="col-3 text-left no-padding">
-		                                    <a href="">
-		                                        <img src="${pageContext.request.contextPath}/resources/media/icons/heart.png" width="10" alt="좋아요">
-		                                    </a>
-		                                </div>
-		                                <div class="col-3 text-right no-padding rating">
-		                                    <img src="${pageContext.request.contextPath}/resources/media/icons/star.png" width="10" alt="" class="padding-bottom-sm">
-		                                    ${contentsVO.contentsAvgStars}
-		                                </div>
-		                            </div>
-		                            <div class="overlay">
-		                                <div class="text">
-		                                    <a href="#" class="btn btn-secondary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
-		                                        <img src="${pageContext.request.contextPath}/resources/media/icons/info.png" width="10" alt="">
-		                                        Info
-		                                    </a>
-		                                    <a href="#" class="btn btn-primary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
-		                                        <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="10" alt="">
-		                                        Watch
-		                                    </a>
-		                                </div>
-		                            </div>
-		                        </div>
-                     				 <!-- 컨텐츠 리스트 열 Layout  - Close -->
-							</c:forEach>
-						</div>
-                    </c:forEach>
+	                   	 <!-- 컨텐츠 리스트 행 Layout - OPEN -->
+	                   	 <c:forEach items="${requestScope.contentListForType}" var="contentsVO" begin="${(index-1)*5}" end="${index*5-1}">
+			                        <div class="card carousel-cell">
+			                            <img class="card-img-top" src="${pageContext.request.contextPath}/${contentsVO.contentsSmallThumbnail}" />
+			                            <h5 class="card-title text-center" style="font-size:13px;"> ${contentsVO.contentsTitle}</h5>
+			                            <div class="row">
+			                                <div class="col-3 text-left no-padding">
+			                                     ${contentsVO.contentsDate}
+			                                </div>
+			                                <div class="col-3 text-center no-padding">
+			                                    <a href="">
+			                                        <img src="${pageContext.request.contextPath}/resources/media/icons/eye.png" width="10" alt="상세보기">
+			                                    </a>
+			                                </div>
+			                                <div class="col-3 text-left no-padding">
+			                                    <a href="">
+			                                        <img src="${pageContext.request.contextPath}/resources/media/icons/heart.png" width="10" alt="좋아요">
+			                                    </a>
+			                                </div>
+			                                <div class="col-3 text-right no-padding rating">
+			                                    <img src="${pageContext.request.contextPath}/resources/media/icons/star.png" width="10" alt="" class="padding-bottom-sm">
+			                                    ${contentsVO.contentsAvgStars}
+			                                </div>
+			                            </div>
+			                            <div class="overlay">
+			                                <div class="text">
+			                                    <a href="#" class="btn btn-secondary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+			                                        <img src="${pageContext.request.contextPath}/resources/media/icons/info.png" width="10" alt="">
+			                                        Info
+			                                    </a>
+			                                    <a href="#" class="btn btn-primary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+			                                        <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="10" alt="">
+			                                        Watch
+			                                    </a>
+			                                </div>
+			                            </div>
+			                        </div>
+						</c:forEach>
                     <!-- 컨텐츠 리스트 행 CLOSE -->
+                    </div>
+                    </c:forEach>
                 </div>
                 <!-- Grid cards films - CLOSE -->
 
                 <!-- Load more button - OPEN -->
-                <div class="margin-top-under-sm text-center">
-                    <a href="#" class="btn btn-outline-secondary btn-lg margin-top-under-sm" role="button" id="loadMore">
+                <div class="margin-top-under-sm text-center" id="moreDiv" >
+                    <a href="#" class="btn btn-outline-secondary btn-lg margin-top-under-sm" role="button" id="loadMore" style="margin-top: 0px;">
                         <img src="${pageContext.request.contextPath}/resources/media/icons/plus.png" width="15" alt="" class="margin-right-sm padding-bottom-sm">
                         Load More
                     </a>
@@ -336,13 +376,6 @@
                 <!-- Load more button - CLOSE -->
             </div>
             <!-- Movies tab - CLOSE -->
-
-            <!-- TV Shows tab - OPEN -->
-            <div class="margin-bottom tab-pane fade show" id="tvshows" role="tabpanel" aria-labelledby="tvshows-tab">
-                TV Shows
-            </div>
-            <!-- TV Shows tab - CLOSE -->
-
         </div>
         <!-- Tabs content - CLOSE -->
 

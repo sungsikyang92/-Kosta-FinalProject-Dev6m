@@ -18,7 +18,7 @@ public class CommentsServiceImpl implements CommentsService {
 	}
 	
 	@Override
-	public int sCommentsGetTotalPostCountByContentNo(int contentsNo) {
+	public int sCommentsGetTotalPostCountByContentNo(String contentsNo) {
 		return commentsMapper.mCommentsGetTotalPostCountByContentNo(contentsNo);
 	}
 	
@@ -41,12 +41,12 @@ public class CommentsServiceImpl implements CommentsService {
 	}
 	
 	@Override
-	public CommentsListVO sCommentsGetListByContentsNo(int contentsNo) {
+	public CommentsListVO sCommentsGetListByContentsNo(String contentsNo) {
 		return sCommentsGetListByContentsNo("1", contentsNo);
 	}
 	
 	@Override
-	public CommentsListVO sCommentsGetListByContentsNo(String pageNo, int contentsNo) {
+	public CommentsListVO sCommentsGetListByContentsNo(String pageNo, String contentsNo) {
 		int totalPostCount = commentsMapper.mCommentsGetTotalPostCountByContentNo(contentsNo);
 		PagingBean pagingBean = null;
 		if(pageNo==null) {

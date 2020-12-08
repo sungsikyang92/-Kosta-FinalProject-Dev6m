@@ -6,7 +6,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>신고 게시판</title>
+<title>내 신소 게시판</title>
+<script type="text/javascript">
+	
+</script>
 </head>
 <body>
 
@@ -24,7 +27,7 @@
 		</thead>
 		<!-- 신고 리스트(리뷰) -->
 		<tbody>
-			<c:forEach var="rvo" items="${requestScope.reportReviewList.list}">
+			<c:forEach var="rvo" items="${requestScope.myReportReviewList.list}">
 				<tr>
 					<td>${rvo.reportNo}</td>
 					<td>${rvo.memberVO.id}</td>
@@ -66,7 +69,7 @@
 				<td colspan="7">
 					<div>
 						<!-- pagingBean을 pb변수로 지정 -->
-						<c:set var="pb" value="${requestScope.reportReviewList.pagingBean }"></c:set>
+						<c:set var="pb" value="${requestScope.myReportReviewList.pagingBean }"></c:set>
 						<ul>
 							<!-- 조건이 맞으면 왼쪽 화살표 -->
 							<c:if test="${pb.previousPageGroup}">
@@ -115,33 +118,6 @@
 
     <hr>
     <h5>테스트 구간입니다.</h5>
-	<!-- 신고 폼 test -->
-	<script type="text/javascript">
-		function reportPopup(){
-			// 게시판No, 작성자 id 혹은 name을 가져와야함
-			var path = "${pageContext.request.contextPath}/reportReviewForm.do?";
-			window.open(path, "reportReview","width=465, height=180, top=150, left=200");
-		}
-	</script>
-	<!-- 신고 버튼 -->
-	<input type="button" value="신고 한다" onclick="reportPopup()">
-    <hr>
-    	<table>
-    		<tbody>
-    			<c:forEach var="rvo" items="${requestScope.reportReviewList.list}" varStatus="status">
-					<tr>
-						<td>${status.count }</td>
-						<td>${rvo.reportNo}</td>
-						<td>
-							
-						</td>
-						<td>${rvo.commentsVO.memberVO.id}</td>
-						<td>${rvo.reportPostedTime}</td>
-						<td><input type="hidden" id="delete${status.count }" name="" value=""></td>
-						<td><button onclick="reportPopup()" ></button></td>
-					</tr>
-				</c:forEach>
-    		</tbody>
-    	</table>
+	
 </body>
 </html>

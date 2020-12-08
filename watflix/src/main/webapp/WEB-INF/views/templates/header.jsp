@@ -54,7 +54,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link navbar-nav-item" href="#">
+                        <a class="nav-link navbar-nav-item" href="${pageContext.request.contextPath}/contentsByMovie.do">
                             영화
                         </a>
                         

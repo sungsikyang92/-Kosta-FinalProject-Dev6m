@@ -72,12 +72,14 @@
 		<c:set var="pagingBean" value="${requestScope.commentsListByContentsNo.pagingBean}"/>
 		<ul class="pagination">
 			<c:if test="${pagingBean.previousPageGroup}">
-				<li><a href="${pageContext.request.contextPath}/getCommentsListByContentsNo.do?pageNo=${pagingBean.startPageOfPageGroup-1}">&laquo;</a></li>
+				<li><a href="${pageContext.request.contextPath}/contentsDetail.do?commentsPageNo=${pagingBean.startPageOfPageGroup-1}
+				&contentsNo=${requestScope.contentsNo}">&laquo;</a></li>
 			</c:if>
 			<c:forEach var="i" begin="${pagingBean.startPageOfPageGroup}" end="${pagingBean.endPageOfPageGroup}">
 				<c:choose>
 					<c:when test="${pagingBean.nowPage!=i}">
-						<li><a href="${pageContext.request.contextPath}/getCommentsListByContentsNo.do?pageNo=${i}">${i}</a></li>
+						<li><a href="${pageContext.request.contextPath}/contentsDetail.do?commentsPageNo=${i}
+						&contentsNo=${requestScope.contentsNo}">${i}</a></li>
 					</c:when>
 				<c:otherwise>
 					<li class="active"><a href="#">${i}</a></li>
@@ -86,7 +88,8 @@
 				&nbsp;
 			</c:forEach>
 			<c:if test="${pagingBean.nextPageGroup}">
-				<li><a href="${pageContext.request.contextPath}/getCommentsListByContentsNo.do?pageNo=${pagingBean.endPageOfPageGroup+1}">&raquo;</a></li>
+				<li><a href="${pageContext.request.contextPath}/contentsDetail.do?commentsPageNo=${pagingBean.endPageOfPageGroup+1}
+				&contentsNo=${requestScope.contentsNo}">&raquo;</a></li>
 			</c:if>
 		</ul>
 	</div>
