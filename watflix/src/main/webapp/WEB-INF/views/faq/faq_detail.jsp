@@ -25,6 +25,7 @@ function updateBtn() {
 	<thead>
 		<tr>
 			<th class="faqNo">NO</th>
+			<th class="faqHits">조회수</th>
 			<th class="faqTitle"></th>
 			<th class="faqWriter"></th>
 			<th class="faqPostedTime"></th>
@@ -34,6 +35,7 @@ function updateBtn() {
 	<tbody>	
 			<tr>
 				<td>${requestScope.fvo.faqNo}</td>
+				<td>${requestScope.fvo.faqHits}</td>
 				<td>${requestScope.fvo.faqTitle}</td>
 				<td>${requestScope.fvo.memberVO.id}</td>
 				<td>${requestScope.fvo.faqPostedTime}</td>

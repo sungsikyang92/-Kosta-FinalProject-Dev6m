@@ -213,6 +213,7 @@ insert into faq(FAQ_NO,ID,FAQ_TITLE,FAQ_CONTENTS)
  		select * from member;
  		
  		delete from faq;
+
  select m.id,m.password,m.name,m.tel,m.birth,m.sex,m.email,m.address,m.login_time,
  		m.login_fail,m.point,m.signup_date,m.agreement,a.acc_status_info
  		from member m, (select * from acc_status) a

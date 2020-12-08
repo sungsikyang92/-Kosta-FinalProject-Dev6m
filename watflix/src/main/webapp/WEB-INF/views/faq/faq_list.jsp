@@ -4,7 +4,7 @@
     <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
     <%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
     
-    
+ <div class="tableTopMargin">   
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,6 +24,7 @@ FAQ Page
 	<thead>
 		<tr>
 			<th class="faqNo">NO</th>
+			<th class="faqHits">조회수</th>
 			<th class="faqTitle"></th>
 			<th class="faqWriter"></th>
 			<th class="faqPostedTime"></th>
@@ -31,9 +32,9 @@ FAQ Page
 	</thead>
 	<tbody>
 		<c:forEach var="fvo" items="${requestScope.lvo.faqList}">
-	
 			<tr>
 				<td>${fvo.faqNo}</td>
+				<td>${fvo.faqHits}</td>
 				<td><a href="${pageContext.request.contextPath}/faqDetail.do?faqNo=${fvo.faqNo}">${fvo.faqTitle}</a></td>
 				<td>${fvo.memberVO.id}</td>
 				<td>${fvo.faqPostedTime}</td>
@@ -96,7 +97,7 @@ FAQ Page
     
 </body>
 </html>
-
+</div>
 
 
 
