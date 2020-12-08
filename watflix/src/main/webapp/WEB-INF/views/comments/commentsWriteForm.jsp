@@ -12,16 +12,30 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-		$('#commentsWriteButton').click(function(){
+		$("#commentsWriteButton").click(function(){
 			alert('1');
 			window.opener.name = "parentPage";
 			document.commentsWriteForm.target = "parentPage";
 			document.commentsWriteForm.action = "${pageContext.request.contextPath}/commentsWrite.do";
 			document.commentsWriteForm.submit();
-			/* self.close(); */
+			self.close();
+		})
+		$("#star_point a").click(function(){
+			$(this).parent().children("a").removeClass("on");
+			$(this).addClass("on").prevAll("a").addClass("on");
+			return false;
 		})
 	})
 </script>
+<style>
+	#star_point a{
+		text-decoration: none;
+		color: gray;
+	}
+	#star_point a.on{
+		color: red;
+	}
+</style>
 <title>commentsWriteForm</title>
 </head>
 <body>
@@ -29,8 +43,12 @@
 	<sec:csrfInput/>
 	<table>
 		<tr>			
-			<td>별점</td><td><input type="number" id="commentsStars"
-			name="commentsStars" min="1" max="10" required="required"></td>
+			<td>별점</td>
+			<td><input type="number" id="commentsStars"	name="commentsStars"
+			min="1" max="10" required="required"></td>
+			<td>
+				
+			</td>
 		</tr>
 		<tr>
 			<td>한줄평</td><td><textarea cols="40" rows="15" id="commentsContents"

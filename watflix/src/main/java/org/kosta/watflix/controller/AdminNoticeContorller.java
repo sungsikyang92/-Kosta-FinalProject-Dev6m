@@ -94,7 +94,7 @@ public class AdminNoticeContorller {
 	}
 	
 	@PostMapping("noticeDeleteByCheckbox.do")
-	public String noticeDelete(int[] deleteCheckbox, Model model, String pageNo, RedirectAttributes redirectAttributes) {
+	public String noticeDelete(int[] deleteCheckbox, String pageNo, RedirectAttributes redirectAttributes) {
 		for(int i = 0; i < deleteCheckbox.length; i++) {
 			noticeService.sNoticeDelete(deleteCheckbox[i]);
 		}
