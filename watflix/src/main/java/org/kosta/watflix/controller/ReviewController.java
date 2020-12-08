@@ -1,5 +1,7 @@
 package org.kosta.watflix.controller;
 
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.kosta.watflix.model.service.ReviewService;
@@ -18,16 +20,27 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class ReviewController {
 	@Resource
 	private ReviewService reviewService;
-	//리뷰 리스트
+	//콘텐츠리뷰리스트
 	@RequestMapping("reviewList.do")
-	public String reviewList(Model model,String pageNo) {
+	public String getReviewList(String pageNo, Model model) {
 		model.addAttribute("lvo",reviewService.sGetReviewList(pageNo));
 		return "review/reviewList";
 	}
+	//컨텐츠별 리뷰리스트
+	@RequestMapping("getReviewListByContentsNo.do")
+	public String getReviewListByContentsNo(String contentsNo, String pageNo, Model model) {
+		model.addAttribute("reviewListByContentsNo", reviewService.sGetReviewListByContentsNo(pageNo, contentsNo));
+		model.addAttribute("contentsNo", contentsNo);
+		return "review/reviewListByContentsNo";
+	}
+	
+	
 	//리뷰 작성 폼(세션 추가 해야 합니다. 현재 페이지 이동만 됨.)
 	@RequestMapping("reviewWriteForm.do")
-	public String reviewWriteForm() {
-		return "review/reviewWriteForm";
+	public String reviewWriteForm(String contentsNo, Model model) {
+		//컨텐츠넘버를 넘겨서 리뷰작성과 리스트로돌아갈때 사용하기 위해 추가하였다. 
+		model.addAttribute("contentsNo", contentsNo);
+		return "review/reviewWriteForm.tiles";
 	}
 	
 	//리뷰 작성 submit(세션 추가 해야 합니다.)
@@ -53,7 +66,8 @@ public class ReviewController {
 	//리뷰 작성 후 자신의 글 확인, 혹은 리뷰 수정 후 확인하는 용도이다. 
 	@RequestMapping("reviewDetailNoHits.do")
 	public ModelAndView reviewDetailNoHits(int reviewNo) {
-		return new ModelAndView("review/reviewDetail","rdvo",reviewService.sGetReviewDetailNoHits(reviewNo));
+		ReviewVO rvo = reviewService.sGetReviewDetailNoHits(reviewNo);
+		return new ModelAndView("review/reviewDetail.tiles","rdvo",rvo);
 	}
 	
 	//리뷰 상세보기(조회수 증가O, 세션 추가 필요함.)
@@ -69,7 +83,7 @@ public class ReviewController {
 	//리뷰 업데이트폼 이동(세션 추가 필요함)
 	@RequestMapping("reviewUpdateForm.do")
 	public ModelAndView reviewUpdateForm(int reviewNo) {
-		return new ModelAndView("review/reviewUpdateForm","ru",reviewService.sGetReviewDetailNoHits(reviewNo));
+		return new ModelAndView("review/reviewUpdateForm.tiles","ru",reviewService.sGetReviewDetailNoHits(reviewNo));
 	}
 	
 	//리뷰 업데이트(세션 추가 필요함)
@@ -78,5 +92,17 @@ public class ReviewController {
 		reviewService.sReviewUpdate(reviewVO);
 		return new ModelAndView("redirect:reviewDetailNoHits.do?reviewNo="+reviewVO.getReviewNo());
 	}
+	
+	//리뷰 삭제기능
+	@PostMapping("reviewDelete.do")
+	public String reviewDelete(int reviewNo) {
+		//변수에 컨텐츠넘버 담기
+		String contentsNoforDelete=reviewService.sGetReviewDetailNoHits(reviewNo).getContentsVO().getContentsNo();
+		reviewService.sReviewDelete(reviewNo);
+		//"redirect:contentsDetail.do? 컨텐츠넘버주기
+		return "redirect:contentsDetail.do?contentsNo="+contentsNoforDelete;
+	}
+	
+	
 }
 

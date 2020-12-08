@@ -21,9 +21,9 @@
                         </a>
                     </div>
                      <div class="margin-top-under-sm">
-                        <a href="#"  role="button" aria-pressed="true">
+                     <a href="#reviewList"  role="button" aria-pressed="true">
                             왓플리뷰 수 <font color="red">${contentsVO.contentsReviewCount} </font>개
-                        </a>
+                            </a>
                     </div>
                      <div class="margin-top-under-sm">
                         <a href="#"  role="button" aria-pressed="true">
@@ -36,4 +36,3 @@
         </div>
     </div>
 <!-- Slider - CLOSE -->
-  
