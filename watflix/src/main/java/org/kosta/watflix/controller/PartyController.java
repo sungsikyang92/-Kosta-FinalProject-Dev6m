@@ -1,5 +1,7 @@
 package org.kosta.watflix.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -12,6 +14,8 @@ import org.kosta.watflix.model.vo.MembershipVO;
 import org.kosta.watflix.model.vo.PartyListVO;
 import org.kosta.watflix.model.vo.PartyVO;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,7 +43,6 @@ public class PartyController {
 		//로그인 세션 멤버 정보
 		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		partyVO.setMemberVO(mvo);
-		
 		/*
 		 * MemberVO mvo = new MemberVO(); mvo.setId("java"); partyVO.setMemberVO(mvo);
 		 */
@@ -47,13 +50,39 @@ public class PartyController {
 		return "redirect:partyList.do";
 	}
 	
-	//파티 리스트 
+	//파티 리스트 가져오기
 	@RequestMapping("partyList.do")
 	public String partyList(Model model, String pageNo) {
+		MemberVO mvo = new MemberVO();
+		//로그인 여부 체크
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if(!(auth instanceof AnonymousAuthenticationToken)) {
+			// 로그인 상태 System.out.println("로그인");
+			mvo=(MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		}else {
+			mvo.setId("guest");//비로그인상태
+		}
+		//System.out.println(mvo.getId());
 		PartyListVO partyListVO = new PartyListVO();
+//		partyListVO=partyService.sPartyGetAllList(map);
 		partyListVO=partyService.sPartyGetAllList(pageNo);
-		
-		model.addAttribute("PLVO",partyListVO);
+		PartyListVO partyListVO2 = new PartyListVO();
+		ArrayList<PartyVO> partList=new ArrayList<PartyVO>();
+		for(PartyVO pvo :partyListVO.getPartyList()) {
+			int i=0;
+			int no = pvo.getPartyNo();
+			HashMap<String, Object> map = new HashMap<String, Object>(); 
+			 map.put("no", no); map.put("id", mvo.getId()); 
+			 int result =  partyService.sPartyIsApply(map);
+			 if(result == 0) {
+				 pvo.setIsApply("N");
+			 }else {
+				 pvo.setIsApply("Y");
+			 }
+			 partList.add(pvo);
+		}
+		partyListVO2.setPartyList(partList);
+		model.addAttribute("PLVO",partyListVO2);
 		return "party/party-List.tiles";
 	}
 	
@@ -94,17 +123,31 @@ public class PartyController {
 		return "redirect:partyList.do";
 	}
 	
+	//파티게시글 지원하기 버튼 눌렀을때
 	@PostMapping("partyApply.do")
 	@ResponseBody
 	public Object test(String partyNo) {
 		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		ApplyVO apvo = new ApplyVO();
 		PartyVO pvo = new PartyVO();
-		pvo.setPartyNo(Integer.parseInt(partyNo));
-		apvo.setMemberVO(mvo);
-		apvo.setPartyVO(pvo);
-		partyService.sPartyApply(apvo);
-		pvo = partyService.sPartyGetDetail(Integer.parseInt(partyNo));
+		pvo.setPartyNo(Integer.parseInt(partyNo)); //지원한 게시글에 대한 정보를 받아와
+		apvo.setMemberVO(mvo); // 지원자의 정보를 apply table 에 넣기 위해 set 
+		apvo.setPartyVO(pvo); // 게시글 정보를 apply table 에 넣기위해 set
+		partyService.sPartyApply(apvo); // apply table 지원 
+		pvo = partyService.sPartyGetDetail(Integer.parseInt(partyNo));	// 게시글의 상태변화를 check 하기위해 다시 정보를 받아와 리턴
+		
+		//지원여부 check
+		HashMap<String , Object> map = new HashMap<String, Object>();
+		map.put("no", Integer.parseInt(partyNo));
+		map.put("id", mvo.getId());
+		int result =partyService.sPartyIsApply(map);
+		System.out.println(mvo.getId());
+		System.out.println(pvo.getPartyNo());
+		if(result==0) {
+			pvo.setIsApply("N");
+		}else {
+			pvo.setIsApply("Y");
+		}
 		return pvo;
 	}
 	

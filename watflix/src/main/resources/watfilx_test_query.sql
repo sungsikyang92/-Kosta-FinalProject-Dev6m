@@ -340,3 +340,78 @@ select * from party where party_no = 137
 
 /* 테이블 컬럼명 바꾸기*/
 ALTER TABLE member RENAME COLUMN acc_stauts_no TO acc_status_no
+
+
+
+select * from apply where id='java' and party_no = 137
+
+
+	SELECT p.PARTY_NO, p.id, p.PARTY_TITLE, ms.membership_name, p.PARTY_STATUS,
+ 		p.PARTY_HEADCOUNT,p.PARTY_APPLYCOUNT,to_char(p.PARTY_POSTED_TIME,'yyyy-mm-dd') as PARTY_POSTED_TIME,
+ 		CASE WHEN a.party_no = p.party_no THEN '지원' ELSE '미지원' END AS apply
+ 		
+ 		From(SELECT row_number() over (order by PARTY_NO desc) as rnum,PARTY_NO,ID,PARTY_TITLE,membership_no,PARTY_STATUS,
+ 		PARTY_HEADCOUNT,PARTY_APPLYCOUNT,PARTY_POSTED_TIME FROM PARTY) p ,
+ 		
+ 		MEMBERSHIP ms , (select * from apply where id='spring') a
+ 		
+ 		
+ 		WHERE rnum BETWEEN 1 AND 5 and p.membership_no = ms.membership_no and party_no = 173
+
+
+
+
+
+select ms.membership_name, ms.MEMBERSHIP_NO , ms.CONCURRENT_USERS,
+   		p.PARTY_NO, m.ID, p.PARTY_TITLE, p.PARTY_HEADCOUNT, p.PARTY_APPLYCOUNT,
+  		to_char(p.PARTY_POSTED_TIME,'yyyy-mm-dd') as PARTY_POSTED_TIME, p.PARTY_STATUS,
+  		
+  		
+  		From PARTY p, member m, MEMBERSHIP ms, 
+  
+ 		WHERE p.id=m.id and p.membership_no = ms.membership_no and party_no = #{partyNo}
+
+
+
+ 		
+ 		
+ 		
+ 		
+ 		SELECT p.PARTY_NO, p.id, p.PARTY_TITLE, ms.membership_name, p.PARTY_STATUS,
+ 		p.PARTY_HEADCOUNT,p.PARTY_APPLYCOUNT,to_char(p.PARTY_POSTED_TIME,'yyyy-mm-dd') as PARTY_POSTED_TIME
+ 		
+ 		From(SELECT row_number() over (order by PARTY_NO desc) as rnum,PARTY_NO,ID,PARTY_TITLE,membership_no,PARTY_STATUS,
+ 		PARTY_HEADCOUNT,PARTY_APPLYCOUNT,PARTY_POSTED_TIME FROM PARTY) p ,
+ 		MEMBERSHIP ms
+ 		
+ 		WHERE rnum BETWEEN 1 AND 5 and p.membership_no = ms.membership_no
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		 select ms.membership_name, ms.MEMBERSHIP_NO , ms.CONCURRENT_USERS,
+   		p.PARTY_NO, m.ID, p.PARTY_TITLE, p.PARTY_HEADCOUNT, p.PARTY_APPLYCOUNT,
+  		to_char(p.PARTY_POSTED_TIME,'yyyy-mm-dd') as PARTY_POSTED_TIME, p.PARTY_STATUS,
+  		CASE WHEN a.party_no = p.party_no THEN '지원' ELSE '미지원' END AS applys
+  		From PARTY p, member m, MEMBERSHIP ms, (select * from apply where id='java') a
+  
+ 		WHERE p.id=m.id and p.membership_no = ms.membership_no and party_no = 137
+ 		
+ 		
+select ms.membership_name, ms.MEMBERSHIP_NO , ms.CONCURRENT_USERS,
+   p.PARTY_NO, m.ID, p.PARTY_TITLE, p.PARTY_HEADCOUNT, p.PARTY_APPLYCOUNT,
+  to_char(p.PARTY_POSTED_TIME,'yyyy-mm-dd') as PARTY_POSTED_TIME, p.PARTY_STATUS, 
+  CASE WHEN a.party_no = p.party_no THEN '지원'  ELSE '미지원'
+  END AS applys
+  From PARTY p, member m, MEMBERSHIP ms, (select * from apply where id='spring') a
+  WHERE p.id=m.id and p.membership_no = ms.membership_no
+ 		
+  ---------------------------------------------------------------------------
+  select ms.membership_name, ms.MEMBERSHIP_NO , ms.CONCURRENT_USERS,
+   p.PARTY_NO, m.ID, p.PARTY_TITLE, p.PARTY_HEADCOUNT, p.PARTY_APPLYCOUNT,
+  to_char(p.PARTY_POSTED_TIME,'yyyy-mm-dd') as PARTY_POSTED_TIME, p.PARTY_STATUS, 
+  CASE WHEN a.party_no = p.party_no THEN '지원' ELSE '미지원' END AS applys
+  From PARTY p, member m, MEMBERSHIP ms, (select * from apply where id='spring') a
+  WHERE p.id=m.id and p.membership_no = ms.membership_no
+ 		
