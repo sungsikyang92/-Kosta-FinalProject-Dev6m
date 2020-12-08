@@ -12,7 +12,7 @@
 <script type="text/javascript">
 function updateBtn() {
 	// alert("업뎃버튼을 눌렀츄");
-	location.href="${pageContext.request.contextPath}/faqUpdateForm.do?faqNo=${requestScope.fvo.faqNo}";
+	location.href="${pageContext.request.contextPath}/faqUpdateForm.do?faqNo="+${requestScope.fvo.faqNo};
 }
 	function faqListBtn(){
 	location.href="${pageContext.request.contextPath}/faqList.do";
