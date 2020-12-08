@@ -76,4 +76,10 @@ public class ContentsServiceImpl implements ContentsService {
 		return contentsMapper.mGetContentsSelectForType(contentsType);
 	}
 	
+	// 컨텐츠 타입별 장르
+	@Override
+	public List<GenreVO> sGetGenreSelectForType(String contentsType) {
+		return contentsMapper.mGetGenreSelectForType(contentsType);
+	}
+	
 }

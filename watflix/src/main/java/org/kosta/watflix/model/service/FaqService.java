@@ -19,4 +19,10 @@ public interface FaqService {
 	FaqListVO sGetFaqList();
 	// FAQ 삭제 
 	void sFaqDelete(int faqNo);
+	// FAQ 조회 수 증가
+	void sFaqUpdateHits(int faqNo);
+	// FAQ 상세보기 및 조회수 증가 방지
+	FaqVO sFaqDetailNoHits(int faqNo);
 }
+
+

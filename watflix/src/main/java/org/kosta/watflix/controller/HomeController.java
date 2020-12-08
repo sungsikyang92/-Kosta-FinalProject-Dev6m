@@ -26,22 +26,27 @@ public class HomeController {
 	@RequestMapping("home.do")
 	public String home(Model model){
 		List<ContentsVO> contentsList = contentsService.sGetAllContentsList();
-		//컨테츠 리스트 출력
+		//네비바를 위한것
+		model.addAttribute("navBarTab","HOME");
+		//컨테츠 리스트 출력(홈화면에서 상위 슬라이드를 위한것)
 		model.addAttribute("contentsList",contentsList);
-		//랜덤함수
-		//int random = new Random().nextInt(contentsList.size()-5);
-	//	model.addAttribute("randomIndex",random);
+		//랜덤함수(홈화면에서 상위 슬라이드에 랜덤으로 컨텐츠를 보여주기 위함)
+		int random = new Random().nextInt(contentsList.size()-5);
+		model.addAttribute("randomIndex",random);
 		//조회수 높은 컨텐츠 출력(1~10위)
 		model.addAttribute("contentsHighHits",contentsService.sContentsHighHits());
+		
 		//평점 높은 컨텐츠 출력(1~10위)
 		model.addAttribute("contentsHighAvgStars",contentsService.sContentsHighAvgStars());
-		model.addAttribute("GetAllGenreList",contentsService.sGetAllGenreList());
 		
-		//
+		//영화 타입의 장르를 검색
+		model.addAttribute("movieGenreList",contentsService.sGetGenreSelectForType("영화"));
+		
+		//컨텐츠 리스트 출력(홈화면에서 하위에 있는 전체리스트 출력
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("startNumber", Integer.toString(0));
 		map.put("endNumber", Integer.toString(10));
-		map.put("contentsType", "액션 & 어드벤처");
+		map.put("contentsType", "영화");
 		model.addAttribute("contentListForType",contentsService.sGetContentsAllForType(map));
 		
 		return "home.tiles";
@@ -53,11 +58,11 @@ public class HomeController {
 		Map<String, String> map = new HashMap<String, String>();
 		int totalContentsCountForType = contentsService.sGetTotalContentsCountForType(contentsType);
 		int startNumber = (5*(Integer.parseInt(pageNo)-1));
-		int endNumber = (5*Integer.parseInt(pageNo));
+		int endNumber = (5*Integer.parseInt(pageNo)-1);
+		System.out.println(startNumber+" "+endNumber);
 		if(endNumber>totalContentsCountForType) {
 			endNumber = totalContentsCountForType;
 		}
-		System.out.println(contentsType);
 		map.put("startNumber", Integer.toString(startNumber));
 		map.put("endNumber", Integer.toString(endNumber));
 		map.put("contentsType", contentsType);

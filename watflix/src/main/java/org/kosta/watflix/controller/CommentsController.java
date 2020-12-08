@@ -27,22 +27,31 @@ public class CommentsController {
 		return "comments/commentsList";
 	}
 	
+	//@RequestMapping("getCommentsListByContentsNo.do")
+	//public String getCommentsListByContentsNo(String contentsNo, String pageNo, Model model) {
+	//	model.addAttribute("commentsListByContentsNo", commentsService.sCommentsGetListByContentsNo(pageNo, contentsNo));
+	//	model.addAttribute("contentsNo", contentsNo);
+	//	return "comments/commentsListByContentsNo";
+	//}
+	
 	@RequestMapping("getCommentsListByContentsNo.do")
-	public String getCommentsListByContentsNo(int contentsNo, String pageNo, Model model) {
+	public String getCommentsListByContentsNo(String contentsNo, String pageNo, Model model) {
+		System.out.println(pageNo);
+		System.out.println(contentsNo);
+		System.out.println(commentsService.sCommentsGetListByContentsNo(pageNo, contentsNo));
 		model.addAttribute("commentsListByContentsNo", commentsService.sCommentsGetListByContentsNo(pageNo, contentsNo));
 		model.addAttribute("contentsNo", contentsNo);
-		return "comments/commentsListByContentsNo";
+		return "/contentsDetail.do";
 	}
 	
 	@RequestMapping("commentsWriteForm.do")
-	public String commentsWriteForm(int contentsNo, Model model) {
+	public String commentsWriteForm(String contentsNo, Model model) {
 		model.addAttribute("contentsNo", contentsNo);
 		return "comments/commentsWriteForm";
-	}
-	
+	}	
 	
 	@PostMapping("commentsWrite.do")
-	public String commentsWrite(CommentsVO commentsVO, String contentsNo, RedirectAttributes redirectAttributes) {
+	public String commentsWrite(CommentsVO commentsVO, String contentsNo, String pageNo, RedirectAttributes redirectAttributes) {
 		System.out.println("commentsWrite.do 작동");
 		MemberVO memberVO = (MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		commentsVO.setMemberVO(memberVO);
@@ -51,7 +60,17 @@ public class CommentsController {
 		commentsVO.setContentsVO(contentsVO);
 		commentsService.sCommentsWrite(commentsVO);
 		redirectAttributes.addAttribute("contentsNo", contentsNo);
-		return "redirect:getCommentsListByContentsNo.do";
+		return "redirect:contentsDetail.do";
 	}
 	
+	@PostMapping("commentsDelete.do")
+	public String commentsDelete(String[] commentsDelete, String contentsNo, String pageNo, RedirectAttributes redirectAttributes) {
+		for(int i = 0; i < commentsDelete.length; i++) {
+			commentsService.sCommentsDelete(Integer.parseInt(commentsDelete[i]));
+		}
+		System.out.println("삭제완료");
+		redirectAttributes.addAttribute("contentsNo", contentsNo);
+		redirectAttributes.addAttribute("commentPageNo", pageNo);
+		return "redirect:contentsDetail.do";
+	}
 }

@@ -20,11 +20,11 @@ public class AdminController {
    
    @Resource
    AdminService adminService;
-      
+   
    @RequestMapping("contentsUpdateAdmin.do")
    public String updateContents() {
 	  double count;
-      String[] genreArr= {"1568","2638104"};
+      String[] genreArr= {"1568","2638104","7424","783"};
       //크롤링할 웹페이지 주소
       String stemplateURL = "https://www.netflix.com/kr/browse/genre/";
       String btemplateURL = "https://www.netflix.com/kr/title/";   //게시물 상세보기 관련 URL
@@ -50,17 +50,16 @@ public class AdminController {
                sElems = sDoc.select("h1.nm-collections-header-name");
         	   String genreName = sElems.text();
                String genreCode=genreArr[i];
-
+               bw.write("장르명: "+genreName+" 장르코드: "+genreCode);
+               bw.newLine();
                //장르 DB에 저장하기
-               if(adminService.findByGenreCode(genreCode)==null) {
-                  adminService.genreRegister(genreCode,genreName);
-                  bw.write(genreName+" 장르 저장완료");
-                  bw.newLine();
-                  System.out.println(genreName+" 장르 저장완료");
-               }
-               
+               adminService.genreRegister(genreCode,genreName);
+               bw.write(genreName+" 장르 저장완료");
+               bw.newLine();
+               System.out.println(genreName+" 장르 저장완료");
+              
                sElems = sDoc.select("img.nm-collections-title-img");
-               for(int a=0;a<20;a++) {
+               for(int a=0;a<50;a++) {
             	   Element sElem = sElems.get(a);
                   path="C:\\kosta203\\FinalProject\\-Kosta-FinalProject-Dev6m\\watflix\\src\\main\\webapp\\resources\\contents\\"; //사진을 저장할 물리적인 장소
                    //이미지
@@ -88,6 +87,15 @@ public class AdminController {
                         bElems = bDoc.select("div.title-info-metadata-wrapper>.item-genre");
                         //타입
                         String type = bElems.text();
+                        //타입에 TV 또는 영화가 없는상황
+                        if((!type.contains("TV"))&&(!type.contains("영화"))) {
+                        	if(i==1) {
+                        		type="TV "+type;
+                        	}
+                        	else {
+                        		type+=" 영화";
+                        	}
+                        }
                         //개봉일
                         bElems = bDoc.select("span.item-year");
                         String date = bElems.text();
@@ -131,6 +139,5 @@ public class AdminController {
     		  e.printStackTrace();
 	}
 	return "contents/contentsUpdateAdminComplete";
-
 	}   
 }

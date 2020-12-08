@@ -13,7 +13,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		<include refid="selectTotalPostCount"/>
  	</select>
  	<!-- Comment 게시물 컨텐츠 별 수 조회 -->
- 	<select id="mCommentsGetTotalPostCountByContentNo" parameterType="int" resultType="int">
+ 	<select id="mCommentsGetTotalPostCountByContentNo" parameterType="String" resultType="int">
  		<include refid="selectTotalPostCount"/>
  		WHERE contents_no = #{value}
  	</select> 	
