@@ -8,6 +8,8 @@ select * from review
 INSERT INTO REVIEW(REVIEW_NO,ID,CONTENTS_NO,REVIEW_TITLE,REVIEW_CONTENTS) 
 VALUES('454','BOSE','81171201','블러드 샷 봤냐?','지린다 가슴이 웅장해진다...꼭봐라...')
 
+SELECT * FROM COMMENTS
+
 SELECT * FROM REVIEW WHERE REVIEW_NO=777
 /*ReviewWrite쿼리문 테스트*/
 INSERT INTO REVIEW(REVIEW_NO,ID,CONTENTS_NO,REVIEW_TITLE,REVIEW_CONTENTS) VALUES(REVIEW_NO.SEQ.NEXTVAL,);
@@ -295,9 +297,39 @@ SELECT COUNT(*) FROM REVIEW
 SELECT COUNT(REVIEW_TITLE) AS CONTENTS_REVIEW_NO FROM REVIEW WHERE CONTENTS_NO = '80204465'
 delete from genre
 drop table contents
+
+
 /*재우 test*/
-select * from report
-union (all)
+-- 제약 조건 비활성화, 확성화
+alter table REPORT disable constraint REPORT_REVIEW_NO_FK
+alter table REPORT enable constraint REPORT_REVIEW_NO_FK
+-- 제약 조건 검색
+SELECT * FROM ALL_CONSTRAINTS
+WHERE TABLE_NAME = 'REPORT'
+-- 제약조건후 부모 테이블 data 삭제 및 테이블 조회
+select * from report where comments_no is NULL;
+select * from review;
+delete from review where review_no=1
+-- 내 신고 게시물 보기(리뷰)
+SELECT REPORT_NO,ID,REVIEW_NO,REPORT_TYPE_NO,REPORT_CONTENTS,re_time,reportedId
+FROM(SELECT row_number() over(order by REPORT_NO desc) as re_num, r.REPORT_NO,r.ID,r.REVIEW_NO,r.COMMENTS_NO, r.REPORT_TYPE_NO, r.REPORT_CONTENTS, r.re_time, rv.id as reportedId
+FROM(SELECT REPORT_NO,ID,REVIEW_NO,COMMENTS_NO,REPORT_TYPE_NO,REPORT_CONTENTS,
+to_char(REPORT_POSTED_TIME,'YYYY.MM.DD HH:MI:SS') as re_time
+FROM REPORT where id='java') r, review rv where r.REVIEW_NO=rv.REVIEW_NO)
+where re_num between 1 and 5
+order by report_no desc;
+-- 내 신고 게시물 보기(평점)
+SELECT REPORT_NO,ID,COMMENTS_NO,REPORT_TYPE_NO,REPORT_CONTENTS,re_time,reportedId
+FROM(SELECT row_number() over(order by r.REPORT_NO desc) as re_num, r.REPORT_NO,r.ID,r.REVIEW_NO,r.COMMENTS_NO, r.REPORT_TYPE_NO, r.REPORT_CONTENTS, r.re_time, c.id as reportedId
+FROM(SELECT REPORT_NO,ID,REVIEW_NO,COMMENTS_NO,REPORT_TYPE_NO,REPORT_CONTENTS,
+to_char(REPORT_POSTED_TIME,'YYYY.MM.DD HH:MI:SS') as re_time
+FROM REPORT where id='java') r, COMMENTS c where r.COMMENTS_NO=c.COMMENTS_NO)
+where re_num between 1 and 5
+order by report_no desc;
+-- 내가 작성한 신고글 수 조회
+select count(*) from report where REVIEW_NO is not NULL and id='java'
+select count(*) from report where REVIEW_NO is NULL and id='java'
+
 
 select * from grade
 insert into grade values ( 'ROLE_MEMBER' , 'java');
@@ -415,3 +447,11 @@ select ms.membership_name, ms.MEMBERSHIP_NO , ms.CONCURRENT_USERS,
   From PARTY p, member m, MEMBERSHIP ms, (select * from apply where id='spring') a
   WHERE p.id=m.id and p.membership_no = ms.membership_no
  		
+select m.id,m.password,m.name,m.tel,to_char('m.birth','YYYY-MM-DD'),m.sex,m.email,m.address,m.login_time,
+ 		m.login_fail,m.point,m.signup_date,m.agreement,m.acc_status_no,a.acc_status_info
+ 		from member m, (select * from acc_status) a
+ 		where a.acc_status_no=m.acc_status_no and m.id='java1234'
+/* 리뷰 테스트를 위한 데이터 추가 */
+INSERT INTO review VALUES(review_seq.nextval, 'java', 60004481, '리뷰 테스트 용 스파이더맨!', '리뷰 테슷트입니다.', 0, 0, sysdate);
+INSERT INTO review VALUES(review_seq.nextval, 'java', 81095669, '리뷰 테스트 용 진격의거인!', '리뷰 테슷트입니다.', 0, 0, sysdate);
+

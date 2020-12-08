@@ -11,11 +11,11 @@ public interface CommentsMapper {
 	
 	int mCommentsGetTotalPostCount();
 
-	int mCommentsGetTotalPostCountByContentNo(int contentsNo);
+	int mCommentsGetTotalPostCountByContentNo(String contentsNo);
 	
 	List<CommentsVO> mCommentsGetAllList(PagingBean pagingBean);
 
-	List<CommentsVO> mCommentsGetListByContentsNo (@Param("pagingBean") PagingBean pagingBean, @Param("contentsNo") int contentsNo);
+	List<CommentsVO> mCommentsGetListByContentsNo (@Param("pagingBean") PagingBean pagingBean, @Param("contentsNo") String contentsNo);
 	
 	void mCommentsWrite(CommentsVO commentsVO);
 	

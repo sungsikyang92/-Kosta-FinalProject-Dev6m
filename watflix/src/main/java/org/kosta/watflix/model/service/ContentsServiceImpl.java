@@ -2,6 +2,7 @@ package org.kosta.watflix.model.service;
 
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -40,8 +41,8 @@ public class ContentsServiceImpl implements ContentsService {
 	
 	//특정 타입의 컨텐츠 리스트
 	@Override
-	public ContentsListVO sGetAllContentsListForType(PagingBean pagingBean) {
-		return new ContentsListVO(contentsMapper.mGetAllContentsListForType(pagingBean), pagingBean);
+	public List<ContentsVO> sGetContentsAllForType(Map<String,String> map) {
+		return contentsMapper.mGetContentsAllForType(map);
 	}
 
 	//조회수 높은순
@@ -68,4 +69,17 @@ public class ContentsServiceImpl implements ContentsService {
 		contentsVO.setContentsReviewCount(reviewMapper.mGetContentsReviewCount(contentsNo));
 		return contentsVO;
 	}
+	
+	//컨텐츠 타입별 select문
+	@Override
+	public List<ContentsVO> sGetContentsSelectForType(String contentsType) {
+		return contentsMapper.mGetContentsSelectForType(contentsType);
+	}
+	
+	// 컨텐츠 타입별 장르
+	@Override
+	public List<GenreVO> sGetGenreSelectForType(String contentsType) {
+		return contentsMapper.mGetGenreSelectForType(contentsType);
+	}
+	
 }
