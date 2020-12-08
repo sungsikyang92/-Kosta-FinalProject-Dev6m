@@ -22,6 +22,7 @@ public class ContentsController {
 	CommentsService commentsService;
 	
 	@RequestMapping("contentsDetail.do")
+
 	public ModelAndView ContentsDetail(ContentsVO contentsVO, String commentsPageNo, String reviewPageNo) {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("contents/contents_detail.tiles");
@@ -44,10 +45,23 @@ public class ContentsController {
 		return modelAndView;
 	}
 	
+	//
 	@RequestMapping("contentsByMovie.do")
 	public String contentsByMovie(Model model) {
+		//네비바를 위한것
+		model.addAttribute("navBarTab","MOVIE");
 		model.addAttribute("contentsList",contentsService.sGetContentsSelectForType("영화"));
-		model.addAttribute("genre",contentsService.sGetAllGenreList());
+		model.addAttribute("genreList",contentsService.sGetGenreSelectForType("영화"));
+		
 		return "contents/contentsByMovie.tiles";
+	}
+	@RequestMapping("contentsByTV.do")
+	public String contentsByTV(Model model) {
+		//네비바를 위한것
+		model.addAttribute("navBarTab","TV");
+		model.addAttribute("contentsList",contentsService.sGetContentsSelectForType("TV"));
+		model.addAttribute("genreList",contentsService.sGetGenreSelectForType("TV"));
+		
+		return "contents/contentsByTV.tiles";
 	}
 }
