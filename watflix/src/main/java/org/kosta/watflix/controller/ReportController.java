@@ -5,6 +5,7 @@ import javax.annotation.Resource;
 import org.kosta.watflix.model.service.ReportService;
 import org.kosta.watflix.model.vo.CommentsVO;
 import org.kosta.watflix.model.vo.MemberVO;
+import org.kosta.watflix.model.vo.ReportListVO;
 import org.kosta.watflix.model.vo.ReportTypeVO;
 import org.kosta.watflix.model.vo.ReportVO;
 import org.kosta.watflix.model.vo.ReviewVO;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -116,11 +118,20 @@ public class ReportController {
 	}
 	
 	// 내 신고 리스트(리뷰)
+	// ResponseBody는 비동기 통신에 필요한 어노테이션이다.
 	@RequestMapping("myReportReviewBoard.do")
-	public ModelAndView myReportReviewBoard() {
+	@ResponseBody
+	public ReportListVO myReportReviewBoard() {
 		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String id = mvo.getId();
-		return new ModelAndView("report/my_report_review_board","myReportReviewList",reportService.sGetMyReportReviewList(id));
+		return reportService.sGetMyReportReviewList(id);
+	}
+	@RequestMapping("myReportReviewBoardNext.do")
+	@ResponseBody
+	public ReportListVO myReportReviewBoardNext(String pageNo) {
+		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String id = mvo.getId();
+		return reportService.sGetMyReportReviewList(id, pageNo);
 	}
 }
 

@@ -327,6 +327,10 @@ order by report_no desc;
 -- 내가 작성한 신고글 수 조회
 select count(*) from report where REVIEW_NO is not NULL and id='java'
 select count(*) from report where REVIEW_NO is NULL and id='java'
+-- 임시 데이터 삽입
+insert into report(report_no, id, review_no, report_type_no, report_contents)
+values(REPORT_SEQ.nextval, 'java', 1, 2, '음란물 신고합니다.');
+select * from report where id='java' and review_no is not null
 
 
 select * from grade
