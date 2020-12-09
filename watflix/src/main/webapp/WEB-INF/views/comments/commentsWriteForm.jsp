@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,23 +21,34 @@
 			document.commentsWriteForm.submit();
 			self.close();
 		})
-		$("#star_point a").click(function(){
-			$(this).parent().children("a").removeClass("on");
-			$(this).addClass("on").prevAll("a").addClass("on");
-			return false;
+		
+		var hoverEvent = true;
+		$('#starPoint img').hover(function(){
+			if(hoverEvent){
+			$('.starLeft').attr('src', '${pageContext.request.contextPath}/resources/media/icons/star-gray-left.png');
+			$('.starRight').attr('src', '${pageContext.request.contextPath}/resources/media/icons/star-gray-right.png');
+			
+			var starLR = ($(this)[0].id).substr(0,5);
+			if(starLR == "starR"){
+				$(this).prevAll('.starLeft').attr('src', '${pageContext.request.contextPath}/resources/media/icons/star-left.png');
+				$(this).prevAll('.starRight').add(this).attr('src', '${pageContext.request.contextPath}/resources/media/icons/star-right.png');
+			} else {
+				$(this).prevAll('.starLeft').add(this).attr('src', '${pageContext.request.contextPath}/resources/media/icons/star-left.png');
+				$(this).prevAll('.starRight').attr('src', '${pageContext.request.contextPath}/resources/media/icons/star-right.png');
+			}
+			}
+		});
+		$('#starPoint img').click(function(){
+			hoverEvent = !hoverEvent;
 		})
 	})
 </script>
-<style>
-	#star_point a{
-		text-decoration: none;
-		color: gray;
-	}
-	#star_point a.on{
-		color: red;
+<title>commentsWriteForm</title>
+<style type="text/css">
+	#starPoint .starRight{
+		margin-left: -5px;
 	}
 </style>
-<title>commentsWriteForm</title>
 </head>
 <body>
 	<form name="commentsWriteForm" method="post">
@@ -46,8 +58,17 @@
 			<td>별점</td>
 			<td><input type="number" id="commentsStars"	name="commentsStars"
 			min="1" max="10" required="required"></td>
-			<td>
-				
+		</tr>
+		<tr>
+			<td colspan="2">
+				<p id="starPoint">
+				<c:forEach var="i" begin="1" end="5">
+					<img id="starL${i}" class="starLeft" src="${pageContext.request.contextPath}/resources/media/icons/star-gray-left.png">
+					<img id="starR${i}" class="starRight" src="${pageContext.request.contextPath}/resources/media/icons/star-gray-right.png">
+				</c:forEach>
+				</p>
+					
+					
 			</td>
 		</tr>
 		<tr>
