@@ -103,11 +103,15 @@ function submit(){
 		return false;
 	}
 	var email = $("#email").val();
-	if (email == '' || IsEmail(email)==false ) {
-		alert("이메일 주소를 확인하세요");
+	if (email == '' ) {
+		alert("이메일을 입력하세요");
 		return false;
 		}
-	
+	if(IsEmail(email)==false){
+		alert("이메일 형식을 확인하세요");
+		return false;
+	}
+		
 	$("#memberUpdateForm").submit();		
 }
 function IsEmail(email) {

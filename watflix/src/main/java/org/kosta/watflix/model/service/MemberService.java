@@ -9,6 +9,7 @@ import org.kosta.watflix.model.vo.ProductOrderVO;
 
 public interface MemberService {
 	void sMemberRegister(MemberVO memberVO);
+	void sMemberAdminRegister(MemberVO memberVO);
 	void sMemberUpdate(MemberVO memberVO);
 	void sMemberLeave(String id);
 	void sMemberLoginTimeUpdate(String id);

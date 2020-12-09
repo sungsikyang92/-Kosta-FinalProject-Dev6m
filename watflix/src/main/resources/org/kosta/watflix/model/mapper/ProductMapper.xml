@@ -4,7 +4,12 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.kosta.watflix.model.mapper.ProductMapper">
- 
+ 	
+ 	<!-- 상품등록 -->
+ 	<insert id="mProductRegister" parameterType="productVO">
+	 	INSERT INTO PRODUCT(PRODUCT_NO,PRODUCT_NAME,PRODUCT_POINT,PRODUCT_DETAIL,PRODUCT_CATEGORY_NO,PRODUCT_PIC,PRODUCT_BRAND,PRODUCT_STOCK)
+	 	VALUES(PRODUCT_SEQ.NEXTVAL(),#{productName},#{productPoint},#{productDetail},#{productCategoryNo},#{productPic},#{productBrand},#{productStock})
+ 	</insert>
 </mapper>
 
 

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sql Mapper -->
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.kosta.watflix.model.mapper.ProductCategoryMapper">
+	<sql id="selectProductCategory">
+		select PRODUCT_CATEGORY_NO,PRODUCT_CATEGORY_NAME from PRODUCT_CATEGORY
+	</sql>
+ 	
+ 	<!--상품 카테고리 총 개수 출력  -->
+	 <select id="mProductCategoryGetTotalCount" resultType="int">
+	 	select count(*) from PRODUCT_CATEGORY
+	 </select>
+	 
+ 	<!--상품 카테고리 페이징 출력  -->
+	 <select id="mGetProductCategoryList" resultType="productCategoryVO" parameterType="pagingBean">
+	 	SELECT P.PRODUCT_CATEGORY_NO,P.PRODUCT_CATEGORY_NAME 
+	 	FROM
+	 	(SELECT row_number() over(order by PRODUCT_CATEGORY_NO desc) as rnum, PRODUCT_CATEGORY_NO,PRODUCT_CATEGORY_NAME FROM PRODUCT_CATEGORY)  P
+		WHERE rnum BETWEEN #{startRowNumber} AND #{endRowNumber}
+	 </select>
+	 
+ 	<!-- 상품 카테고리 추가 -->
+ 	<insert id="mProductCategoryRegister" parameterType="productCategoryVO">
+ 		insert into PRODUCT_CATEGORY(PRODUCT_CATEGORY_NO,PRODUCT_CATEGORY_NAME) values(PRODUCT_CATEGORY_SEQ.nextval(),#{productCategoryName})
+ 	</insert>
+</mapper>

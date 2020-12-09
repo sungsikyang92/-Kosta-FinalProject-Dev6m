@@ -8,7 +8,7 @@ import javax.annotation.Resource;
 
 import org.kosta.watflix.model.mapper.ContentsMapper;
 import org.kosta.watflix.model.mapper.ReviewMapper;
-import org.kosta.watflix.model.vo.ContentsListVO;
+import org.kosta.watflix.model.vo.ProductCategoryListVO;
 import org.kosta.watflix.model.vo.ContentsVO;
 import org.kosta.watflix.model.vo.GenreVO;
 import org.springframework.stereotype.Service;
@@ -39,6 +39,11 @@ public class ContentsServiceImpl implements ContentsService {
 		return contentsMapper.mGetTotalContentsCountForType(contentsType);
 	}
 	
+	//장르&타입의 컨텐츠 리스트
+	@Override
+	public List<ContentsVO> sGetContentsAllForTypeAndGenre(Map<String,String> map) {
+		return contentsMapper.mGetContentsAllForTypeAndGenre(map);
+	}
 	//특정 타입의 컨텐츠 리스트
 	@Override
 	public List<ContentsVO> sGetContentsAllForType(Map<String,String> map) {

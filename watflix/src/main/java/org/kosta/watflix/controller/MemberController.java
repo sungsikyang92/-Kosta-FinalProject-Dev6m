@@ -57,7 +57,7 @@ public class MemberController {
 		return "member/registerForm.tiles";
 	}
 	//회원가입
-	@RequestMapping("memberRegister.do")
+	@PostMapping("memberRegister.do")
 	public String memberRegister(MemberVO memberVO){
 		System.out.println(memberVO.getAddress());
 		memberService.sMemberRegister(memberVO);
@@ -71,7 +71,7 @@ public class MemberController {
 	}
 	//아이디 중복체크
 	@ResponseBody
-	@RequestMapping("memberIdCheck.do")
+	@PostMapping("memberIdCheck.do")
 	public String memberIdCheck(String id) {
 		return memberService.idcheck(id);
 	}
@@ -85,7 +85,7 @@ public class MemberController {
 	
 	//회원정보 수정
 	@Secured("ROLE_MEMBER")
-	@RequestMapping("memberUpdate.do")
+	@PostMapping("memberUpdate.do")
 	public String memberUpdate(MemberVO memberVO) {
 		memberService.sMemberUpdate(memberVO);
 		//System.out.println(memberVO.getAddress());
