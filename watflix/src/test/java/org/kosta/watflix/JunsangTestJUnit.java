@@ -142,7 +142,7 @@ public class JunsangTestJUnit {
 	  
 	  PartyVO partyVO = new PartyVO(); partyVO.setMemberVO(mvo);
 	  partyVO.setPartyTitle("제목"); partyVO.setMembershipVO(msvo);
-	  partyVO.setPartyHeadCount(1); for(int i=0;i<10;i++) {
+	  partyVO.setPartyHeadCount(4); for(int i=0;i<10;i++) {
 	  partyMapper.mPartyWrite(partyVO); } }
 	 
 	

@@ -378,8 +378,6 @@ select * from party where party_no = 137
 /* 테이블 컬럼명 바꾸기*/
 ALTER TABLE member RENAME COLUMN acc_stauts_no TO acc_status_no
 
-<<<<<<< HEAD
-
 
 select * from apply where id='java' and party_no = 137
 
@@ -453,22 +451,22 @@ select ms.membership_name, ms.MEMBERSHIP_NO , ms.CONCURRENT_USERS,
   From PARTY p, member m, MEMBERSHIP ms, (select * from apply where id='spring') a
   WHERE p.id=m.id and p.membership_no = ms.membership_no
  		
-=======
-<<<<<<< HEAD
->>>>>>> branch 'master' of https://github.com/Minikanko/-Kosta-FinalProject-Dev6m.git
 select m.id,m.password,m.name,m.tel,to_char('m.birth','YYYY-MM-DD'),m.sex,m.email,m.address,m.login_time,
  		m.login_fail,m.point,m.signup_date,m.agreement,m.acc_status_no,a.acc_status_info
  		from member m, (select * from acc_status) a
  		where a.acc_status_no=m.acc_status_no and m.id='java1234'
-<<<<<<< HEAD
-=======
-=======
->>>>>>> branch 'master' of https://github.com/Minikanko/-Kosta-FinalProject-Dev6m.git
 /* 리뷰 테스트를 위한 데이터 추가 */
 INSERT INTO review VALUES(review_seq.nextval, 'java', 60004481, '리뷰 테스트 용 스파이더맨!', '리뷰 테슷트입니다.', 0, 0, sysdate);
 INSERT INTO review VALUES(review_seq.nextval, 'java', 81095669, '리뷰 테스트 용 진격의거인!', '리뷰 테슷트입니다.', 0, 0, sysdate);
 
-<<<<<<< HEAD
-=======
->>>>>>> branch 'master' of https://github.com/Minikanko/-Kosta-FinalProject-Dev6m.git
->>>>>>> branch 'master' of https://github.com/Minikanko/-Kosta-FinalProject-Dev6m.git
+
+select * from apply 
+
+ SELECT p.PARTY_NO, p.id, p.PARTY_TITLE, ms.membership_name, p.PARTY_STATUS,
+       p.PARTY_HEADCOUNT,p.PARTY_APPLYCOUNT,to_char(p.PARTY_POSTED_TIME,'yyyy-mm-dd') as PARTY_POSTED_TIME
+       
+       From(SELECT row_number() over (order by PARTY_NO desc) as rnum,PARTY_NO,ID,PARTY_TITLE,membership_no,PARTY_STATUS,
+       PARTY_HEADCOUNT,PARTY_APPLYCOUNT,PARTY_POSTED_TIME FROM PARTY) p ,
+       MEMBERSHIP ms
+       
+       WHERE rnum BETWEEN 1 AND 10 and p.membership_no = ms.membership_no

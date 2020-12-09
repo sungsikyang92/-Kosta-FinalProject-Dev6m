@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
 		//비밀번호 입력가능 개수 4글자 이상
@@ -62,6 +64,15 @@
 			}
 		})
 		
+		$("#address").click(function() {
+			 new daum.Postcode({
+			        oncomplete: function(data) {
+			            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
+			            // 예제를 참고하여 다양한 활용법을 확인해 보세요.
+			        	$("#address").val(data.address);
+			        }
+			    }).open();
+		}) // 주소 api
 		
 
 	}); //ready
@@ -75,8 +86,38 @@ function memberDelete(){
 }
 //회원 정부수정
 function submit(){
+	if($("#password").val()  == ''){
+		alert("비밀번호를 입력해주세요");
+		return false;
+	}
+	if($("#password2").val()  == ''){
+		alert("비밀번호를 확인해주세요");
+		return false;
+	}
+	if($("#password").val() != $("#password2").val()){
+		alert("비밀번호를 확인해주세요");
+		return false;
+	}
+	if($("#tel").val()  == ''){
+		alert("전화번호를 입력해주세요");
+		return false;
+	}
+	var email = $("#email").val();
+	if (email == '' || IsEmail(email)==false ) {
+		alert("이메일 주소를 확인하세요");
+		return false;
+		}
+	
 	$("#memberUpdateForm").submit();		
 }
+function IsEmail(email) {
+	  var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+	  if(!regex.test(email)) {
+	    return false;
+	  }else{
+	    return true;
+	  }
+	}
 </script>
 
 <!-- input타입이 숫자일때 스크롤 생기지 않게 하는 것 -->
@@ -140,7 +181,7 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 					<div class="nfInputPlacement">
 						<div class="nfEmailPhoneControls">
 							<label class="input_id">
-								<input type="text" name="name" class="registerForNfTextField" id="name" tabindex="0" required="required" value="${memberVO.name}"> 
+								<input type="text" name="name" class="registerForNfTextField" id="name" tabindex="0" readonly="readonly" value="${memberVO.name}"> 
 								<label for="id_name" class="placeLabel">이름</label> 
 							</label>
 						</div>
@@ -166,8 +207,8 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 					<div class="nfInputPlacement">
 						<div class="nfEmailPhoneControls">
 							<label class="input_id">
-							${memberVO.birth}
-								<input type="date" name="birth" class="registerForNfTextField" id="birth" tabindex="0" required="required" value="${memberVO.birth}"> 
+						<%-- 	${memberVO.birth} --%>
+								<input type="date" name="birth" class="registerForNfTextField" id="birth" tabindex="0" readonly="readonly" value="${memberVO.birth}"> 
 								<label for="id_birth" class="placeLabel">생년월일</label> 
 							</label>
 						</div>
@@ -214,17 +255,33 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 				</div>
 				<!--이메일 입력 END  -->
 				<!--주소 입력 START  -->
+				<c:set var= "address" value="${memberVO.address}" />
+				${fn:split(address,',' )[0]}
+				${fn:split(address,',' )[1]}
+				
 				<div data-uia="login-field+container"
 					class="nfInput nfEmailPhoneInput login-input login-input-email">
 					<div class="nfInputPlacement">
 						<div class="nfEmailPhoneControls">
 							<label class="input_id">
-								<input type="text" name="address" class="registerForNfTextField" id="address" tabindex="0" value="${memberVO.address}"> 
+								<input type="text" name="address" class="registerForNfTextField" id="address" tabindex="0" value="${fn:split(address,',' )[0]}"> 
 								<label for="id_address" class="placeLabel">주소</label> 
 							</label>
 						</div>
 					</div>
 				</div>
+				<div data-uia="login-field+container"
+					class="nfInput nfEmailPhoneInput login-input login-input-email">
+					<div class="nfInputPlacement">
+						<div class="nfEmailPhoneControls">
+							<label class="input_id">
+								<input type="text" name="address" class="registerForNfTextField" id="address2" tabindex="0" value="${fn:split(address,',' )[1]}"> 
+								<label for="id_address" class="placeLabel">상세주소</label> 
+							</label>
+						</div>
+					</div>
+				</div>
+				
 				<!--주소 입력 END  -->
 				<!--이용약관동의 입력 START  -->
 				<ul class="registerTermUl" style="height:20px;">
