@@ -29,26 +29,14 @@ public class ContentsController {
 	CommentsService commentsService;
 	
 	@RequestMapping("contentsDetail.do")
-	public ModelAndView ContentsDetail(ContentsVO contentsVO, String commentsPageNo, String reviewPageNo) {
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("contents/contents_detail.tiles");
-		modelAndView.addObject("contentsVO", contentsService.sFindContentsByNo(contentsVO.getContentsNo()));
-		modelAndView.addObject("contentsNo", contentsVO.getContentsNo());
-		
-		if(commentsPageNo==null)
-			commentsPageNo = "1"; 
-		
-		if(reviewPageNo==null)
-			reviewPageNo = "1";
-		
-		if(commentsPageNo!=null) {
-			modelAndView.addObject("commentsListByContentsNo", commentsService.sCommentsGetListByContentsNo(commentsPageNo, contentsVO.getContentsNo()));
-		} 
-		if(reviewPageNo!=null) {
-			modelAndView.addObject("lvo", reviewService.sGetReviewList(reviewPageNo));
-		}
-		System.out.println(contentsVO.getContentsNo());
-		return modelAndView;
+	public String ContentsDetail(Model model, ContentsVO contentsVO, String pageNo) {
+		//CommentsListByContentsNo in ContentsDetail
+		model.addAttribute("contentsVO", contentsService.sFindContentsByNo(contentsVO.getContentsNo()));
+		model.addAttribute("commentsListByContentsNo", commentsService.sCommentsGetListByContentsNo(pageNo, contentsVO.getContentsNo()));
+		//ReviewListByContentsNo in ContentsDetail
+		model.addAttribute("reviewListByContentsNo",reviewService.sGetReviewListByContentsNo(pageNo, contentsVO.getContentsNo()));
+		model.addAttribute("contentsNo", contentsVO.getContentsNo());
+		return "c_commentsList_reviewList.tiles";
 	}
 	
 	//영화카테고리 페이지

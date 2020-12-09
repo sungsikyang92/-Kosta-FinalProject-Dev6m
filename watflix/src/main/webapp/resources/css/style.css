@@ -162,7 +162,7 @@ a, a:hover {
 .menu-navbar-toggler {
 	margin: 10px 0;
 }
-
+/*버튼 클래스*/
 .btn {
 	padding: 5px 10px;
 	color: white;
@@ -197,6 +197,23 @@ a, a:hover {
 	background-color: #141414;
 	border-color: #141414;
 	box-shadow: 0 8px 16px 0 #141414;
+}
+/*리스트로가기버튼*/
+.btn-list{
+	float:left;
+	width:10%;
+}
+/*취소하기버튼*/
+.btn-reset{
+	float:left;
+	margin-left:50%;
+	width:10%;
+}
+/*게시하기버튼*/
+.btn-submit{
+	float:right;
+	margin-right:20%;
+	width:10%;
 }
 
 /** Flickity carousel **/
@@ -723,6 +740,11 @@ a, a:hover {
 /*마이페이지 선택창 end*/
 /*로그인 end*/
 
+/*페이지랑 메뉴 겹치는거 방지*/
+.tableMargin{
+	margin-top: 70px;
+	margin-bottom: 70px;
+}
 /*회원가입 Start*/
 .registerTermUl{
 	width:440px;
@@ -740,6 +762,33 @@ a, a:hover {
 }
 /*회원가입 End*/
 
+/*타이틀 및 작성폼 css Start!*/
+	/*Titles*/
+	.allTitle{
+		width:600px;
+		height:30px;
+		font-size:15px;
+	}
+	/*Textarea*/
+	.allTextArea{
+		width:600px;
+	}
+/*페이징Start*/
+	/*페이징위치*/
+	.pagingInfo{
+		float:left;
+		margin-left:50%;
+}
+
+/*페이징End*/
+
+/*테이블Start*/
+	/*작성테이블 중앙정렬*/
+	.TableAndButtons{
+	float:center;
+	margin-left:30%;
+	}
+/*테이블End*/
 /*faq_detail*/
 #faqForm {
 	position: relative;
@@ -768,9 +817,6 @@ a, a:hover {
      padding-right: 20px;
 }
 
-.pageNoBtn{
-	
-}
 .faqBtn{
 	display: inline-block;
 	zoom: 1;
@@ -819,4 +865,3 @@ a, a:hover {
 	color: black;
 	top: 4px;
 }
-/*회원가입 end*/
