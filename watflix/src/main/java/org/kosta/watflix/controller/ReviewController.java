@@ -8,6 +8,7 @@ import org.kosta.watflix.model.service.ReviewService;
 import org.kosta.watflix.model.vo.ContentsVO;
 import org.kosta.watflix.model.vo.MemberVO;
 import org.kosta.watflix.model.vo.ReviewVO;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +22,7 @@ public class ReviewController {
 	@Resource
 	private ReviewService reviewService;
 	//콘텐츠리뷰리스트
+	@Secured("ROLE_ADMIN")
 	@RequestMapping("reviewList.do")
 	public String getReviewList(String pageNo, Model model) {
 		model.addAttribute("lvo",reviewService.sGetReviewList(pageNo));
@@ -36,6 +38,7 @@ public class ReviewController {
 	
 	
 	//리뷰 작성 폼(세션 추가 해야 합니다. 현재 페이지 이동만 됨.)
+	@Secured("ROLE_MEMBER")
 	@RequestMapping("reviewWriteForm.do")
 	public String reviewWriteForm(String contentsNo, Model model) {
 		//컨텐츠넘버를 넘겨서 리뷰작성과 리스트로돌아갈때 사용하기 위해 추가하였다. 
@@ -44,6 +47,7 @@ public class ReviewController {
 	}
 	
 	//리뷰 작성 submit(세션 추가 해야 합니다.)
+	@Secured("ROLE_MEMBER")
 	@PostMapping("reviewWrite.do")
 	public String reviewWrite(ReviewVO reviewVO, ContentsVO contentsVO ,RedirectAttributes ra) {
 	//System.out.println(contentsVO.getContentsNo()); //컨텐츠넘버 불러오는지 확인을위한것
@@ -73,6 +77,7 @@ public class ReviewController {
 	//리뷰 상세보기(조회수 증가O, 세션 추가 필요함.)
 	//작성 후 혹은 수정 후가 아니라 리스트에서 눌러서 들어온 경우로 조회수가 증가한다.
 	//그러나 이미 조회한 리뷰인 경우에 한해서 조회수가 증가하지 않도록 한다.
+	@Secured("ROLE_MEMBER")
 	@RequestMapping("reviewDetail.do")
 	public String reviewDetail(int reviewNo, RedirectAttributes rd) {
 		reviewService.sReviewHitsUpdate(reviewNo);
@@ -81,12 +86,14 @@ public class ReviewController {
 	}
 	
 	//리뷰 업데이트폼 이동(세션 추가 필요함)
+	@Secured("ROLE_MEMBER")
 	@RequestMapping("reviewUpdateForm.do")
 	public ModelAndView reviewUpdateForm(int reviewNo) {
 		return new ModelAndView("review/reviewUpdateForm.tiles","ru",reviewService.sGetReviewDetailNoHits(reviewNo));
 	}
 	
 	//리뷰 업데이트(세션 추가 필요함)
+	@Secured("ROLE_MEMBER")
 	@PostMapping("reviewUpdate.do")
 	public ModelAndView reviewUpdate(ReviewVO reviewVO) {
 		reviewService.sReviewUpdate(reviewVO);
@@ -94,6 +101,7 @@ public class ReviewController {
 	}
 	
 	//리뷰 삭제기능
+	@Secured("ROLE_MEMBER")
 	@PostMapping("reviewDelete.do")
 	public String reviewDelete(int reviewNo) {
 		//변수에 컨텐츠넘버 담기
@@ -105,4 +113,7 @@ public class ReviewController {
 	
 	
 }
+
+
+
 

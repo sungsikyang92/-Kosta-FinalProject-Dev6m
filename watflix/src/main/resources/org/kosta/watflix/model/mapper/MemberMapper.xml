@@ -18,7 +18,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 아이디로 회원찾기 -->
 	<select id="mFindMemberById" resultMap="memberRM">
-		select m.id,m.password,m.name,m.tel,m.birth,m.sex,m.email,m.address,m.login_time,
+		select m.id,m.password,m.name,m.tel,to_char(m.birth,'YYYY-MM-DD') as birth,m.sex,m.email,m.address,m.login_time,
  		m.login_fail,m.point,m.signup_date,m.agreement,m.acc_status_no,a.acc_status_info
  		from member m, (select * from acc_status) a
  		where a.acc_status_no=m.acc_status_no and m.id=#{value}
@@ -26,7 +26,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 정상계정 회원찾기 -->
 	<select id="mFindMemberByIdWithStatusNormal" resultMap="memberRM">
-		select m.id,m.password,m.name,m.tel,m.birth,m.sex,m.email,m.address,m.login_time,
+		select m.id,m.password,m.name,m.tel,to_char(m.birth,'YYYY-MM-DD') as birth,m.sex,m.email,m.address,m.login_time,
  		m.login_fail,m.point,m.signup_date,m.agreement,m.acc_status_no,a.acc_status_info
  		from member m, (select * from acc_status where acc_status_no=0) a
  		where a.acc_status_no=m.acc_status_no and m.id=#{value}
@@ -67,7 +67,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 회원정보 수정 성별은 주민등록번호 기준으로 설정했기때문에 변경 불가-->
 	<update id="mMemberUpdate" parameterType="memberVO">
 		update member set
-		PASSWORD=#{password},NAME=#{name},TEL=#{tel},EMAIL=#{email},ADDRESS=#{address},AGREEMENT=#{agreement}  
+		PASSWORD=#{password},NAME=#{name},TEL=#{tel},EMAIL=#{email},ADDRESS=#{address},AGREEMENT=#{agreement},sex=#{sex},birth=#{birth}
 		where id=#{id}
 	</update>
 	

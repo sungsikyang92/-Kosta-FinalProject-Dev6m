@@ -25,7 +25,7 @@ public class ReviewServiceImpl implements ReviewService {
 		}else {
 			int contentNumberPerPage=10;
 			int pageNumberPerPageGroup=5;
-			pagingBean = new PagingBean(reviewTotalCount, contentNumberPerPage,pageNumberPerPageGroup,Integer.parseInt(pageNo));
+			pagingBean = new PagingBean(reviewTotalCount,contentNumberPerPage,pageNumberPerPageGroup,Integer.parseInt(pageNo));
 		}
 		ReviewListVO reviewListVO = new ReviewListVO(reviewMapper.mGetReviewList(pagingBean),pagingBean);
 		return reviewListVO;
@@ -43,7 +43,7 @@ public class ReviewServiceImpl implements ReviewService {
 		}else {
 			int contentNumberPerPage=10;
 			int pageNumberPerPageGroup=5;
-			pagingBean = new PagingBean(reviewTotalCountByContentsNo, contentNumberPerPage,pageNumberPerPageGroup,Integer.parseInt(pageNo));
+			pagingBean = new PagingBean(reviewTotalCountByContentsNo,contentNumberPerPage,pageNumberPerPageGroup,Integer.parseInt(pageNo));
 			
 		}
 		ReviewListVO reviewListVO = new ReviewListVO(reviewMapper.mGetReviewListByContentsNo(pagingBean,contentsNo), pagingBean);

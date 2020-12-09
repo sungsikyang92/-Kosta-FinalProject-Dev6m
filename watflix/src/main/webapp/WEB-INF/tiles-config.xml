@@ -19,12 +19,13 @@
  		<put-attribute name="main"  value="/WEB-INF/views/member/loginForm.jsp"/>
  		<put-attribute name="footer" value="/WEB-INF/views/templates/footer.jsp"/>
  	</definition>
- 	<!-- contentsDetail&reviewList tiles시작 -->
-	<definition name="contentsDetail_reviewList.tiles" template="/WEB-INF/views/templates/crlayout.jsp">
+ 	<!-- contentsDetail&commentsList&reviewList tiles시작 -->
+	<definition name="c_commentsList_reviewList.tiles" template="/WEB-INF/views/templates/ccrlayout.jsp">
  		<put-attribute name="title"  value="WATFLIX" />
  		<put-attribute name="header" value="/WEB-INF/views/templates/header.jsp"/>
  		<put-attribute name="main"  value="/WEB-INF/views/contents/contents_detail.jsp"/>
- 		<put-attribute name="main2"  value="/WEB-INF/views/review/reviewListByContentsNo.jsp"/>
+ 		<put-attribute name="main2"  value="/WEB-INF/views/comments/commentsListByContentsNo.jsp"/>
+ 		<put-attribute name="main3"  value="/WEB-INF/views/review/reviewListByContentsNo.jsp"/>
  		<put-attribute name="footer" value="/WEB-INF/views/templates/footer.jsp"/>
  	</definition>
 
@@ -52,17 +53,3 @@
  		<put-attribute name="main"  value="/WEB-INF/views/{1}/{2}.jsp"/>
  	</definition>
 </tiles-definitions>
-
-
-
-
-
-
-
-
-
-
-
-
-
-

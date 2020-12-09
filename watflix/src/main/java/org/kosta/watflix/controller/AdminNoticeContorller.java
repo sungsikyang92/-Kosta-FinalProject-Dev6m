@@ -1,5 +1,7 @@
 package org.kosta.watflix.controller;
 
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.kosta.watflix.model.service.NoticeService;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -23,12 +26,12 @@ public class AdminNoticeContorller {
 	@RequestMapping("getNoticeList.do")
 	public String getNoticeList(String pageNo, Model model) {
 		model.addAttribute("noticeList", noticeService.sNoticeGetList(pageNo));
-		return "notice/noticeList";
+		return "notice/noticeList.tiles";
 	}
-	// 공지글 작성 관리자만 가능하게 시큐리티작업 필요
+	@Secured("ROLE_ADMIN")
 	@RequestMapping("noticeWriteForm.do")
 	public String noticeWriteForm(){
-		return "notice/noticeWriteForm";
+		return "notice/noticeWriteForm.tiles";
 	}
 	@PostMapping("noticeWrite.do")
 	public String noticeWrite(NoticeVO noticeVO, Model model, RedirectAttributes redirectAttributes) {
@@ -40,8 +43,12 @@ public class AdminNoticeContorller {
 	}
 	
 	@RequestMapping("noticeDetailNoHits.do")
-	public ModelAndView noticeDetailNoHits(int noticeNo) {
-		return new ModelAndView("notice/noticeDetail", "noticeDetail", noticeService.sNoticeGetDetailNoHits(noticeNo));
+	public ModelAndView noticeDetailNoHits(int noticeNo, String pageNo, RedirectAttributes redirectAttributes) {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("notice/noticeDetail.tiles");
+		modelAndView.addObject("noticeDetail", noticeService.sNoticeGetDetailNoHits(noticeNo));
+		modelAndView.addObject("pageNo", pageNo);
+		return modelAndView;
 	}
 	
 	/**
@@ -53,32 +60,46 @@ public class AdminNoticeContorller {
 	 * @return
 	 */
 	@RequestMapping("noticeDetail.do")
-	public String noticeDetail(int noticeNo, RedirectAttributes redirectAttributes) {
+	public String noticeDetail(int noticeNo, String pageNo, RedirectAttributes redirectAttributes) {
 		// 조회수 올림(세션적용하지 않아 읽었던 글을 다시 읽더라고 조회수 증가함.
 		// 로그인시 조회 내역을 저장할 수 있는 리스트를 만들어 세션에 넣는 코드가 필요함. 
 		noticeService.sNoticeUpdateHits(noticeNo);		
-		//System.out.println(noticeService.sNoticeGetDetailNoHits(noticeNo));
 		redirectAttributes.addAttribute("noticeNo", noticeNo);
+		redirectAttributes.addAttribute("pageNo", pageNo);
 		return "redirect:noticeDetailNoHits.do";
 	}	
 	
-	@RequestMapping("noticeUpdateForm.do")
-	public String noticeUpdateForm(int noticeNo, Model model) {
-		model.addAttribute("noticeUpdateForm", noticeService.sNoticeGetDetailNoHits(noticeNo)); 
-		return "notice/noticeUpdateForm";
+	@PostMapping("noticeUpdateForm.do")
+	public String noticeUpdateForm(int noticeNo, String pageNo, Model model) {
+		model.addAttribute("noticeUpdateForm", noticeService.sNoticeGetDetailNoHits(noticeNo));
+		model.addAttribute("pageNo", pageNo);
+		return "notice/noticeUpdateForm.tiles";
 	}
 	//@Secured("ROLE_MEMBER")
 	@PostMapping("noticeUpdate.do")
-	public String noticeUpdate(NoticeVO noticeVO, int noticeNo, RedirectAttributes redirectAttributes) {
+	public String noticeUpdate(NoticeVO noticeVO, int noticeNo, String pageNo, RedirectAttributes redirectAttributes) {
 		MemberVO memberVO = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		noticeVO.setMemberVO(memberVO);
 		noticeService.sNoticeUpdate(noticeVO);
 		redirectAttributes.addAttribute("noticeNo", noticeNo);
+		redirectAttributes.addAttribute("pageNo", pageNo);
 		return "redirect:noticeDetailNoHits.do";
 	}
+	
 	@PostMapping("noticeDelete.do")
-	public String noticeDelete(int noticeNo, RedirectAttributes redirectAttributes) {
+	public String noticeDelete(int noticeNo, String pageNo, RedirectAttributes redirectAttributes) {
 		noticeService.sNoticeDelete(noticeNo);
+		redirectAttributes.addAttribute("pageNo", pageNo);
 		return "redirect:getNoticeList.do";
 	}
+	
+	@PostMapping("noticeDeleteByCheckbox.do")
+	public String noticeDelete(int[] deleteCheckbox, String pageNo, RedirectAttributes redirectAttributes) {
+		for(int i = 0; i < deleteCheckbox.length; i++) {
+			noticeService.sNoticeDelete(deleteCheckbox[i]);
+		}
+		redirectAttributes.addAttribute("pageNo", pageNo);
+		return "redirect:getNoticeList.do";
+	}
+	
 }

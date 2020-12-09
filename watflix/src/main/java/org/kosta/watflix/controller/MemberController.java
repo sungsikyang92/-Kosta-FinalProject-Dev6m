@@ -1,5 +1,7 @@
 package org.kosta.watflix.controller;
 
+import java.lang.reflect.Member;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
@@ -42,9 +44,16 @@ public class MemberController {
 	public String logout() {
 		return "member/logout_result";
 	}
+	//회원가입폼(이용약관) 이동
+	@RequestMapping("memberRegisterFormTerms.do")
+	public String memberRegisterFormTerms(){
+		return "member/registerFormTerms.tiles";
+	}
 	//회원가입폼 이동
 	@RequestMapping("memberRegisterForm.do")
-	public String memberRegisterForm(){
+	public String memberRegisterForm(String IsSelect, Model model){
+		//마케팅 수신동의 여부
+		model.addAttribute("ISselectMarketing",IsSelect);
 		return "member/registerForm.tiles";
 	}
 	//회원가입
@@ -54,9 +63,62 @@ public class MemberController {
 		return "redirect:memberRegister_result.do?id="+memberVO.getId();
 	}
 	//회원가입 후 안내페이지
-		@RequestMapping("memberRegister_result.do")
-		public String memberRegisterResult(MemberVO memberVO,Model model) {
-			model.addAttribute("id",memberVO.getId());
-			return "member/memberRegister_result.jsp";
-		}
+	@RequestMapping("memberRegister_result.do")
+	public String memberRegisterResult(MemberVO memberVO,Model model) {
+		model.addAttribute("id",memberVO.getId());
+		return "member/memberRegister_result";
+	}
+	//아이디 중복체크
+	@ResponseBody
+	@RequestMapping("memberIdCheck.do")
+	public String memberIdCheck(String id) {
+		return memberService.idcheck(id);
+	}
+	
+	//회원정보수정폼으로 이동
+	@Secured("ROLE_MEMBER")
+	@RequestMapping("memberUpdateForm.do")
+	public String memberUpdateForm() {
+		return "member/updateForm.tiles";
+	}
+	
+	//회원정보 수정
+	@Secured("ROLE_MEMBER")
+	@RequestMapping("memberUpdate.do")
+	public String memberUpdate(MemberVO memberVO) {
+		memberService.sMemberUpdate(memberVO);
+		// 회원정보 수정위해 Spring Security 세션 회원정보를 반환받는다
+		MemberVO pvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		pvo.setPassword(memberVO.getPassword());
+		pvo.setName(memberVO.getName());
+		pvo.setTel(memberVO.getTel());
+		pvo.setEmail(memberVO.getEmail());
+		pvo.setAddress(memberVO.getAddress());
+		pvo.setAgreement(memberVO.getAgreement());
+		pvo.setSex(memberVO.getSex());
+		pvo.setBirth(memberVO.getBirth());
+		return "redirect:update_result.do?id="+memberVO.getId();
+	}
+	//회원정보 수정 결과
+	@Secured("ROLE_MEMBER")
+	@RequestMapping("update_result.do")
+	public String memberUpdateResult(MemberVO memberVO,Model model) {
+		model.addAttribute("id",memberVO.getId());
+		return "member/update_result";
+	}
+	
+	/*이용약관동의 start*/
+	@RequestMapping("watflixMustAgree.do")
+	public String watflixMustAgree() {
+		return "member/watflixMustAgree";
+	}
+	@RequestMapping("watflixMustPersonal.do")
+	public String watflixMustPersonal() {
+		return "member/watflixMustPersonal";
+	}
+	@RequestMapping("watflixSelectMarketing.do")
+	public String watflixSelectMarketing() {
+		return "member/watflixSelectMarketing";
+	}
+	/*이용약관동의 end*/
 }

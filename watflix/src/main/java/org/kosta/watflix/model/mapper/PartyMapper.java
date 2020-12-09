@@ -1,5 +1,6 @@
 package org.kosta.watflix.model.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -15,7 +16,8 @@ public interface PartyMapper {
 	int mPartyGetTotalCount();
 
 	PartyVO mPartyGetDetail(int no);
-
+	//PartyVO mPartyGetDetail(PartyVO partyvo);
+	
 	void mPartyUpdate(PartyVO partyvo);
 
 	void mPartyDelete(int no);
@@ -27,10 +29,15 @@ public interface PartyMapper {
 	void mPartyEnd(PartyVO pvo);
 	
 	List<PartyVO> mPartyGetAllList (PagingBean pagingBean);
+	List<PartyVO> mPartyGetAllList (PagingBean pagingBean, String id);
+	List<PartyVO> mPartyGetAllList (HashMap<String, Object> map);
+	
 
 	MembershipVO mPartyGetMembershipDetail(int no);
 	
 	List<MembershipVO> mPartyMembershipInfo();
+
+	int mPartyIsApply(HashMap<String, Object> map);
 }
 
 

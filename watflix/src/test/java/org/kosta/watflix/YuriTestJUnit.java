@@ -28,7 +28,7 @@ public class YuriTestJUnit {
 		FaqVO faqVO = new FaqVO();
 		MemberVO memberVO = new MemberVO();
 		
-		memberVO.setId("yuki");
+		memberVO.setId("java");
 		memberVO.setPassword("1");
 		memberVO.setName("유리");
 		memberVO.setEmail("gmail");
@@ -57,9 +57,10 @@ public class YuriTestJUnit {
 		//FAQ 상세보기 테스트 - ok
 		/*
 		int faqNo=8;
-		faqService.sFaqDetail(faqNo);
-		System.out.println();
+		//faqService.sFaqDetail(faqNo);
+		System.out.println(faqService.sFaqDetail(faqNo));
 		*/
+
 		//FAQ 개수 - ok
 		/*
 		int totalFaqCount=faqMapper.mGetTotalFaqCount();
@@ -73,6 +74,9 @@ public class YuriTestJUnit {
 		for(FaqVO faqVO:fvo.getFaqList())
 			System.out.println(faqVO);
 		 */
+		//FAQ 조회 수 증가 - 
+		faqService.sFaqUpdateHits(18);
+		System.out.println(faqService.sFaqDetail(18).getFaqHits()); 
 	}
 }
 

@@ -13,7 +13,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		<include refid="selectTotalPostCount"/>
  	</select>
  	<!-- Comment 게시물 컨텐츠 별 수 조회 -->
- 	<select id="mCommentsGetTotalPostCountByContentNo" parameterType="int" resultType="int">
+ 	<select id="mCommentsGetTotalPostCountByContentNo" parameterType="String" resultType="int">
  		<include refid="selectTotalPostCount"/>
  		WHERE contents_no = #{value}
  	</select> 	
@@ -30,9 +30,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	</select> 
  	<!-- 컨텐츠별 Comments 게시물 리스트 조회 -->	
  	<select id="mCommentsGetListByContentsNo" resultMap="commentsBoardRM">
-		SELECT comments_no, id, contents_no, comments, comments_stars, comments_posted_time FROM(
-		SELECT row_number() over(order by comments_no desc) as rnum, comments_no, id, contents_no, comments, comments_stars, comments_posted_time
-		FROM comments WHERE contents_no = #{contentsNo}) WHERE rnum BETWEEN #{pagingBean.startRowNumber} AND #{pagingBean.endRowNumber}
+		SELECT S.COMMENTS_NO, M.ID, C.CONTENTS_NO, S.COMMENTS, S.COMMENTS_STARS, S.COMMENTS_POSTED_TIME 
+		FROM(SELECT ROW_NUMBER() OVER(ORDER BY COMMENTS_NO DESC) AS RNUM, COMMENTS_NO, ID, CONTENTS_NO, COMMENTS, COMMENTS_STARS, TO_CHAR(COMMENTS_POSTED_TIME,'yyyy-mm-dd') 
+		AS COMMENTS_POSTED_TIME FROM COMMENTS WHERE CONTENTS_NO=#{contentsNo}) S, MEMBER M, CONTENTS C WHERE S.ID = M.ID AND S.CONTENTS_NO = C.CONTENTS_NO 
+		AND RNUM BETWEEN #{pagingBean.startRowNumber} AND #{pagingBean.endRowNumber}
  	</select>
  	<!-- Comments 게시물 쓰기 -->
  	<insert id="mCommentsWrite" parameterType="commentsVO">

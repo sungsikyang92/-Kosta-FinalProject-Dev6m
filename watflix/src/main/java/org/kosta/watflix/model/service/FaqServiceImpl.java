@@ -61,4 +61,14 @@ public class FaqServiceImpl implements FaqService {
 			faqMapper.mFaqDelete(faqNo);
 	}
 
+	@Override
+	public void sFaqUpdateHits(int faqNo) {
+			faqMapper.mFaqUpdateHits(faqNo);
+	}
+
+	@Override
+	public FaqVO sFaqDetailNoHits(int faqNo) {
+		return faqMapper.mFaqDetail(faqNo);
+	}
+
 }

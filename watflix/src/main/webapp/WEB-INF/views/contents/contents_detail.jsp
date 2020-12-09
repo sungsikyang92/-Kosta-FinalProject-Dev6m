@@ -16,8 +16,8 @@
                         ${contentsVO.contentsSummary}
                     </p>
                     <div class="margin-top-under-sm">
-                        <a href="#"  role="button" aria-pressed="true">
-                            왓플평점 ${contentsVO.contentsAvgStars}
+                        <a href="#commentsList"  role="button" aria-pressed="true">
+                            왓플평점 <img src="${pageContext.request.contextPath}/resources/media/icons/star.png" width="20" style="padding-bottom:5px;margin-right:5px;"> ${contentsVO.contentsAvgStars} 
                         </a>
                     </div>
                      <div class="margin-top-under-sm">

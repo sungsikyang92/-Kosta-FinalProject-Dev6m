@@ -5,6 +5,7 @@ import javax.annotation.Resource;
 import org.kosta.watflix.model.service.ReportService;
 import org.kosta.watflix.model.vo.CommentsVO;
 import org.kosta.watflix.model.vo.MemberVO;
+import org.kosta.watflix.model.vo.ReportListVO;
 import org.kosta.watflix.model.vo.ReportTypeVO;
 import org.kosta.watflix.model.vo.ReportVO;
 import org.kosta.watflix.model.vo.ReviewVO;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -23,21 +25,21 @@ public class ReportController {
 	// 신고 게시판(리뷰)
 	@RequestMapping("reportReviewBoard.do")
 	public ModelAndView reportReviewBoard() {
-		return new ModelAndView("report/report_review_board","ReportReviewList",reportService.sGetReportReviewList());
+		return new ModelAndView("report/report_review_board","reportReviewList",reportService.sGetReportReviewList());
 	}
 	@RequestMapping("reportReviewBoardNext.do")
 	public ModelAndView reportReviewBoardNext(String pageNo) {
-		return new ModelAndView("report/report_review_board","ReportReviewList",reportService.sGetReportReviewList(pageNo));
+		return new ModelAndView("report/report_review_board","reportReviewList",reportService.sGetReportReviewList(pageNo));
 	}
 	
 	// 신고 게시판(평점)
 	@RequestMapping("reportCommentsBoard.do")
 	public ModelAndView reportCommentsBoard() {
-		return new ModelAndView("report/report_comments_board","ReportCommentsList",reportService.sGetReportCommentsList());
+		return new ModelAndView("report/report_comments_board","reportCommentsList",reportService.sGetReportCommentsList());
 	}
 	@RequestMapping("reportCommentsBoardNext.do")
 	public ModelAndView reportCommentsBoard(String pageNo) {
-		return new ModelAndView("report/report_comments_board","ReportCommentsList",reportService.sGetReportCommentsList(pageNo));
+		return new ModelAndView("report/report_comments_board","reportCommentsList",reportService.sGetReportCommentsList(pageNo));
 	}
 	
 	// 신고 from(리뷰)으로 이동
@@ -102,6 +104,34 @@ public class ReportController {
 		reportService.sReportWriteComments(reportVO);
 		// 트랜잭션 처리 후 수정이 필요함
 		return "report/report_ok";
+	}
+	
+	// 신고글 삭제
+	@PostMapping("deleteReport.do")
+	public String deleteReportComments(int reportNo, String commentsNo) {
+		reportService.sReportDelete(reportNo);
+		if (commentsNo != null) {
+			return "redirect:reportCommentsBoard.do";
+		}else {
+			return "redirect:reportReviewBoard.do";
+		}
+	}
+	
+	// 내 신고 리스트(리뷰)
+	// ResponseBody는 비동기 통신에 필요한 어노테이션이다.
+	@RequestMapping("myReportReviewBoard.do")
+	@ResponseBody
+	public ReportListVO myReportReviewBoard() {
+		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String id = mvo.getId();
+		return reportService.sGetMyReportReviewList(id);
+	}
+	@RequestMapping("myReportReviewBoardNext.do")
+	@ResponseBody
+	public ReportListVO myReportReviewBoardNext(String pageNo) {
+		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String id = mvo.getId();
+		return reportService.sGetMyReportReviewList(id, pageNo);
 	}
 }
 

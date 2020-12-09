@@ -9,12 +9,13 @@ public class PartyVO {
 	private int partyApplyCount;
 	MemberVO memberVO;
 	MembershipVO membershipVO;
+	String isApply;
 	public PartyVO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	public PartyVO(String partyTitle, String partyPostedTime, String partyStatus, int partyNo, int partyHeadCount,
-			int partyApplyCount, MemberVO memberVO, MembershipVO membershipVO) {
+			int partyApplyCount, MemberVO memberVO, MembershipVO membershipVO, String isApply) {
 		super();
 		this.partyTitle = partyTitle;
 		this.partyPostedTime = partyPostedTime;
@@ -24,6 +25,7 @@ public class PartyVO {
 		this.partyApplyCount = partyApplyCount;
 		this.memberVO = memberVO;
 		this.membershipVO = membershipVO;
+		this.isApply = isApply;
 	}
 	public String getPartyTitle() {
 		return partyTitle;
@@ -73,13 +75,21 @@ public class PartyVO {
 	public void setMembershipVO(MembershipVO membershipVO) {
 		this.membershipVO = membershipVO;
 	}
+	public String getIsApply() {
+		return isApply;
+	}
+	public void setIsApply(String isApply) {
+		this.isApply = isApply;
+	}
 	@Override
 	public String toString() {
 		return "PartyVO [partyTitle=" + partyTitle + ", partyPostedTime=" + partyPostedTime + ", partyStatus="
 				+ partyStatus + ", partyNo=" + partyNo + ", partyHeadCount=" + partyHeadCount + ", partyApplyCount="
-				+ partyApplyCount + ", memberVO=" + memberVO + ", membershipVO=" + membershipVO + "]";
+				+ partyApplyCount + ", memberVO=" + memberVO + ", membershipVO=" + membershipVO + ", isApply=" + isApply
+				+ "]";
 	}
-
+	
+	
 	
 	
 }

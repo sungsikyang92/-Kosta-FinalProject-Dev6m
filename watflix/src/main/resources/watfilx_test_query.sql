@@ -8,6 +8,8 @@ select * from review
 INSERT INTO REVIEW(REVIEW_NO,ID,CONTENTS_NO,REVIEW_TITLE,REVIEW_CONTENTS) 
 VALUES('454','BOSE','81171201','블러드 샷 봤냐?','지린다 가슴이 웅장해진다...꼭봐라...')
 
+SELECT * FROM COMMENTS
+
 SELECT * FROM REVIEW WHERE REVIEW_NO=777
 /*ReviewWrite쿼리문 테스트*/
 INSERT INTO REVIEW(REVIEW_NO,ID,CONTENTS_NO,REVIEW_TITLE,REVIEW_CONTENTS) VALUES(REVIEW_NO.SEQ.NEXTVAL,);
@@ -20,8 +22,8 @@ INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('ㅇ','1','앵식','gmail')
 INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL,ACC_STAUTS_NO) VALUES('jikang','1','지강','gmail',0)
 INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('spring','1','강상훈','gmail')
 INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('yuki','1','유리','gmail')
-INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('java','$2a$10$i2cyl1OhUeJ71PUTHozM9enjjiJ0rZVVjn/z7FVXnJA1pBi7gOUH2','앵앵앵','gmail')
-INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('spring',$2a$10$i2cyl1OhUeJ71PUTHozM9enjjiJ0rZVVjn/z7FVXnJA1pBi7gOUH2,'웨에엥','gmail')
+INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('java','$2a$10$i2cyl1OhUeJ71PUTHozM9enjjiJ0rZVVjn/z7FVXnJA1pBi7gOUH2','강상훈','gmail');
+INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('spring','$2a$10$i2cyl1OhUeJ71PUTHozM9enjjiJ0rZVVjn/z7FVXnJA1pBi7gOUH2','양성식','gmail');
 
 /*ReviewWrite쿼리문 테스트를 위한 CONTENTS TABLE 데이터 추가*/
 INSERT INTO CONTENTS VALUES(CONTENTS_SEQ.NEXTVAL,'트랜스포머','타입','장르','요약','트레일러',0,1,1)
@@ -107,10 +109,10 @@ UPDATE REVIEW SET REVIEW_HITS=REVIEW_HITS+1 WHERE REVIEW_NO= 16
 SELECT * FROM REVIEW
 
 /*Notice 테스트를 위한 데이터 추가*/
-INSERT INTO NOTICE VALUES (NOTICE_SEQ.NEXTVAL, 'jikang', '점심은 뭐 먹지?', '점심 뭐가 맛있나요?', SYSDATE, 0)
+INSERT INTO NOTICE VALUES (NOTICE_SEQ.NEXTVAL, 'java', '점심은 뭐 먹지?', '점심 뭐가 맛있나요?', SYSDATE, 0)
 
 /*Comment 테스트를 위한 데이터 추가*/
-INSERT INTO Comments VALUES (COMMENTS_SEQ.NEXTVAL, 'jikang', '81004276', '쉐보레 카마로 멋지지 않나요?', 8, SYSDATE);
+INSERT INTO Comments VALUES (COMMENTS_SEQ.NEXTVAL, 'java', '81004276', '쉐보레 카마로 멋지지 않나요?', 8, SYSDATE);
 INSERT INTO Comments VALUES (COMMENTS_SEQ.NEXTVAL, 'java', '60004481', '나도 스파이더맨 처럼 날아다닐 수 있으면?', 8, SYSDATE);
 INSERT INTO Comments VALUES (COMMENTS_SEQ.NEXTVAL, 'java', '81095669', '진격의 거인이 그렇게 재미있냐?', 8, SYSDATE);
 
@@ -166,6 +168,7 @@ select count(*) from review
 
 select * from contents
 select * from genre
+select * from grade
 
 delete from genre
 delete from contents;
@@ -195,6 +198,12 @@ values (PARTY_SEQ.nextval,'java','파티원제목1',1,1)
 
 select * from party
 delete from party
+alter table ACC_STATUS 
+
+ALTER TABLE member
+RENAME COLUMN acc_stauts_no TO acc_status_no;
+
+
 
 /* Faq test */
 insert into faq(FAQ_NO,ID,FAQ_TITLE,FAQ_CONTENTS)
@@ -204,7 +213,12 @@ insert into faq(FAQ_NO,ID,FAQ_TITLE,FAQ_CONTENTS)
  		select * from member;
  		
  		delete from faq;
- 		
+
+ select m.id,m.password,m.name,m.tel,m.birth,m.sex,m.email,m.address,m.login_time,
+ 		m.login_fail,m.point,m.signup_date,m.agreement,a.acc_status_info
+ 		from member m, (select * from acc_status) a
+ 		where m.id='java14'
+ 		select * from member where id='java14'
 CREATE TABLE FAQ(
    FAQ_NO VARCHAR2(100) PRIMARY KEY,
    ID VARCHAR2(100) NOT NULL,
@@ -247,6 +261,8 @@ PARTY_SEQ.nextval, 'java', '제목', 3, 4, 0, sysdate, '진행중');
 
 select party_seq.nextval from dual
 select * from party;
+select * from member
+
 
 
 select ms.membership_name, p.PARTY_NO, m.ID, 
@@ -266,6 +282,8 @@ select * from apply;
 insert into APPLY(ID, PARTY_NO )
 values ('java',13);
 
+select * from member
+delete from membership
 select * from party
 select * from contents
 delete from apply
@@ -280,7 +298,10 @@ SELECT COUNT(*) FROM REVIEW
 SELECT COUNT(REVIEW_TITLE) AS CONTENTS_REVIEW_NO FROM REVIEW WHERE CONTENTS_NO = '80204465'
 delete from genre
 drop table contents
+
+
 /*재우 test*/
+<<<<<<< HEAD
 select * from report
 select * from review
 union (all)
@@ -302,3 +323,220 @@ FROM (SELECT ROW_NUMBER() OVER(ORDER BY REVIEW_NO DESC) AS RNUM,REVIEW_NO,ID,CON
 R, MEMBER M, CONTENTS C
 WHERE R.ID = M.ID AND R.CONTENTS_NO = C.CONTENTS_NO AND RNUM BETWEEN 1 AND 100
 
+=======
+-- 제약 조건 비활성화, 확성화
+alter table REPORT disable constraint REPORT_REVIEW_NO_FK
+alter table REPORT enable constraint REPORT_REVIEW_NO_FK
+-- 제약 조건 검색
+SELECT * FROM ALL_CONSTRAINTS
+WHERE TABLE_NAME = 'REPORT'
+-- 제약조건후 부모 테이블 data 삭제 및 테이블 조회
+select * from report where comments_no is NULL;
+select * from review;
+delete from review where review_no=1
+-- 내 신고 게시물 보기(리뷰)
+SELECT REPORT_NO,ID,REVIEW_NO,REPORT_TYPE_NO,REPORT_CONTENTS,re_time,reportedId
+FROM(SELECT row_number() over(order by REPORT_NO desc) as re_num, r.REPORT_NO,r.ID,r.REVIEW_NO,r.COMMENTS_NO, r.REPORT_TYPE_NO, r.REPORT_CONTENTS, r.re_time, rv.id as reportedId
+FROM(SELECT REPORT_NO,ID,REVIEW_NO,COMMENTS_NO,REPORT_TYPE_NO,REPORT_CONTENTS,
+to_char(REPORT_POSTED_TIME,'YYYY.MM.DD HH:MI:SS') as re_time
+FROM REPORT where id='java') r, review rv where r.REVIEW_NO=rv.REVIEW_NO)
+where re_num between 1 and 5
+order by report_no desc;
+-- 내 신고 게시물 보기(평점)
+SELECT REPORT_NO,ID,COMMENTS_NO,REPORT_TYPE_NO,REPORT_CONTENTS,re_time,reportedId
+FROM(SELECT row_number() over(order by r.REPORT_NO desc) as re_num, r.REPORT_NO,r.ID,r.REVIEW_NO,r.COMMENTS_NO, r.REPORT_TYPE_NO, r.REPORT_CONTENTS, r.re_time, c.id as reportedId
+FROM(SELECT REPORT_NO,ID,REVIEW_NO,COMMENTS_NO,REPORT_TYPE_NO,REPORT_CONTENTS,
+to_char(REPORT_POSTED_TIME,'YYYY.MM.DD HH:MI:SS') as re_time
+FROM REPORT where id='java') r, COMMENTS c where r.COMMENTS_NO=c.COMMENTS_NO)
+where re_num between 1 and 5
+order by report_no desc;
+-- 내가 작성한 신고글 수 조회
+select count(*) from report where REVIEW_NO is not NULL and id='java'
+select count(*) from report where REVIEW_NO is NULL and id='java'
+-- 임시 데이터 삽입
+insert into report(report_no, id, review_no, report_type_no, report_contents)
+values(REPORT_SEQ.nextval, 'java', 1, 2, '음란물 신고합니다.');
+select * from report where id='java' and review_no is not null
+
+
+select * from grade
+insert into grade values ( 'ROLE_MEMBER' , 'java');
+insert into grade values ( 'ROLE_MEMBER' , 'spring');
+
+/*컨텐츠*/
+CREATE TABLE CONTENTS(
+   CONTENTS_NO VARCHAR2(1000) PRIMARY KEY,
+   CONTENTS_TITLE VARCHAR2(4000) NOT NULL,
+   CONTENTS_TYPE VARCHAR2(100) NOT NULL,
+   GENRE_CODE VARCHAR2(1000) NOT NULL,
+   CONSTRAINT CONTENTS_GENRE_CODE_FK FOREIGN KEY(GENRE_CODE) REFERENCES GENRE(GENRE_CODE) on delete cascade,
+   CONTENTS_DATE VARCHAR2(100) NOT NULL,
+   CONTENTS_RUNNINGTIME VARCHAR2(100),
+   CONTENTS_ACTOR VARCHAR2(4000) NOT NULL,
+   CONTENTS_PRODUCER VARCHAR2(1000) DEFAULT '',
+   CONTENTS_SUMMARY CLOB NOT NULL,
+   CONTENTS_SMALL_THUMBNAIL VARCHAR2(4000) NOT NULL,
+   CONTENTS_BIG_THUMBNAIL VARCHAR2(4000) NOT NULL,
+   CONTENTS_AGE VARCHAR2(100) NOT NULL,
+   CONTENTS_AVG_STARS NUMBER DEFAULT 0,
+   CONTENTS_LIKES NUMBER DEFAULT 0,
+   CONTENTS_HITS NUMBER DEFAULT 0
+)
+
+select * from party
+
+select * from apply
+select * from party where party_no = 137
+
+  select ms.membership_name, ms.MEMBERSHIP_NO , ms.CONCURRENT_USERS,
+   p.PARTY_NO, m.ID, p.PARTY_TITLE, p.PARTY_HEADCOUNT, p.PARTY_APPLYCOUNT,
+  to_char(p.PARTY_POSTED_TIME,'yyyy-mm-dd') as PARTY_POSTED_TIME, p.PARTY_STATUS, 
+  CASE WHEN a.party_no = p.party_no THEN '지원' ELSE '미지원' END AS applys
+  From PARTY p, member m, MEMBERSHIP ms, (select * from apply where id='spring') a
+  
+  WHERE p.id=m.id and p.membership_no = ms.membership_no
+  
+  
+
+/* 테이블 컬럼명 바꾸기*/
+ALTER TABLE member RENAME COLUMN acc_stauts_no TO acc_status_no
+
+<<<<<<< HEAD
+
+
+select * from apply where id='java' and party_no = 137
+
+
+	SELECT p.PARTY_NO, p.id, p.PARTY_TITLE, ms.membership_name, p.PARTY_STATUS,
+ 		p.PARTY_HEADCOUNT,p.PARTY_APPLYCOUNT,to_char(p.PARTY_POSTED_TIME,'yyyy-mm-dd') as PARTY_POSTED_TIME,
+ 		CASE WHEN a.party_no = p.party_no THEN '지원' ELSE '미지원' END AS apply
+ 		
+ 		From(SELECT row_number() over (order by PARTY_NO desc) as rnum,PARTY_NO,ID,PARTY_TITLE,membership_no,PARTY_STATUS,
+ 		PARTY_HEADCOUNT,PARTY_APPLYCOUNT,PARTY_POSTED_TIME FROM PARTY) p ,
+ 		
+ 		MEMBERSHIP ms , (select * from apply where id='spring') a
+ 		
+ 		
+ 		WHERE rnum BETWEEN 1 AND 5 and p.membership_no = ms.membership_no and party_no = 173
+
+
+
+
+
+select ms.membership_name, ms.MEMBERSHIP_NO , ms.CONCURRENT_USERS,
+   		p.PARTY_NO, m.ID, p.PARTY_TITLE, p.PARTY_HEADCOUNT, p.PARTY_APPLYCOUNT,
+  		to_char(p.PARTY_POSTED_TIME,'yyyy-mm-dd') as PARTY_POSTED_TIME, p.PARTY_STATUS,
+  		
+  		
+  		From PARTY p, member m, MEMBERSHIP ms, 
+  
+ 		WHERE p.id=m.id and p.membership_no = ms.membership_no and party_no = #{partyNo}
+
+
+
+ 		
+ 		
+ 		
+ 		
+ 		SELECT p.PARTY_NO, p.id, p.PARTY_TITLE, ms.membership_name, p.PARTY_STATUS,
+ 		p.PARTY_HEADCOUNT,p.PARTY_APPLYCOUNT,to_char(p.PARTY_POSTED_TIME,'yyyy-mm-dd') as PARTY_POSTED_TIME
+ 		
+ 		From(SELECT row_number() over (order by PARTY_NO desc) as rnum,PARTY_NO,ID,PARTY_TITLE,membership_no,PARTY_STATUS,
+ 		PARTY_HEADCOUNT,PARTY_APPLYCOUNT,PARTY_POSTED_TIME FROM PARTY) p ,
+ 		MEMBERSHIP ms
+ 		
+ 		WHERE rnum BETWEEN 1 AND 5 and p.membership_no = ms.membership_no
+ 		
+ 		
+ 		
+ 		
+ 		
+ 		 select ms.membership_name, ms.MEMBERSHIP_NO , ms.CONCURRENT_USERS,
+   		p.PARTY_NO, m.ID, p.PARTY_TITLE, p.PARTY_HEADCOUNT, p.PARTY_APPLYCOUNT,
+  		to_char(p.PARTY_POSTED_TIME,'yyyy-mm-dd') as PARTY_POSTED_TIME, p.PARTY_STATUS,
+  		CASE WHEN a.party_no = p.party_no THEN '지원' ELSE '미지원' END AS applys
+  		From PARTY p, member m, MEMBERSHIP ms, (select * from apply where id='java') a
+  
+ 		WHERE p.id=m.id and p.membership_no = ms.membership_no and party_no = 137
+ 		
+ 		
+select ms.membership_name, ms.MEMBERSHIP_NO , ms.CONCURRENT_USERS,
+   p.PARTY_NO, m.ID, p.PARTY_TITLE, p.PARTY_HEADCOUNT, p.PARTY_APPLYCOUNT,
+  to_char(p.PARTY_POSTED_TIME,'yyyy-mm-dd') as PARTY_POSTED_TIME, p.PARTY_STATUS, 
+  CASE WHEN a.party_no = p.party_no THEN '지원'  ELSE '미지원'
+  END AS applys
+  From PARTY p, member m, MEMBERSHIP ms, (select * from apply where id='spring') a
+  WHERE p.id=m.id and p.membership_no = ms.membership_no
+ 		
+  ---------------------------------------------------------------------------
+  select ms.membership_name, ms.MEMBERSHIP_NO , ms.CONCURRENT_USERS,
+   p.PARTY_NO, m.ID, p.PARTY_TITLE, p.PARTY_HEADCOUNT, p.PARTY_APPLYCOUNT,
+  to_char(p.PARTY_POSTED_TIME,'yyyy-mm-dd') as PARTY_POSTED_TIME, p.PARTY_STATUS, 
+  CASE WHEN a.party_no = p.party_no THEN '지원' ELSE '미지원' END AS applys
+  From PARTY p, member m, MEMBERSHIP ms, (select * from apply where id='spring') a
+  WHERE p.id=m.id and p.membership_no = ms.membership_no
+ 		
+=======
+<<<<<<< HEAD
+>>>>>>> branch 'master' of https://github.com/Minikanko/-Kosta-FinalProject-Dev6m.git
+select m.id,m.password,m.name,m.tel,to_char('m.birth','YYYY-MM-DD'),m.sex,m.email,m.address,m.login_time,
+ 		m.login_fail,m.point,m.signup_date,m.agreement,m.acc_status_no,a.acc_status_info
+ 		from member m, (select * from acc_status) a
+ 		where a.acc_status_no=m.acc_status_no and m.id='java1234'
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> branch 'master' of https://github.com/Minikanko/-Kosta-FinalProject-Dev6m.git
+/* 리뷰 테스트를 위한 데이터 추가 */
+INSERT INTO review VALUES(review_seq.nextval, 'java', 60004481, '리뷰 테스트 용 스파이더맨!', '리뷰 테슷트입니다.', 0, 0, sysdate);
+INSERT INTO review VALUES(review_seq.nextval, 'java', 81095669, '리뷰 테스트 용 진격의거인!', '리뷰 테슷트입니다.', 0, 0, sysdate);
+
+<<<<<<< HEAD
+=======
+>>>>>>> branch 'master' of https://github.com/Minikanko/-Kosta-FinalProject-Dev6m.git
+>>>>>>> branch 'master' of https://github.com/Minikanko/-Kosta-FinalProject-Dev6m.git
+>>>>>>> branch 'master' of https://github.com/Minikanko/-Kosta-FinalProject-Dev6m.git
+
+select*from comments where contents_no = '81171201'
+
+CREATE TABLE COMMENTS(
+	COMMENTS_NO NUMBER PRIMARY KEY,
+	ID VARCHAR2(100) NOT NULL,
+	CONSTRAINT COMMENTS_ID_FK FOREIGN KEY(ID) REFERENCES MEMBER(ID) on delete cascade,
+	CONTENTS_NO VARCHAR2(100) NOT NULL,
+	CONSTRAINT COMMENT_CONTENTS_NO_FK FOREIGN KEY(CONTENTS_NO) REFERENCES CONTENTS(CONTENTS_NO) on delete cascade,
+	COMMENTS  VARCHAR2(100) NOT NULL,
+	COMMENTS_STARS NUMBER DEFAULT 0,
+	COMMENTS_POSTED_TIME DATE DEFAULT SYSDATE
+)
+
+	SELECT comments_no, id, contents_no, comments, comments_stars, comments_posted_time FROM(
+		SELECT row_number() over(order by comments_no desc) as rnum, comments_no, id, contents_no, comments, comments_stars, comments_posted_time
+		FROM comments WHERE contents_no = #{contentsNo}) WHERE rnum BETWEEN #{pagingBean.startRowNumber} AND #{pagingBean.endRowNumber}
+		
+SELECT comments_no, id, contents_no, comments, comments_stars, comments_posted_time FROM(
+SELECT row_number() over(order by comments_no desc) as rnum, comments_no, id, contents_no, comments, comments_stars, comments_posted_time
+FROM comments WHERE contents_no = '81171201') WHERE rnum BETWEEN 1 AND 5
+
+SELECT CMTS.COMMENTS_NO, M.ID, C.CONTENTS_NO, CMTS.COMMENTS, CMTS.COMMENTS_STARTS, CMTS.COMMENTS_POSTED_TIME 
+FROM(SELECT ROW_NUMBER() OVER(ORDER BY COMMENTS_NO DESC) AS RNUM,COMMENTS_NO,ID,CONTENTS_NO,COMMENTS_COMMENTS_STARS,TO_CHAR(COMMENTS_POSTED_TIME,'yyyy-mm-dd') 
+AS COMMENTS_POSTED_TIME FROM COMMENTS WHERE CONTENTS_NO=#{contentsNo}) CMTS, MEMBER M, CONTENTS C WHERE CMTS.ID = M.ID AND CMTS.CONTENTS_NO = C.CONTENTS_NO 
+AND RNUM BETWEEN #{pagingBean.startRowNumber} AND #{pagingBean.endRowNumber}
+
+SELECT S.COMMENTS_NO, M.ID, C.CONTENTS_NO, S.COMMENTS, S.COMMENTS_STARS, S.COMMENTS_POSTED_TIME 
+FROM(SELECT ROW_NUMBER() OVER(ORDER BY COMMENTS_NO DESC) AS RNUM,COMMENTS_NO,ID,CONTENTS_NO,COMMENTS,COMMENTS_STARS,TO_CHAR(COMMENTS_POSTED_TIME,'yyyy-mm-dd') 
+AS COMMENTS_POSTED_TIME FROM COMMENTS WHERE CONTENTS_NO='81171201') S, MEMBER M, CONTENTS C WHERE S.ID = M.ID AND S.CONTENTS_NO = C.CONTENTS_NO 
+AND RNUM BETWEEN 1 AND 10
+
+SELECT S.COMMENTS_NO, M.ID, C.CONTENTS_NO, S.COMMENTS, S.COMMENTS_STARS, S.COMMENTS_POSTED_TIME 
+FROM(SELECT ROW_NUMBER() OVER(ORDER BY COMMENTS_NO DESC) AS RNUM,COMMENTS_NO,ID,CONTENTS_NO,COMMENTS,COMMENTS_STARS,TO_CHAR(COMMENTS_POSTED_TIME,'yyyy-mm-dd') 
+AS COMMENTS_POSTED_TIME FROM COMMENTS WHERE CONTENTS_NO=#{contentsNo}) S, MEMBER M, CONTENTS C WHERE S.ID = M.ID AND S.CONTENTS_NO = C.CONTENTS_NO 
+AND RNUM BETWEEN #{pagingBean.startRowNumber} AND #{pagingBean.endRowNumber}
+
+
+SELECT RNUM,R.REVIEW_NO,M.ID,C.CONTENTS_NO,R.REVIEW_TITLE,R.REVIEW_CONTENTS,R.REVIEW_LIKES,R.REVIEW_HITS,R.REVIEW_POSTED_TIME
+FROM (SELECT ROW_NUMBER() OVER(ORDER BY REVIEW_NO DESC) AS RNUM,REVIEW_NO,ID,CONTENTS_NO,REVIEW_TITLE,REVIEW_CONTENTS,REVIEW_LIKES,
+REVIEW_HITS,TO_CHAR(REVIEW_POSTED_TIME,'yyyy-mm-dd') as REVIEW_POSTED_TIME FROM REVIEW where CONTENTS_NO=#{contentsNo}) R, MEMBER M, CONTENTS C
+WHERE R.ID = M.ID AND R.CONTENTS_NO = C.CONTENTS_NO AND RNUM BETWEEN #{pagingBean.startRowNumber} AND #{pagingBean.endRowNumber}
+
+select * from comments where CONTENTS_NO='70291089'

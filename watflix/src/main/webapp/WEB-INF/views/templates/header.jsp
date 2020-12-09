@@ -4,10 +4,21 @@
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <script type="text/javascript">
 	 $(document).ready(function(){
+		 if(${navBarTab=='HOME'}){
+			 $("#HOME").parent().addClass("active");
+			 
+		 }
+		 else if(${navBarTab=='TV'}){
+			 $("#TV").parent().addClass("active");
+		 }
+		 else if(${navBarTab=='MOVIE'}){
+			 $("#MOVIE").parent().addClass("active");
+		 }
 		 $(".nav-toggle").click(function(){
 			 $("#sidebar-wrapper").toggleClass("active")
 			 $("#mypageDiv").css('display','none');
 		 });
+		 
 		 /* 권한이 있을때에만 로그아웃이벤트 활성화 */
 		 <sec:authorize access="hasRole('ROLE_MEMBER')">
 		 $("#logoutBtn").click(function() {
@@ -19,7 +30,6 @@
 		 })
 		 </sec:authorize> 
 	 })
-	 
 	
 </script>
   <!-- Navbar - OPEN -->
@@ -42,19 +52,19 @@
             <div class="collapse navbar-collapse" id="navbarToggler">
 
                 <!-- Left - OPEN -->
-                <ul class="navbar-nav mr-auto my-2 my-lg-0">
-                    <li class="nav-item active">
-                        <a class="nav-link navbar-nav-item" href="#">
-                            홈<span class="sr-only">(current)</span>
+                <ul class="navbar-nav mr-auto my-2 my-lg-0" id="navTab">
+                    <li class="nav-item">
+                        <a class="nav-link navbar-nav-item" id="HOME" href="${pageContext.request.contextPath}/home.do">
+                            홈
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link navbar-nav-item" href="#">
+                        <a class="nav-link navbar-nav-item" id="TV" href="${pageContext.request.contextPath}/contentsByTV.do">
                             TV프로그램
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link navbar-nav-item" href="#">
+                        <a class="nav-link navbar-nav-item"  id="MOVIE" href="${pageContext.request.contextPath}/contentsByMovie.do">
                             영화
                         </a>
                         
@@ -109,7 +119,7 @@
 						  <!-- 하위 항목 -->
 						  <div class="mypageDiv" id="mypageDiv">
 						  	<ul class="mypageList">
-						  		<li><a href="#">- 회원정보수정</a></li>
+						  		<li><a href="${pageContext.request.contextPath}/memberUpdateForm.do">- 회원정보수정</a></li>
 						  		<li><a href="#">- 포인트조회</a></li>
 						  		<li><a href="#">- 내 게시물 조회</a></li>
 						  		<li><a href="#">- 1:1문의</a></li>
@@ -124,7 +134,7 @@
 			        <a class="js-scroll-trigger" href="${pageContext.request.contextPath}/getNoticeList.do">공지사항</a>
 			      </li>
 			      <li class="sidebar-nav-item">
-			        <a class="js-scroll-trigger" href="#contact">고객센터</a>
+			        <a class="js-scroll-trigger" href="${pageContext.request.contextPath}/faqList.do">고객센터</a>
 			      </li>
 			      <li class="sidebar-nav-item">
 			        <a class="js-scroll-trigger" href="#contact">포인트마켓</a>
