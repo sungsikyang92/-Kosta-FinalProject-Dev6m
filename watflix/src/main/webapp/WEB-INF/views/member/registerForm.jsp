@@ -147,7 +147,7 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 					<div class="nfInputPlacement">
 						<div class="nfEmailPhoneControls">
 							<label class="input_id">
-								<input type="number" name="tel" class="registerForNfTextField" id="tel" tabindex="0" placeholder="ex) 01032343234"  maxlength="11"> 
+								<input type="number" name="tel" class="registerForNfTextField" id="tel" tabindex="0" placeholder="ex) 01032343234" required="required" maxlength="11"> 
 								<label for="id_tel" class="placeLabel">전화번호</label> 
 							</label>
 						</div>
@@ -173,8 +173,8 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 					<div class="nfInputPlacement">
 						<div class="nfEmailPhoneControls">
 							<label class="input_id">							
-								<select name="sex" class="selectBox">
-								    <option value="none">--- 성별 ---</option>
+								<select name="sex" class="selectBox" required="required">
+								    <option value="남성">--- 성별 ---</option>
 								    <option value="남성">남성</option>
 								    <option value="여성">여성</option>
 							  	</select>
@@ -202,7 +202,7 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 					<div class="nfInputPlacement">
 						<div class="nfEmailPhoneControls">
 							<label class="input_id">
-								<input type="text" name="address" class="registerForNfTextField" id="address" tabindex="0"> 
+								<input type="text" name="address" class="registerForNfTextField" id="address" tabindex="0" required="required"> 
 								<label for="id_address" class="placeLabel">주소</label> 
 							</label>
 						</div>
