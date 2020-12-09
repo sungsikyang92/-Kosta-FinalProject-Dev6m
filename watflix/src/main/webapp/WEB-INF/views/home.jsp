@@ -3,9 +3,44 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <script type="text/javascript">
 	$(document).ready(function(){
+		//tvshow 탭클릭시 tvshow 장르 가져옴
+		$("#tvshow").click(function(){
+			contentsType="TV";
+			$("#typeForGenre").children().children().html("");
+			//TV쇼에 대한 장르가져오기
+			$.ajax({
+				type: "get",
+				url:"${pageContext.request.contextPath}/getGenreSelectForType.do",
+				data: {
+					"contentsType":contentsType
+				},
+				dataType: "json",
+				success:function(result){ // result변수로 응답정보가 전달된다.
+					genreDenote(result);
+				}			
+			})
+		})
+		//movie 탭클릭시 movie 장르 가져옴
+		$("#movie").click(function(){
+			contentsType="영화";
+			$("#typeForGenre").children().children().html("");
+			//TV쇼에 대한 장르가져오기
+			$.ajax({
+				type: "get",
+				url:"${pageContext.request.contextPath}/getGenreSelectForType.do",
+				data: {
+					"contentsType":contentsType
+				},
+				dataType: "json",
+				success:function(result){ // result변수로 응답정보가 전달된다.
+					genreDenote(result);
+				}			
+			})
+		})
+		
 		//홈화면에서 more버튼을 클릭시에 자료를 더 가져오는 비동기 함수
 		var pageNo = 3;
-		var contentsType
+		var contentsType;
 		$("#loadMore").click(function(){
 			if($("#movie").hasClass("active") === true){
 				contentsType = "영화";
@@ -13,27 +48,86 @@
 			else{
 				contentsType ="TV";
 			}
-			$.ajax({
-				type: "get",
-				url:"${pageContext.request.contextPath}/getContentsAllForType.do",
-				data: {
-					"contentsType":contentsType,
-					"pageNo":pageNo
-				},
-				dataType: "json",
-				success:function(result){ // result변수로 응답정보가 전달된다.
-					pageNo++;
-					denote(result)
-				}			
-			})
+			var genreBtn = $("div.contentsForType").children(".flickity-viewport").children(".flickity-slider").children(".active").children();
+			//전체리스트 출력(장르를 선택하지 않은 상황,타입만으로 출력함)
+			if(genreBtn.html()==null){
+				$.ajax({
+					type: "get",
+					url:"${pageContext.request.contextPath}/getContentsAllForType.do",
+					data: {
+						"contentsType":contentsType,
+						"pageNo":pageNo
+					},
+					dataType: "json",
+					success:function(result){ // result변수로 응답정보가 전달된다.
+						pageNo++;
+						denote(result)
+					}			
+				})
+			}
+			//전체리스트 출력(장르와 타입으로 loadMore)
+			else{
+				var genreCode = genreBtn.val();
+				$.ajax({
+					type: "get",
+					url:"${pageContext.request.contextPath}/getContentsAllForTypeAndGenre.do",
+					data: {
+						"contentsType":contentsType,
+						"pageNo":pageNo,
+						"genreCode":genreCode
+					},
+					dataType: "json",
+					success:function(result){ // result변수로 응답정보가 전달된다.
+						pageNo++;
+						denote(result)
+					}			
+				})
+			}
+			
 		})//click
-	})//ready
-	function denote(contentsList){
 		
+		//장르버튼 클릭시 이벤트
+		$(".genreBtn").click(function(){
+			$(this).parent().parent().children(".active").children().removeAttr("style");
+			$(this).parent().parent().children(".active").removeClass("active");
+			$(this).parent().addClass("active");
+			
+			$(this).attr("style","background-color:red");
+			//장르코드
+			
+			var genreCode= $(this).val();
+			alert(genreCode)
+			//컨텐츠 타입
+			if($("#movie").hasClass("active") === true){
+				contentsType = "영화";
+			}
+			else{
+				contentsType ="TV";
+			}
+			$("#grid-movies").html("");
+			for(var i=0;i<2;i++){
+				$.ajax({
+					type:"get",
+					url:"${pageContext.request.contextPath}/getContentsAllForTypeAndGenre.do",
+					data:{
+						"contentsType":contentsType,
+						"pageNo":i+1,
+						"genreCode":genreCode
+					},
+					dataType: "json",
+					success:function(result){
+						denote(result);
+					}
+				})
+			}
+			pageNo=3;	
+		})//#genreBtn click 종료
+	})//ready
+	//컨텐츠 출력
+	function denote(contentsList){
 		  if(contentsList.length==0){
 			  $("#loadMore").attr('style',"margin-top: 0px;display:none;");
 		  }
-		 
 		  else{
 			  $newTbody = $("<div class='card-deck'>")
 			  $("#grid-movies").append($newTbody)
@@ -64,6 +158,17 @@
 			  }
 			  $("#loadMore").attr('style',"margin-top: 0px;");
 		  }
+	}
+	//장르 출력
+	function genreDenote(genreList){
+	var percent = 0;
+	  for(let genre of genreList){
+	    let $cellsOfRow =$("<div class='carousel-filter-cell text-center' style='position: absolute; left: "+percent+"%;'><button class='btn btn-outline-primary btn-md margin-top-under-sm genreBtn'"+ 
+	    		"data-filter='"+genre.genreCode+"' value='"+genre.genreCode+"'>"+genre.genreName+"</button></div>"
+    	);
+	    $("#typeForGenre>.flickity-viewport>.flickity-slider").append($cellsOfRow);
+	    percent+=20;
+	  }
 	}
 </script>
 
@@ -179,7 +284,7 @@
                   			<!-- 컨텐츠 작은 썸네일 -->
                         	<img class="carousel-cell-image" src="${pageContext.request.contextPath}/${contentsVO.contentsSmallThumbnail}" />
                         	<!-- 컨텐츠 제목 -->
-                        	<h5 class="text-center">${contentsVO.contentsTitle}</h5>
+                        	<h5 class="text-center" style="font-size:13px;">${contentsVO.contentsTitle}</h5>
                         	
                         	<div class="row">
                             <div class="col-4 text-left no-padding">
@@ -229,7 +334,7 @@
                         	
                         	<div class="row">
                             <div class="col-3 text-left no-padding">
-                                년도
+                                ${contentsVO.contentsDate}
                             </div>
                             <div class="col-3 text-center no-padding">
                                 <a href="">
@@ -243,7 +348,7 @@
                             </div>
                             <div class="col-3 text-right no-padding rating">
                                 <img src="${pageContext.request.contextPath}/resources/media/icons/star.png" width="10" alt="" style="padding-bottom: 3px">
-                                8.0
+                                ${contentsVO.contentsAvgStars}
                             </div>
                         </div>
                         <div class="overlay">
@@ -300,11 +405,11 @@
             <!-- Movies tab - OPEN -->
             <div class="margin-top-under-sm tab-pane fade show active" role="tabpanel" aria-labelledby="movies-tab">
                 <!-- Genre Filters - OPEN -->
-                <div class="carousel" id="typeForGenre" data-flickity='{ "groupCells": true, "cellAlign": "left", "pageDots": false, "wrapAround": false, "draggable": false, "contain": true }' id="genreFilters">
+                <div class="carousel contentsForType" id="typeForGenre" data-flickity='{ "groupCells": true, "cellAlign": "left", "pageDots": false, "wrapAround": false, "draggable": false, "contain": true }' id="genreFilters">
 					<c:forEach items="${requestScope.movieGenreList}" var="genreVO">
 						<!-- Genre Action - OPEN -->
 	                    <div class="carousel-filter-cell text-center">
-	                        <button class="btn btn-outline-primary btn-md margin-top-under-sm" data-filter="${genreVO.genreCode}">
+	                        <button class="btn btn-outline-primary btn-md margin-top-under-sm genreBtn" data-filter="${genreVO.genreCode}" value="${genreVO.genreCode}" >
 	                            ${genreVO.genreName}
 	                        </button>
 	                    </div>

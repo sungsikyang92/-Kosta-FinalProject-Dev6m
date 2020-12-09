@@ -111,7 +111,7 @@
 						<li class="sidebar-nav-item">
 						   <a class="js-scroll-trigger" href="#" id="logoutBtn">로그아웃</a>
 						   <form id="logoutForm" action="${pageContext.request.contextPath}/logout.do" method="post" style="display: none">
-							<sec:csrfInput />
+						<sec:csrfInput />
 						</form>
 						 </li>
 						 <li class="sidebar-nav-item">
@@ -147,6 +147,11 @@
 			      <li class="sidebar-nav-item">
 			        <a class="js-scroll-trigger" href="${pageContext.request.contextPath}/contentsUpdateAdmin.do">컨텐츠 다운로드</a>
 			      </li>
+			     	 <sec:authorize access="hasRole('ROLE_ADMIN')">
+						<li class="sidebar-nav-item">
+				        	<a class="js-scroll-trigger" href="${pageContext.request.contextPath}/adminHome.do" >관리자 페이지</a>
+				      	</li>
+					</sec:authorize>
 			    </ul>
  			 </nav>
 		   <!-- Home Menu - CLOSE -->

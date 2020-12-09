@@ -12,6 +12,7 @@ public interface ContentsService {
 	List<ContentsVO> sGetAllContentsList();
 	int sGetTotalContentsCount();
 	int sGetTotalContentsCountForType(String contentsType);
+	List<ContentsVO> sGetContentsAllForTypeAndGenre(Map<String,String> map);
 	List<ContentsVO> sGetContentsAllForType(Map<String,String> map);
 	ContentsVO sFindContentsByNo(String contentsNo);
 	List<ContentsVO> sContentsHighHits();
