@@ -29,12 +29,12 @@ public class ContentsController {
 	CommentsService commentsService;
 	
 	@RequestMapping("contentsDetail.do")
-	public String ContentsDetail(Model model, ContentsVO contentsVO, String pageNo) {
+	public String ContentsDetail(Model model, ContentsVO contentsVO, String commentsPageNo, String reviewPageNo) {
 		//CommentsListByContentsNo in ContentsDetail
 		model.addAttribute("contentsVO", contentsService.sFindContentsByNo(contentsVO.getContentsNo()));
-		model.addAttribute("commentsListByContentsNo", commentsService.sCommentsGetListByContentsNo(pageNo, contentsVO.getContentsNo()));
+		model.addAttribute("commentsListByContentsNo", commentsService.sCommentsGetListByContentsNo(commentsPageNo, contentsVO.getContentsNo()));
 		//ReviewListByContentsNo in ContentsDetail
-		model.addAttribute("reviewListByContentsNo",reviewService.sGetReviewListByContentsNo(pageNo, contentsVO.getContentsNo()));
+		model.addAttribute("reviewListByContentsNo",reviewService.sGetReviewListByContentsNo(reviewPageNo, contentsVO.getContentsNo()));
 		model.addAttribute("contentsNo", contentsVO.getContentsNo());
 		return "c_commentsList_reviewList.tiles";
 	}
