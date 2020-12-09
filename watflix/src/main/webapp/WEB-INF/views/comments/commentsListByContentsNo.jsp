@@ -8,7 +8,6 @@
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$("#openCommentsWriteFormButton").click(function(){
-				alert('1');
 				var popupWidth = 500; // 팝업창 가로크기
 				var popupHeight = 600; // 팝업창 세로크기
 				
@@ -21,12 +20,20 @@
 				window.open("${pageContext.request.contextPath}/commentsWriteForm.do?contentsNo=${requestScope.contentsNo}", "평점입력",
 						"width="+popupWidth+",height="+popupHeight+",left="+popupX+",top="+popupY);
 			});
-		});
+			$(".starPointImg").each(function(){
+				var starPoint = $(this).html();
+				$(this).html("<img src='${pageContext.request.contextPath}/resources/media/icons/star"+starPoint+".png' style='height: 25px'>");
+			})
+		});	
 		
+		/* function setStarImg(){
+			alert($(".starPointImg").length);
+			alert($(".starPointImg").eq('3').html());
+			
+		} */
 		function commentsDeleteConfirm(){
 			return confirm('삭제하시겠습니까?');
-		}
-		
+		}		
 	</script>
 	<h4 style="display: inline-flex;">평점</h4>
 	<sec:authorize access="hasRole('ROLE_MEMBER')" >
@@ -36,17 +43,9 @@
 	<%-- <sec:authorize access="hasRole('ROLE_ADMIN')" var="isAdmin"/> --%>
 	
 	<table class="table table-borderde table-hober boardlist">
-		<!-- <tr>
-			<td>아이디</td>
-			<td>별점img</td>
-			<td>별점num</td>
-			<td>Comment</td>
-			<td>작성일시</td>
-			<td>신고</td>
-		</tr> -->
 		<c:forEach items="${requestScope.commentsListByContentsNo.list}" var="commentsListByContentsNo">
 		<tr>
-			<td id="starPointImg">${commentsListByContentsNo.commentsStars}</td>
+			<td class="starPointImg">${commentsListByContentsNo.commentsStars}</td>
 			<td>${commentsListByContentsNo.commentsStars}</td>
 			<td>
 				${commentsListByContentsNo.comments}<br>
