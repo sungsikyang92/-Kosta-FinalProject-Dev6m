@@ -334,7 +334,26 @@ select count(*) from report where REVIEW_NO is NULL and id='java'
 insert into report(report_no, id, review_no, report_type_no, report_contents)
 values(REPORT_SEQ.nextval, 'java', 1, 2, '음란물 신고합니다.');
 select * from report where id='java' and review_no is not null
+insert into report(report_no, id, comments_no, report_type_no, report_contents)
+values(REPORT_SEQ.nextval, 'java', 3, 1, '신고합니다.');
+-- 내 신고 게시물 sql 수정
+SELECT REPORT_NO,ID,REVIEW_NO,REPORT_TYPE_info,REPORT_CONTENTS,re_time,reportedId
+FROM(SELECT row_number() over(order by REPORT_NO desc) as re_num, r.REPORT_NO,r.ID,r.REVIEW_NO,r.COMMENTS_NO, rt.REPORT_TYPE_info, r.REPORT_CONTENTS, r.re_time, rv.id as reportedId
+FROM(SELECT REPORT_NO,ID,REVIEW_NO,COMMENTS_NO,REPORT_TYPE_NO,REPORT_CONTENTS,
+to_char(REPORT_POSTED_TIME,'YYYY.MM.DD HH:MI:SS') as re_time
+FROM REPORT where id='java') r, review rv, report_type rt where r.REVIEW_NO=rv.REVIEW_NO and r.report_type_no = rt.report_type_no)
+where re_num between 1 and 5
+order by report_no desc;
 
+SELECT REPORT_NO,ID,REVIEW_NO,REPORT_TYPE_info,REPORT_CONTENTS,REPORT_POSTED_TIME,reportedId
+		FROM(SELECT row_number() over(order by REPORT_NO desc) as re_num, r.REPORT_NO,r.ID,r.REVIEW_NO,r.COMMENTS_NO, rt.REPORT_TYPE_info, r.REPORT_CONTENTS, r.REPORT_POSTED_TIME, rv.id as reportedId
+		FROM(
+			SELECT REPORT_NO,ID,REVIEW_NO,COMMENTS_NO,REPORT_TYPE_NO,REPORT_CONTENTS,
+		to_char(REPORT_POSTED_TIME,'YYYY.MM.DD HH:MI:SS') as REPORT_POSTED_TIME
+		FROM REPORT where id = 'java'
+		) r, review rv, report_type rt where r.REVIEW_NO=rv.REVIEW_NO and r.report_type_no = rt.report_type_no)
+		where re_num between 1 and 5
+		order by report_no desc
 
 select * from grade
 insert into grade values ( 'ROLE_MEMBER' , 'java');

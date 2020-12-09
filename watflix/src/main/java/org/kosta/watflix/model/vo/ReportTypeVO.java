@@ -2,15 +2,15 @@ package org.kosta.watflix.model.vo;
 
 public class ReportTypeVO {
 	private int reportTypeNo;
-	private String reprotTypeInfo;
+	private String reportTypeInfo;
 	public ReportTypeVO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public ReportTypeVO(int reportTypeNo, String reprotTypeInfo) {
+	public ReportTypeVO(int reportTypeNo, String reportTypeInfo) {
 		super();
 		this.reportTypeNo = reportTypeNo;
-		this.reprotTypeInfo = reprotTypeInfo;
+		this.reportTypeInfo = reportTypeInfo;
 	}
 	public int getReportTypeNo() {
 		return reportTypeNo;
@@ -18,15 +18,15 @@ public class ReportTypeVO {
 	public void setReportTypeNo(int reportTypeNo) {
 		this.reportTypeNo = reportTypeNo;
 	}
-	public String getReprotTypeInfo() {
-		return reprotTypeInfo;
+	public String getreportTypeInfo() {
+		return reportTypeInfo;
 	}
-	public void setReprotTypeInfo(String reprotTypeInfo) {
-		this.reprotTypeInfo = reprotTypeInfo;
+	public void setreportTypeInfo(String reportTypeInfo) {
+		this.reportTypeInfo = reportTypeInfo;
 	}
 	@Override
 	public String toString() {
-		return "ReportTypeVO [reportTypeNo=" + reportTypeNo + ", reprotTypeInfo=" + reprotTypeInfo + "]";
+		return "ReportTypeVO [reportTypeNo=" + reportTypeNo + ", reportTypeInfo=" + reportTypeInfo + "]";
 	}
 }
 
