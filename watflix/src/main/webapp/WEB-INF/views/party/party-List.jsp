@@ -23,17 +23,24 @@
 			return confirm("삭제하시겠습니까?");
 		})
 
-		$(".partyApply").click(function() {
+		$(".partyApply").click(function(e) {
+			if(confirm("지원하시겠습니까?")){
+				var apply = $(this);
+			//alert(apply.val());
 			var partyApply = $(this);
 			var tr = partyApply.parent().parent();
 			var td = tr.children();
-			
+			var statusValue = tr.children(".status");
 			var partyNo = td.eq(0).text();
-			var partyTitle = td.eq(1).text();
+			apply.off(e);
+			//$( this ).off( e );
+			apply.val('지원완료');
+			alert(apply.val());
+			/* var partyTitle = td.eq(1).text();
 			var membershipName = td.eq(2).text();
 			var partyHeadCount = td.eq(3).text();
 			var memberVO_id = td.eq(5).text();
-			var partyPostedTime = td.eq(6).text();
+			var partyPostedTime = td.eq(6).text(); */
 			 $.ajax({
 					type : "post",
 					url : "${pageContext.request.contextPath}/partyApply.do",
@@ -44,27 +51,17 @@
 			         xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
 			         },					
 					success : function(result) {
-						alert("1");
-						$("#status").html("모집완료");		
-						$(".partyApply").html("지원완료");
+						//$(this).val('123');
+						//statusValue.html("모집완료");
 				 }
-				});//ajax                                                                             
+				});//ajax   
+			}
 		})
-
 	})
 </script>
-<style type="text/css">
-#partyList {
-	background-color: #99ccff;
-	height: 75%;
-	width: 75%;
-}
-</style>
 </head>
 <body>
-	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-	<div id="partyList">
-		<table border="1">
+		<table class="table table-hover" style="color:white; background-color:green;" >
 			<tr>
 				<th>번호</th>
 				<th>제목</th>
@@ -82,10 +79,10 @@
 						<td>${plvo.partyTitle}</td>
 						<td>${plvo.membershipVO.membershipName}</td>
 						<td>${plvo.partyHeadCount}</td>
-						<td id="status">${plvo.partyStatus}</td>
+						<td class="status">${plvo.partyStatus}</td>
 						<td>${plvo.memberVO.id}</td>
 						<td>${plvo.partyPostedTime}</td>
-						<td>${plvo.apply}</td>
+						<td>${plvo.isApply}</td>
 						<!--로그인한 경우 Start  -->
 						<sec:authorize access="isAuthenticated()">
 							<sec:authentication var="mvo" property="principal" />
@@ -117,7 +114,7 @@
 									 </c:if>
 									<c:if test="${plvo.partyHeadCount <= plvo.partyApplyCount}">
 									<td><input type="button"
-										class="checkBtn btn-outline-success " value="모집완료" /></td>
+										class="checkBtn btn-outline-success" value="모집완료" /></td>
 									</c:if>
 								</c:otherwise>
 							</c:choose>
@@ -169,7 +166,7 @@
 				</c:if>
 			</ul>
 		</div>
-	</div>
+	
 </body>
 </html>
 

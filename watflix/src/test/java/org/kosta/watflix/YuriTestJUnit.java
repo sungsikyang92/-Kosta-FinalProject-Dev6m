@@ -34,7 +34,7 @@ public class YuriTestJUnit {
 		FaqVO faqVO = new FaqVO();
 		MemberVO memberVO = new MemberVO();
 		
-		memberVO.setId("yuki");
+		memberVO.setId("java");
 		memberVO.setPassword("1");
 		memberVO.setName("유리");
 		memberVO.setEmail("gmail");
@@ -44,7 +44,7 @@ public class YuriTestJUnit {
 		faqVO.setFaqContents("테스형");
 		faqService.sFaqWrite(faqVO);
 		System.out.println();
-	
+		
 		//FAQ 수정 테스트 - ok
 		faqVO.setFaqTitle("테스테스");
 		faqVO.setFaqContents("테스태스테슬라");
@@ -65,6 +65,7 @@ public class YuriTestJUnit {
 		//faqService.sFaqDetail(faqNo);
 		System.out.println(faqService.sFaqDetail(faqNo));
 		*/
+
 		//FAQ 개수 - ok
 		/*
 		int totalFaqCount=faqMapper.mGetTotalFaqCount();
