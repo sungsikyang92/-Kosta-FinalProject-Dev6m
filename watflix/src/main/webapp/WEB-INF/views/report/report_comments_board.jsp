@@ -90,7 +90,7 @@
 									</c:when>
 									<c:otherwise>
 										<li>
-											<a href="${pageContext.request.contextPath }/reportCommentsBoardNext.do?pageNo=${pageNumber}">
+											<a href="#">
 												${pageNumber }
 											</a>
 										</li>

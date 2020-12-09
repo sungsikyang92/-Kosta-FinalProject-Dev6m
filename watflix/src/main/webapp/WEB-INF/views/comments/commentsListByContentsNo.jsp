@@ -6,7 +6,6 @@
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$("#openCommentsWriteFormButton").click(function(){
-				alert('1');
 				var popupWidth = 500; // 팝업창 가로크기
 				var popupHeight = 600; // 팝업창 세로크기
 				
@@ -19,12 +18,10 @@
 				window.open("${pageContext.request.contextPath}/commentsWriteForm.do?contentsNo=${requestScope.contentsNo}", "평점입력",
 						"width="+popupWidth+",height="+popupHeight+",left="+popupX+",top="+popupY);
 			})
-			$("form[name='commentsDeleteForm']").submit(function(){
-				alert('d');
-				var commentsNo = document.getElementsByName("commentsDelete");
-				
-			})
 		})
+		function commentsDeleteConfirm(){
+			return confirm('삭제하시겠습니까?');				
+		}
 	</script>
 	<h4>평점</h4>
 	<sec:authorize access="hasRole('ROLE_MEMBER')" >
@@ -32,6 +29,7 @@
 	</sec:authorize> 
 	<%-- <sec:authentication property="principal.id" var="userId"/> --%>
 	<%-- <sec:authorize access="hasRole('ROLE_ADMIN')" var="isAdmin"/> --%>
+	
 	<table class="table table-borderde table-hober boardlist">
 		<c:forEach items="${requestScope.commentsListByContentsNo.list}" var="commentsListByContentsNo">
 		<tr>
@@ -58,9 +56,11 @@
 			<%-- <c:set var="writerId" value="${commentsListByContentsNo.memberVO.id }"/> --%>
 			<%-- <c:if test="${writerId == userId || isAdmin == 'true'}"> --%>
 			<td>
-				<form action="${pageContext.request.contextPath}/commentsDelete.do" method="post" name="commentsDeleteForm">
+				<form action="${pageContext.request.contextPath}/commentsDelete.do" method="post" onsubmit="return commentsDeleteConfirm()">
 					<sec:csrfInput/>
-					<input type="hidden" name="commentsDelete" value="${commentsList.commentsNo}">
+					<input type="hidden" name="contentsNo" value="${requestScope.contentsNo}">
+					<input type="hidden" name="commentsDelete" value="${commentsListByContentsNo.commentsNo}">
+					<input type="hidden" name="pageNo" value="${requestScope.commentsListByContentsNo.pagingBean.nowPage}">
 					<input type="submit" value="삭제">
 				</form>
 			</td>
@@ -68,6 +68,7 @@
 		</tr>
 		</c:forEach>
 	</table>
+	
 	<div class="pagingInfo">
 		<c:set var="pagingBean" value="${requestScope.commentsListByContentsNo.pagingBean}"/>
 		<ul class="pagination">

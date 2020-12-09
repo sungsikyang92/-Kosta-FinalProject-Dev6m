@@ -1,5 +1,7 @@
 package org.kosta.watflix;
 
+import java.util.HashMap;
+
 import javax.annotation.Resource;
 
 import org.junit.Test;
@@ -7,7 +9,10 @@ import org.junit.runner.RunWith;
 import org.kosta.watflix.model.mapper.PartyMapper;
 import org.kosta.watflix.model.service.MemberService;
 import org.kosta.watflix.model.service.PartyService;
+import org.kosta.watflix.model.vo.ApplyVO;
 import org.kosta.watflix.model.vo.MemberVO;
+import org.kosta.watflix.model.vo.MembershipVO;
+import org.kosta.watflix.model.vo.PartyVO;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -129,20 +134,26 @@ public class JunsangTestJUnit {
 	 */
 	
 	
-	@Test
-	   public void test(){
-	      MemberVO memberVO = new MemberVO();
-	      memberVO.setId("java14");
-	      memberVO.setPassword("123");
-	      memberVO.setName("테스트");
-	      memberVO.setEmail("email");
-	      memberVO.setTel("123");
-	      memberVO.setBirth("1992-09-03");
-	      memberVO.setSex("남성");
-	      memberVO.setAddress("경기도");
-	      memberVO.setAgreement("동의");
-	      memberService.sMemberRegister(memberVO);
-	   }
+	
+	  @Test public void test(){ MemberVO mvo = new MemberVO(); mvo.setId("java");
+	  
+	  MembershipVO msvo = new MembershipVO(); msvo.setMembershipNo(1); //멤버십 설정을 위해
+	  
+	  
+	  PartyVO partyVO = new PartyVO(); partyVO.setMemberVO(mvo);
+	  partyVO.setPartyTitle("제목"); partyVO.setMembershipVO(msvo);
+	  partyVO.setPartyHeadCount(1); for(int i=0;i<10;i++) {
+	  partyMapper.mPartyWrite(partyVO); } }
+	 
+	
+	//파티 지원 여부 확인
+	/*
+	 * @Test public void test() { String id="java"; int no = 156; HashMap<String,
+	 * Object> map = new HashMap<String, Object>(); map.put("id", "java");
+	 * map.put("no",136);
+	 * 
+	 * int result =partyService.sPartyIsApply(map); System.out.println(result); }
+	 */
 }
 
 

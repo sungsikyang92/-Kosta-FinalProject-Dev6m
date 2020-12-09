@@ -57,10 +57,18 @@ public class FaqController {
 		return "redirect:faqDetail.do";
 	}
 	
-	// faq 상세보기
+	// faq 상세보기 (조회수 증가o)
 	@RequestMapping("faqDetail.do")
-	public ModelAndView faqDetail(int faqNo) {
-		return new ModelAndView("faq/faq_detail.tiles","fvo",faqService.sFaqDetail(faqNo));
+	public String faqDetail(int faqNo, RedirectAttributes re) {
+		faqService.sFaqUpdateHits(faqNo);
+		re.addAttribute("faqNo", faqNo);
+		return "redirect:faqDetailNoHits.do";
+	}
+	
+	// faq 상세보기 (조회수 증가x) 
+	@RequestMapping("faqDetailNoHits.do")
+	public ModelAndView faqDetailNohits(int faqNo) {
+		return new ModelAndView("faq/faq_detail.tiles","fvo",faqService.sFaqDetailNoHits(faqNo));
 	}
 	
 	// faq 삭제
