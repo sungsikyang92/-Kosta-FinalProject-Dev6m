@@ -3,6 +3,7 @@ package org.kosta.watflix.controller;
 import javax.annotation.Resource;
 
 import org.kosta.watflix.model.service.CommentsService;
+import org.kosta.watflix.model.service.ContentsService;
 import org.kosta.watflix.model.vo.CommentsVO;
 import org.kosta.watflix.model.vo.ContentsVO;
 import org.kosta.watflix.model.vo.MemberVO;
@@ -19,6 +20,8 @@ public class CommentsController {
 	
 	@Resource
 	CommentsService commentsService;
+	@Resource
+	ContentsService contentsService;
 	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("getCommentsList.do")
@@ -46,7 +49,7 @@ public class CommentsController {
 	
 	@RequestMapping("commentsWriteForm.do")
 	public String commentsWriteForm(String contentsNo, Model model) {
-		model.addAttribute("contentsNo", contentsNo);
+		model.addAttribute("contentsVO", contentsService.sFindContentsByNo(contentsNo));
 		return "comments/commentsWriteForm";
 	}	
 	
@@ -60,6 +63,7 @@ public class CommentsController {
 		commentsVO.setContentsVO(contentsVO);
 		commentsService.sCommentsWrite(commentsVO);
 		redirectAttributes.addAttribute("contentsNo", contentsNo);
+		System.out.println(commentsVO);
 		return "redirect:contentsDetail.do";
 	}
 	

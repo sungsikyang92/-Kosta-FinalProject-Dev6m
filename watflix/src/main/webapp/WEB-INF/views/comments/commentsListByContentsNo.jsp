@@ -6,7 +6,6 @@
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$("#openCommentsWriteFormButton").click(function(){
-				alert('1');
 				var popupWidth = 500; // 팝업창 가로크기
 				var popupHeight = 600; // 팝업창 세로크기
 				
