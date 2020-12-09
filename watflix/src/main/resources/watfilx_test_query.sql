@@ -229,6 +229,20 @@ CREATE TABLE FAQ(
    CONSTRAINT FAQ_SERVICE_ID_FK FOREIGN KEY(ID) REFERENCES MEMBER(ID) ON DELETE CASCADE
 )
 
+/*QNA test*/
+select * from QNA
+
+
+
+CREATE TABLE QNA(
+	QNA_NO NUMBER PRIMARY KEY,
+	ID VARCHAR2(100) NOT NULL,
+	QNA_TITLE VARCHAR2(1000) NOT NULL,
+	QNA_CONTENTS CLOB NOT NULL,
+	QNA_POSTED_TIME DATE DEFAULT SYSDATE,
+	QNA_HITS NUMBER DEFAULT 0,
+	CONSTRAINT QNA_SERVICE_ID_FK FOREIGN KEY(ID) REFERENCES MEMBER(ID) ON DELETE CASCADE
+)
 
 delete from COMMENTS;
 ALTER TABLE COMMENTS  MODIFY COMMENTS_NO number;
@@ -357,7 +371,26 @@ select count(*) from report where REVIEW_NO is NULL and id='java'
 insert into report(report_no, id, review_no, report_type_no, report_contents)
 values(REPORT_SEQ.nextval, 'java', 1, 2, '음란물 신고합니다.');
 select * from report where id='java' and review_no is not null
+insert into report(report_no, id, comments_no, report_type_no, report_contents)
+values(REPORT_SEQ.nextval, 'java', 3, 1, '신고합니다.');
+-- 내 신고 게시물 sql 수정
+SELECT REPORT_NO,ID,REVIEW_NO,REPORT_TYPE_info,REPORT_CONTENTS,re_time,reportedId
+FROM(SELECT row_number() over(order by REPORT_NO desc) as re_num, r.REPORT_NO,r.ID,r.REVIEW_NO,r.COMMENTS_NO, rt.REPORT_TYPE_info, r.REPORT_CONTENTS, r.re_time, rv.id as reportedId
+FROM(SELECT REPORT_NO,ID,REVIEW_NO,COMMENTS_NO,REPORT_TYPE_NO,REPORT_CONTENTS,
+to_char(REPORT_POSTED_TIME,'YYYY.MM.DD HH:MI:SS') as re_time
+FROM REPORT where id='java') r, review rv, report_type rt where r.REVIEW_NO=rv.REVIEW_NO and r.report_type_no = rt.report_type_no)
+where re_num between 1 and 5
+order by report_no desc;
 
+SELECT REPORT_NO,ID,REVIEW_NO,REPORT_TYPE_info,REPORT_CONTENTS,REPORT_POSTED_TIME,reportedId
+		FROM(SELECT row_number() over(order by REPORT_NO desc) as re_num, r.REPORT_NO,r.ID,r.REVIEW_NO,r.COMMENTS_NO, rt.REPORT_TYPE_info, r.REPORT_CONTENTS, r.REPORT_POSTED_TIME, rv.id as reportedId
+		FROM(
+			SELECT REPORT_NO,ID,REVIEW_NO,COMMENTS_NO,REPORT_TYPE_NO,REPORT_CONTENTS,
+		to_char(REPORT_POSTED_TIME,'YYYY.MM.DD HH:MI:SS') as REPORT_POSTED_TIME
+		FROM REPORT where id = 'java'
+		) r, review rv, report_type rt where r.REVIEW_NO=rv.REVIEW_NO and r.report_type_no = rt.report_type_no)
+		where re_num between 1 and 5
+		order by report_no desc
 
 select * from grade
 insert into grade values ( 'ROLE_MEMBER' , 'java');
@@ -400,8 +433,6 @@ select * from party where party_no = 137
 
 /* 테이블 컬럼명 바꾸기*/
 ALTER TABLE member RENAME COLUMN acc_stauts_no TO acc_status_no
-
-<<<<<<< HEAD
 
 
 select * from apply where id='java' and party_no = 137
@@ -476,21 +507,17 @@ select ms.membership_name, ms.MEMBERSHIP_NO , ms.CONCURRENT_USERS,
   From PARTY p, member m, MEMBERSHIP ms, (select * from apply where id='spring') a
   WHERE p.id=m.id and p.membership_no = ms.membership_no
  		
-=======
-<<<<<<< HEAD
->>>>>>> branch 'master' of https://github.com/Minikanko/-Kosta-FinalProject-Dev6m.git
+
 select m.id,m.password,m.name,m.tel,to_char('m.birth','YYYY-MM-DD'),m.sex,m.email,m.address,m.login_time,
  		m.login_fail,m.point,m.signup_date,m.agreement,m.acc_status_no,a.acc_status_info
  		from member m, (select * from acc_status) a
  		where a.acc_status_no=m.acc_status_no and m.id='java1234'
-<<<<<<< HEAD
-=======
-=======
->>>>>>> branch 'master' of https://github.com/Minikanko/-Kosta-FinalProject-Dev6m.git
+
 /* 리뷰 테스트를 위한 데이터 추가 */
 INSERT INTO review VALUES(review_seq.nextval, 'java', 60004481, '리뷰 테스트 용 스파이더맨!', '리뷰 테슷트입니다.', 0, 0, sysdate);
 INSERT INTO review VALUES(review_seq.nextval, 'java', 81095669, '리뷰 테스트 용 진격의거인!', '리뷰 테슷트입니다.', 0, 0, sysdate);
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 >>>>>>> branch 'master' of https://github.com/Minikanko/-Kosta-FinalProject-Dev6m.git
@@ -540,3 +567,24 @@ REVIEW_HITS,TO_CHAR(REVIEW_POSTED_TIME,'yyyy-mm-dd') as REVIEW_POSTED_TIME FROM 
 WHERE R.ID = M.ID AND R.CONTENTS_NO = C.CONTENTS_NO AND RNUM BETWEEN #{pagingBean.startRowNumber} AND #{pagingBean.endRowNumber}
 
 select * from comments where CONTENTS_NO='70291089'
+=======
+
+
+select * from apply 
+
+ SELECT p.PARTY_NO, p.id, p.PARTY_TITLE, ms.membership_name, p.PARTY_STATUS,
+       p.PARTY_HEADCOUNT,p.PARTY_APPLYCOUNT,to_char(p.PARTY_POSTED_TIME,'yyyy-mm-dd') as PARTY_POSTED_TIME
+       
+       From(SELECT row_number() over (order by PARTY_NO desc) as rnum,PARTY_NO,ID,PARTY_TITLE,membership_no,PARTY_STATUS,
+       PARTY_HEADCOUNT,PARTY_APPLYCOUNT,PARTY_POSTED_TIME FROM PARTY) p ,
+       MEMBERSHIP ms
+       
+       WHERE rnum BETWEEN 1 AND 10 and p.membership_no = ms.membership_no
+
+select rnum,C.CONTENTS_NO,C.CONTENTS_TITLE,C.CONTENTS_TYPE,G.GENRE_CODE,G.GENRE_NAME,C.CONTENTS_SUMMARY,C.CONTENTS_SMALL_THUMBNAIL,C.CONTENTS_BIG_THUMBNAIL,C.CONTENTS_AVG_STARS,C.CONTENTS_LIKES,C.CONTENTS_HITS,
+ 		CONTENTS_DATE,CONTENTS_RUNNINGTIME,CONTENTS_ACTOR,CONTENTS_PRODUCER,CONTENTS_AGE
+		from (select row_number() over(order by CONTENTS_NO DESC) as rnum,CONTENTS_NO,CONTENTS_TITLE,CONTENTS_TYPE,GENRE_CODE,CONTENTS_SUMMARY,CONTENTS_SMALL_THUMBNAIL,CONTENTS_BIG_THUMBNAIL,
+		CONTENTS_AVG_STARS,CONTENTS_LIKES,CONTENTS_HITS,CONTENTS_DATE,CONTENTS_RUNNINGTIME,CONTENTS_ACTOR,CONTENTS_PRODUCER,CONTENTS_AGE from contents where CONTENTS_TYPE LIKE '%영화%' and genre_code='783') C, 
+		 GENRE G
+		where C.GENRE_CODE=G.GENRE_CODE and rnum BETWEEN 0 AND 5
+>>>>>>> branch 'master' of https://github.com/Minikanko/-Kosta-FinalProject-Dev6m.git

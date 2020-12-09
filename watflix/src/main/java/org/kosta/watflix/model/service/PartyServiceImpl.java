@@ -16,21 +16,24 @@ import org.springframework.transaction.annotation.Transactional;
 public class PartyServiceImpl implements PartyService{
 	@Resource 
 	private PartyMapper partyMapper;
+	
 	@Override
 	public void sPartyWrite(PartyVO partyVO) {
 		partyMapper.mPartyWrite(partyVO);
 	}
+	
 	@Override
 	public int sPartyGetTotalCount() {
 		return partyMapper.mPartyGetTotalCount(); 
 	}
+	
 	@Override
 	public PartyVO sPartyGetDetail(int no) {
 		PartyVO pvo = new PartyVO();
 		pvo=partyMapper.mPartyGetDetail(no);
 		return pvo;
-		
 	}
+	
 	@Override
 	public void sPartyUpdate(PartyVO partyvo) {
 		partyMapper.mPartyUpdate(partyvo);

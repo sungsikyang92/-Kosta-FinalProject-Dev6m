@@ -56,12 +56,26 @@
 				 }
 				});//ajax   
 			}
+		})// 지원 버튼
+		$(".partyApply2").click(function() {
+			alert("이미지원하였습니다.");
+		})
+		
+		$(".partyApply3").click(function() {
+			alert("모집마감 되었습니다.");
 		})
 	})
 </script>
 </head>
 <body>
-		<table class="table table-hover" style="color:white; background-color:green;" >
+<div style="position: fixed; z-index: -99; width: 100%; height: 100%">
+
+<iframe frameborder="0" height="100%" width="100%" 
+src="https://www.youtube.com/embed/linlz7-Pnvw?mute=1&loop=1&autoplay=1&rel=0&controls=0&showinfo=0" allow="autoplay; encrypted-media" allowfullscreen>
+</iframe>
+
+</div>
+		<table class="table table-hover" style="bgcolor:white;  filter:alpha(opacity=80);" >
 			<tr>
 				<th>번호</th>
 				<th>제목</th>
@@ -70,7 +84,7 @@
 				<th>모집 상태</th>
 				<th>작성자</th>
 				<th>등록일</th>
-				<th>지원여부</th>
+				<!-- <th>지원여부</th> -->
 			</tr>
 			<tbody>
 				<c:forEach var="plvo" items="${requestScope.PLVO.partyList}">
@@ -79,55 +93,77 @@
 						<td>${plvo.partyTitle}</td>
 						<td>${plvo.membershipVO.membershipName}</td>
 						<td>${plvo.partyHeadCount}</td>
-						<td class="status">${plvo.partyStatus}</td>
+						<td class="status">${plvo.partyApplyCount}명 ${plvo.partyStatus}</td>
 						<td>${plvo.memberVO.id}</td>
 						<td>${plvo.partyPostedTime}</td>
-						<td>${plvo.isApply}</td>
+						<%-- <td>${plvo.isApply}</td> --%>
 						<!--로그인한 경우 Start  -->
-						<sec:authorize access="isAuthenticated()">
-							<sec:authentication var="mvo" property="principal" />
-							<c:choose>
-								<c:when test="${mvo.id eq plvo.memberVO.id}">
-
-									<td>
-										<form action="goPartyUpdate.do" class=partyUpdate method="get"
-											class="partyUpdate">
-											<sec:csrfInput />
-											<!-- csrf 토큰  -->
-											<input type="hidden" name="partyNo" value="${plvo.partyNo}">
-											<button class="checkBtn btn-outline-warning">수정</button>
-										</form>
-									</td>
-									<td>
-										<form action="partyDelete.do" class=partyDelete method="post">
-											<sec:csrfInput />
-											<!-- csrf 토큰 -->
-											<input type="hidden" name="partyNo" value="${plvo.partyNo}">
-											<button class="checkBtn btn-outline-warning">삭제</button>
-										</form>
-									</td>
-								</c:when>
-								<c:otherwise>
-								<c:if test="${ plvo.partyHeadCount > plvo.partyApplyCount}">
+					<sec:authorize access="isAuthenticated()">
+						<sec:authentication var="mvo" property="principal" />
+						<c:choose>
+							<c:when test="${mvo.id eq plvo.memberVO.id}">
+								<td>
+									<form action="goPartyUpdate.do" class=partyUpdate method="get"
+										class="partyUpdate">
+										<sec:csrfInput />
+										<!-- csrf 토큰  -->
+										<input type="hidden" name="partyNo" value="${plvo.partyNo}">
+										<button class="checkBtn btn-outline-warning">수정</button>
+									</form>
+								</td>
+								<td>
+									<form action="partyDelete.do" class=partyDelete method="post">
+										<sec:csrfInput />
+										<!-- csrf 토큰 -->
+										<input type="hidden" name="partyNo" value="${plvo.partyNo}">
+										<button class="checkBtn btn-outline-warning">삭제</button>
+									</form>
+								</td>
+							</c:when>
+							<c:otherwise>
+								<c:choose>
+								<c:when test="${(plvo.partyHeadCount > plvo.partyApplyCount)}">
+									<c:if test="${(plvo.isApply eq 'N')}">
 									<td><input type="button"
 										class="checkBtn btn-outline-primary partyApply" value="지원하기" /></td>
-									 </c:if>
-									<c:if test="${plvo.partyHeadCount <= plvo.partyApplyCount}">
+									</c:if>
+									<c:if test="${(plvo.isApply eq 'Y')}">
+									<td><input type="button"
+										class="checkBtn btn-outline-primary partyApply2" value="지원완료" /></td>
+									</c:if>									
+								</c:when>		
+								
+								<c:otherwise>
+								<td><input type="button"
+										class="checkBtn btn-outline-success partyApply3" value="모집완료" /></td>
+								</c:otherwise>
+								</c:choose>
+								<%-- <c:if
+									test="${(plvo.partyHeadCount > plvo.partyApplyCount) && (plvo.isApply eq 'N')}">
+									<td><input type="button"
+										class="checkBtn btn-outline-primary partyApply" value="지원하기" /></td>
+								</c:if>
+								<c:if
+									test="${(plvo.partyHeadCount > plvo.partyApplyCount) && (plvo.isApply eq 'Y')} ">
+									<td><input type="button"
+										class="checkBtn btn-outline-primary partyApply" value="지원완료" /></td>
+								</c:if> --%>
+
+
+							<%-- 	<c:if test="${plvo.partyHeadCount <= plvo.partyApplyCount}">
 									<td><input type="button"
 										class="checkBtn btn-outline-success" value="모집완료" /></td>
-									</c:if>
-								</c:otherwise>
-							</c:choose>
-						</sec:authorize>
-						<sec:authorize access="!isAuthenticated()">
-							
-							<td><input type="button"
-								class="checkBtn btn-outline-primary partyApply" value="지원하기"
-								onclick="location.href='${pageContext.request.contextPath}/loginForm.do'"
-								 /></td>
-								
-						</sec:authorize>
-					</tr>
+								</c:if> --%>
+							</c:otherwise>
+						</c:choose>
+					</sec:authorize>
+					<sec:authorize access="!isAuthenticated()">
+						<td><input type="button"
+							class="checkBtn btn-outline-primary partyApply" value="지원하기"
+							onclick="location.href='${pageContext.request.contextPath}/loginForm.do'" />
+						</td>
+					</sec:authorize>
+				</tr>
 				</c:forEach>
 			</tbody>
 		</table>

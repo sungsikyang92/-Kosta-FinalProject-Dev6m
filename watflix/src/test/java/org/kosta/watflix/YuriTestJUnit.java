@@ -5,17 +5,23 @@ import javax.annotation.Resource;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kosta.watflix.model.mapper.FaqMapper;
+import org.kosta.watflix.model.mapper.QnAMapper;
 import org.kosta.watflix.model.service.FaqService;
 import org.kosta.watflix.model.service.PagingBean;
+import org.kosta.watflix.model.service.QnAService;
 import org.kosta.watflix.model.vo.FaqListVO;
 import org.kosta.watflix.model.vo.FaqVO;
 import org.kosta.watflix.model.vo.MemberVO;
+import org.kosta.watflix.model.vo.QnAVO;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"file:src/main/webapp/WEB-INF/spring-model.xml","file:src/main/webapp/WEB-INF/spring-security.xml"})
+
+/*
 public class YuriTestJUnit {
+
 	@Resource
 	FaqService faqService;
 	@Resource
@@ -40,7 +46,6 @@ public class YuriTestJUnit {
 		System.out.println();
 		
 		//FAQ 수정 테스트 - ok
-		/*
 		faqVO.setFaqTitle("테스테스");
 		faqVO.setFaqContents("테스태스테슬라");
 		faqService.sFaqUpdate(faqVO);
@@ -74,9 +79,51 @@ public class YuriTestJUnit {
 		for(FaqVO faqVO:fvo.getFaqList())
 			System.out.println(faqVO);
 		 */
-		//FAQ 조회 수 증가 - 
+		//FAQ 조회 수 증가 - ok
+		/*
 		faqService.sFaqUpdateHits(18);
 		System.out.println(faqService.sFaqDetail(18).getFaqHits()); 
+		
+	}
+	*/
+
+public class YuriTestJUnit{
+	@Resource
+	QnAMapper qnaMapper;
+	
+	@Resource
+	QnAService qnaService;
+	
+	@Test
+	public void test(){
+	// QnA 작성 - ok
+	QnAVO qnaVO = new QnAVO(); 
+	MemberVO memberVO = new MemberVO();
+	
+	memberVO.setId("yuki");
+	memberVO.setPassword("1");
+	memberVO.setName("유리");
+	memberVO.setEmail("gmail");
+	qnaVO.setMemberVO(memberVO);
+	/*
+	qnaVO.setQnaTitle("문의드립니다.");
+	qnaVO.setQnaContents("포인트 적립은 어떻게 하나요?");
+	qnaService.sQnAWrite(qnaVO);
+	System.out.println();
+	*/
+	// QnA 상세보기 - ok
+	/*
+	int qnaNo=1;
+	qnaService.sQnADetail(qnaNo);
+	System.out.println(qnaService.sQnADetail(qnaNo));
+	*/
+	// QnA 삭제 -   ok
+	/*
+	int qnaNo=2;
+	qnaService.sQnADelete(qnaNo);
+	System.out.println(qnaVO.getQnaNo());
+	*/
+	
 	}
 }
 

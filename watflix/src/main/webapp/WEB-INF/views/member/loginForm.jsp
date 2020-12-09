@@ -41,7 +41,7 @@
 		</div>
 		<div class="hybrid-login-form-other">
 			<div class="login-signup-now" data-uia="login-signup-now">
-				Netflix 회원이 아닌가요? 
+				WATFLIX 회원이 아닌가요? 
 				<a class="" target="_self" href="${pageContext.request.contextPath}/memberRegisterFormTerms.do">
 					지금 가입하세요
 				</a>.

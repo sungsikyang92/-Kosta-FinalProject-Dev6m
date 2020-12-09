@@ -11,16 +11,23 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.kosta.watflix.model.service.AdminService;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-//jh
 public class AdminController {
    
    @Resource
    AdminService adminService;
    
+   	@Secured("ROLE_ADMIN")
+	@RequestMapping("adminHome.do")
+	public String adminHome(){
+		return "adminHome.tiles";
+	}
+   
+   //컨텐츠 크롤링
    @RequestMapping("contentsUpdateAdmin.do")
    public String updateContents() {
 	  double count;

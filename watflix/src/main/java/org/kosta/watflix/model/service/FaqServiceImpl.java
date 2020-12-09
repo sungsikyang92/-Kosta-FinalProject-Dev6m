@@ -19,7 +19,8 @@ public class FaqServiceImpl implements FaqService {
 		faqMapper.mFaqWrite(faqVO);
 		
 	}
-
+	
+	//FAQ 수정
 	@Override
 	public void sFaqUpdate(FaqVO faqVO) {
 		// TODO Auto-generated method stub
@@ -27,12 +28,14 @@ public class FaqServiceImpl implements FaqService {
 		
 	}
 
+	//FAQ 상세보기
 	@Override
 	public FaqVO sFaqDetail(int faqNo) {
 		// TODO Auto-generated method stub
 		return faqMapper.mFaqDetail(faqNo);
 	}
-
+	
+	//FAQ 리스트 페이징빈
 	@Override
 	public FaqListVO sGetFaqList(String pageNo) {
 		int totalPostCount = faqMapper.mGetTotalFaqCount();
@@ -46,26 +49,31 @@ public class FaqServiceImpl implements FaqService {
 		return faqListVO;
 	}
 
+	//FAQ 개수
 	@Override
 	public int sGetTotalFaqCount() {
 		return faqMapper.mGetTotalFaqCount();
 	}
-
+	
+	//FAQ 리스트
 	@Override
 	public FaqListVO sGetFaqList() {
 		return sGetFaqList("1");
 	}
 
+	//FAQ 삭제
 	@Override
 	public void sFaqDelete(int faqNo) {
 			faqMapper.mFaqDelete(faqNo);
 	}
 
+	//FAQ 조회 수
 	@Override
 	public void sFaqUpdateHits(int faqNo) {
 			faqMapper.mFaqUpdateHits(faqNo);
 	}
 
+	//FAQ 상세보기 조회수 증가 방지
 	@Override
 	public FaqVO sFaqDetailNoHits(int faqNo) {
 		return faqMapper.mFaqDetail(faqNo);
