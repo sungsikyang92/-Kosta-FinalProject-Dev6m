@@ -38,6 +38,21 @@ public class MemberServiceImpl implements MemberService {
 			memberMapper.mGradeRegister(authority);
 	}
 	
+	// 관리자 회원가입시 권한을 두개 준다.
+	@Transactional
+	@Override
+	public void sMemberAdminRegister(MemberVO memberVO) {
+		// 비밀번호를 bcrypt 알고리즘으로 암호화하여 DB에 저장한다
+		String encodedPwd = passwordEncoder.encode(memberVO.getPassword());
+		memberVO.setPassword(encodedPwd);
+		memberMapper.mMemberRegister(memberVO);	
+		Authority member = new Authority("ROLE_MEMBER",memberVO.getId());
+		Authority admin = new Authority("ROLE_ADMIN",memberVO.getId());
+		// 회원권한 저장
+		memberMapper.mGradeRegister(member);
+		memberMapper.mGradeRegister(admin);
+	}
+	
 	//사용자 찾기
 	@Override
 	public MemberVO sFindMemberById(String id) {

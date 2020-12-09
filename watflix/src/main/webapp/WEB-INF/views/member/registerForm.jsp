@@ -189,7 +189,7 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 					<div class="nfInputPlacement">
 						<div class="nfEmailPhoneControls">
 							<label class="input_id">
-								<input type="email" name="email" class="registerForNfTextField" id="email" tabindex="0"> 
+								<input type="email" name="email" class="registerForNfTextField" id="email" tabindex="0" required="required"> 
 								<label for="id_email" class="placeLabel">이메일</label> 
 							</label>
 						</div>
