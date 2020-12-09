@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){	
 		$('#reviewTitle').keyup(function(){
@@ -11,36 +11,6 @@
 				$(this).val($(this).val().substr(0,$(this).attr('maxlength')));
 			}
 		});//keyup
-	});//ready
-</script>
-<!-- reviewWriteForm DIV 시작 -->
-<div class="tableMargin">
-<form action="${pageContext.request.contextPath}/reviewWrite.do" method="post" id="reviewWriteForm">
-<sec:csrfInput/>
-<input type="hidden" name="contentsNo" value="${param.contentsNo}">
-<div class="TableAndButtons">
-<table class="table">
-	<tr>
-		<td>
-			<input type="text" name="reviewTitle" id="reviewTitle" class="allTitle" maxlength="30" placeholder="리뷰의 제목을 입력해주세요!" required="required">	
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<textarea cols="90" rows="15" name="reviewContents" class="allTextArea" placeholder="리뷰의 내용을 입력해주세요!" required="required"></textarea>
-		</td>
-	</tr>
-</table>
-<div class="btnArea">
-	<button type="button" class="btn-list" id="backToReviewList">리스트로이동</button>
-	<button type="reset" class="btn-reset">비우기</button>
-	<button type="submit" class="btn-submit">게시하기</button>
-</div>
-</div>
-</form>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script type="text/javascript">
-	$(document).ready(function(){
 		$("#reviewWriteForm").submit(function(){
 			return confirm("리뷰를 등록 하시겠습니까?");
 		});
@@ -51,6 +21,32 @@
 				return
 			}
 		});
-	});
+	});//ready
 </script>
-</div><!-- reviewWriteForm DIV 끝 -->
+
+<div class="container-lg margin-top margin-bottom boardClassMain">
+  <h2>리뷰 등록하기</h2>           
+	<form action="${pageContext.request.contextPath}/reviewWrite.do" method="post" id="reviewWriteForm">
+		<sec:csrfInput/>
+		<input type="hidden" name="contentsNo" value="${param.contentsNo}">
+	  	<table class="table table-bordered" style="border-radius: 1.5px;">
+			<tr>
+				<td class="boardTd">제목</td>
+				<td><input type="text" name="reviewTitle" id="reviewTitle"  class="boardTitle" required="required" maxlength="30" placeholder="리뷰의 제목을 입력해주세요!"></td>
+			</tr>
+			<tr>
+				<td>내용</td>
+				<td>
+					<textarea name="reviewContents" required="required" class="boardTextarea" name="reviewContents" placeholder="리뷰의 내용을 입력해주세요!"></textarea>
+				</td>
+			</tr>
+			<tr>			<!-- 임시로 align="center"줘서 중앙배열 시켜놓음 CSS로 해야함 -->
+				<td colspan="2" class="btnArea">
+					<button type="button" class="btn-list btn btn-default boardDetailBtn" id="backToReviewList">목록</button>
+					<button type="reset" class="btn-reset btn btn-default boardDetailBtn">초기화</button>
+					<button type="submit" class="btn btn-default boardDetailBtn">등록</button>
+				</td>
+			</tr>
+	  	</table>
+	</form>
+</div>

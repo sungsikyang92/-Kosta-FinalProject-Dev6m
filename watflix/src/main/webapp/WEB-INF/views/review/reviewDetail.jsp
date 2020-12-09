@@ -2,10 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
-<!-- reviewDetail 감싸는 DIV 시작 -->
-<div class="tableMargin">
-<!-- Table 부트스트랩 끝 -->
-<!-- JQuery에용 ㅎㅎ -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -17,27 +13,31 @@
 		});
 	});//ready
 </script>
-<table class="table table-hover" style="color:white">
+
+<div class="container-lg margin-top margin-bottom boardClassMain">
+  <h2>리뷰상세보기</h2>           
+  <table class="table table-bordered" style="border-radius: 1.5px;">
 	<c:set var="reviewDetail" value="${requestScope.rdvo}"></c:set>
 		<tr>
-			<th class="reviewTitle">${reviewDetail.reviewTitle}</th>
-			<th class="reviewHits">조회${reviewDetail.reviewHits}</th>
-			<th class="reviewLikes">추천${reviewDetail.reviewLikes}</th>
-			<th class="reportBtn"><a href="#">신고</a></th>
+			<th>${reviewDetail.reviewTitle}</th>
+			<th>조회${reviewDetail.reviewHits}</th>
+			<th>추천${reviewDetail.reviewLikes}</th>
+			<th><a href="#">신고</a></th>
 		</tr>
 		<tr>
 			<td class="contentsTitle">${requestScope.contentsTitle}리뷰</td>
 			<th colspan="2" class="MemberId">${reviewDetail.memberVO.id}의 모든리뷰보기(모든리뷰보기만드냐?)</th>
 			<th class="reviewPostedTime">${reviewDetail.reviewPostedTime}</th>
 		</tr>
-		<tr>
-			<td width="20%" colspan="4" class="reviewContents"><pre style="white-space:pre-wrap;">${reviewDetail.reviewContents}</pre></td>
+		<tr class="boardDetailTr">
+			<td>내용</td>
+			<td colspan="3" class="reviewContents"><pre style="white-space:pre-wrap;">${reviewDetail.reviewContents}</pre></td>
 		</tr>
 		<tr>			<!-- 임시로 align="center"줘서 중앙배열 시켜놓음 CSS로 해야함 -->
-			<td colspan="4" class="btnArea" align="center">
-				<button type="button" class="btn btn-default" onclick="location.href='${pageContext.request.contextPath}/contentsDetail.do?contentsNo=${reviewDetail.contentsVO.contentsNo}'">목록</button>
-				<button form="reviewDelete" class="btn btn-default" type="submit">삭제</button>
-				<button form="reviewUpdateForm" class="btn btn-default" type="submit">수정</button>
+			<td colspan="4" class="btnArea">
+				<button type="button" class="btn btn-default boardDetailBtn" onclick="location.href='${pageContext.request.contextPath}/contentsDetail.do?contentsNo=${reviewDetail.contentsVO.contentsNo}'">목록</button>
+				<button form="reviewDelete" class="btn btn-default boardDetailBtn" type="submit">삭제</button>
+				<button form="reviewUpdateForm" class="btn btn-default boardDetailBtn" type="submit">수정</button>
 				<form action="reviewDelete.do" id="reviewDelete" method="post">
 				<sec:csrfInput/>
 				<input type="hidden" name="reviewNo" value="${reviewDetail.reviewNo}">
@@ -48,5 +48,5 @@
 				</form>
 			</td>
 		</tr>
-</table>
-</div><!-- reviewDetail 감싸는 DIV 끝 -->
+  </table>
+</div>
