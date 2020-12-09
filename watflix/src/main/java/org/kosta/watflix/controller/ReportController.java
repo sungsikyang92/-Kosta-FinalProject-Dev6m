@@ -133,6 +133,28 @@ public class ReportController {
 		String id = mvo.getId();
 		return reportService.sGetMyReportReviewList(id, pageNo);
 	}
+	
+	// 내 신고 리스트(평점)
+	@RequestMapping("myReportCommentsBoard.do")
+	@ResponseBody
+	public ReportListVO myReportCommentsBoard() {
+		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String id = mvo.getId();
+		return reportService.sGetMyReportCommentsList(id);
+	}
+	@RequestMapping("myReportCommentsBoardNext.do")
+	@ResponseBody
+	public ReportListVO myReportCommentsBoardNext(String pageNo) {
+		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String id = mvo.getId();
+		return reportService.sGetMyReportCommentsList(id, pageNo);
+	}
+	
+	// 마이페이지로 이동(임시)
+	@RequestMapping("testMyPageBoard.do")
+	public ModelAndView testMyPageBoard() {
+		return new ModelAndView("report/my_report_review_board");
+	}
 }
 
 

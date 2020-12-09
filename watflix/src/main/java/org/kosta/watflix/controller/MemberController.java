@@ -59,6 +59,7 @@ public class MemberController {
 	//회원가입
 	@PostMapping("memberRegister.do")
 	public String memberRegister(MemberVO memberVO){
+		System.out.println(memberVO.getAddress());
 		memberService.sMemberRegister(memberVO);
 		return "redirect:memberRegister_result.do?id="+memberVO.getId();
 	}
@@ -87,6 +88,8 @@ public class MemberController {
 	@PostMapping("memberUpdate.do")
 	public String memberUpdate(MemberVO memberVO) {
 		memberService.sMemberUpdate(memberVO);
+		//System.out.println(memberVO.getAddress());
+		//System.out.println(memberVO.getAgreement());
 		// 회원정보 수정위해 Spring Security 세션 회원정보를 반환받는다
 		MemberVO pvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		pvo.setPassword(memberVO.getPassword());

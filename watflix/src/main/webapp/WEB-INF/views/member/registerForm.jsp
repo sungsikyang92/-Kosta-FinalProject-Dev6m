@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
 		//아이디 입력시 중복값 확인
@@ -71,6 +72,17 @@
 				$("#confirmPass2").html("비밀번호가 일치합니다.").css("color","blue");
 			}
 		})//패스워드 2차 keyup
+		
+		$("#address").click(function() {
+			 new daum.Postcode({
+			        oncomplete: function(data) {
+			            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
+			            // 예제를 참고하여 다양한 활용법을 확인해 보세요.
+			        	$("#address").val(data.address);
+			        }
+			    }).open();
+		}) // 주소 api
+		
 	}); //ready
 </script>
 
@@ -204,6 +216,18 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 							<label class="input_id">
 								<input type="text" name="address" class="registerForNfTextField" id="address" tabindex="0" required="required"> 
 								<label for="id_address" class="placeLabel">주소</label> 
+							</label>
+						</div>
+					</div>
+				</div>
+				
+				<div data-uia="login-field+container"
+					class="nfInput nfEmailPhoneInput login-input login-input-email">
+					<div class="nfInputPlacement">
+						<div class="nfEmailPhoneControls">
+							<label class="input_id">
+								<input type="text" name="address" class="registerForNfTextField" id="address2" tabindex="0"> 
+								<label for="id_address" class="placeLabel">상세주소</label> 
 							</label>
 						</div>
 					</div>

@@ -1,6 +1,5 @@
 package org.kosta.watflix.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -62,14 +61,11 @@ public class PartyController {
 		}else {
 			mvo.setId("guest");//비로그인상태
 		}
-		//System.out.println(mvo.getId());
-		PartyListVO partyListVO = new PartyListVO();
-//		partyListVO=partyService.sPartyGetAllList(map);
-		partyListVO=partyService.sPartyGetAllList(pageNo);
-		PartyListVO partyListVO2 = new PartyListVO();
-		ArrayList<PartyVO> partList=new ArrayList<PartyVO>();
-		for(PartyVO pvo :partyListVO.getPartyList()) {
-			int i=0;
+		PartyListVO partyListVO = new PartyListVO();		
+		partyListVO=partyService.sPartyGetAllList(pageNo);		
+		int size = partyListVO.getPartyList().size();
+		for(int i=0 ; i<size ; i++) {
+			PartyVO pvo = partyListVO.getPartyList().get(i);
 			int no = pvo.getPartyNo();
 			HashMap<String, Object> map = new HashMap<String, Object>(); 
 			 map.put("no", no); map.put("id", mvo.getId()); 
@@ -79,10 +75,9 @@ public class PartyController {
 			 }else {
 				 pvo.setIsApply("Y");
 			 }
-			 partList.add(pvo);
+			 partyListVO.getPartyList().set(i, pvo);
 		}
-		partyListVO2.setPartyList(partList);
-		model.addAttribute("PLVO",partyListVO2);
+		model.addAttribute("PLVO",partyListVO);
 		return "party/party-List.tiles";
 	}
 	
@@ -141,8 +136,8 @@ public class PartyController {
 		map.put("no", Integer.parseInt(partyNo));
 		map.put("id", mvo.getId());
 		int result =partyService.sPartyIsApply(map);
-		System.out.println(mvo.getId());
-		System.out.println(pvo.getPartyNo());
+		//System.out.println(mvo.getId());
+		//System.out.println(pvo.getPartyNo());
 		if(result==0) {
 			pvo.setIsApply("N");
 		}else {

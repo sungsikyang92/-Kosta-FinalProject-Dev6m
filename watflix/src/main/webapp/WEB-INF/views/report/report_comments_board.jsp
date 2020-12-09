@@ -9,15 +9,22 @@
 <title>신고 게시판</title>
 </head>
 <body>
-
-	<table border="1">
+	<script type="text/javascript">
+		function deleteCheck(){
+			return confirm("삭제하시겠습니까?");
+		}
+	</script>
+	<table class="table table-hover">
 		<thead>
+			<tr>
+				<th><a href="${pageContext.request.contextPath}/reportReviewBoard.do">리뷰</a></th><th>평점</th>
+			</tr>
 			<tr>
 				<th>No</th>
 				<th>신고자ID</th>
 				<th>신고 유형</th>
-				<th>신고된 평점No</th
-				><th>평점 작성자ID</th>
+				<th>신고된 평점No</th>
+				<th>평점 작성자ID</th>
 				<th>신고 날짜</th>
 				<th>비고</th>
 			</tr>
@@ -28,13 +35,13 @@
 				<tr>
 					<td>${rvo.reportNo}</td>
 					<td>${rvo.memberVO.id}</td>
-					<td>${rvo.reportTypeVO.reportTypeNo}</td>
+					<td>${rvo.reportTypeVO.reportTypeInfo}</td>
 					<td>${rvo.commentsVO.commentsNo}</td>
 					<td>${rvo.commentsVO.memberVO.id}</td>
 					<td>${rvo.reportPostedTime}</td>
 					<td>
 						<!-- 신고글 삭제 -->
-						<form action="deleteReport.do" method="post">
+						<form action="deleteReport.do" method="post" onsubmit="return deleteCheck()">
 							<!-- CSRF 방지 토큰,  Cross-site request forgery(사이트간 요청 위조)를 방지  -->
 							<sec:csrfInput/>
 							<input type="hidden" name="reportNo" value="${rvo.reportNo}">
@@ -64,7 +71,7 @@
 		<tfoot>
 			<tr>
 				<td colspan="7">
-					<div>
+					<div class="tableTopMargin">
 						<!-- pagingBean을 pb변수로 지정 -->
 						<c:set var="pb" value="${requestScope.reportCommentsList.pagingBean }"></c:set>
 						<ul>
