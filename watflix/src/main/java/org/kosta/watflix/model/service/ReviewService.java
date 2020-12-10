@@ -1,11 +1,15 @@
 package org.kosta.watflix.model.service;
 
+import java.util.Map;
+
 import org.kosta.watflix.model.vo.ReviewListVO;
 import org.kosta.watflix.model.vo.ReviewVO;
 
 public interface ReviewService {
 	//리뷰리스트
 	ReviewListVO sGetReviewList(String pageNo);
+	//컨텐츠별리뷰리스트
+	ReviewListVO sGetReviewListByContentsNo(String pageNo, String contentsNo);
 	//리뷰작성
 	void sReviewWrite(ReviewVO reviewVO);
 	//리뷰수정
