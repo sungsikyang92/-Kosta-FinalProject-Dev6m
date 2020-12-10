@@ -67,7 +67,7 @@
 						</form>
 					</td>
 				</tr>
-				<tr>
+				<tr hidden="False">
 					<td colspan="6">
 						<pre>${rvo.reportContents }</pre>
 					</td>

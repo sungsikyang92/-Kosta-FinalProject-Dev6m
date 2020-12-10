@@ -381,8 +381,17 @@ to_char(REPORT_POSTED_TIME,'YYYY.MM.DD HH:MI:SS') as re_time
 FROM REPORT where id='java') r, review rv, report_type rt where r.REVIEW_NO=rv.REVIEW_NO and r.report_type_no = rt.report_type_no)
 where re_num between 1 and 5
 order by report_no desc;
+-- 권한
+insert into grade values('ROLE_ADMIN', 'java')
+-- 내 리뷰 게시물 가져오기
+SELECT REVIEW_NO,ID,CONTENTS_NO,REVIEW_TITLE,REVIEW_CONTENTS,REVIEW_LIKES,REVIEW_POSTED_TIME
+FROM (SELECT ROW_NUMBER() OVER(ORDER BY review_no DESC) AS RNUM, REVIEW_NO, ID, CONTENTS_NO,
+REVIEW_TITLE, REVIEW_CONTENTS, REVIEW_LIKES, TO_CHAR(REVIEW_POSTED_TIME,'yyyy-mm-dd') as REVIEW_POSTED_TIME
+FROM REVIEW where id='java')
+WHERE RNUM BETWEEN 1 AND 5 ORDER BY review_no desc;
+-- 내가 작성한 전체 리뷰 count
+select count(*) from review where id =''
 
-select r.*, g.GRADE from member r, GRADE g 
 
 select * from grade
 insert into grade values ( 'ROLE_MEMBER' , 'java');
