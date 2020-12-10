@@ -1,49 +1,44 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
     <%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
     
- <div class="tableTopMargin">   
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/css/style.css">
-<title>faqList</title>
+<title>QnA List</title>
 </head>
 <body>
 <form >
 <div class="container-lg">
 <hr>
 <hr>
-	<h2>FAQ  자주 묻는 질문</h2>
+	<h2>QnA 1:1문의</h2>
 <table class="table table-hover">
 	<thead>
 		<tr>
-			<th class="faqNo">NO</th>
-			<th class="faqHits">조회수</th>
-			<th class="faqTitle"></th>
-			<th class="faqWriter"></th>
-			<th class="faqPostedTime"></th>
+			<th class="qnaNo">NO</th>
+			<th class="qnaTitle"></th>
+			<th class="qnaWriter"></th>
+			<th class="qnaPostedTime"></th>
 		</tr>
 	</thead>
 	<tbody>
-		<c:forEach var="fvo" items="${requestScope.lvo.faqList}">
+		<c:forEach var="qvo" items="${requestScope.lvo.qnaList}">
 			<tr>
-				<td>${fvo.faqNo}</td>
-				<td>${fvo.faqHits}</td>
-				<td><a href="${pageContext.request.contextPath}/faqDetail.do?faqNo=${fvo.faqNo}">${fvo.faqTitle}</a></td>
-				<td>${fvo.memberVO.id}</td>
-				<td>${fvo.faqPostedTime}</td>
+				<td>${qvo.qnaNo}</td>
+				<td><a href="${pageContext.request.contextPath}/qnaDetail.do?qnaNo=${qvo.qnaNo}">${qvo.qnaTitle}</a></td>
+				<td>${qvo.memberVO.id}</td>
+				<td>${qvo.qnaPostedTime}</td>
 			</tr>
 		</c:forEach>
 	</tbody>
 </table>
 </div>
-<div class="faqWriteBtn">
-<a href="${pageContext.request.contextPath}/faqWriteForm.do"><input type="button" value="FAQ 작성" ></a>
+<div class="qnaWriteBtn">
+<a href="${pageContext.request.contextPath}/qnaWriteForm.do"><input type="button" value="1:1문의 작성" ></a>
 </div>
 </form>
 
@@ -72,7 +67,7 @@
 	<c:choose>
 	<c:when test="${pb.nowPage!=i}">
 	<div class="pageNoBtn">
-	<li><a href="${pageContext.request.contextPath}/faqList.do?pageNo=${i}">${i}</a></li> 
+	<li><a href="${pageContext.request.contextPath}/qnaList.do?pageNo=${i}">${i}</a></li> 
 	</div>
 	</c:when>
 	<c:otherwise>
@@ -83,7 +78,7 @@
 	&nbsp;
 	</c:forEach>
 	<c:if test="${pb.nextPageGroup}">	
-	<li><a href="${pageContext.request.contextPath}/faqList.do?pageNo=${pb.endPageOfPageGroup+1}">&raquo;</a></li>
+	<li><a href="${pageContext.request.contextPath}/qnaList.do?pageNo=${pb.endPageOfPageGroup+1}">&raquo;</a></li>
 	</c:if>
 	</ul>	 		
 	</div> 	
@@ -93,10 +88,5 @@
 				   2)  이미지에 이전 그룹의 마지막 페이지번호를 링크한다. 
 				   	    hint)   endPageOfPageGroup+1 하면 됨 		 
 	 -->   
-    
 </body>
 </html>
-</div>
-
-
-
