@@ -5,6 +5,19 @@
 <head>
 <meta charset="UTF-8">
 <title>마이페이지(임시)</title>
+<!-- 테스트 중인 css 나중에 지울것 -->
+  <style type="text/css">
+	.table-hover{
+		background: white;
+		/* table 중앙 정렬 */
+		margin:auto;
+		width: 45%;
+		text-align: center;
+	}
+	a{
+		color: black;
+	}
+  </style>
 </head>
 <body>
 	<br>

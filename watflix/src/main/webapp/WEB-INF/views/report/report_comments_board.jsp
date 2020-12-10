@@ -7,8 +7,25 @@
 <head>
 <meta charset="UTF-8">
 <title>신고 게시판</title>
+<!-- 테스트 중인 css 나중에 지울것 -->
+  <style type="text/css">
+	.table-hover{
+		background: white;
+		/* table 중앙 정렬 */
+		margin:auto;
+		width: 55%;
+		text-align: center;
+	}
+	a{
+		color: black;
+	}
+  </style>
 </head>
 <body>
+	<br>
+	<br>
+	<br>
+	<br>
 	<script type="text/javascript">
 		function deleteCheck(){
 			return confirm("삭제하시겠습니까?");
@@ -74,7 +91,7 @@
 					<div class="tableTopMargin">
 						<!-- pagingBean을 pb변수로 지정 -->
 						<c:set var="pb" value="${requestScope.reportCommentsList.pagingBean }"></c:set>
-						<ul>
+						<ul class="pagination">
 							<!-- 조건이 맞으면 왼쪽 화살표 -->
 							<c:if test="${pb.previousPageGroup}">
 								<li>
