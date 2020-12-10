@@ -22,6 +22,14 @@
 			});//ajax
 		});//click function
 	});//document.ready
+	});//ready
+	
+	// 평점 신고
+	function reportPopup(reviewNo, reviewWriterId){
+		// 신고에 필요한 데이터를 신고 form에 보낸다.
+		var path = "${pageContext.request.contextPath}/reportReviewForm.do?reviewNo="+reviewNo+"&&"+"reviewWriterId="+reviewWriterId;
+		window.open(path, "reportReview","width=465, height=180, top=150, left=200");
+	}
 </script>
 
 <div class="container-lg margin-top margin-bottom boardClassMain">

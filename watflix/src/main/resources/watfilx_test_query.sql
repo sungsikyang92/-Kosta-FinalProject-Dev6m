@@ -314,9 +314,6 @@ SELECT COUNT(REVIEW_TITLE) AS CONTENTS_REVIEW_NO FROM REVIEW WHERE CONTENTS_NO =
 delete from genre
 drop table contents
 
-
-/*재우 test*/
-<<<<<<< HEAD
 select * from report
 select * from review
 union (all)
@@ -338,7 +335,7 @@ FROM (SELECT ROW_NUMBER() OVER(ORDER BY REVIEW_NO DESC) AS RNUM,REVIEW_NO,ID,CON
 R, MEMBER M, CONTENTS C
 WHERE R.ID = M.ID AND R.CONTENTS_NO = C.CONTENTS_NO AND RNUM BETWEEN 1 AND 100
 
-=======
+
 -- 제약 조건 비활성화, 확성화
 alter table REPORT disable constraint REPORT_REVIEW_NO_FK
 alter table REPORT enable constraint REPORT_REVIEW_NO_FK
@@ -383,15 +380,7 @@ FROM REPORT where id='java') r, review rv, report_type rt where r.REVIEW_NO=rv.R
 where re_num between 1 and 5
 order by report_no desc;
 
-SELECT REPORT_NO,ID,REVIEW_NO,REPORT_TYPE_info,REPORT_CONTENTS,REPORT_POSTED_TIME,reportedId
-		FROM(SELECT row_number() over(order by REPORT_NO desc) as re_num, r.REPORT_NO,r.ID,r.REVIEW_NO,r.COMMENTS_NO, rt.REPORT_TYPE_info, r.REPORT_CONTENTS, r.REPORT_POSTED_TIME, rv.id as reportedId
-		FROM(
-			SELECT REPORT_NO,ID,REVIEW_NO,COMMENTS_NO,REPORT_TYPE_NO,REPORT_CONTENTS,
-		to_char(REPORT_POSTED_TIME,'YYYY.MM.DD HH:MI:SS') as REPORT_POSTED_TIME
-		FROM REPORT where id = 'java'
-		) r, review rv, report_type rt where r.REVIEW_NO=rv.REVIEW_NO and r.report_type_no = rt.report_type_no)
-		where re_num between 1 and 5
-		order by report_no desc
+select r.*, g.GRADE from member r, GRADE g 
 
 select * from grade
 insert into grade values ( 'ROLE_MEMBER' , 'java');
@@ -518,13 +507,6 @@ select m.id,m.password,m.name,m.tel,to_char('m.birth','YYYY-MM-DD'),m.sex,m.emai
 INSERT INTO review VALUES(review_seq.nextval, 'java', 60004481, '리뷰 테스트 용 스파이더맨!', '리뷰 테슷트입니다.', 0, 0, sysdate);
 INSERT INTO review VALUES(review_seq.nextval, 'java', 81095669, '리뷰 테스트 용 진격의거인!', '리뷰 테슷트입니다.', 0, 0, sysdate);
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> branch 'master' of https://github.com/Minikanko/-Kosta-FinalProject-Dev6m.git
->>>>>>> branch 'master' of https://github.com/Minikanko/-Kosta-FinalProject-Dev6m.git
->>>>>>> branch 'master' of https://github.com/Minikanko/-Kosta-FinalProject-Dev6m.git
-
 select*from comments where contents_no = '81171201'
 
 CREATE TABLE COMMENTS(
@@ -568,8 +550,6 @@ REVIEW_HITS,TO_CHAR(REVIEW_POSTED_TIME,'yyyy-mm-dd') as REVIEW_POSTED_TIME FROM 
 WHERE R.ID = M.ID AND R.CONTENTS_NO = C.CONTENTS_NO AND RNUM BETWEEN #{pagingBean.startRowNumber} AND #{pagingBean.endRowNumber}
 
 select * from comments where CONTENTS_NO='70291089'
-=======
-
 
 select * from apply 
 
@@ -588,6 +568,7 @@ select rnum,C.CONTENTS_NO,C.CONTENTS_TITLE,C.CONTENTS_TYPE,G.GENRE_CODE,G.GENRE_
 		CONTENTS_AVG_STARS,CONTENTS_LIKES,CONTENTS_HITS,CONTENTS_DATE,CONTENTS_RUNNINGTIME,CONTENTS_ACTOR,CONTENTS_PRODUCER,CONTENTS_AGE from contents where CONTENTS_TYPE LIKE '%영화%' and genre_code='783') C, 
 		 GENRE G
 		where C.GENRE_CODE=G.GENRE_CODE and rnum BETWEEN 0 AND 5
+<<<<<<< HEAD
 >>>>>>> branch 'master' of https://github.com/Minikanko/-Kosta-FinalProject-Dev6m.git
 
 /*리뷰 좋아요 테스트*/
@@ -600,3 +581,6 @@ SELECT COUNT(*) FROM REVIEW_LIKE WHERE REVIEW_NO = 198
 DELETE FROM REVIEW_LIKE WHERE REVIEW_NO = 196 AND ID = 'java14'
 
 DELETE FROM REVIEW WHERE REVIEW_NO = #{reviewNo}
+=======
+
+>>>>>>> branch 'master' of https://github.com/Minikanko/-Kosta-FinalProject-Dev6m.git

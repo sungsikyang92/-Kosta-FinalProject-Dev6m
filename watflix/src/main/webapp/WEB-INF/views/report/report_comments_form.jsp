@@ -38,7 +38,7 @@
 			<thead>
 				<tr>
 					<!-- ${param.reviewWriterName} 변수명 수정할 것 -->
-					<th>평점 No.${param.commentsNo }</th><th>평점 작성자 :${param.commentsWriter }</th>
+					<th>평점 No.${param.commentsNo }</th><th>평점 작성자 :${param.commentsWriterId }</th>
 					<th>
 						<!-- 신고유형 선택을 안할시 false -->
 						<select name="reportTypeNo" required>

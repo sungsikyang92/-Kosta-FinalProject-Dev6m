@@ -9,6 +9,7 @@
 		$("#noticeWriteButton").click(function(){
 			location.href="noticeWriteForm.do";
 		})
+		// 게시물 전체 선택 (삭제) 
 		$("#checkAll").click(function(){
 			if($(this).is(":checked")){
 				$("input[type=checkbox]").prop("checked", true);
@@ -16,6 +17,7 @@
 				$("input[type=checkbox]").prop("checked", false);
 			}
 		})
+		// 일괄 삭제 (선택된 글이 없으면 alert을 호출한다.)
 		$("#deleteNoticeByCheckboxForm").submit(function(){
 			var deleteCount = $("input[name='deleteCheckbox']:checked").length;
 			if(deleteCount == 0){
@@ -23,8 +25,7 @@
 				return false;
 			} else {
 				return confirm("삭제하시겠습니까?");
-			}
-					
+			}					
 		})
 	})
 </script>

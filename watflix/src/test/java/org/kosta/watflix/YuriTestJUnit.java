@@ -12,6 +12,7 @@ import org.kosta.watflix.model.service.QnAService;
 import org.kosta.watflix.model.vo.FaqListVO;
 import org.kosta.watflix.model.vo.FaqVO;
 import org.kosta.watflix.model.vo.MemberVO;
+import org.kosta.watflix.model.vo.QnAListVO;
 import org.kosta.watflix.model.vo.QnAVO;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -106,10 +107,10 @@ public class YuriTestJUnit{
 	memberVO.setEmail("gmail");
 	qnaVO.setMemberVO(memberVO);
 	/*
-	qnaVO.setQnaTitle("문의드립니다.");
-	qnaVO.setQnaContents("포인트 적립은 어떻게 하나요?");
+	qnaVO.setQnaTitle("안녕하세요.");
+	qnaVO.setQnaContents("회원탈퇴는 어떻게 하나요?");
 	qnaService.sQnAWrite(qnaVO);
-	System.out.println();
+	System.out.println(qnaVO);
 	*/
 	// QnA 상세보기 - ok
 	/*
@@ -123,9 +124,24 @@ public class YuriTestJUnit{
 	qnaService.sQnADelete(qnaNo);
 	System.out.println(qnaVO.getQnaNo());
 	*/
-	
+	// QnA 갯수 불러오기 - ok
+	/*
+	int totalQnACount=qnaMapper.mGetTotalQnACount();
+	System.out.println(totalQnACount);
+	*/
+	// QnA 리스트 불러오기 -  ok
+	String pageNo = null;
+	QnAListVO qvo = qnaService.sGetQnAList();
+	System.out.println(qnaService.sGetTotalQnACount());
+	for(QnAVO qnaVO1:qvo.getQnaList())
+		System.out.println(qnaVO1);
 	}
 }
+
+
+
+
+
 
 
 

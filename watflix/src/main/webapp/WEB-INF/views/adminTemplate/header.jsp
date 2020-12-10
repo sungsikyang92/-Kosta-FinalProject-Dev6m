@@ -61,7 +61,7 @@
                         </a>
                     </li>
                     <li class="nav-item navli">
-                        <a class="nav-link navbar-nav-item"  id="MOVIE" href="${pageContext.request.contextPath}/contentsByMovie.do">
+                        <a class="nav-link navbar-nav-item"  id="allPost" href="${pageContext.request.contextPath}/allPostForAdmin.do">
                             게시물
                         </a>
                     </li>

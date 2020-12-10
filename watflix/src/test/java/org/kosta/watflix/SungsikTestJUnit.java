@@ -67,7 +67,7 @@ public class SungsikTestJUnit {
 		reviewMapper.mReviewWrite(reviewVO2);
 		*/
 		//리뷰등록 테스트3
-/*		for(int i = 0; i<40; i++) {
+	/*		for(int i = 0; i<40; i++) {
 			ReviewVO reviewVO = new ReviewVO();
 			reviewVO.setReviewTitle("TestReview"+i);
 			reviewVO.setReviewContents("리뷰콘텐츠테스트"+i);
@@ -116,8 +116,10 @@ public class SungsikTestJUnit {
 			System.out.println("리뷰 table에 insert한다 뭐를? " + reviewVO2);
 			System.out.println(reviewMapper.mGetTotalReviewCount());	
 		}
+
 */
 		/*
+
 		int reviewTotalCountByContentsNo = reviewMapper.mGetContentsReviewCount("70297757");
 		PagingBean pagingBean = null;
 		String pageNo="";
