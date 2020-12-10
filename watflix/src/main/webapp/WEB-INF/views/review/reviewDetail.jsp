@@ -12,6 +12,13 @@
 			return confirm("수정 페이지로 이동 하시겠습니까?");
 		});
 	});//ready
+	
+	// 평점 신고
+	function reportPopup(reviewNo, reviewWriterId){
+		// 신고에 필요한 데이터를 신고 form에 보낸다.
+		var path = "${pageContext.request.contextPath}/reportReviewForm.do?reviewNo="+reviewNo+"&&"+"reviewWriterId="+reviewWriterId;
+		window.open(path, "reportReview","width=465, height=180, top=150, left=200");
+	}
 </script>
 
 <div class="container-lg margin-top margin-bottom boardClassMain">
@@ -22,7 +29,8 @@
 			<th>${reviewDetail.reviewTitle}</th>
 			<th>조회${reviewDetail.reviewHits}</th>
 			<th>추천${reviewDetail.reviewLikes}</th>
-			<th><a href="#">신고</a></th>
+			<!-- 신고하는데 필여한 데이터를 변수로 보낸다. -->
+			<th><a href="#" onclick="reportPopup(${reviewDetail.reviewNo},'${reviewDetail.memberVO.id}');return false;">신고</a></th>
 		</tr>
 		<tr>
 			<td class="contentsTitle">${requestScope.contentsTitle}리뷰</td>
