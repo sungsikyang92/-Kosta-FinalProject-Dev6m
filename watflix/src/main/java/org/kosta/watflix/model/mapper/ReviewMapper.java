@@ -29,7 +29,10 @@ public interface ReviewMapper {
 	void mReviewDelete(int reviewNo);
 	//리뷰 조회수 업데이트
 	void mReviewHitsUpdate(int reviewNo);
-	
+	//내 리뷰리스트 with 페이징
+	List<ReviewVO> mGetMyReviewList(@Param("id")String id, @Param("pagingBean")PagingBean pagingBean);
+	//내 총리뷰 수
+	int mGetMyTotalReviewCount(String id);
 
 }
 
