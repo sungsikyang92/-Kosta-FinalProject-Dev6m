@@ -39,12 +39,9 @@ public class CommentsController {
 	
 	@RequestMapping("getCommentsListByContentsNo.do")
 	public String getCommentsListByContentsNo(String contentsNo, String pageNo, Model model) {
-		System.out.println(pageNo);
-		System.out.println(contentsNo);
-		System.out.println(commentsService.sCommentsGetListByContentsNo(pageNo, contentsNo));
 		model.addAttribute("commentsListByContentsNo", commentsService.sCommentsGetListByContentsNo(pageNo, contentsNo));
 		model.addAttribute("contentsNo", contentsNo);
-		return "/contentsDetail.do";
+		return "c_commentsList_reviewList.tiles";
 	}
 	
 	@RequestMapping("commentsWriteForm.do")
@@ -55,7 +52,6 @@ public class CommentsController {
 	
 	@PostMapping("commentsWrite.do")
 	public String commentsWrite(CommentsVO commentsVO, String contentsNo, String pageNo, RedirectAttributes redirectAttributes) {
-		System.out.println("commentsWrite.do 작동");
 		MemberVO memberVO = (MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		commentsVO.setMemberVO(memberVO);
 		ContentsVO contentsVO = new ContentsVO();
@@ -63,8 +59,11 @@ public class CommentsController {
 		commentsVO.setContentsVO(contentsVO);
 		commentsService.sCommentsWrite(commentsVO);
 		redirectAttributes.addAttribute("contentsNo", contentsNo);
-		System.out.println(commentsVO);
+		redirectAttributes.addAttribute("commentsNo", commentsVO.getCommentsNo());
+		System.out.println(contentsNo);
+		System.out.println(commentsVO.getCommentsNo());
 		return "redirect:contentsDetail.do";
+			
 	}
 	
 	@PostMapping("commentsDelete.do")

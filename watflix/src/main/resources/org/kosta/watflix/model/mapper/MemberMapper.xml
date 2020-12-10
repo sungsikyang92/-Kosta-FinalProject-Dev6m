@@ -98,6 +98,46 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update member set point=point+#{pointUp} where id=#{id}
 	</update>
 	
+	<select id="mMemberAllCount" resultType="int">
+		select count(*) from MEMBER
+	</select>
+	
+	<select id="mMemberAllList" resultMap="memberRM">
+	SELECT m.id,m.password,m.name,m.tel,to_char(m.birth,'YYYY-MM-DD') as birth,m.sex,m.email,m.address,m.login_time,
+ 		m.login_fail,m.point,m.signup_date,m.agreement,m.acc_status_no,a.acc_status_info , (select count(*) from report where id='java') as reportCount
+	
+	
+	
+	
+	
+	
+		select m.id,m.password,m.name,m.tel,to_char(m.birth,'YYYY-MM-DD') as birth,m.sex,m.email,m.address,m.login_time,
+ 		m.login_fail,m.point,m.signup_date,m.agreement,m.acc_status_no,a.acc_status_info 
+ 		from member m, (select * from acc_status) a 
+ 		where a.acc_status_no=m.acc_status_no
+	</select>
+	
+	
+	
+	
+	
+	SELECT RNUM,R.REVIEW_NO,M.ID,C.CONTENTS_NO,R.REVIEW_TITLE,R.REVIEW_CONTENTS,R.REVIEW_LIKES,
+	R.REVIEW_HITS,R.REVIEW_POSTED_TIME
+	
+		FROM (SELECT ROW_NUMBER() OVER(ORDER BY REVIEW_NO DESC) AS RNUM,REVIEW_NO,ID,CONTENTS_NO,REVIEW_TITLE,REVIEW_CONTENTS,
+		REVIEW_LIKES,REVIEW_HITS,TO_CHAR(REVIEW_POSTED_TIME,'yyyy-mm-dd') as REVIEW_POSTED_TIME 
+		
+		FROM REVIEW where CONTENTS_NO=#{contentsNo}) 
+		R, MEMBER M, CONTENTS C
+		
+		WHERE R.ID = M.ID AND R.CONTENTS_NO = C.CONTENTS_NO AND RNUM BETWEEN #{pagingBean.startRowNumber} AND #{pagingBean.endRowNumber}
+	
+	
+	
+	
+	
+	
+	
 </mapper>
 
 

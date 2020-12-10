@@ -7,8 +7,11 @@ import javax.annotation.Resource;
 
 import org.kosta.watflix.model.mapper.MemberMapper;
 import org.kosta.watflix.model.vo.Authority;
+import org.kosta.watflix.model.vo.MemberListVO;
 import org.kosta.watflix.model.vo.MemberVO;
+import org.kosta.watflix.model.vo.PartyListVO;
 import org.kosta.watflix.model.vo.ProductOrderVO;
+import org.kosta.watflix.model.vo.ReportListVO;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -121,6 +124,33 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public List<ProductOrderVO> sMemberProductOrderHistory(String id) {
 		return memberMapper.mMemberProductOrderHistory(id);
+	}
+
+	@Override
+	public MemberListVO sMemberAllList() {
+		return sMemberAllList("1");
+	}
+
+	@Override
+	public MemberListVO sMemberAllList(String pageNo) {
+		int totalMemberCount = memberMapper.mMemberAllCount();
+		PagingBean pagingBean = null;
+		if(pageNo == null) {
+			int contentNumberPerPage=10;
+			int pageNumberPerPageGroup=5;
+			pagingBean = new PagingBean(totalMemberCount,contentNumberPerPage,pageNumberPerPageGroup);
+		}else {
+			int contentNumberPerPage=10;
+			int pageNumberPerPageGroup=5;
+			pagingBean = new PagingBean(totalMemberCount, contentNumberPerPage,pageNumberPerPageGroup,Integer.parseInt(pageNo));
+		}		
+		MemberListVO memberListVO = new MemberListVO(memberMapper.mMemberAllList(pagingBean),pagingBean);
+		return memberListVO;
+	}	
+	
+	@Override
+	public int sMemberAllCount() {
+		return memberMapper.mMemberAllCount();
 	}
 
 }

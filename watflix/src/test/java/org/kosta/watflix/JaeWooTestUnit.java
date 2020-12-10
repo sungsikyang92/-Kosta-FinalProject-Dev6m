@@ -9,7 +9,6 @@ import org.junit.runner.RunWith;
 import org.kosta.watflix.model.mapper.ReportMapper;
 import org.kosta.watflix.model.service.PagingBean;
 import org.kosta.watflix.model.service.ReportService;
-import org.kosta.watflix.model.vo.ReportListVO;
 import org.kosta.watflix.model.vo.ReportVO;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -115,7 +114,7 @@ public class JaeWooTestUnit {
 		//*/
 		
 		/*/
-		// 개가 작성한 신고글 수 조회
+		// 내가 작성한 신고글 수 조회
 		String id="java";
 		int myReportReview = reportMapper.mGetMyTotalReportReviewCount(id);
 		int myReportComments = reportMapper.mGetMyTotalReportCommentsCount(id);
@@ -128,9 +127,11 @@ public class JaeWooTestUnit {
 		//memberVO.setId("java");
 		//String id ="java";
 		PagingBean pagingBean = new PagingBean(myReportReview,1);
+		System.out.println("test1");
 		PagingBean pagingBean2 = new PagingBean(myReportComments,1);
-		pagingBean.toString();
+		System.out.println("test2");
 		List<ReportVO> rvo= reportMapper.mGetMyReportReviewList(pagingBean, id);
+		System.out.println("test3");
 		List<ReportVO> rvo2=reportMapper.mGetMyReportCommentsList(pagingBean2, id);
 		for(ReportVO vo:rvo) {
 			System.out.println(vo);

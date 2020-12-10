@@ -11,8 +11,11 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.kosta.watflix.model.service.AdminService;
+import org.kosta.watflix.model.service.MemberService;
+import org.kosta.watflix.model.vo.MemberListVO;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -20,6 +23,8 @@ public class AdminController {
    
    @Resource
    AdminService adminService;
+   @Resource
+   MemberService memberService;
    
    	@Secured("ROLE_ADMIN")
 	@RequestMapping("adminHome.do")
@@ -147,4 +152,12 @@ public class AdminController {
 	}
 	return "contents/contentsUpdateAdminComplete";
 	}   
+   
+   @RequestMapping("adminControlMember.do")
+   public String adminControlMember(Model model, String pageNo) {
+	   MemberListVO memberListVO = memberService.sMemberAllList(pageNo);
+	   model.addAttribute("MLVO", memberListVO);
+	   return "admin/adminControlMember";
+   }
+   
 }

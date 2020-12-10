@@ -1,18 +1,17 @@
 package org.kosta.watflix;
 
-import java.util.HashMap;
+import java.util.*;
 
 import javax.annotation.Resource;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.kosta.watflix.model.mapper.MemberMapper;
 import org.kosta.watflix.model.mapper.PartyMapper;
 import org.kosta.watflix.model.service.MemberService;
 import org.kosta.watflix.model.service.PartyService;
-import org.kosta.watflix.model.vo.ApplyVO;
+import org.kosta.watflix.model.vo.MemberListVO;
 import org.kosta.watflix.model.vo.MemberVO;
-import org.kosta.watflix.model.vo.MembershipVO;
-import org.kosta.watflix.model.vo.PartyVO;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -48,6 +47,8 @@ public class JunsangTestJUnit {
 	private PartyService partyService;
 	@Resource
 	MemberService memberService;
+	@Resource
+	MemberMapper memberMapper;
 	//파티 게시글 작성하기
 	/*
 	 * @Test public void partyWrite(){ MemberVO mvo = new MemberVO();
@@ -134,17 +135,17 @@ public class JunsangTestJUnit {
 	 */
 	
 	
-	
-	  @Test public void test(){ MemberVO mvo = new MemberVO(); mvo.setId("java");
-	  
-	  MembershipVO msvo = new MembershipVO(); msvo.setMembershipNo(1); //멤버십 설정을 위해
-	  
-	  
-	  PartyVO partyVO = new PartyVO(); partyVO.setMemberVO(mvo);
-	  partyVO.setPartyTitle("제목"); partyVO.setMembershipVO(msvo);
-	  partyVO.setPartyHeadCount(4); for(int i=0;i<10;i++) {
-	  partyMapper.mPartyWrite(partyVO); } }
-	 
+	/*
+	 * @Test public void test(){ MemberVO mvo = new MemberVO(); mvo.setId("java");
+	 * 
+	 * MembershipVO msvo = new MembershipVO(); msvo.setMembershipNo(1); //멤버십 설정을 위해
+	 * 
+	 * 
+	 * PartyVO partyVO = new PartyVO(); partyVO.setMemberVO(mvo);
+	 * partyVO.setPartyTitle("제목"); partyVO.setMembershipVO(msvo);
+	 * partyVO.setPartyHeadCount(4); for(int i=0;i<10;i++) {
+	 * partyMapper.mPartyWrite(partyVO); } }
+	 */
 	
 	//파티 지원 여부 확인
 	/*
@@ -154,6 +155,14 @@ public class JunsangTestJUnit {
 	 * 
 	 * int result =partyService.sPartyIsApply(map); System.out.println(result); }
 	 */
+	
+	@Test public void test() {
+		MemberListVO mlvo =  new MemberListVO();
+		mlvo = memberService.sMemberAllList();
+		//MemberVO mvo = memberService.sFindMemberById("java");
+		
+		System.out.println(mlvo);
+	}
 }
 
 
