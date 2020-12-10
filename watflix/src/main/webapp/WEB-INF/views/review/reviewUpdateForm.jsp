@@ -1,29 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
-<div class="tableMargin">
-<a href="${pageContext.request.contextPath}/reviewDetail.do?reviewNo=${ru.reviewNo}">이전페이지로</a>
-해위
-<form action="${pageContext.request.contextPath}/reviewUpdate.do" method="post" id="reviewUpdateForm">
-<sec:csrfInput/>
-<input type="hidden" name="reviewNo" value="${requestScope.ru.reviewNo}">
-<table class="table">
-	<tr>
-		<td>제목 &nbsp;&nbsp;
-			<input type="text" name="reviewTitle" value="${requestScope.ru.reviewTitle}" required="required">
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<textarea rows="15" cols="90" name="reviewContents" required="required">${requestScope.ru.reviewContents}</textarea>
-		<td>
-	</tr>
-</table>
-<div class="btnArea">
-	<button type="button" class="btn" id="backToReviewDetail">이전페이지</button>
-	<button type="reset" class="btn">원문복구</button>
-	<button type="submit" class="btn">수정하기</button>
-</div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -38,5 +15,37 @@
 		});	//backToReviewDetail function
 	});	//ready
 </script>
-</form>
+<div class="container-lg margin-top margin-bottom boardClassMain">
+  <h2>리뷰 수정하기</h2>           
+	<form action="${pageContext.request.contextPath}/reviewUpdate.do" method="post" id="reviewUpdateForm">
+		<sec:csrfInput/>
+		<input type="hidden" name="reviewNo" value="${requestScope.ru.reviewNo}">
+	  	<table class="table table-bordered" style="border-radius: 1.5px;">
+			<tr>
+				<td class="boardTd">제목</td>
+				<td><input type="text" name="reviewTitle" class="boardTitle" value="${requestScope.ru.reviewTitle}" required="required"></td>
+			</tr>
+			<tr>
+				<td>내용</td>
+				<td>
+					<textarea name="reviewContents" required="required" class="boardTextarea">${requestScope.ru.reviewContents}</textarea>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" class="btnArea">
+					<button type="button" class="btn btn-default boardDetailBtn" onclick="location.href='${pageContext.request.contextPath}/contentsDetail.do?contentsNo=${reviewDetail.contentsVO.contentsNo}'">목록</button>
+					<button form="reviewDelete" class="btn btn-default boardDetailBtn" type="submit">삭제</button>
+					<button form="reviewUpdateForm" class="btn btn-default boardDetailBtn" type="submit">수정</button>
+					<form action="reviewDelete.do" id="reviewDelete" method="post">
+					<sec:csrfInput/>
+					<input type="hidden" name="reviewNo" value="${reviewDetail.reviewNo}">
+					</form>
+					<form action="reviewUpdateForm.do" id="reviewUpdateForm" method="post">
+					<sec:csrfInput/>
+					<input type="hidden" name="reviewNo" value="${reviewDetail.reviewNo}">
+					</form>
+				</td>
+			</tr>
+	  	</table>
+	</form>
 </div>

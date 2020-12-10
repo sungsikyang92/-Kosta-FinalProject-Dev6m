@@ -32,13 +32,12 @@
 	<form action="reportReviewRegister.do" method="post">
 		<!-- CSRF 방지 토큰,  Cross-site request forgery(사이트간 요청 위조)를 방지  -->
 		<sec:csrfInput/>
-		<!-- ${param.reviewNo} -->
-		<input type="hidden" name="reviewNo" value="코딩 예정">
+		<input type="hidden" name="reviewNo" value="${param.reviewNo}">
 		<table class="table table-hover">
 			<thead>
 				<tr>
 					<!-- ${param.reviewNo}, ${param.reviewWriterName} -->
-					<th>리뷰 No.'코딩 예정'</th><th>리뷰 작성자 :'코딩 예정'</th>
+					<th>리뷰 No.${param.reviewNo}</th><th>리뷰 작성자 : ${param.reviewWriterId}</th>
 					<th>
 						<!-- 신고유형 선택을 안할시 false -->
 						<select name="reportTypeNo" required>

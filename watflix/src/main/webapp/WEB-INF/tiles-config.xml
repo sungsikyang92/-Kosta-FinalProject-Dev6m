@@ -14,17 +14,19 @@
 	</definition> 
 	
 	<definition name="loginForm.tiles" template="/WEB-INF/views/templates/layout.jsp">
- 		<put-attribute name="title"  value="LoginForm" />
+ 		<put-attribute name="title"  value="LoginForm"/>
  		<put-attribute name="header" value="/WEB-INF/views/templates/header.jsp"/>
  		<put-attribute name="main"  value="/WEB-INF/views/member/loginForm.jsp"/>
- 		<put-attribute name="footer" value="/WEB-INF/views/templates/footer.jsp"/>
+ 		<put-attribute name="footer" value=""/>
  	</definition>
+ 	
  	<!-- 관리자페이지 -->
 	<definition name="adminHome.tiles" template="/WEB-INF/views/adminTemplate/layout.jsp">
  		<put-attribute name="title"  value="WATFLIX 관리자 페이지"/>
  		<put-attribute name="header" value="/WEB-INF/views/adminTemplate/header.jsp"/>
  		<put-attribute name="main" value="/WEB-INF/views/adminHome.jsp"/>
 	</definition> 
+
  	<!-- contentsDetail&commentsList&reviewList tiles시작 -->
 	<definition name="c_commentsList_reviewList.tiles" template="/WEB-INF/views/templates/ccrlayout.jsp">
  		<put-attribute name="title"  value="WATFLIX" />
@@ -59,6 +61,7 @@
  		<put-attribute name="reportCommentsList"  value="/WEB-INF/views/admin/adminReportCommentsList.jsp"/>
  		<put-attribute name="reportReviewList"  value="/WEB-INF/views/admin/adminReportReviewList.jsp"/>
  	</definition>	
+
 	 	<!-- 
  			definition name="*.tiles" : * 는 모든 문자열을 의미 
  			{1} 은 첫번째 * 에 해당하는 문자열을 의미한다 	
