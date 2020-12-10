@@ -14,10 +14,32 @@
 	</definition> 
 	
 	<definition name="loginForm.tiles" template="/WEB-INF/views/templates/layout.jsp">
- 		<put-attribute name="title"  value="LoginForm" />
+ 		<put-attribute name="title"  value="LoginForm"/>
  		<put-attribute name="header" value="/WEB-INF/views/templates/header.jsp"/>
  		<put-attribute name="main"  value="/WEB-INF/views/member/loginForm.jsp"/>
  		<put-attribute name="footer" value=""/>
+ 	</definition>
+ 	
+ 	<!-- 관리자페이지 -->
+	<definition name="adminHome.tiles" template="/WEB-INF/views/adminTemplate/layout.jsp">
+ 		<put-attribute name="title"  value="WATFLIX 관리자 페이지"/>
+ 		<put-attribute name="header" value="/WEB-INF/views/adminTemplate/header.jsp"/>
+ 		<put-attribute name="main" value="/WEB-INF/views/adminHome.jsp"/>
+	</definition> 
+
+ 	<!-- contentsDetail&commentsList&reviewList tiles시작 -->
+	<definition name="c_commentsList_reviewList.tiles" template="/WEB-INF/views/templates/ccrlayout.jsp">
+ 		<put-attribute name="title"  value="WATFLIX" />
+ 		<put-attribute name="header" value="/WEB-INF/views/templates/header.jsp"/>
+ 		<put-attribute name="main"  value="/WEB-INF/views/contents/contents_detail.jsp"/>
+ 		<put-attribute name="main2"  value="/WEB-INF/views/comments/commentsListByContentsNo.jsp"/>
+ 		<put-attribute name="main3"  value="/WEB-INF/views/review/reviewListByContentsNo.jsp"/>
+ 		<put-attribute name="footer" value="/WEB-INF/views/templates/footer.jsp"/>
+ 	</definition>
+
+ 	<!-- 관리자페이지 템플릿 -->
+	<definition name="product/*.tiles" extends="adminHome.tiles">
+ 		<put-attribute name="main"  value="/WEB-INF/views/product/{1}.jsp"/>
  	</definition>
 
 	<definition name="*/*Form.tiles" extends="loginForm.tiles">
@@ -29,6 +51,17 @@
 		<put-attribute name="title"  value="{2}" />
  		<put-attribute name="main"  value="/WEB-INF/views/{1}/{2}FormTerms.jsp"/>
 	</definition>
+		
+	<!-- 관리자페이지 게시물  -->
+	<definition name="allPostForAdmin.tiles" template="/WEB-INF/views/adminTemplate/allPostLayout.jsp">
+ 		<put-attribute name="title"  value="ALLPOST" />
+ 		<put-attribute name="header" value="/WEB-INF/views/adminTemplate/header.jsp"/>
+ 		<put-attribute name="commentsList"  value="/WEB-INF/views/admin/adminCommentsList.jsp"/>
+ 		<put-attribute name="reviewList"  value="/WEB-INF/views/admin/adminReviewList.jsp"/>
+ 		<put-attribute name="reportCommentsList"  value="/WEB-INF/views/admin/adminReportCommentsList.jsp"/>
+ 		<put-attribute name="reportReviewList"  value="/WEB-INF/views/admin/adminReportReviewList.jsp"/>
+ 	</definition>	
+
 	 	<!-- 
  			definition name="*.tiles" : * 는 모든 문자열을 의미 
  			{1} 은 첫번째 * 에 해당하는 문자열을 의미한다 	
@@ -37,6 +70,7 @@
  		<put-attribute name="title"  value="{1}" />
  		<put-attribute name="main"  value="/WEB-INF/views/{1}.jsp"/>
  	</definition>
+ 	
  	<!-- 	첫번째 *  {1}  디렉토리명 
  			두번째 *  {2}  파일명 
  			WEB-INF/views/member/findbyid_form.jsp	
@@ -46,27 +80,4 @@
  	<definition name="*/*.tiles" extends="home.tiles">
  		<put-attribute name="main"  value="/WEB-INF/views/{1}/{2}.jsp"/>
  	</definition>
- 	
- 	<definition name="contents/contents_detail.tiles" template="/WEB-INF/views/templates/contentsDetailLayout.jsp">
- 		<put-attribute name="title"  value="Detail"/>
- 		<put-attribute name="header" value="/WEB-INF/views/templates/header.jsp"/>
- 		<put-attribute name="main" value="/WEB-INF/views/contents/contents_detail.jsp"/>
- 		<put-attribute name="comments" value="/WEB-INF/views/comments/commentsListByContentsNo.jsp"/>
- 		<put-attribute name="review" value="/WEB-INF/views/review/reviewList.jsp"/>
- 		<put-attribute name="footer" value="/WEB-INF/views/templates/footer.jsp"/>
- 	</definition>
 </tiles-definitions>
-
-
-
-
-
-
-
-
-
-
-
-
-
-

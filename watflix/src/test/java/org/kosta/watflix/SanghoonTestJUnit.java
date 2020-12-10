@@ -30,7 +30,7 @@ public class SanghoonTestJUnit {
 	public void test(){
 
 		MemberVO memberVO = new MemberVO();
-		memberVO.setId("java14");
+		memberVO.setId("admin");
 		memberVO.setPassword("123");
 		memberVO.setName("테스트");
 		memberVO.setEmail("email");
@@ -39,11 +39,7 @@ public class SanghoonTestJUnit {
 		memberVO.setSex("남성");
 		memberVO.setAddress("경기도");
 		memberVO.setAgreement("동의");
-		memberService.sMemberRegister(memberVO);
-		
-
-	System.out.println(contentsService.sFindContentsByNo("70001473"));
-
+		memberService.sMemberAdminRegister(memberVO);
 	}
 
 /* 회원정보수정 테스트 및 로그인시간,로그인실패횟수 증가 테스트 완료

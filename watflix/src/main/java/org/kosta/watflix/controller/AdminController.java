@@ -11,16 +11,33 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.kosta.watflix.model.service.AdminService;
+import org.kosta.watflix.model.service.CommentsService;
+import org.kosta.watflix.model.service.ReportService;
+import org.kosta.watflix.model.service.ReviewService;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-//jh
 public class AdminController {
    
    @Resource
    AdminService adminService;
+   @Resource
+   ReviewService reviewService;
+   @Resource
+   CommentsService commentsService;
+   @Resource
+   ReportService reportService;
    
+   	@Secured("ROLE_ADMIN")
+	@RequestMapping("adminHome.do")
+	public String adminHome(){
+		return "adminHome.tiles";
+	}
+   
+   //컨텐츠 크롤링
    @RequestMapping("contentsUpdateAdmin.do")
    public String updateContents() {
 	  double count;
@@ -139,5 +156,21 @@ public class AdminController {
     		  e.printStackTrace();
 	}
 	return "contents/contentsUpdateAdminComplete";
-	}   
+	}
+   
+   // 관리자 전체 게시물 조회 페이지로 이동
+   @RequestMapping("allPostForAdmin.do")
+   public String allPostForAdmin(Model model) {
+	   // comments 리스트를 불러온다.
+	   model.addAttribute("commentsList", commentsService.sCommentsGetList());
+	   // review 리스트를 불러온다.
+	   model.addAttribute("reviewList", reviewService.sGetReviewList());
+	   // reportComments 리스트를 불러온다.
+	   model.addAttribute("reportCommentsList", reportService.sGetReportCommentsList());
+	   // reportReview 리스트를 불러온다.
+	   model.addAttribute("reportReviewList", reportService.sGetReportReviewList());
+	   // 전체게시물조회 메인화면에서 페이징과 버튼을 사용하지 않기 위해 사용한다.
+	   model.addAttribute("forNotUsePagingAndBtn", true);
+	   return "allPostForAdmin.tiles";
+   }
 }

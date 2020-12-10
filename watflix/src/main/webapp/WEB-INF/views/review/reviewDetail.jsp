@@ -1,59 +1,60 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Reviewdetail</title>
-<!-- JQuery에용 ㅎㅎ -->
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-</head>
-<body>
-<h3> <a class="nav-link navbar-nav-item" href="${pageContext.request.contextPath}/reviewList.do">리뷰리스트로</a>
-</h3>
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("#reviewDelete").submit(function(){
-			return confirm("삭제하시겠습니까?(아직미완성, 버튼이랑 confirm만 만들어짐)");
+			return confirm("정말 삭제하시겠습니까?");
 		});//reviewDelete
 		$("#reviewUpdateForm").submit(function(){
-			return confirm("수정하시겠습니까?");
+			return confirm("수정 페이지로 이동 하시겠습니까?");
 		});
 	});//ready
+	
+	// 평점 신고
+	function reportPopup(reviewNo, reviewWriterId){
+		// 신고에 필요한 데이터를 신고 form에 보낸다.
+		var path = "${pageContext.request.contextPath}/reportReviewForm.do?reviewNo="+reviewNo+"&&"+"reviewWriterId="+reviewWriterId;
+		window.open(path, "reportReview","width=465, height=180, top=150, left=200");
+	}
 </script>
-<table class="table">
-	<caption>리뷰상세보기</caption>
+
+<div class="container-lg margin-top margin-bottom boardClassMain">
+  <h2>리뷰상세보기</h2>           
+  <table class="table table-bordered" style="border-radius: 1.5px;">
 	<c:set var="reviewDetail" value="${requestScope.rdvo}"></c:set>
-	<thead>
 		<tr>
-			<th class="reviewTitle">${reviewDetail.reviewTitle}</th>
-			<th class="reviewHits">조회${reviewDetail.reviewHits}</th>
-			<th class="reviewLikes">추천${reviewDetail.reviewLikes}</th>
-			<th class="reportBtn"><a href="#">신고</a></th>
+			<th>${reviewDetail.reviewTitle}</th>
+			<th>조회${reviewDetail.reviewHits}</th>
+			<th>추천${reviewDetail.reviewLikes}</th>
+			<!-- 신고하는데 필여한 데이터를 변수로 보낸다. -->
+			<th><a href="#" onclick="reportPopup(${reviewDetail.reviewNo},'${reviewDetail.memberVO.id}');return false;">신고</a></th>
 		</tr>
 		<tr>
-			<th colspan="3" class="MemberId">${reviewDetail.memberVO.id}의 모든리뷰보기(모든리뷰보기만드냐?)</th>
+			<td class="contentsTitle">${requestScope.contentsTitle}리뷰</td>
+			<th colspan="2" class="MemberId">${reviewDetail.memberVO.id}의 모든리뷰보기(모든리뷰보기만드냐?)</th>
 			<th class="reviewPostedTime">${reviewDetail.reviewPostedTime}</th>
 		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td class="contentsTitle">${reviewDetail.contentsVO.contentsTitle}에 대한 리뷰</td>
+		<tr class="boardDetailTr">
+			<td>내용</td>
+			<td colspan="3" class="reviewContents"><pre style="white-space:pre-wrap;">${reviewDetail.reviewContents}</pre></td>
 		</tr>
-		<tr>
-			<td colspan="4" class="reviewContents">${reviewDetail.reviewContents}</td>
+		<tr>			<!-- 임시로 align="center"줘서 중앙배열 시켜놓음 CSS로 해야함 -->
+			<td colspan="4" class="btnArea">
+				<button type="button" class="btn btn-default boardDetailBtn" onclick="location.href='${pageContext.request.contextPath}/contentsDetail.do?contentsNo=${reviewDetail.contentsVO.contentsNo}'">목록</button>
+				<button form="reviewDelete" class="btn btn-default boardDetailBtn" type="submit">삭제</button>
+				<button form="reviewUpdateForm" class="btn btn-default boardDetailBtn" type="submit">수정</button>
+				<form action="reviewDelete.do" id="reviewDelete" method="post">
+				<sec:csrfInput/>
+				<input type="hidden" name="reviewNo" value="${reviewDetail.reviewNo}">
+				</form>
+				<form action="reviewUpdateForm.do" id="reviewUpdateForm" method="post">
+				<sec:csrfInput/>
+				<input type="hidden" name="reviewNo" value="${reviewDetail.reviewNo}">
+				</form>
+			</td>
 		</tr>
-	</tbody>
-</table>
-<!-- 삭제 아직 미완성 버튼이랑 confirm만 만들어짐 -->
-<button form="reviewDelete" type="submit">삭제</button>
-<button form="reviewUpdateForm" type="submit">수정</button>
-<form action="reviewDelete.do" id="reviewDelete">
-<input type="hidden" name="reviewNo" value="${reviewDetail.reviewNo}">
-</form>
-<form action="reviewUpdateForm.do" id="reviewUpdateForm">
-<input type="hidden" name="reviewNo" value="${reviewDetail.reviewNo}">
-</form>
-</body>
-</html>
+  </table>
+</div>

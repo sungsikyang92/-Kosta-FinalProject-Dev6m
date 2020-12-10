@@ -111,7 +111,7 @@
 						<li class="sidebar-nav-item">
 						   <a class="js-scroll-trigger" href="#" id="logoutBtn">로그아웃</a>
 						   <form id="logoutForm" action="${pageContext.request.contextPath}/logout.do" method="post" style="display: none">
-							<sec:csrfInput />
+						<sec:csrfInput />
 						</form>
 						 </li>
 						 <li class="sidebar-nav-item">
@@ -121,7 +121,8 @@
 						  	<ul class="mypageList">
 						  		<li><a href="${pageContext.request.contextPath}/memberUpdateForm.do">- 회원정보수정</a></li>
 						  		<li><a href="#">- 포인트조회</a></li>
-						  		<li><a href="#">- 내 게시물 조회</a></li>
+						  		<!-- 임시로 경로 설정 -->
+						  		<li><a href="${pageContext.request.contextPath}/testMyPageBoard.do">- 내 게시물 조회</a></li>
 						  		<li><a href="#">- 1:1문의</a></li>
 						  	</ul>
 						  </div>
@@ -139,9 +140,18 @@
 			      <li class="sidebar-nav-item">
 			        <a class="js-scroll-trigger" href="#contact">포인트마켓</a>
 			      </li>
+			      <!-- 관리자만 볼수 있도록 코딩해야함 -->
+			      <li class="sidebar-nav-item">
+			        <a class="js-scroll-trigger" href="${pageContext.request.contextPath}/reportReviewBoard.do">신고게시판</a>
+			      </li>
 			      <li class="sidebar-nav-item">
 			        <a class="js-scroll-trigger" href="${pageContext.request.contextPath}/contentsUpdateAdmin.do">컨텐츠 다운로드</a>
 			      </li>
+			     	 <sec:authorize access="hasRole('ROLE_ADMIN')">
+						<li class="sidebar-nav-item">
+				        	<a class="js-scroll-trigger" href="${pageContext.request.contextPath}/adminHome.do" >관리자 페이지</a>
+				      	</li>
+					</sec:authorize>
 			    </ul>
  			 </nav>
 		   <!-- Home Menu - CLOSE -->

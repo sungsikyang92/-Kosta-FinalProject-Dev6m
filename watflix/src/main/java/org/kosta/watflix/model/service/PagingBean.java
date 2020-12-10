@@ -190,5 +190,12 @@ public class PagingBean {
 		// 다음 페이지 그룹이 있는 지 : false
 		System.out.println("isNextPageGroup:" + p.isNextPageGroup());
 	}
+
+	@Override
+	public String toString() {
+		return "PagingBean [nowPage=" + nowPage + ", contentNumberPerPage=" + contentNumberPerPage
+				+ ", pageNumberPerPageGroup=" + pageNumberPerPageGroup + ", totalContents=" + totalContents + "]";
+	}
+	
 	
 }

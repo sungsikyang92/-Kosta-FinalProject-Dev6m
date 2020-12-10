@@ -1,5 +1,6 @@
 package org.kosta.watflix.model.service;
 
+
 import javax.annotation.Resource;
 
 import org.kosta.watflix.model.mapper.ReviewMapper;
@@ -11,17 +12,45 @@ import org.springframework.stereotype.Service;
 public class ReviewServiceImpl implements ReviewService {
 	@Resource
 	private ReviewMapper reviewMapper;
-	
+	//리뷰리스트불러오기 pageNo 없는 ver
+	@Override
+	public ReviewListVO sGetReviewList() {
+		return sGetReviewList("1");
+	}
 	//리뷰리스트불러오기
 	@Override
 	public ReviewListVO sGetReviewList(String pageNo) {
 		int reviewTotalCount = reviewMapper.mGetTotalReviewCount();
 		PagingBean pagingBean = null;
-		if(pageNo == null)
-			pagingBean = new PagingBean(reviewTotalCount);
-		else
-			pagingBean = new PagingBean(reviewTotalCount, Integer.parseInt(pageNo));
-		ReviewListVO reviewListVO=new ReviewListVO(reviewMapper.mGetReviewList(pagingBean),pagingBean);
+		if(pageNo == null) {
+			int contentNumberPerPage=10;
+			int pageNumberPerPageGroup=5;
+			pagingBean = new PagingBean(reviewTotalCount,contentNumberPerPage,pageNumberPerPageGroup);
+		}else {
+			int contentNumberPerPage=10;
+			int pageNumberPerPageGroup=5;
+			pagingBean = new PagingBean(reviewTotalCount,contentNumberPerPage,pageNumberPerPageGroup,Integer.parseInt(pageNo));
+		}
+		ReviewListVO reviewListVO = new ReviewListVO(reviewMapper.mGetReviewList(pagingBean),pagingBean);
+		return reviewListVO;
+	}
+	
+	///컨텐츠별리뷰리스트 불러오기  
+	@Override
+	public ReviewListVO sGetReviewListByContentsNo(String pageNo, String contentsNo) {
+		int reviewTotalCountByContentsNo = reviewMapper.mGetContentsReviewCount(contentsNo);
+		PagingBean pagingBean = null;
+		if(pageNo == null) {
+			int contentNumberPerPage=10;
+			int pageNumberPerPageGroup=5;
+			pagingBean = new PagingBean(reviewTotalCountByContentsNo,contentNumberPerPage,pageNumberPerPageGroup);
+		}else {
+			int contentNumberPerPage=10;
+			int pageNumberPerPageGroup=5;
+			pagingBean = new PagingBean(reviewTotalCountByContentsNo,contentNumberPerPage,pageNumberPerPageGroup,Integer.parseInt(pageNo));
+			
+		}
+		ReviewListVO reviewListVO = new ReviewListVO(reviewMapper.mGetReviewListByContentsNo(pagingBean,contentsNo), pagingBean);
 		return reviewListVO;
 	}
 	
@@ -54,10 +83,6 @@ public class ReviewServiceImpl implements ReviewService {
 	public void sReviewHitsUpdate(int reviewNo) {
 		reviewMapper.mReviewHitsUpdate(reviewNo);
 	}
-
-	
-
-
 
 
 }

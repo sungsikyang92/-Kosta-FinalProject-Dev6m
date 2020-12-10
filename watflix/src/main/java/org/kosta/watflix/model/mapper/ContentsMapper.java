@@ -16,6 +16,7 @@ public interface ContentsMapper {
 	int mGetTotalContentsCount();
 	int mGetTotalContentsCountForType(String contentsType);
 	List<ContentsVO> mGetAllContentsList();
+	List<ContentsVO> mGetContentsAllForTypeAndGenre(Map<String,String> map);
 	List<ContentsVO> mGetContentsAllForType(Map<String,String> map);
 	List<ContentsVO> mContentsHighHits();
 	List<ContentsVO> mContentsHighAvgStars();

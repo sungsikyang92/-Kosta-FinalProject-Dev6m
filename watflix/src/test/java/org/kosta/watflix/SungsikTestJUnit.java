@@ -5,6 +5,7 @@ import javax.annotation.Resource;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kosta.watflix.model.mapper.ReviewMapper;
+import org.kosta.watflix.model.service.PagingBean;
 import org.kosta.watflix.model.service.ReviewService;
 import org.kosta.watflix.model.vo.ContentsVO;
 import org.kosta.watflix.model.vo.GenreVO;
@@ -115,7 +116,24 @@ public class SungsikTestJUnit {
 			System.out.println("리뷰 table에 insert한다 뭐를? " + reviewVO2);
 			System.out.println(reviewMapper.mGetTotalReviewCount());	
 		}
+
+		int reviewTotalCountByContentsNo = reviewMapper.mGetContentsReviewCount("70297757");
+		PagingBean pagingBean = null;
+		String pageNo="";
 		
+		if(pageNo == null) {
+			int contentNumberPerPage=10;
+			int pageNumberPerPageGroup=5;
+			pagingBean = new PagingBean(reviewTotalCountByContentsNo,contentNumberPerPage,pageNumberPerPageGroup);
+		}
+		else {
+			pageNo="1";
+			int contentNumberPerPage=10;
+			int pageNumberPerPageGroup=5;
+			pagingBean = new PagingBean(reviewTotalCountByContentsNo,contentNumberPerPage,pageNumberPerPageGroup,Integer.parseInt(pageNo));
+		}
+		System.out.println(pagingBean);
+		System.out.println(reviewMapper.mGetReviewListByContentsNo(pagingBean, "70297757"));
 		
 		//리뷰 상세보기
 //		System.out.println(reviewMapper.mGetReviewDetail(8));
