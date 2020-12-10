@@ -382,10 +382,7 @@ FROM REPORT where id='java') r, review rv, report_type rt where r.REVIEW_NO=rv.R
 where re_num between 1 and 5
 order by report_no desc;
 
-SELECT R.REVIEW_NO,R.REVIEW_TITLE,R.REVIEW_LIKES,C.CONTENTS_NO,TO_CHAR(R.REVIEW_POSTED_TIME, 'YYYY.MM.DD HH24:MI:SS') 
-AS REVIEW_POSTED_TIME,M.ID,R.REVIEW_HITS,R.REVIEW_CONTENTS 
-FROM REVIEW R, MEMBER M, CONTENTS C 
-WHERE R.ID = M.ID AND R.REVIEW_NO = 1 and R.CONTENTS_NO=C.CONTENTS_NO
+select r.*, g.GRADE from member r, GRADE g 
 
 select * from grade
 insert into grade values ( 'ROLE_MEMBER' , 'java');

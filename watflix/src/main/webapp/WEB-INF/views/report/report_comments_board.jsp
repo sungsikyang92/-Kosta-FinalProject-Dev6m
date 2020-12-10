@@ -135,59 +135,6 @@
 				</td>
 			</tr>
 		</tfoot>
-	</table>
-
-	
-	<hr>
-	<h5>이 구간은 test 구간</h5>
-	<!-- comments 신고 폼 test -->
-	<script type="text/javascript">
-		function reportPopup(commentsNo, commentsWriter){
-			//alert(commentsNo +", "+ commentsWriter);
-			// commentsWriter id 혹은 네임 변수에 맞게 수정할 것
-			var path = "${pageContext.request.contextPath}/reportCommentsForm.do?commentsNo="+commentsNo+"&&"+"commentsWriter="+commentsWriter;
-			window.open(path, "reportComments","width=465, height=180, top=150, left=200");
-			
-		}
-	</script>
-    	<table>
-    		<tbody>
-    			<c:forEach var="rvo" items="${requestScope.reportCommentsList.list}" varStatus="status">
-					<tr>
-						<td>${status.count }</td>
-						<td>${rvo.reportNo}</td>
-						<td>${rvo.commentsVO.memberVO.id}</td>
-						<td>${rvo.reportPostedTime}</td>
-						<!-- 신고 버튼 : reportPopup함수에 변수값을 넣어서 보낸다 -->
-						<td><button onclick="reportPopup(${rvo.commentsVO.commentsNo},'${rvo.commentsVO.memberVO.id}')" >test</button></td>
-					</tr>
-				</c:forEach>
-    		</tbody>
-    	</table>    	
+	</table>    	
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

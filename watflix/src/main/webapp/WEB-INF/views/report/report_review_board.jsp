@@ -136,37 +136,5 @@
 			</tr>
 		</tfoot>
 	</table>
-	
-	
-    <hr>
-    <h5>신고 테스트 구간입니다.</h5>
-	<!-- 신고 폼 test -->
-	<script type="text/javascript">
-		function reportPopup(){
-			// 게시판No, 작성자 id 혹은 name을 가져와야함
-			var path = "${pageContext.request.contextPath}/reportReviewForm.do?";
-			window.open(path, "reportReview","width=465, height=180, top=150, left=200");
-		}
-	</script>
-	<!-- 신고 버튼 -->
-	<input type="button" value="신고 한다" onclick="reportPopup()">
-    <hr>
-    	<table>
-    		<tbody>
-    			<c:forEach var="rvo" items="${requestScope.reportReviewList.list}" varStatus="status">
-					<tr>
-						<td>${status.count }</td>
-						<td>${rvo.reportNo}</td>
-						<td>
-							
-						</td>
-						<td>${rvo.commentsVO.memberVO.id}</td>
-						<td>${rvo.reportPostedTime}</td>
-						<td><input type="hidden" id="delete${status.count }" name="" value=""></td>
-						<td><button onclick="reportPopup()" ></button></td>
-					</tr>
-				</c:forEach>
-    		</tbody>
-    	</table>
 </body>
 </html>
