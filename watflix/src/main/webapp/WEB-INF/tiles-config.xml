@@ -26,7 +26,7 @@
  		<put-attribute name="header" value="/WEB-INF/views/adminTemplate/header.jsp"/>
  		<put-attribute name="main" value="/WEB-INF/views/adminHome.jsp"/>
 	</definition> 
-	
+
  	<!-- contentsDetail&commentsList&reviewList tiles시작 -->
 	<definition name="c_commentsList_reviewList.tiles" template="/WEB-INF/views/templates/ccrlayout.jsp">
  		<put-attribute name="title"  value="WATFLIX" />
