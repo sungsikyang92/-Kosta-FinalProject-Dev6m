@@ -8,8 +8,24 @@
 <meta charset="UTF-8">
 <title>신고 게시판</title>
 <!-- 테스트 중인 css 나중에 지울것 -->
+  <style type="text/css">
+	.table-hover{
+		background: white;
+		/* table 중앙 정렬 */
+		margin:auto;
+		width: 55%;
+		text-align: center;
+	}
+	a{
+		color: black;
+	}
+  </style>
 </head>
 <body>
+	<br>
+	<br>
+	<br>
+	<br>
 	<script type="text/javascript">
 		function deleteCheck(){
 			return confirm("삭제하시겠습니까?");
@@ -75,7 +91,7 @@
 					<div class="tableTopMargin">
 						<!-- pagingBean을 pb변수로 지정 -->
 						<c:set var="pb" value="${requestScope.reportReviewList.pagingBean }"></c:set>
-						<ul>
+						<ul class="pagination">
 							<!-- 조건이 맞으면 왼쪽 화살표 -->
 							<c:if test="${pb.previousPageGroup}">
 								<li>
@@ -120,37 +136,5 @@
 			</tr>
 		</tfoot>
 	</table>
-	
-	
-    <hr>
-    <h5>신고 테스트 구간입니다.</h5>
-	<!-- 신고 폼 test -->
-	<script type="text/javascript">
-		function reportPopup(){
-			// 게시판No, 작성자 id 혹은 name을 가져와야함
-			var path = "${pageContext.request.contextPath}/reportReviewForm.do?";
-			window.open(path, "reportReview","width=465, height=180, top=150, left=200");
-		}
-	</script>
-	<!-- 신고 버튼 -->
-	<input type="button" value="신고 한다" onclick="reportPopup()">
-    <hr>
-    	<table>
-    		<tbody>
-    			<c:forEach var="rvo" items="${requestScope.reportReviewList.list}" varStatus="status">
-					<tr>
-						<td>${status.count }</td>
-						<td>${rvo.reportNo}</td>
-						<td>
-							
-						</td>
-						<td>${rvo.commentsVO.memberVO.id}</td>
-						<td>${rvo.reportPostedTime}</td>
-						<td><input type="hidden" id="delete${status.count }" name="" value=""></td>
-						<td><button onclick="reportPopup()" ></button></td>
-					</tr>
-				</c:forEach>
-    		</tbody>
-    	</table>
 </body>
 </html>

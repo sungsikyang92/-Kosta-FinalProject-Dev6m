@@ -25,15 +25,16 @@
 				$(this).html("<img src='${pageContext.request.contextPath}/resources/media/icons/star"+starPoint+".png' style='height: 25px'>");
 			})
 		});	
-		
-		/* function setStarImg(){
-			alert($(".starPointImg").length);
-			alert($(".starPointImg").eq('3').html());
-			
-		} */
 		function commentsDeleteConfirm(){
 			return confirm('삭제하시겠습니까?');
 		}		
+		// 리뷰 신고
+		function reportPopup(commentsNo, commentsWriterId){
+			// 신고에 필요한 데이터 전송
+			var path = "${pageContext.request.contextPath}/reportCommentsForm.do?commentsNo="+commentsNo+"&&"+"commentsWriterId="+commentsWriterId;
+			window.open(path, "reportComments","width=465, height=180, top=150, left=200");
+			
+		}
 	</script>
 	<h4 style="display: inline-flex;">평점</h4>
 	<sec:authorize access="hasRole('ROLE_MEMBER')" >
@@ -51,7 +52,9 @@
 				${commentsListByContentsNo.comments}<br>
 				${commentsListByContentsNo.memberVO.id }
 				${commentsListByContentsNo.commentsPostedTime}
-				<a href="#">신고</a>
+				<!-- 신고에 필요한 데이터를 script에 전달 -->
+				<a href="#" onclick="reportPopup(${commentsListByContentsNo.commentsNo},'${commentsListByContentsNo.memberVO.id }');return false;">신고</a>
+				<!-- 삭제버튼 (작성자와 관리자에게만 노출된다.) -->
 				<%-- <c:set var="writerId" value="${commentsListByContentsNo.memberVO.id }"/> --%>
 				<%-- <c:if test="${writerId == userId || isAdmin == 'true'}"> --%>
 	 			<form action="${pageContext.request.contextPath}/commentsDelete.do" method="post" onsubmit="return commentsDeleteConfirm()" style="display: inline-flex;">
@@ -61,9 +64,9 @@
 					<input type="hidden" name="pageNo" value="${requestScope.commentsListByContentsNo.pagingBean.nowPage}">
 					<input type="submit" value="삭제">
 				</form>
-			<%-- </c:if> --%>
+				<%-- </c:if> --%>
 			</td>
-			
+		
 		</tr>
 		</c:forEach>
 	</table>

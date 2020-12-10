@@ -51,7 +51,17 @@
 		<put-attribute name="title"  value="{2}" />
  		<put-attribute name="main"  value="/WEB-INF/views/{1}/{2}FormTerms.jsp"/>
 	</definition>
-	 	
+		
+	<!-- 관리자페이지 게시물  -->
+	<definition name="allPostForAdmin.tiles" template="/WEB-INF/views/adminTemplate/allPostLayout.jsp">
+ 		<put-attribute name="title"  value="ALLPOST" />
+ 		<put-attribute name="header" value="/WEB-INF/views/adminTemplate/header.jsp"/>
+ 		<put-attribute name="commentsList"  value="/WEB-INF/views/admin/adminCommentsList.jsp"/>
+ 		<put-attribute name="reviewList"  value="/WEB-INF/views/admin/adminReviewList.jsp"/>
+ 		<put-attribute name="reportCommentsList"  value="/WEB-INF/views/admin/adminReportCommentsList.jsp"/>
+ 		<put-attribute name="reportReviewList"  value="/WEB-INF/views/admin/adminReportReviewList.jsp"/>
+ 	</definition>	
+
 	 	<!-- 
  			definition name="*.tiles" : * 는 모든 문자열을 의미 
  			{1} 은 첫번째 * 에 해당하는 문자열을 의미한다 	

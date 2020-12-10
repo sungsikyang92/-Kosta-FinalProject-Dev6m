@@ -12,7 +12,11 @@ import org.springframework.stereotype.Service;
 public class ReviewServiceImpl implements ReviewService {
 	@Resource
 	private ReviewMapper reviewMapper;
-	
+	//리뷰리스트불러오기 pageNo 없는 ver
+	@Override
+	public ReviewListVO sGetReviewList() {
+		return sGetReviewList("1");
+	}
 	//리뷰리스트불러오기
 	@Override
 	public ReviewListVO sGetReviewList(String pageNo) {
