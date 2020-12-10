@@ -169,6 +169,8 @@ public class AdminController {
 	   model.addAttribute("reportCommentsList", reportService.sGetReportCommentsList());
 	   // reportReview 리스트를 불러온다.
 	   model.addAttribute("reportReviewList", reportService.sGetReportReviewList());
+	   // 전체게시물조회 메인화면에서 페이징과 버튼을 사용하지 않기 위해 사용한다.
+	   model.addAttribute("forNotUsePagingAndBtn", true);
 	   return "allPostForAdmin.tiles";
    }
 }

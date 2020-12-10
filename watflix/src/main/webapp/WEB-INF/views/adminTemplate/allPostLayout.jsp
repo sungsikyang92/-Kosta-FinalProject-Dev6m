@@ -36,7 +36,6 @@
 </head>
 
 <body>
-	<div class="container-lg">
 	<!-- Tiles header 영역 -->
 	<tiles:insertAttribute name="header" />
 	<!-- Tiles commentsList 영역 -->
