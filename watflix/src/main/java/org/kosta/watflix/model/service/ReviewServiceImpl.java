@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ReviewServiceImpl implements ReviewService {
 	@Resource
-	private ReviewMapper reviewMapper;
+	ReviewMapper reviewMapper;
 	
 	//리뷰리스트불러오기
 	@Override

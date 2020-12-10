@@ -11,7 +11,17 @@
 		$("#reviewUpdateForm").submit(function(){
 			return confirm("수정 페이지로 이동 하시겠습니까?");
 		});
-	});//ready
+		
+		$("#ReviewLike").click(function(){
+			$.ajax({
+				url: "reviewLikeAdd.do",
+				type: "GET",
+				cache: false,
+				dataType: "text",
+				data: 
+			});//ajax
+		});//click function
+	});//document.ready
 </script>
 
 <div class="container-lg margin-top margin-bottom boardClassMain">
@@ -21,7 +31,10 @@
 		<tr>
 			<th>${reviewDetail.reviewTitle}</th>
 			<th>조회${reviewDetail.reviewHits}</th>
-			<th>추천${reviewDetail.reviewLikes}</th>
+			<th>
+				<a href="#"><img id="ReviewLike" class="ReviewLike" src="/watflix/resources/media/icons/HeartLine.png" width=30px height=30px></a>
+				Likes${reviewDetail.reviewLikes}	
+			</th>
 			<th><a href="#">신고</a></th>
 		</tr>
 		<tr>
