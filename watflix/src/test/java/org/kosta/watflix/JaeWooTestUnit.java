@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kosta.watflix.model.mapper.ReportMapper;
+import org.kosta.watflix.model.mapper.ReviewMapper;
 import org.kosta.watflix.model.service.PagingBean;
 import org.kosta.watflix.model.service.ReportService;
 import org.kosta.watflix.model.vo.ReportVO;
@@ -18,6 +19,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class JaeWooTestUnit {
 	@Resource
 	private ReportMapper reportMapper;
+	@Resource
+	private ReviewMapper reviewMapper;
 	
 	@Resource
 	private ReportService reportService;
@@ -140,6 +143,13 @@ public class JaeWooTestUnit {
 		for(ReportVO vo:rvo2) {
 			System.out.println(vo);
 		}
+		//*/
+		
+		/*/
+		// 내 리뷰 리스트 보기
+		int total = reviewMapper.mGetMyTotalReviewCount("java");
+		PagingBean pagingBean = new PagingBean(total, 1);
+		System.out.println(reviewMapper.mGetMyReviewList("java", pagingBean));;
 		//*/
 	}
 }

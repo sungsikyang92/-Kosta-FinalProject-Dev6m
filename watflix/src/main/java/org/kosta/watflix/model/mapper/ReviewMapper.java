@@ -33,8 +33,10 @@ public interface ReviewMapper {
 	void mReviewLikesUpdate(int reviewNo);
 	//리뷰 추천수 감소
 	void mReviewLikesRemove(int reviewNo);
-	
-
+	//내 리뷰리스트 with 페이징
+	List<ReviewVO> mGetMyReviewList(@Param("id")String id, @Param("pagingBean")PagingBean pagingBean);
+	//내 총리뷰 수
+	int mGetMyTotalReviewCount(String id);
 }
 
 
