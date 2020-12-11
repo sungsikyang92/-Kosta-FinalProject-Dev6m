@@ -335,7 +335,7 @@ FROM (SELECT ROW_NUMBER() OVER(ORDER BY REVIEW_NO DESC) AS RNUM,REVIEW_NO,ID,CON
 R, MEMBER M, CONTENTS C
 WHERE R.ID = M.ID AND R.CONTENTS_NO = C.CONTENTS_NO AND RNUM BETWEEN 1 AND 100
 
-
+/* 재우 test */
 -- 제약 조건 비활성화, 확성화
 alter table REPORT disable constraint REPORT_REVIEW_NO_FK
 alter table REPORT enable constraint REPORT_REVIEW_NO_FK
@@ -389,6 +389,14 @@ FROM REVIEW where id='java')
 WHERE RNUM BETWEEN 1 AND 5 ORDER BY review_no desc;
 -- 내가 작성한 전체 리뷰 count
 select count(*) from review where id =''
+-- 내 평점 게시물 가져오기
+SELECT comments_no, id, contents_no, comments, comments_stars, comments_posted_time
+FROM(SELECT row_number() over(order by comments_no desc) as rnum, comments_no, id, contents_no, comments, comments_stars, comments_posted_time
+FROM comments where id = 'java')
+WHERE rnum BETWEEN 1 AND 5;
+-- 내가 작성한 전체 평점 count
+select count(*) from review where id='spring'
+select * from review
 
 
 select * from grade
@@ -577,8 +585,7 @@ select rnum,C.CONTENTS_NO,C.CONTENTS_TITLE,C.CONTENTS_TYPE,G.GENRE_CODE,G.GENRE_
 		CONTENTS_AVG_STARS,CONTENTS_LIKES,CONTENTS_HITS,CONTENTS_DATE,CONTENTS_RUNNINGTIME,CONTENTS_ACTOR,CONTENTS_PRODUCER,CONTENTS_AGE from contents where CONTENTS_TYPE LIKE '%영화%' and genre_code='783') C, 
 		 GENRE G
 		where C.GENRE_CODE=G.GENRE_CODE and rnum BETWEEN 0 AND 5
-<<<<<<< HEAD
->>>>>>> branch 'master' of https://github.com/Minikanko/-Kosta-FinalProject-Dev6m.git
+
 
 /*리뷰 좋아요 테스트*/
 INSERT INTO REVIEW_LIKE VALUES(195,'java14')
@@ -590,6 +597,5 @@ SELECT COUNT(*) FROM REVIEW_LIKE WHERE REVIEW_NO = 198
 DELETE FROM REVIEW_LIKE WHERE REVIEW_NO = 196 AND ID = 'java14'
 
 DELETE FROM REVIEW WHERE REVIEW_NO = #{reviewNo}
-=======
 
->>>>>>> branch 'master' of https://github.com/Minikanko/-Kosta-FinalProject-Dev6m.git
+

@@ -26,4 +26,7 @@ public interface ReviewService {
 	void sReviewLikesUpdate(int reviewNo);
 	//리뷰추천수감소
 	void sReviewLikesRemove(int reviewNo);
+	//내 리뷰리스트
+	ReviewListVO sGetMyReviewList(String id);
+	ReviewListVO sGetMyReviewList(String id, String pageNo);
 }

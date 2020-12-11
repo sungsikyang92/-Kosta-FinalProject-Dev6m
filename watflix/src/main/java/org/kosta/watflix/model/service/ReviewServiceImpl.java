@@ -104,6 +104,24 @@ public class ReviewServiceImpl implements ReviewService {
 	public void sReviewLikesRemove(int reviewNo) {
 		reviewMapper.mReviewLikesRemove(reviewNo);
 	}
+	
+	// 내 리뷰 리스트
+	@Override
+	public ReviewListVO sGetMyReviewList(String id) {
+		return sGetMyReviewList(id, "1");
+	}
+	@Override
+	public ReviewListVO sGetMyReviewList(String id, String pageNo) {
+		int myReviewTotalCount = reviewMapper.mGetMyTotalReviewCount(id);
+		PagingBean pagingBean = null;
+		if(pageNo == null) {
+			pagingBean = new PagingBean(myReviewTotalCount);
+		}else {
+			pagingBean = new PagingBean(myReviewTotalCount, Integer.parseInt(pageNo));
+		}
+		ReviewListVO reviewListVO = new ReviewListVO(reviewMapper.mGetMyReviewList(id, pagingBean), pagingBean);
+		return reviewListVO;
+	}
 
 
 }

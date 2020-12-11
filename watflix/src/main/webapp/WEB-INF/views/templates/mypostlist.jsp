@@ -42,13 +42,13 @@
    
 	<!-- Tiles header 영역 -->
 	<tiles:insertAttribute name="header" />
-	<!--  -->
-	<tiles:insertAttribute name="main" />
 	<!-- 평점 -->
-	<tiles:insertAttribute name="main2" />
+	<tiles:insertAttribute name="main" />
 	<!-- 리뷰 -->
-	<tiles:insertAttribute name="main3" />
+	<tiles:insertAttribute name="main2" />
 	<!-- 신고(리뷰, 평점) -->
+	<tiles:insertAttribute name="main3" />
+	<!-- Tiles footer 영역 -->
 	<tiles:insertAttribute name="footer" />
 
 

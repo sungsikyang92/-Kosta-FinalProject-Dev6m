@@ -6,6 +6,7 @@ import org.kosta.watflix.model.service.ReviewLikeService;
 import org.kosta.watflix.model.service.ReviewService;
 import org.kosta.watflix.model.vo.ContentsVO;
 import org.kosta.watflix.model.vo.MemberVO;
+import org.kosta.watflix.model.vo.ReviewListVO;
 import org.kosta.watflix.model.vo.ReviewVO;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -117,6 +119,13 @@ public class ReviewController {
 		return "redirect:contentsDetail.do?contentsNo="+contentsNoforDelete;
 	}
 	
+	// 내 리뷰 리스트 Ajax
+	@RequestMapping("myReviewList.do")
+	@ResponseBody
+	public ReviewListVO myReviewList(String pageNo) {
+		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return reviewService.sGetMyReviewList(mvo.getId(), pageNo);
+	}
 	
 }
 

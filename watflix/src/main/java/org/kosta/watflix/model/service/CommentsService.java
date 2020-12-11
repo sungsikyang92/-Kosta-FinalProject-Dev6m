@@ -24,4 +24,7 @@ public interface CommentsService {
 	
 	void sCommentsDelete(int commentsNo);
 	
+	//내가 작성한 Comments 게시물 리스트
+	CommentsListVO sMyCommentsGetList(String id);
+	CommentsListVO sMyCommentsGetList(String id, String pageNo);
 }

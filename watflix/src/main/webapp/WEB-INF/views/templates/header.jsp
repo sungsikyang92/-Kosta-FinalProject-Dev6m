@@ -122,7 +122,7 @@
 						  		<li><a href="${pageContext.request.contextPath}/memberUpdateForm.do">- 회원정보수정</a></li>
 						  		<li><a href="#">- 포인트조회</a></li>
 						  		<!-- 임시로 경로 설정 -->
-						  		<li><a href="${pageContext.request.contextPath}/testMyPageBoard.do">- 내 게시물 조회</a></li>
+						  		<li><a href="${pageContext.request.contextPath}/MyPostList.do">- 내 게시물 조회</a></li>
 						  		<li><a href="#">- 1:1문의</a></li>
 						  	</ul>
 						  </div>

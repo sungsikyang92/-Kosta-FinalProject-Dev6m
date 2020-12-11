@@ -20,6 +20,11 @@ public interface CommentsMapper {
 	void mCommentsWrite(CommentsVO commentsVO);
 	
 	void mCommentsDelete(int commentsNo);
+	
+	// 내가 작성한 Comments 게시물 전체 수 조회
+	int mMyCommentsGetTotalPostCount(String id);
+	// 내가 작성한 Comments 게시물 리스트 조회
+	List<CommentsVO> mMyCommentsGetAllList(@Param("id")String id, @Param("pagingBean")PagingBean pagingBean);
 }
 
 
