@@ -164,7 +164,7 @@ public class AdminController {
 	   // comments 리스트를 불러온다.
 	   model.addAttribute("commentsList", commentsService.sCommentsGetList());
 	   // review 리스트를 불러온다.
-	   model.addAttribute("reviewList", reviewService.sGetReviewList());
+	   model.addAttribute("reviewList", reviewService.sGetReviewList(null));
 	   // reportComments 리스트를 불러온다.
 	   model.addAttribute("reportCommentsList", reportService.sGetReportCommentsList());
 	   // reportReview 리스트를 불러온다.

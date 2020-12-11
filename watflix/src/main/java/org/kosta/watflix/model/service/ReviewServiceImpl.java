@@ -22,23 +22,21 @@ public class ReviewServiceImpl implements ReviewService {
 	ReviewLikeMapper reviewLikeMapper;
 	
 	//리뷰리스트불러오기 pageNo 없는 ver
-	@Override
-	public ReviewListVO sGetReviewList() {
-		return sGetReviewList("1");
-	}
+	//@Override
+	//public ReviewListVO sGetReviewList() {
+	//	return sGetReviewList("1");
+	//}
 	//리뷰리스트불러오기
 	@Override
 	public ReviewListVO sGetReviewList(String pageNo) {
 		int reviewTotalCount = reviewMapper.mGetTotalReviewCount();
 		PagingBean pagingBean = null;
+		int pageNumberPerPageGroup=5;
 		if(pageNo == null) {
-			int contentNumberPerPage=10;
-			int pageNumberPerPageGroup=5;
-			pagingBean = new PagingBean(reviewTotalCount,contentNumberPerPage,pageNumberPerPageGroup);
+			pagingBean = new PagingBean(reviewTotalCount);
 		}else {
 			int contentNumberPerPage=10;
-			int pageNumberPerPageGroup=5;
-			pagingBean = new PagingBean(reviewTotalCount,contentNumberPerPage,pageNumberPerPageGroup,Integer.parseInt(pageNo));
+			pagingBean = new PagingBean(reviewTotalCount, contentNumberPerPage, pageNumberPerPageGroup, Integer.parseInt(pageNo));
 		}
 		ReviewListVO reviewListVO = new ReviewListVO(reviewMapper.mGetReviewList(pagingBean),pagingBean);
 		return reviewListVO;
