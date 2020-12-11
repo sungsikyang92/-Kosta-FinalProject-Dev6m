@@ -16,10 +16,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 리뷰 리스트 가져오기 -->
 	<select id="mGetReviewList" resultMap="reviewRM" parameterType="pagingBean">
 		SELECT R.REVIEW_NO,M.ID,C.CONTENTS_NO,R.REVIEW_TITLE,R.REVIEW_CONTENTS,R.REVIEW_LIKES,R.REVIEW_POSTED_TIME
-		FROM (SELECT ROW_NUMBER() OVER(ORDER BY REVIEW_POSTED_TIME DESC) AS RNUM, REVIEW_NO, ID, CONTENTS_NO, REVIEW_TITLE, REVIEW_CONTENTS, TO_CHAR(REVIEW_POSTED_TIME,'yyyy-mm-dd') as REVIEW_POSTED_TIME FROM REVIEW) 
+		FROM (SELECT ROW_NUMBER() OVER(ORDER BY REVIEW_POSTED_TIME DESC) AS RNUM, REVIEW_NO, ID, CONTENTS_NO, REVIEW_TITLE, REVIEW_CONTENTS, REVIEW_LIKES, TO_CHAR(REVIEW_POSTED_TIME,'yyyy-mm-dd') as REVIEW_POSTED_TIME FROM REVIEW) 
 		R, MEMBER M, CONTENTS C
 		WHERE R.ID = M.ID AND R.CONTENTS_NO = C.CONTENTS_NO 
 		AND RNUM BETWEEN #{startRowNumber} AND #{endRowNumber} ORDER BY REVIEW_POSTED_TIME
+	</select>
+	<!-- 내가 작성한 리뷰리스트 가져오기 -->
+	<select id="mGetMyReviewList" resultMap="reviewRM">
+		SELECT REVIEW_NO,ID,CONTENTS_NO,REVIEW_TITLE,REVIEW_CONTENTS,REVIEW_LIKES,REVIEW_POSTED_TIME
+		FROM (SELECT ROW_NUMBER() OVER(ORDER BY review_no DESC) AS RNUM, REVIEW_NO, ID, CONTENTS_NO,
+		REVIEW_TITLE, REVIEW_CONTENTS, REVIEW_LIKES, TO_CHAR(REVIEW_POSTED_TIME,'yyyy-mm-dd') as REVIEW_POSTED_TIME
+		FROM REVIEW where id=#{id})
+		WHERE RNUM BETWEEN #{pagingBean.startRowNumber} AND #{pagingBean.endRowNumber} ORDER BY review_no desc	
+	</select>
+	<!-- 내가 작성항 리뷰 수 -->
+	<select id="mGetMyTotalReviewCount" parameterType="string" resultType="int">
+		select count(*) from review where id = #{value}
 	</select>
 	<!-- 컨텐츠별 리뷰리스트 가져오기 -->
 	<select id="mGetReviewListByContentsNo" resultMap="reviewRM" >
@@ -62,6 +74,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="mGetContentsReviewCount" resultType="int">
 		SELECT COUNT(*) FROM REVIEW WHERE CONTENTS_NO = #{value}
 	</select>
+	<!-- 리뷰 추천수 증가 -->
+	<update id="mReviewLikesUpdate">
+		UPDATE REVIEW SET REVIEW_LIKES=REVIEW_LIKES+1 WHERE REVIEW_NO=#{VALUE}
+	</update>
+	<!-- 리뷰 추천수 감소 -->
+	<update id="mReviewLikesRemove">
+		UPDATE REVIEW SET REVIEW_LIKES=REVIEW_LIKES-1 WHERE REVIEW_NO=#{VALUE}
+	</update>
 </mapper>
 
 

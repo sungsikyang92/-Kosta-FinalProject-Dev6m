@@ -14,12 +14,11 @@
 <title>faqList</title>
 </head>
 <body>
-FAQ Page
 <form >
 <div class="container-lg">
 <hr>
 <hr>
-	<h2>FAQ</h2>
+	<h2>FAQ  자주 묻는 질문</h2>
 <table class="table table-hover">
 	<thead>
 		<tr>

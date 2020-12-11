@@ -11,8 +11,15 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.kosta.watflix.model.service.AdminService;
+import org.kosta.watflix.model.service.MemberService;
+import org.kosta.watflix.model.vo.MemberListVO;
+import org.kosta.watflix.model.service.CommentsService;
+import org.kosta.watflix.model.service.ReportService;
+import org.kosta.watflix.model.service.ReviewService;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -20,6 +27,14 @@ public class AdminController {
    
    @Resource
    AdminService adminService;
+   @Resource
+   MemberService memberService;
+   @Resource
+   ReviewService reviewService;
+   @Resource
+   CommentsService commentsService;
+   @Resource
+   ReportService reportService;
    
    	@Secured("ROLE_ADMIN")
 	@RequestMapping("adminHome.do")
@@ -147,4 +162,33 @@ public class AdminController {
 	}
 	return "contents/contentsUpdateAdminComplete";
 	}   
+   
+   @RequestMapping("adminControlMember.do")
+   public String adminControlMember(Model model, String pageNo) {
+	   MemberListVO memberListVO = memberService.sMemberAllList(pageNo);
+	   model.addAttribute("MLVO", memberListVO);
+	   return "admin/adminControlMember.tiles";
+   }
+// 관리자 전체 게시물 조회 페이지로 이동
+   @RequestMapping("allPostForAdmin.do")
+   public String allPostForAdmin(Model model) {
+	   // comments 리스트를 불러온다.
+	   model.addAttribute("commentsList", commentsService.sCommentsGetList());
+	   // review 리스트를 불러온다.
+	   model.addAttribute("reviewList", reviewService.sGetReviewList(null));
+	   // reportComments 리스트를 불러온다.
+	   model.addAttribute("reportCommentsList", reportService.sGetReportCommentsList());
+	   // reportReview 리스트를 불러온다.
+	   model.addAttribute("reportReviewList", reportService.sGetReportReviewList());
+	   // 전체게시물조회 메인화면에서 페이징과 버튼을 사용하지 않기 위해 사용한다.
+	   model.addAttribute("forNotUsePagingAndBtn", true);
+	   return "allPostForAdmin.tiles";	   
+   }
+   
+   //계정 정지 or 정지해제
+   @RequestMapping("updateMemberStatus.do")
+   public String updateMemberStatus(String id, int accstatus) {
+	   memberService.sMemberStatusUpdate(id,accstatus);
+	   return "redirect:adminControlMember.do";
+   }
 }

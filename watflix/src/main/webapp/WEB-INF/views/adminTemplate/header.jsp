@@ -63,7 +63,7 @@
                         </a>
                     </li>
                     <li class="nav-item navli">
-                        <a class="nav-link navbar-nav-item"  href="#">
+                        <a class="nav-link navbar-nav-item"  id="allPost" href="${pageContext.request.contextPath}/allPostForAdmin.do">
                             게시물
                         </a>
                     </li>
@@ -102,7 +102,7 @@
 			 <!-- 회원관리 -->
 			    <ul class="navbar-nav" id="navTab" style="display:block;margin-left: 5px;">
                     <li class="nav-item">
-                        <a class="nav-link navbar-nav-item" href="#">
+                        <a class="nav-link navbar-nav-item" href="${pageContext.request.contextPath}/adminControlMember.do">
                            회원관리
                         </a>
                     </li>         

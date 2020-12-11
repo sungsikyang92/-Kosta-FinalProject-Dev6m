@@ -35,6 +35,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		AS COMMENTS_POSTED_TIME FROM COMMENTS WHERE CONTENTS_NO=#{contentsNo}) S, MEMBER M, CONTENTS C WHERE S.ID = M.ID AND S.CONTENTS_NO = C.CONTENTS_NO 
 		AND RNUM BETWEEN #{pagingBean.startRowNumber} AND #{pagingBean.endRowNumber}
  	</select>
+ 	<!-- 내가 작성한 Comments 게시물 전체 수 조회 -->
+ 	<select id="mMyCommentsGetTotalPostCount" parameterType="string" resultType="int">
+ 		select count(*) from review where id=#{value}
+ 	</select>
+ 	<!-- 내가 작성한 Comments 게시물 리스트 조회 -->
+ 	<select id="mMyCommentsGetAllList" resultMap="commentsBoardRM">
+ 		SELECT comments_no, id, contents_no, comments, comments_stars, comments_posted_time
+		FROM(SELECT row_number() over(order by comments_no desc) as rnum, comments_no, id, contents_no, comments, comments_stars, comments_posted_time
+		FROM comments where id = #{id})
+		WHERE rnum BETWEEN #{pagingBean.startRowNumber} AND #{pagingBean.endRowNumber}
+ 	</select>
  	<!-- Comments 게시물 쓰기 -->
  	<insert id="mCommentsWrite" parameterType="commentsVO">
  		<selectKey keyProperty="commentsNo" resultType="int" order="BEFORE">

@@ -1,12 +1,12 @@
 package org.kosta.watflix.controller;
 
-import java.util.Map;
-
 import javax.annotation.Resource;
 
+import org.kosta.watflix.model.service.ReviewLikeService;
 import org.kosta.watflix.model.service.ReviewService;
 import org.kosta.watflix.model.vo.ContentsVO;
 import org.kosta.watflix.model.vo.MemberVO;
+import org.kosta.watflix.model.vo.ReviewListVO;
 import org.kosta.watflix.model.vo.ReviewVO;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -21,12 +22,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class ReviewController {
 	@Resource
 	private ReviewService reviewService;
+	@Resource
+	ReviewLikeService reviewLikeService;
 	//콘텐츠리뷰리스트
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("reviewList.do")
 	public String getReviewList(String pageNo, Model model) {
-		model.addAttribute("lvo",reviewService.sGetReviewList(pageNo));
-		return "review/reviewList";
+		model.addAttribute("reviewList",reviewService.sGetReviewList(pageNo));
+		return "admin/adminReviewList.tiles";
 	}
 	//컨텐츠별 리뷰리스트
 	@RequestMapping("getReviewListByContentsNo.do")
@@ -69,9 +72,14 @@ public class ReviewController {
 	//그러나 조회수가 증가 되지 않는 컨트롤러 메서드이다. (자기자신이 자기글 디테일 보는 경우이다)
 	//리뷰 작성 후 자신의 글 확인, 혹은 리뷰 수정 후 확인하는 용도이다. 
 	@RequestMapping("reviewDetailNoHits.do")
-	public ModelAndView reviewDetailNoHits(int reviewNo) {
+	public String reviewDetailNoHits(int reviewNo,Model model) {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		MemberVO memberVO = (MemberVO)principal;
 		ReviewVO rvo = reviewService.sGetReviewDetailNoHits(reviewNo);
-		return new ModelAndView("review/reviewDetail.tiles","rdvo",rvo);
+		int check = reviewLikeService.sGetReviewExist(reviewNo,memberVO.getId());
+		model.addAttribute("rdvo",rvo);
+		model.addAttribute("check",check);
+		return "review/reviewDetail.tiles";
 	}
 	
 	//리뷰 상세보기(조회수 증가O, 세션 추가 필요함.)
@@ -111,6 +119,13 @@ public class ReviewController {
 		return "redirect:contentsDetail.do?contentsNo="+contentsNoforDelete;
 	}
 	
+	// 내 리뷰 리스트 Ajax
+	@RequestMapping("myReviewList.do")
+	@ResponseBody
+	public ReviewListVO myReviewList(String pageNo) {
+		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return reviewService.sGetMyReviewList(mvo.getId(), pageNo);
+	}
 	
 }
 

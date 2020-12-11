@@ -17,6 +17,9 @@ function updateBtn() {
 	function faqListBtn(){
 	location.href="${pageContext.request.contextPath}/faqList.do";
 }
+	function qnaListBtn() {
+	location.href="${pageContext.request.contextPath}/qnaWriteForm.do";
+	}
 </script>
 <hr>
 <hr>
@@ -51,7 +54,7 @@ function updateBtn() {
 <button form="faqDelete" type="submit" id="faq-delete-btn" >삭제</button>
 <button id="faqListBtn" onclick="faqListBtn()">목록</button>
 <br><br>
-<button id="qnaBtn" onclick="">문의하기</button>
+<button id="qnaBtn" onclick="qnaListBtn()">문의하기</button>
 </div>
 <form action="faqDelete.do" id="faqDelete" method="post">
 <sec:csrfInput/>

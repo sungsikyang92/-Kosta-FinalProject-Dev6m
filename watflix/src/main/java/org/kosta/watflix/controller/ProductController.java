@@ -103,14 +103,7 @@ public class ProductController {
 		return "product/productUpdate_result";
 	}
 	
-	//상품 삭제하기(redirect는 결과페이지에서 진행함)
-	@PostMapping("productDelete.do")
-	public String productDelete(ProductVO productVO,Model model) {
-		String productName=productVO.getProductName();
-		deleteImg(productVO, );
-		productService.sProductDelete(productVO.getProductNo());
-		
-	}
+	
 	//이미지 파일 저장
 	public String saveImg(ProductVO productVO,String uploadPath) {
 		String productPic="";

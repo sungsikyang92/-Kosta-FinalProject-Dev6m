@@ -112,15 +112,16 @@ SELECT * FROM REVIEW
 INSERT INTO NOTICE VALUES (NOTICE_SEQ.NEXTVAL, 'java', '점심은 뭐 먹지?', '점심 뭐가 맛있나요?', SYSDATE, 0)
 
 /*Comment 테스트를 위한 데이터 추가*/
+INSERT INTO Comments VALUES (COMMENTS_SEQ.NEXTVAL, 'java', '81171201', '블러드샷?', 8, SYSDATE);
 INSERT INTO Comments VALUES (COMMENTS_SEQ.NEXTVAL, 'java', '81004276', '쉐보레 카마로 멋지지 않나요?', 8, SYSDATE);
 INSERT INTO Comments VALUES (COMMENTS_SEQ.NEXTVAL, 'java', '60004481', '나도 스파이더맨 처럼 날아다닐 수 있으면?', 8, SYSDATE);
 INSERT INTO Comments VALUES (COMMENTS_SEQ.NEXTVAL, 'java', '81095669', '진격의 거인이 그렇게 재미있냐?', 8, SYSDATE);
 
 /*report 테스트를 위한 데이터 추가*/
-INSERT INTO report VALUES (report_seq.nextval, 'jikang', null, 1, 1, '신고합니다', sysdate)
-INSERT INTO report VALUES (report_seq.nextval, 'jikang', 1, null, 2, '신고합니다', sysdate)
+INSERT INTO report VALUES (report_seq.nextval, 'java2', null, 1, 1, '신고합니다', sysdate)
+INSERT INTO report VALUES (report_seq.nextval, 'java2', 1, null, 2, '신고합니다', sysdate)
 
-INSERT INTO review VALUES (review_seq.nextval, 'jikang', '81004276', '리뷰 제목', '리뷰 내용', 0, 0, sysdate)
+INSERT INTO review VALUES (review_seq.nextval, 'java3', '81004276', '리뷰 제목', '리뷰 내용', 0, 0, sysdate)
 
 /*Notice 테스트용*/
 SELECT notice_no, id, notice_title, notice_hits FROM(
@@ -191,7 +192,7 @@ drop table member;
 drop table acc_status;
 drop sequence NOTICE_SEQ;
 
-select * from contents
+select * from acc_status;
 
 insert into party value(party_no , id, party_title,membership_no, party_headcount)
 values (PARTY_SEQ.nextval,'java','파티원제목1',1,1)
@@ -275,7 +276,59 @@ PARTY_SEQ.nextval, 'java', '제목', 3, 4, 0, sysdate, '진행중');
 
 select party_seq.nextval from dual
 select * from party;
-select * from member
+select * from report where id='java';
+select * from ACC_STATUS 
+
+
+
+
+insert into acc_status values(3 , '계정정지')
+select * from REPORT
+select * from review
+select * from CONTENTS where contents_no = '80061943'
+
+
+insert into value(id,contents_no,review_title,review_contents) values()
+
+
+
+REVIEW_NO NUMBER PRIMARY KEY,
+	ID VARCHAR2(100) NOT NULL,
+	CONSTRAINT REVIEW_ID_FK FOREIGN KEY(ID) REFERENCES MEMBER(ID) on delete cascade,
+	CONTENTS_NO VARCHAR2(100) NOT NULL,
+	CONSTRAINT REVIEW_CONTENTS_NO_FK FOREIGN KEY(CONTENTS_NO) REFERENCES CONTENTS(CONTENTS_NO) on delete cascade,
+	REVIEW_TITLE VARCHAR2(1000) NOT NULL,
+	REVIEW_CONTENTS CLOB NOT NULL,
+	REVIEW_HITS NUMBER DEFAULT 0,
+	REVIEW_LIKES NUMBER DEFAULT 0,
+	REVIEW_POSTED_TIME DATE DEFAULT SYSDATE
+
+
+
+
+
+
+insert into report value(report_no, id, review_no, comments_no, report_type_no, REPORT_CONTENTS) values(1,'java2',1,'81171201',1,sysdate)
+select * from report_type
+create table REPORT(
+	REPORT_NO NUMBER primary key,
+	
+	ID VARCHAR2(100) not null,
+	CONSTRAINT REPORT_ID_FK FOREIGN KEY (ID) REFERENCES MEMBER(ID),
+	
+	REVIEW_NO NUMBER default null,
+	CONSTRAINT REPORT_REVIEW_NO_FK FOREIGN KEY (REVIEW_NO) REFERENCES REVIEW(REVIEW_NO),
+	
+	COMMENTS_NO NUMBER default NULL,
+	CONSTRAINT REPORT_COMMENTS_NO_FK FOREIGN KEY(COMMENTS_NO) REFERENCES COMMENTS(COMMENTS_NO),
+	
+	REPORT_TYPE_NO NUMBER NOT NULL,
+	CONSTRAINT REPORT_TYPE_NO_FK FOREIGN KEY(REPORT_TYPE_NO) REFERENCES REPORT_TYPE(REPORT_TYPE_NO),
+	
+	REPORT_CONTENTS CLOB NOT NULL,
+	REPORT_POSTED_TIME DATE DEFAULT SYSDATE
+)
+
 
 
 
@@ -313,9 +366,7 @@ SELECT COUNT(REVIEW_TITLE) AS CONTENTS_REVIEW_NO FROM REVIEW WHERE CONTENTS_NO =
 delete from genre
 drop table contents
 
-
 /*재우 test*/
-<<<<<<< HEAD
 select * from report
 select * from review
 union (all)
@@ -337,7 +388,7 @@ FROM (SELECT ROW_NUMBER() OVER(ORDER BY REVIEW_NO DESC) AS RNUM,REVIEW_NO,ID,CON
 R, MEMBER M, CONTENTS C
 WHERE R.ID = M.ID AND R.CONTENTS_NO = C.CONTENTS_NO AND RNUM BETWEEN 1 AND 100
 
-=======
+/* 재우 test */
 -- 제약 조건 비활성화, 확성화
 alter table REPORT disable constraint REPORT_REVIEW_NO_FK
 alter table REPORT enable constraint REPORT_REVIEW_NO_FK
@@ -381,21 +432,31 @@ to_char(REPORT_POSTED_TIME,'YYYY.MM.DD HH:MI:SS') as re_time
 FROM REPORT where id='java') r, review rv, report_type rt where r.REVIEW_NO=rv.REVIEW_NO and r.report_type_no = rt.report_type_no)
 where re_num between 1 and 5
 order by report_no desc;
+-- 권한
+insert into grade values('ROLE_ADMIN', 'java')
+-- 내 리뷰 게시물 가져오기
+SELECT REVIEW_NO,ID,CONTENTS_NO,REVIEW_TITLE,REVIEW_CONTENTS,REVIEW_LIKES,REVIEW_POSTED_TIME
+FROM (SELECT ROW_NUMBER() OVER(ORDER BY review_no DESC) AS RNUM, REVIEW_NO, ID, CONTENTS_NO,
+REVIEW_TITLE, REVIEW_CONTENTS, REVIEW_LIKES, TO_CHAR(REVIEW_POSTED_TIME,'yyyy-mm-dd') as REVIEW_POSTED_TIME
+FROM REVIEW where id='java')
+WHERE RNUM BETWEEN 1 AND 5 ORDER BY review_no desc;
+-- 내가 작성한 전체 리뷰 count
+select count(*) from review where id =''
+-- 내 평점 게시물 가져오기
+SELECT comments_no, id, contents_no, comments, comments_stars, comments_posted_time
+FROM(SELECT row_number() over(order by comments_no desc) as rnum, comments_no, id, contents_no, comments, comments_stars, comments_posted_time
+FROM comments where id = 'java')
+WHERE rnum BETWEEN 1 AND 5;
+-- 내가 작성한 전체 평점 count
+select count(*) from review where id='spring'
+select * from review
 
-SELECT REPORT_NO,ID,REVIEW_NO,REPORT_TYPE_info,REPORT_CONTENTS,REPORT_POSTED_TIME,reportedId
-		FROM(SELECT row_number() over(order by REPORT_NO desc) as re_num, r.REPORT_NO,r.ID,r.REVIEW_NO,r.COMMENTS_NO, rt.REPORT_TYPE_info, r.REPORT_CONTENTS, r.REPORT_POSTED_TIME, rv.id as reportedId
-		FROM(
-			SELECT REPORT_NO,ID,REVIEW_NO,COMMENTS_NO,REPORT_TYPE_NO,REPORT_CONTENTS,
-		to_char(REPORT_POSTED_TIME,'YYYY.MM.DD HH:MI:SS') as REPORT_POSTED_TIME
-		FROM REPORT where id = 'java'
-		) r, review rv, report_type rt where r.REVIEW_NO=rv.REVIEW_NO and r.report_type_no = rt.report_type_no)
-		where re_num between 1 and 5
-		order by report_no desc
 
-select * from grade
+select * from grade where id='java'
 insert into grade values ( 'ROLE_MEMBER' , 'java');
 insert into grade values ( 'ROLE_MEMBER' , 'spring');
-
+update grade set grade = 'ROLE_ADMIN' where id='java'
+insert into grade values('')
 /*컨텐츠*/
 CREATE TABLE CONTENTS(
    CONTENTS_NO VARCHAR2(1000) PRIMARY KEY,
@@ -465,10 +526,6 @@ select ms.membership_name, ms.MEMBERSHIP_NO , ms.CONCURRENT_USERS,
 
 
 
- 		
- 		
- 		
- 		
  		SELECT p.PARTY_NO, p.id, p.PARTY_TITLE, ms.membership_name, p.PARTY_STATUS,
  		p.PARTY_HEADCOUNT,p.PARTY_APPLYCOUNT,to_char(p.PARTY_POSTED_TIME,'yyyy-mm-dd') as PARTY_POSTED_TIME
  		
@@ -477,10 +534,6 @@ select ms.membership_name, ms.MEMBERSHIP_NO , ms.CONCURRENT_USERS,
  		MEMBERSHIP ms
  		
  		WHERE rnum BETWEEN 1 AND 5 and p.membership_no = ms.membership_no
- 		
- 		
- 		
- 		
  		
  		 select ms.membership_name, ms.MEMBERSHIP_NO , ms.CONCURRENT_USERS,
    		p.PARTY_NO, m.ID, p.PARTY_TITLE, p.PARTY_HEADCOUNT, p.PARTY_APPLYCOUNT,
@@ -516,13 +569,6 @@ select m.id,m.password,m.name,m.tel,to_char('m.birth','YYYY-MM-DD'),m.sex,m.emai
 /* 리뷰 테스트를 위한 데이터 추가 */
 INSERT INTO review VALUES(review_seq.nextval, 'java', 60004481, '리뷰 테스트 용 스파이더맨!', '리뷰 테슷트입니다.', 0, 0, sysdate);
 INSERT INTO review VALUES(review_seq.nextval, 'java', 81095669, '리뷰 테스트 용 진격의거인!', '리뷰 테슷트입니다.', 0, 0, sysdate);
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> branch 'master' of https://github.com/Minikanko/-Kosta-FinalProject-Dev6m.git
->>>>>>> branch 'master' of https://github.com/Minikanko/-Kosta-FinalProject-Dev6m.git
->>>>>>> branch 'master' of https://github.com/Minikanko/-Kosta-FinalProject-Dev6m.git
 
 select*from comments where contents_no = '81171201'
 
@@ -568,5 +614,96 @@ WHERE R.ID = M.ID AND R.CONTENTS_NO = C.CONTENTS_NO AND RNUM BETWEEN #{pagingBea
 
 select * from comments where CONTENTS_NO='70291089'
 
+select * from apply 
 
-select * from product_category
+ SELECT p.PARTY_NO, p.id, p.PARTY_TITLE, ms.membership_name, p.PARTY_STATUS,
+       p.PARTY_HEADCOUNT,p.PARTY_APPLYCOUNT,to_char(p.PARTY_POSTED_TIME,'yyyy-mm-dd') as PARTY_POSTED_TIME
+       
+       From(SELECT row_number() over (order by PARTY_NO desc) as rnum,PARTY_NO,ID,PARTY_TITLE,membership_no,PARTY_STATUS,
+       PARTY_HEADCOUNT,PARTY_APPLYCOUNT,PARTY_POSTED_TIME FROM PARTY) p ,
+       MEMBERSHIP ms
+       
+       WHERE rnum BETWEEN 1 AND 10 and p.membership_no = ms.membership_no
+
+select rnum,C.CONTENTS_NO,C.CONTENTS_TITLE,C.CONTENTS_TYPE,G.GENRE_CODE,G.GENRE_NAME,C.CONTENTS_SUMMARY,C.CONTENTS_SMALL_THUMBNAIL,C.CONTENTS_BIG_THUMBNAIL,C.CONTENTS_AVG_STARS,C.CONTENTS_LIKES,C.CONTENTS_HITS,
+ 		CONTENTS_DATE,CONTENTS_RUNNINGTIME,CONTENTS_ACTOR,CONTENTS_PRODUCER,CONTENTS_AGE
+		from (select row_number() over(order by CONTENTS_NO DESC) as rnum,CONTENTS_NO,CONTENTS_TITLE,CONTENTS_TYPE,GENRE_CODE,CONTENTS_SUMMARY,CONTENTS_SMALL_THUMBNAIL,CONTENTS_BIG_THUMBNAIL,
+		CONTENTS_AVG_STARS,CONTENTS_LIKES,CONTENTS_HITS,CONTENTS_DATE,CONTENTS_RUNNINGTIME,CONTENTS_ACTOR,CONTENTS_PRODUCER,CONTENTS_AGE from contents where CONTENTS_TYPE LIKE '%영화%' and genre_code='783') C, 
+		 GENRE G
+		where C.GENRE_CODE=G.GENRE_CODE and rnum BETWEEN 0 AND 5
+		
+		select RNUM, m.id,m.password,m.name,m.tel,to_char(m.birth,'YYYY-MM-DD') as birth,m.sex,m.email,m.address,m.login_time,
+ 		m.login_fail,m.point,m.signup_date,m.agreement,m.acc_status_no,a.acc_status_info ,  		
+ 		r. (select count(*) from report where id='java') as reportCount 
+
+ 		
+ 		from member m, (select * from acc_status) a 
+ 		where a.acc_status_no=m.acc_status_no and m.id='java'
+ 		
+ 		
+ 		SELECT RNUM,M.ID,M.PASSWORD,M.NAME,M.TEL,M.BIRTH,M.SEX,M.EMAIL,M.ADDRESS,M.LOGIN_TIME,M.LOGIN_FAIL,M.POINT,
+ 		M.SIGNUP_DATE,M.AGREEMENT,M.ACC_STATUS_NO,A.ACC_STATUS_INFO, (SELECT COUNT(*) FROM REPORT WHERE ID = 'java') AS REPORTCOUNT
+ 		
+ 		FROM (SELECT ROW_NUMBER() OVER(ORDER BY ID DESC) AS RNUM,ID,PASSWORD,NAME,TEL,BIRTH,SEX,EMAIL,ADDRESS,LOGIN_TIME,LOGIN_FAIL,
+ 		POINT,TO_CHAR(SIGNUP_DATE, 'YYYY-MM-DD') AS SIGNUP_DATE,AGREEMENT,ACC_STATUS_NO 
+ 		
+ 		FROM MEMBER )M, REPORT R , ACC_STATUS A
+ 		WHERE M.ACC_STATUS_NO = A.ACC_STATUS_NO AND R.ID = M.ID AND RNUM BETWEEN 1 AND 5
+ 		
+ 		
+ 		SELECT RNUM,R.REVIEW_NO,M.ID,C.CONTENTS_NO,R.REVIEW_TITLE,R.REVIEW_CONTENTS,R.REVIEW_LIKES,R.REVIEW_HITS,R.REVIEW_POSTED_TIME
+ 		
+		FROM (SELECT ROW_NUMBER() OVER(ORDER BY REVIEW_NO DESC) AS RNUM,REVIEW_NO,ID,CONTENTS_NO,REVIEW_TITLE,
+		REVIEW_CONTENTS,REVIEW_LIKES,REVIEW_HITS,TO_CHAR(REVIEW_POSTED_TIME,'yyyy-mm-dd') as REVIEW_POSTED_TIME 
+		
+		
+		FROM REVIEW where CONTENTS_NO=#{contentsNo}) R, MEMBER M, CONTENTS C
+		
+		
+		WHERE R.ID = M.ID AND R.CONTENTS_NO = C.CONTENTS_NO AND RNUM BETWEEN #{pagingBean.startRowNumber} AND #{pagingBean.endRowNumber}
+		
+		select * from report
+		insert into comments(comments_no, id, contents_no, comments)
+values(COMMENTS_SEQ.nextval, 'java', 81171201,'매크로');
+
+insert into review(review_no, id, contents_no, review_title, review_contents)
+values(REVIEW_SEQ.nextval, 'java', 81171201, '블러드샷 리뷰입니다.', '재미있어요. 추천합니다.');
+
+		
+		insert into report(report_no, id, review_no, report_type_no, report_contents)
+values(REPORT_SEQ.nextval, 'java', 2, 2, '음란물 신고합니다.');
+
+
+AND R.ID = M.ID
+
+select * from report 
+select * from ACC_STATUS
+
+UPDATE MEMBER SET ACC_STATUS_NO = 2 WHERE ID='java';
+SELECT * FROM MEMBER WHERE ID='java';
+
+WHERE ID = #{id}
+
+SELECT RNUM,M.ID,M.PASSWORD,M.NAME,M.TEL,M.BIRTH,M.SEX,M.EMAIL,M.ADDRESS,M.LOGIN_TIME,M.LOGIN_FAIL,M.POINT,
+ 		M.SIGNUP_DATE,M.AGREEMENT,M.ACC_STATUS_NO,A.ACC_STATUS_INFO
+ 		
+ 		FROM (SELECT ROW_NUMBER() OVER(ORDER BY ID DESC) AS RNUM,ID,PASSWORD,NAME,TEL,BIRTH,SEX,EMAIL,ADDRESS,LOGIN_TIME,LOGIN_FAIL,
+ 		POINT,TO_CHAR(SIGNUP_DATE, 'YYYY-MM-DD') AS SIGNUP_DATE,AGREEMENT,ACC_STATUS_NO 
+ 		
+ 		FROM MEMBER )M, ACC_STATUS A
+ 		WHERE M.ACC_STATUS_NO = A.ACC_STATUS_NO  AND RNUM BETWEEN 1 AND 5
+
+ALTER TABLE MEMBER ADD REPORTCOUNT NUMBER DEFAULT 0;
+SELECT * FROM MEMBER
+
+
+/*리뷰 좋아요 테스트*/
+INSERT INTO REVIEW_LIKE VALUES(195,'java14')
+INSERT INTO REVIEW_LIKE VALUES(196,'java14')
+INSERT INTO REVIEW_LIKE VALUES(198,'java14')
+SELECT * FROM REVIEW_LIKE 
+SELECT COUNT(*) FROM REVIEW_LIKE WHERE REVIEW_NO = 198
+
+DELETE FROM REVIEW_LIKE WHERE REVIEW_NO = 196 AND ID = 'java14'
+
+DELETE FROM REVIEW WHERE REVIEW_NO = #{reviewNo}

@@ -775,12 +775,10 @@ a, a:hover {
 		width:600px;
 	}
 /*페이징Start*/
-	/*페이징위치*/
-	.pagingInfo{
-		float:left;
-		margin-left:50%;
-}
-
+	.pagingInfo li{
+		margin-right: 10px;
+	}
+	
 /*페이징End*/
 
 /*테이블Start*/

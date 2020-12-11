@@ -28,14 +28,7 @@ public class CommentsController {
 	public String getCommentsList(String pageNo, Model model) {
 		model.addAttribute("commentsList", commentsService.sCommentsGetList(pageNo));
 		return "comments/commentsList";
-	}
-	
-	//@RequestMapping("getCommentsListByContentsNo.do")
-	//public String getCommentsListByContentsNo(String contentsNo, String pageNo, Model model) {
-	//	model.addAttribute("commentsListByContentsNo", commentsService.sCommentsGetListByContentsNo(pageNo, contentsNo));
-	//	model.addAttribute("contentsNo", contentsNo);
-	//	return "comments/commentsListByContentsNo";
-	//}
+	}	
 	
 	@RequestMapping("getCommentsListByContentsNo.do")
 	public String getCommentsListByContentsNo(String contentsNo, String pageNo, Model model) {
@@ -75,5 +68,14 @@ public class CommentsController {
 		redirectAttributes.addAttribute("contentsNo", contentsNo);
 		redirectAttributes.addAttribute("commentPageNo", pageNo);
 		return "redirect:contentsDetail.do";
+	}
+	
+	@PostMapping("commentsDeleteByCheckbox.do")
+	public String commentsDelete(int[] deleteCheckbox, String pageNo, RedirectAttributes redirectAttributes) {
+		for(int i = 0; i < deleteCheckbox.length; i++) {
+			commentsService.sCommentsDelete(deleteCheckbox[i]);
+		}
+		redirectAttributes.addAttribute("pageNo", pageNo);
+		return "redirect:allPostForAdmin.do";
 	}
 }

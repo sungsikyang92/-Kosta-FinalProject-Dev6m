@@ -1,11 +1,13 @@
 package org.kosta.watflix.model.service;
 
-import java.util.Map;
+import java.util.HashMap;
 
 import org.kosta.watflix.model.vo.ReviewListVO;
 import org.kosta.watflix.model.vo.ReviewVO;
 
 public interface ReviewService {
+	//리뷰리스트 pageNo 없는 ver 
+	//ReviewListVO sGetReviewList();
 	//리뷰리스트
 	ReviewListVO sGetReviewList(String pageNo);
 	//컨텐츠별리뷰리스트
@@ -20,4 +22,11 @@ public interface ReviewService {
 	void sReviewDelete(int reviewNo);
 	//리뷰조회수증가
 	void sReviewHitsUpdate(int reviewNo);
+	//리뷰추천수증가
+	void sReviewLikesUpdate(int reviewNo);
+	//리뷰추천수감소
+	void sReviewLikesRemove(int reviewNo);
+	//내 리뷰리스트
+	ReviewListVO sGetMyReviewList(String id);
+	ReviewListVO sGetMyReviewList(String id, String pageNo);
 }

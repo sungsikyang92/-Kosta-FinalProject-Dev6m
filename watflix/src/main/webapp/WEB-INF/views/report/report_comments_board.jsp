@@ -7,8 +7,25 @@
 <head>
 <meta charset="UTF-8">
 <title>신고 게시판</title>
+<!-- 테스트 중인 css 나중에 지울것 -->
+  <style type="text/css">
+	.table-hover{
+		background: white;
+		/* table 중앙 정렬 */
+		margin:auto;
+		width: 55%;
+		text-align: center;
+	}
+	a{
+		color: black;
+	}
+  </style>
 </head>
 <body>
+	<br>
+	<br>
+	<br>
+	<br>
 	<script type="text/javascript">
 		function deleteCheck(){
 			return confirm("삭제하시겠습니까?");
@@ -50,7 +67,7 @@
 						</form>
 					</td>
 				</tr>
-				<tr>
+				<tr hidden="False">
 					<td colspan="6">
 						<pre>${rvo.reportContents }</pre>
 					</td>
@@ -74,7 +91,7 @@
 					<div class="tableTopMargin">
 						<!-- pagingBean을 pb변수로 지정 -->
 						<c:set var="pb" value="${requestScope.reportCommentsList.pagingBean }"></c:set>
-						<ul>
+						<ul class="pagination">
 							<!-- 조건이 맞으면 왼쪽 화살표 -->
 							<c:if test="${pb.previousPageGroup}">
 								<li>
@@ -118,59 +135,6 @@
 				</td>
 			</tr>
 		</tfoot>
-	</table>
-
-	
-	<hr>
-	<h5>이 구간은 test 구간</h5>
-	<!-- comments 신고 폼 test -->
-	<script type="text/javascript">
-		function reportPopup(commentsNo, commentsWriter){
-			//alert(commentsNo +", "+ commentsWriter);
-			// commentsWriter id 혹은 네임 변수에 맞게 수정할 것
-			var path = "${pageContext.request.contextPath}/reportCommentsForm.do?commentsNo="+commentsNo+"&&"+"commentsWriter="+commentsWriter;
-			window.open(path, "reportComments","width=465, height=180, top=150, left=200");
-			
-		}
-	</script>
-    	<table>
-    		<tbody>
-    			<c:forEach var="rvo" items="${requestScope.reportCommentsList.list}" varStatus="status">
-					<tr>
-						<td>${status.count }</td>
-						<td>${rvo.reportNo}</td>
-						<td>${rvo.commentsVO.memberVO.id}</td>
-						<td>${rvo.reportPostedTime}</td>
-						<!-- 신고 버튼 : reportPopup함수에 변수값을 넣어서 보낸다 -->
-						<td><button onclick="reportPopup(${rvo.commentsVO.commentsNo},'${rvo.commentsVO.memberVO.id}')" >test</button></td>
-					</tr>
-				</c:forEach>
-    		</tbody>
-    	</table>    	
+	</table>    	
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

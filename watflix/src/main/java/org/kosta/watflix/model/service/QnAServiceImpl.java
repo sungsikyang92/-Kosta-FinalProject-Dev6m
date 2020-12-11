@@ -27,20 +27,27 @@ public class QnAServiceImpl implements QnAService {
 	// QnA 개수
 	@Override
 	public int sGetTotalQnACount() {
-		return 0;
+		return qnaMapper.mGetTotalQnACount();
 	}
 
 	// QnA 리스트 페이징빈
 	@Override
 	public QnAListVO sGetQnAList(String pageNo) {
-		// TODO Auto-generated method stub
-		return null;
+		int totalPostCount = qnaMapper.mGetTotalQnACount();
+		PagingBean pagingBean=null;
+		if(pageNo==null) {
+			pagingBean = new PagingBean(totalPostCount);
+		}else {
+			pagingBean = new PagingBean(totalPostCount,Integer.parseInt(pageNo));
+		}
+		QnAListVO qnaListVO=new QnAListVO(qnaMapper.mGetQnAList(pagingBean),pagingBean);
+		return qnaListVO;
 	}
 
 	// QnA 리스트 
 	@Override
 	public QnAListVO sGetQnAList() {
-		return null;
+		return sGetQnAList("1");
 	}
 	
 	// QnA 삭제

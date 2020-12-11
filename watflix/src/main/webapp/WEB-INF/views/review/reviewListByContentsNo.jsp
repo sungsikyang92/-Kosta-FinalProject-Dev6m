@@ -53,5 +53,5 @@
 			<button type="button" class="btn-default boardBtnSubmit" onclick="location.href = '${pageContext.request.contextPath}/reviewWriteForm.do?contentsNo=${requestScope.contentsNo}' ">리뷰쓰기</button>
 		</div>
 	</div>
-	</div>
+</div>
 </div>

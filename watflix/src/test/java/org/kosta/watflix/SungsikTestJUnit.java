@@ -4,13 +4,11 @@ import javax.annotation.Resource;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.kosta.watflix.model.mapper.ReviewLikeMapper;
 import org.kosta.watflix.model.mapper.ReviewMapper;
-import org.kosta.watflix.model.service.PagingBean;
 import org.kosta.watflix.model.service.ReviewService;
-import org.kosta.watflix.model.vo.ContentsVO;
-import org.kosta.watflix.model.vo.GenreVO;
 import org.kosta.watflix.model.vo.MemberVO;
-import org.kosta.watflix.model.vo.ReviewListVO;
+import org.kosta.watflix.model.vo.ReviewLikeVO;
 import org.kosta.watflix.model.vo.ReviewVO;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -22,6 +20,8 @@ public class SungsikTestJUnit {
 	private ReviewService reviewService;
 	@Resource
 	private ReviewMapper reviewMapper;
+	@Resource
+	private ReviewLikeMapper reviewLikeMapper;
 	
 	@Test
 	public void reviewUnitTest() {
@@ -67,7 +67,7 @@ public class SungsikTestJUnit {
 		reviewMapper.mReviewWrite(reviewVO2);
 		*/
 		//리뷰등록 테스트3
-/*		for(int i = 0; i<40; i++) {
+	/*		for(int i = 0; i<40; i++) {
 			ReviewVO reviewVO = new ReviewVO();
 			reviewVO.setReviewTitle("TestReview"+i);
 			reviewVO.setReviewContents("리뷰콘텐츠테스트"+i);
@@ -116,7 +116,10 @@ public class SungsikTestJUnit {
 			System.out.println("리뷰 table에 insert한다 뭐를? " + reviewVO2);
 			System.out.println(reviewMapper.mGetTotalReviewCount());	
 		}
+
 */
+		/*
+
 		int reviewTotalCountByContentsNo = reviewMapper.mGetContentsReviewCount("70297757");
 		PagingBean pagingBean = null;
 		String pageNo="";
@@ -134,6 +137,7 @@ public class SungsikTestJUnit {
 		}
 		System.out.println(pagingBean);
 		System.out.println(reviewMapper.mGetReviewListByContentsNo(pagingBean, "70297757"));
+		*/
 		
 		//리뷰 상세보기
 //		System.out.println(reviewMapper.mGetReviewDetail(8));
@@ -159,6 +163,25 @@ public class SungsikTestJUnit {
 		for(ReviewVO rao :vo.getReviewList()) {
 			System.out.println(rao);
 		}*/
+		
+		//리뷰좋아요 값입력
+	/*	ReviewLikeVO rvo = new ReviewLikeVO();
+		ReviewVO rrvo = new ReviewVO();
+		rrvo.setReviewNo(198);
+		MemberVO mvo =new MemberVO();
+		mvo.setId("java14");
+		rvo.setMemberVO(mvo);
+		rvo.setReviewVO(rrvo);
+		//리뷰좋아요 ++
+		reviewLikeMapper.mReviewLikeAdd(rvo);
+		//리뷰좋아요 삭제 전
+		System.out.println(reviewLikeMapper.mReviewLikeExist(rvo));		
+		//리뷰좋아요 제거 
+		reviewLikeMapper.mReviewLikeRemove(rvo);
+		//리뷰좋아요 삭제 후
+		System.out.println(reviewLikeMapper.mReviewLikeExist(rvo));
+		*/
+		
 	}
 }
 	
