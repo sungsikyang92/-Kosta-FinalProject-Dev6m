@@ -87,6 +87,7 @@ public class ContentsController {
 		if(endNumber>totalContentsCountForType) {
 			endNumber = totalContentsCountForType;
 		}
+		
 		map.put("startNumber", Integer.toString(startNumber));
 		map.put("endNumber", Integer.toString(endNumber));
 		map.put("contentsType", contentsType);
@@ -99,5 +100,4 @@ public class ContentsController {
 		//타입에 따른 장르를 검색
 		return contentsService.sGetGenreSelectForType(contentsType);
 	}
-	
 }

@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.kosta.watflix.controller.ProductCategoryService;
 import org.kosta.watflix.model.mapper.ProductCategoryMapper;
 import org.kosta.watflix.model.vo.ProductCategoryVO;
 import org.springframework.stereotype.Service;
@@ -25,6 +24,12 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 	@Override
 	public List<ProductCategoryVO> sGetProductCategoryList(PagingBean pagingBean) {
 		return productCategoryMapper.mGetProductCategoryList(pagingBean);
+	}
+
+	//카테고리 등록
+	@Override
+	public void sProductCategoryRegister(ProductCategoryVO productCategoryVO) {
+		productCategoryMapper.mProductCategoryRegister(productCategoryVO);
 	}
 
 }

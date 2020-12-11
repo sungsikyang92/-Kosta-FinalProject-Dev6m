@@ -24,12 +24,14 @@
 		
 		 $(".navli").hover(function(){
 			 $("#sidebar-wrapper").attr("style","display:flex;")
-		 
+	 		 $(".boardClassMain").attr("style","top:150px;")
 		 })
 		 $("#sidebar-wrapper").hover(function(){
 			 $("#sidebar-wrapper").attr("style","display:flex;")
+			  $(".boardClassMain").attr("style","top:150px;")
 		 },function(){
 			 $("#sidebar-wrapper").attr("style","display:none;")
+			 $(".boardClassMain").attr("style","top:50px;")
 		 })
 
 	 })
@@ -51,22 +53,22 @@
                 <!-- Left - OPEN -->
                 <ul class="navbar-nav mr-auto my-2 my-lg-0" id="navTab">
                     <li class="nav-item navli">
-                        <a class="nav-link navbar-nav-item" id="TV" href="${pageContext.request.contextPath}/contentsByTV.do">
+                        <a class="nav-link navbar-nav-item" href="#">
                             회원
                         </a>
                     </li>
                     <li class="nav-item navli">
-                        <a class="nav-link navbar-nav-item"  id="MOVIE" href="${pageContext.request.contextPath}/contentsByMovie.do">
+                        <a class="nav-link navbar-nav-item" href="#">
                             상품
                         </a>
                     </li>
                     <li class="nav-item navli">
-                        <a class="nav-link navbar-nav-item"  id="MOVIE" href="${pageContext.request.contextPath}/contentsByMovie.do">
+                        <a class="nav-link navbar-nav-item"  href="#">
                             게시물
                         </a>
                     </li>
                     <li class="nav-item navli">
-                        <a class="nav-link navbar-nav-item"  id="MOVIE" href="${pageContext.request.contextPath}/contentsByMovie.do">
+                        <a class="nav-link navbar-nav-item"  href="#">
                             공지사항
                         </a>
                     </li>
@@ -75,12 +77,22 @@
 
                 <!-- Right - OPEN -->
                 <ul class="navbar-nav my-2 my-lg-0 navbar-right">
+                <sec:authorize access="hasRole('ROLE_ADMIN')">
                      <li class="nav-item">
                         <a class="nav-link navbar-nav-item" href="#" id="logoutBtn">로그아웃</a>
 						   <form id="logoutForm" action="${pageContext.request.contextPath}/logout.do" method="post" style="display: none">
 							<sec:csrfInput />
 							</form>
-                    </li>			
+                    </li>
+                 </sec:authorize>
+                  <sec:authorize access="!hasRole('ROLE_ADMIN')">			
+                     <li class="nav-item">
+                        <a class="nav-link navbar-nav-item" href="#" id="logoutBtn">로그인</a>
+						   <form id="logoutForm" action="${pageContext.request.contextPath}/logout.do" method="post" style="display: none">
+							<sec:csrfInput />
+							</form>
+                    </li>
+                  </sec:authorize>			
                 </ul>
                 <!-- Right - OPEN -->
             </div>
@@ -103,7 +115,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link navbar-nav-item" href="#">
+                        <a class="nav-link navbar-nav-item" href="${pageContext.request.contextPath}/productList.do">
                           상품관리
                         </a>
                     </li>

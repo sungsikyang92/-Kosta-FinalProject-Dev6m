@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.kosta.watflix.model.mapper.PartyMapper;
 import org.kosta.watflix.model.service.PartyService;
 import org.kosta.watflix.model.vo.ApplyVO;
 import org.kosta.watflix.model.vo.MemberVO;
@@ -24,9 +23,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class PartyController {
-	@Resource
-	private PartyMapper partyMapper;
-	@Resource PartyService partyService;
+
+	@Resource 
+	PartyService partyService;
 	
 	//파티회원 모집 글쓰기폼으로 이동
 	@Secured("ROLE_MEMBER")
