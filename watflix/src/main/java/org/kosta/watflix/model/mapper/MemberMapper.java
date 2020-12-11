@@ -1,5 +1,6 @@
 package org.kosta.watflix.model.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,8 +30,9 @@ public interface MemberMapper {
 	List<ProductOrderVO> mMemberProductOrderHistory(String id);
 	// 멤버리스트, 페이징
 	List<MemberVO> mMemberAllList(PagingBean pagingBean);
-	// 특정 멤버의 신고횟수 포함 페이징
-	List<MemberVO> mMemberAllList(@Param("pagingBean") PagingBean pagingBean, @Param("id") String id);
+	//멤버 정지 or 정지해제
+	void mMemberStatusUpdate(HashMap<String, Object> map);
+	
 	
 }
 

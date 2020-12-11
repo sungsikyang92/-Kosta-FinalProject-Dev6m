@@ -19,6 +19,7 @@ import org.kosta.watflix.model.service.ReviewService;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -166,7 +167,7 @@ public class AdminController {
    public String adminControlMember(Model model, String pageNo) {
 	   MemberListVO memberListVO = memberService.sMemberAllList(pageNo);
 	   model.addAttribute("MLVO", memberListVO);
-	   return "admin/adminControlMember";
+	   return "admin/adminControlMember.tiles";
    }
 // 관리자 전체 게시물 조회 페이지로 이동
    @RequestMapping("allPostForAdmin.do")
@@ -181,7 +182,13 @@ public class AdminController {
 	   model.addAttribute("reportReviewList", reportService.sGetReportReviewList());
 	   // 전체게시물조회 메인화면에서 페이징과 버튼을 사용하지 않기 위해 사용한다.
 	   model.addAttribute("forNotUsePagingAndBtn", true);
-	   return "allPostForAdmin.tiles";
-	   
+	   return "allPostForAdmin.tiles";	   
+   }
+   
+   //계정 정지 or 정지해제
+   @RequestMapping("updateMemberStatus.do")
+   public String updateMemberStatus(String id, int accstatus) {
+	   memberService.sMemberStatusUpdate(id,accstatus);
+	   return "redirect:adminControlMember.do";
    }
 }

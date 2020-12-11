@@ -1,5 +1,6 @@
 package org.kosta.watflix.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -125,7 +126,7 @@ public class MemberServiceImpl implements MemberService {
 	public List<ProductOrderVO> sMemberProductOrderHistory(String id) {
 		return memberMapper.mMemberProductOrderHistory(id);
 	}
-
+//=====================
 	@Override
 	public MemberListVO sMemberAllList() {
 		return sMemberAllList("1");
@@ -152,6 +153,17 @@ public class MemberServiceImpl implements MemberService {
 	public int sMemberAllCount() {
 		return memberMapper.mMemberAllCount();
 	}
+
+	@Override
+	public void sMemberStatusUpdate(String id, int accStatusNo) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("id", id);
+		map.put("accStatusNo", accStatusNo);
+		memberMapper.mMemberStatusUpdate(map);
+		
+	}
+
+	
 
 }
 

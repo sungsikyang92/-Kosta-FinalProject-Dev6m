@@ -27,5 +27,7 @@ public interface MemberService {
 	int sMemberAllCount();
 	//멤버 리스트
 	MemberListVO sMemberAllList();
-	MemberListVO sMemberAllList(String pageNo);	
+	MemberListVO sMemberAllList(String pageNo);
+	//멤버 계정 정지 or 해제
+	void sMemberStatusUpdate(String id, int accStatusNo);
 }

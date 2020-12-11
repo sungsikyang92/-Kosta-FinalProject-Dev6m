@@ -157,11 +157,14 @@ public class JunsangTestJUnit {
 	 */
 	
 	@Test public void test() {
-		MemberListVO mlvo =  new MemberListVO();
-		mlvo = memberService.sMemberAllList();
-		//MemberVO mvo = memberService.sFindMemberById("java");
-		
-		System.out.println(mlvo);
+		String id = "java";
+		int accStatusNo = 3;
+		MemberVO mvo = new MemberVO();
+		mvo = (MemberVO) memberService.sFindMemberById(id);
+		System.out.println(mvo);
+		memberService.sMemberStatusUpdate(id,accStatusNo);
+		mvo = (MemberVO) memberService.sFindMemberById(id);
+		System.out.println(mvo);
 	}
 }
 
