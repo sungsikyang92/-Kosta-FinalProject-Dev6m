@@ -28,8 +28,8 @@ public class ReviewController {
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("reviewList.do")
 	public String getReviewList(String pageNo, Model model) {
-		model.addAttribute("lvo",reviewService.sGetReviewList(pageNo));
-		return "review/reviewList";
+		model.addAttribute("reviewList",reviewService.sGetReviewList(pageNo));
+		return "admin/adminReviewList.tiles";
 	}
 	//컨텐츠별 리뷰리스트
 	@RequestMapping("getReviewListByContentsNo.do")

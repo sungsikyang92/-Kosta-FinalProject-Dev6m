@@ -36,6 +36,7 @@
 </head>
 
 <body>
+
 	<!-- Tiles header 영역 -->
 	<tiles:insertAttribute name="header" />
 	<!-- Tiles commentsList 영역 -->
@@ -46,8 +47,7 @@
 	<tiles:insertAttribute name="reportCommentsList" />	
 	<!-- Tiles reportReviewList 영역 -->
 	<tiles:insertAttribute name="reportReviewList" />	
-	
-	
+
 	<script
 		src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 	<!-- JQuery UI -->
@@ -67,6 +67,7 @@
 	<!-- Main JS -->
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"
 		defer></script>
+</div>
 </div>
 </body>
 

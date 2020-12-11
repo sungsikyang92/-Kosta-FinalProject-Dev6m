@@ -2,19 +2,14 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>신고 게시판</title>
-</head>
-<body>
 	<script type="text/javascript">
 		function deleteCheck(){
 			return confirm("삭제하시겠습니까?");
 		}
 	</script>
-	<table class="table table-hover">
+	<div class="container-lg margin-top margin-bottom" style="margin:100px auto;">
+	<div class="container boardClassMain" style="border-radius: 1.5px;">
+	<table class="table table-hover table-bordered" style="border-radius: 1.5px;">
 		<thead>
 			<tr>
 				<th><a href="${pageContext.request.contextPath}/reportReviewBoard.do">리뷰</a></th><th>평점</th>
@@ -67,89 +62,43 @@
 				</tr>
 			</c:forEach>
 		</tbody>
+	</table>
+	<!--
+	전체게시물조회 메인화면에서 페이징과 버튼을 사용하지 않기 위해 사용한다.
+	tiles를 통해서 불러오는 리스트의 경우 forNotUsePagingAndBtn의 값은 true
+	-->
+	<c:if test="${requestScope.forNotUsePagingAndBtn != true}">
+	<div class="boardBottomDiv">
 		<!-- 페이징 -->
-		<tfoot>
-			<tr>
-				<td colspan="7">
-					<div class="tableTopMargin">
-						<!-- pagingBean을 pb변수로 지정 -->
-						<c:set var="pb" value="${requestScope.reportCommentsList.pagingBean }"></c:set>
-						<ul>
-							<!-- 조건이 맞으면 왼쪽 화살표 -->
-							<c:if test="${pb.previousPageGroup}">
-								<li>
-									<a href="${pageContext.request.contextPath }/reportCommentsBoardNext.do?pageNo=${pb.startPageOfPageGroup-1}">
-										&laquo;
-									</a>
-								</li>
-							</c:if>
-							<!-- 페이지 넘버 표시 -->
-							<c:forEach var="pageNumber"
-								begin="${pb.startPageOfPageGroup}"
-								end="${pb.endPageOfPageGroup}">
-								<c:choose>
-									<c:when test="${pb.nowPage!=pageNumber }">
-										<li>
-											<a href="${pageContext.request.contextPath }/reportCommentsBoardNext.do?pageNo=${pageNumber}">
-												${pageNumber}
-											</a>
-										</li>
-									</c:when>
-									<c:otherwise>
-										<li>
-											<a href="#">
-												${pageNumber }
-											</a>
-										</li>
-									</c:otherwise>
-								</c:choose>
-								&nbsp;
-							</c:forEach>
-							<!-- 조건에 맞으면 오른쪽 화살표 -->
-							<c:if test="${pb.nextPageGroup}">
-								<li>
-									<a href="${pageContext.request.contextPath }/reportCommentsBoardNext.do?pageNo=${pb.endPageOfPageGroup+1}">
-										&raquo;
-									</a>
-								</li>
-							</c:if>
+		<div class="pagingInfo" id="pagingLocation">
+			<!-- pagingBean을 pb변수로 지정 -->
+			<c:set var="pb" value="${requestScope.reportCommentsList.pagingBean }"></c:set>
+				<ul class="pagination">
+					<!-- 조건이 맞으면 왼쪽 화살표 -->
+					<c:if test="${pb.previousPageGroup}">
+						<li><a href="${pageContext.request.contextPath }/reportCommentsBoardNext.do?pageNo=${pb.startPageOfPageGroup-1}">&laquo;</a></li>
+					</c:if>
+					<!-- 페이지 넘버 표시 -->
+					<c:forEach var="pageNumber"	begin="${pb.startPageOfPageGroup}" end="${pb.endPageOfPageGroup}">
+						<c:choose>
+							<c:when test="${pb.nowPage!=pageNumber}">
+								<li><a href="${pageContext.request.contextPath }/reportCommentsBoardNext.do?pageNo=${pageNumber}">${pageNumber}</a></li>
+							</c:when>
+							<c:otherwise>
+								<li class="active"><a href="#">${pageNumber }</a></li>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+						<!-- 조건에 맞으면 오른쪽 화살표 -->
+						<c:if test="${pb.nextPageGroup}">
+							<li><a href="${pageContext.request.contextPath }/reportCommentsBoardNext.do?pageNo=${pb.endPageOfPageGroup+1}">&raquo;</a></li>
+						</c:if>
 						</ul>
 					</div>
-				</td>
-			</tr>
-		</tfoot>
-	</table>
-
-	
-	<hr>
-	<h5>이 구간은 test 구간</h5>
-	<!-- comments 신고 폼 test -->
-	<script type="text/javascript">
-		function reportPopup(commentsNo, commentsWriter){
-			//alert(commentsNo +", "+ commentsWriter);
-			// commentsWriter id 혹은 네임 변수에 맞게 수정할 것
-			var path = "${pageContext.request.contextPath}/reportCommentsForm.do?commentsNo="+commentsNo+"&&"+"commentsWriter="+commentsWriter;
-			window.open(path, "reportComments","width=465, height=180, top=150, left=200");
-			
-		}
-	</script>
-    	<table>
-    		<tbody>
-    			<c:forEach var="rvo" items="${requestScope.reportCommentsList.list}" varStatus="status">
-					<tr>
-						<td>${status.count }</td>
-						<td>${rvo.reportNo}</td>
-						<td>${rvo.commentsVO.memberVO.id}</td>
-						<td>${rvo.reportPostedTime}</td>
-						<!-- 신고 버튼 : reportPopup함수에 변수값을 넣어서 보낸다 -->
-						<td><button onclick="reportPopup(${rvo.commentsVO.commentsNo},'${rvo.commentsVO.memberVO.id}')" >test</button></td>
-					</tr>
-				</c:forEach>
-    		</tbody>
-    	</table>    	
-</body>
-</html>
-
+				</div>
+			</c:if>
+</div>
+</div>
 
 
 

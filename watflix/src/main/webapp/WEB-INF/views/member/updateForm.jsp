@@ -260,8 +260,8 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 				<!--이메일 입력 END  -->
 				<!--주소 입력 START  -->
 				<c:set var= "address" value="${memberVO.address}" />
-				${fn:split(address,',' )[0]}
-				${fn:split(address,',' )[1]}
+				<%-- ${fn:split(address,',' )[0]}
+				${fn:split(address,',' )[1]} --%>
 				
 				<div data-uia="login-field+container"
 					class="nfInput nfEmailPhoneInput login-input login-input-email">
