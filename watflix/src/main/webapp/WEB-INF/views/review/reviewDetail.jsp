@@ -11,19 +11,39 @@
 		$("#reviewUpdateForm").submit(function(){
 			return confirm("수정 페이지로 이동 하시겠습니까?");
 		});
-		
+		//리뷰 좋아요
 		$("#ReviewLike").click(function(){
+			var reviewNo = "${requestScope.rdvo.reviewNo}";
+			var id = "${requestScope.rdvo.memberVO.id}";
 			$.ajax({
-				url: "reviewLikeAdd.do",
-				type: "GET",
-				cache: false,
+				url: "reviewLikeExist.do",
+				type: "POST",
+				beforeSend : function(xhr){   /데이터를 전송하기 전에 헤더에 csrf값을 설정한다/
+	                xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+	                },
 				dataType: "text",
-				data: 
+				data: 'reviewNo=' +reviewNo + '&id=' +id,
+				success: function(data){
+					//alert(data);
+					if(data == "0"){
+						$('#ReviewLike').attr('src','/watflix/resources/media/icons/RedHeart.png');
+						$('#LikesCount').text(Number($('#LikesCount').text())+1);
+					}else{
+						$('#ReviewLike').attr('src','/watflix/resources/media/icons/HeartLine.png');
+						/* <c:choose>
+							<c:when test='${requestScope.rdvo.reviewLikes==0}'>
+								$('#LikesCount').text(0)
+							</c:when>
+							<c:otherwise>
+								$('#LikesCount').text('${requestScope.rdvo.reviewLikes-1}')
+							</c:otherwise>
+						</c:choose> */
+						$('#LikesCount').text(Number($('#LikesCount').text())-1);
+					}
+				}
 			});//ajax
-		});//click function
+		});//click func
 	});//document.ready
-	});//ready
-	
 	// 평점 신고
 	function reportPopup(reviewNo, reviewWriterId){
 		// 신고에 필요한 데이터를 신고 form에 보낸다.
@@ -40,8 +60,18 @@
 			<th>${reviewDetail.reviewTitle}</th>
 			<th>조회${reviewDetail.reviewHits}</th>
 			<th>
-				<a href="#"><img id="ReviewLike" class="ReviewLike" src="/watflix/resources/media/icons/HeartLine.png" width=30px height=30px></a>
-				Likes${reviewDetail.reviewLikes}	
+				<a href="#">
+				<c:choose>
+					<c:when test="${check==1}">
+						<img id="ReviewLike" class="ReviewLike" src="/watflix/resources/media/icons/RedHeart.png" width=30px height=30px>
+					</c:when>
+					<c:otherwise>
+						<img id="ReviewLike" class="ReviewLike" src="/watflix/resources/media/icons/HeartLine.png" width=30px height=30px>
+					</c:otherwise>
+				</c:choose>
+				
+				</a>
+				Likes <span id="LikesCount">${reviewDetail.reviewLikes}</span>	
 			</th>
 			<th><a href="#">신고</a></th>
 		</tr>

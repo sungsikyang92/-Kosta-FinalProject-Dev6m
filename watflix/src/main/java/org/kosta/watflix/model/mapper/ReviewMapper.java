@@ -29,6 +29,10 @@ public interface ReviewMapper {
 	void mReviewDelete(int reviewNo);
 	//리뷰 조회수 업데이트
 	void mReviewHitsUpdate(int reviewNo);
+	//리뷰 추천수 업데이트
+	void mReviewLikesUpdate(int reviewNo);
+	//리뷰 추천수 감소
+	void mReviewLikesRemove(int reviewNo);
 	
 
 }
