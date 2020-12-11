@@ -1,35 +1,42 @@
 package org.kosta.watflix.model.service;
 
 
+import java.util.HashMap;
+
 import javax.annotation.Resource;
 
+import org.kosta.watflix.model.mapper.ReviewLikeMapper;
 import org.kosta.watflix.model.mapper.ReviewMapper;
+import org.kosta.watflix.model.vo.MemberVO;
+import org.kosta.watflix.model.vo.ReviewLikeVO;
 import org.kosta.watflix.model.vo.ReviewListVO;
 import org.kosta.watflix.model.vo.ReviewVO;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ReviewServiceImpl implements ReviewService {
 	@Resource
-	private ReviewMapper reviewMapper;
+	ReviewMapper reviewMapper;
+	@Resource
+	ReviewLikeMapper reviewLikeMapper;
+	
 	//리뷰리스트불러오기 pageNo 없는 ver
-	@Override
-	public ReviewListVO sGetReviewList() {
-		return sGetReviewList("1");
-	}
+	//@Override
+	//public ReviewListVO sGetReviewList() {
+	//	return sGetReviewList("1");
+	//}
 	//리뷰리스트불러오기
 	@Override
 	public ReviewListVO sGetReviewList(String pageNo) {
 		int reviewTotalCount = reviewMapper.mGetTotalReviewCount();
 		PagingBean pagingBean = null;
+		int pageNumberPerPageGroup=5;
 		if(pageNo == null) {
-			int contentNumberPerPage=10;
-			int pageNumberPerPageGroup=5;
-			pagingBean = new PagingBean(reviewTotalCount,contentNumberPerPage,pageNumberPerPageGroup);
+			pagingBean = new PagingBean(reviewTotalCount);
 		}else {
 			int contentNumberPerPage=10;
-			int pageNumberPerPageGroup=5;
-			pagingBean = new PagingBean(reviewTotalCount,contentNumberPerPage,pageNumberPerPageGroup,Integer.parseInt(pageNo));
+			pagingBean = new PagingBean(reviewTotalCount, contentNumberPerPage, pageNumberPerPageGroup, Integer.parseInt(pageNo));
 		}
 		ReviewListVO reviewListVO = new ReviewListVO(reviewMapper.mGetReviewList(pagingBean),pagingBean);
 		return reviewListVO;
@@ -82,6 +89,18 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public void sReviewHitsUpdate(int reviewNo) {
 		reviewMapper.mReviewHitsUpdate(reviewNo);
+	}
+	
+	//리뷰추천수증가
+	@Override
+	public void sReviewLikesUpdate(int reviewNo) {
+		reviewMapper.mReviewLikesUpdate(reviewNo);
+	}
+	
+	//리뷰추천수감소
+	@Override
+	public void sReviewLikesRemove(int reviewNo) {
+		reviewMapper.mReviewLikesRemove(reviewNo);
 	}
 
 

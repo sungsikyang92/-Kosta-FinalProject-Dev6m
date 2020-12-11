@@ -6,13 +6,13 @@
 <html>
 <head>
 <meta charset="utf-8">
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- title -->
-<title><tiles:insertAttribute name="title" ignore="true"/></title>
+<title><tiles:insertAttribute name="title" ignore="true" /></title>
 
 <!-- Bootstrap 4.4.1 -->
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/css/adminBootstrap.css">
+	href="${pageContext.request.contextPath}/resources/css/bootstrap.css">
 <!-- Flickity 2.2.1 -->
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/flickity.css">
@@ -21,10 +21,11 @@
 	href="${pageContext.request.contextPath}/resources/css/jquery-ui.css">
 <!-- Main CSS -->
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/css/adminStyle.css">
+	href="${pageContext.request.contextPath}/resources/css/style.css">
 <!-- jqeury -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
 
 <!-- FAVICONS -->
 <link rel="shortcut icon" type="image/x-icon"
@@ -33,25 +34,31 @@
 	href="${pageContext.request.contextPath}/resources/media/favicon/favicon-16x16.png">
 <link rel="shortcut icon" sizes="32x32"
 	href="${pageContext.request.contextPath}/resources/media/favicon/favicon-32x32.png">
+
+
 </head>
 
 <body>
-
+   
 	<!-- Tiles header 영역 -->
 	<tiles:insertAttribute name="header" />
-	<!-- Tiles commentsList 영역 -->
-	<tiles:insertAttribute name="commentsList" />	
-	<!-- Tiles reviewList 영역 -->
-	<tiles:insertAttribute name="reviewList" />	
-	<!-- Tiles reportCommentsList 영역 -->
-	<tiles:insertAttribute name="reportCommentsList" />	
-	<!-- Tiles reportReviewList 영역 -->
-	<tiles:insertAttribute name="reportReviewList" />	
+	<!--  -->
+	<tiles:insertAttribute name="main" />
+	<!-- 평점 -->
+	<tiles:insertAttribute name="main2" />
+	<!-- 리뷰 -->
+	<tiles:insertAttribute name="main3" />
+	<!-- 신고(리뷰, 평점) -->
+	<tiles:insertAttribute name="footer" />
 
+
+	
 	<script
 		src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 	<!-- JQuery UI -->
-	<script src="${pageContext.request.contextPath}/resources/js/jquery-ui.min.js" defer></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/jquery-ui.min.js"
+		defer></script>
 	<!-- Pooper JS -->
 	<script
 		src="${pageContext.request.contextPath}/resources/js/popper.min.js"
@@ -67,8 +74,7 @@
 	<!-- Main JS -->
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"
 		defer></script>
-</div>
-</div>
+
 </body>
 
 </html>
