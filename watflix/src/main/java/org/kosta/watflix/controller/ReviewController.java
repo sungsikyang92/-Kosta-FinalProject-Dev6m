@@ -1,9 +1,8 @@
 package org.kosta.watflix.controller;
 
-import java.util.Map;
-
 import javax.annotation.Resource;
 
+import org.kosta.watflix.model.service.ReviewLikeService;
 import org.kosta.watflix.model.service.ReviewService;
 import org.kosta.watflix.model.vo.ContentsVO;
 import org.kosta.watflix.model.vo.MemberVO;
@@ -21,6 +20,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class ReviewController {
 	@Resource
 	private ReviewService reviewService;
+	@Resource
+	ReviewLikeService reviewLikeService;
 	//콘텐츠리뷰리스트
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("reviewList.do")
@@ -69,9 +70,14 @@ public class ReviewController {
 	//그러나 조회수가 증가 되지 않는 컨트롤러 메서드이다. (자기자신이 자기글 디테일 보는 경우이다)
 	//리뷰 작성 후 자신의 글 확인, 혹은 리뷰 수정 후 확인하는 용도이다. 
 	@RequestMapping("reviewDetailNoHits.do")
-	public ModelAndView reviewDetailNoHits(int reviewNo) {
+	public String reviewDetailNoHits(int reviewNo,Model model) {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		MemberVO memberVO = (MemberVO)principal;
 		ReviewVO rvo = reviewService.sGetReviewDetailNoHits(reviewNo);
-		return new ModelAndView("review/reviewDetail.tiles","rdvo",rvo);
+		int check = reviewLikeService.sGetReviewExist(reviewNo,memberVO.getId());
+		model.addAttribute("rdvo",rvo);
+		model.addAttribute("check",check);
+		return "review/reviewDetail.tiles";
 	}
 	
 	//리뷰 상세보기(조회수 증가O, 세션 추가 필요함.)

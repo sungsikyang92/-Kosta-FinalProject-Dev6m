@@ -74,6 +74,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="mGetContentsReviewCount" resultType="int">
 		SELECT COUNT(*) FROM REVIEW WHERE CONTENTS_NO = #{value}
 	</select>
+	<!-- 리뷰 추천수 증가 -->
+	<update id="mReviewLikesUpdate">
+		UPDATE REVIEW SET REVIEW_LIKES=REVIEW_LIKES+1 WHERE REVIEW_NO=#{VALUE}
+	</update>
+	<!-- 리뷰 추천수 감소 -->
+	<update id="mReviewLikesRemove">
+		UPDATE REVIEW SET REVIEW_LIKES=REVIEW_LIKES-1 WHERE REVIEW_NO=#{VALUE}
+	</update>
 </mapper>
 
 

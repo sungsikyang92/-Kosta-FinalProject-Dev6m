@@ -388,10 +388,7 @@ FROM (SELECT ROW_NUMBER() OVER(ORDER BY REVIEW_NO DESC) AS RNUM,REVIEW_NO,ID,CON
 R, MEMBER M, CONTENTS C
 WHERE R.ID = M.ID AND R.CONTENTS_NO = C.CONTENTS_NO AND RNUM BETWEEN 1 AND 100
 
-<<<<<<< HEAD
-=======
 
->>>>>>> branch 'master' of https://github.com/Minikanko/-Kosta-FinalProject-Dev6m.git
 -- 제약 조건 비활성화, 확성화
 alter table REPORT disable constraint REPORT_REVIEW_NO_FK
 alter table REPORT enable constraint REPORT_REVIEW_NO_FK
@@ -521,10 +518,6 @@ select ms.membership_name, ms.MEMBERSHIP_NO , ms.CONCURRENT_USERS,
 
 
 
- 		
- 		
- 		
- 		
  		SELECT p.PARTY_NO, p.id, p.PARTY_TITLE, ms.membership_name, p.PARTY_STATUS,
  		p.PARTY_HEADCOUNT,p.PARTY_APPLYCOUNT,to_char(p.PARTY_POSTED_TIME,'yyyy-mm-dd') as PARTY_POSTED_TIME
  		
@@ -533,10 +526,6 @@ select ms.membership_name, ms.MEMBERSHIP_NO , ms.CONCURRENT_USERS,
  		MEMBERSHIP ms
  		
  		WHERE rnum BETWEEN 1 AND 5 and p.membership_no = ms.membership_no
- 		
- 		
- 		
- 		
  		
  		 select ms.membership_name, ms.MEMBERSHIP_NO , ms.CONCURRENT_USERS,
    		p.PARTY_NO, m.ID, p.PARTY_TITLE, p.PARTY_HEADCOUNT, p.PARTY_APPLYCOUNT,
@@ -636,7 +625,6 @@ select rnum,C.CONTENTS_NO,C.CONTENTS_TITLE,C.CONTENTS_TYPE,G.GENRE_CODE,G.GENRE_
 		where C.GENRE_CODE=G.GENRE_CODE and rnum BETWEEN 0 AND 5
 		
 		
-		
 		select RNUM, m.id,m.password,m.name,m.tel,to_char(m.birth,'YYYY-MM-DD') as birth,m.sex,m.email,m.address,m.login_time,
  		m.login_fail,m.point,m.signup_date,m.agreement,m.acc_status_no,a.acc_status_info ,  		
  		r. (select count(*) from report where id='java') as reportCount 
@@ -656,10 +644,6 @@ select rnum,C.CONTENTS_NO,C.CONTENTS_TITLE,C.CONTENTS_TYPE,G.GENRE_CODE,G.GENRE_
  		WHERE M.ACC_STATUS_NO = A.ACC_STATUS_NO AND R.ID = M.ID AND RNUM BETWEEN 1 AND 5
  		
  		
- 		
- 		
- 		
- 		
  		SELECT RNUM,R.REVIEW_NO,M.ID,C.CONTENTS_NO,R.REVIEW_TITLE,R.REVIEW_CONTENTS,R.REVIEW_LIKES,R.REVIEW_HITS,R.REVIEW_POSTED_TIME
  		
 		FROM (SELECT ROW_NUMBER() OVER(ORDER BY REVIEW_NO DESC) AS RNUM,REVIEW_NO,ID,CONTENTS_NO,REVIEW_TITLE,
@@ -671,13 +655,7 @@ select rnum,C.CONTENTS_NO,C.CONTENTS_TITLE,C.CONTENTS_TYPE,G.GENRE_CODE,G.GENRE_
 		
 		WHERE R.ID = M.ID AND R.CONTENTS_NO = C.CONTENTS_NO AND RNUM BETWEEN #{pagingBean.startRowNumber} AND #{pagingBean.endRowNumber}
 		
-		
-		
-		
 		select * from report
-		
-		
-		
 		insert into comments(comments_no, id, contents_no, comments)
 values(COMMENTS_SEQ.nextval, 'java', 81171201,'매크로');
 
@@ -711,3 +689,13 @@ SELECT RNUM,M.ID,M.PASSWORD,M.NAME,M.TEL,M.BIRTH,M.SEX,M.EMAIL,M.ADDRESS,M.LOGIN
 ALTER TABLE MEMBER ADD REPORTCOUNT NUMBER DEFAULT 0;
 SELECT * FROM MEMBER
 
+/*리뷰 좋아요 테스트*/
+INSERT INTO REVIEW_LIKE VALUES(195,'java14')
+INSERT INTO REVIEW_LIKE VALUES(196,'java14')
+INSERT INTO REVIEW_LIKE VALUES(198,'java14')
+SELECT * FROM REVIEW_LIKE 
+SELECT COUNT(*) FROM REVIEW_LIKE WHERE REVIEW_NO = 198
+
+DELETE FROM REVIEW_LIKE WHERE REVIEW_NO = 196 AND ID = 'java14'
+
+DELETE FROM REVIEW WHERE REVIEW_NO = #{reviewNo}
