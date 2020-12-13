@@ -18,6 +18,8 @@ public interface CommentsMapper {
 	List<CommentsVO> mCommentsGetListByContentsNo (@Param("pagingBean") PagingBean pagingBean, @Param("contentsNo") String contentsNo);
 	
 	void mCommentsWrite(CommentsVO commentsVO);
+	// contents 별 comments_star 총합 조회
+	int mSumCommentsStars(String contentsNo);
 	
 	void mCommentsDelete(int commentsNo);
 	

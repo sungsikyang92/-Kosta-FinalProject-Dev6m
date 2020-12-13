@@ -62,6 +62,11 @@ public class CommentsServiceImpl implements CommentsService {
 	public void sCommentsWrite(CommentsVO commentsVO) {
 		commentsMapper.mCommentsWrite(commentsVO);		
 	}
+	// contents 별 comments_star 총합 조회
+	@Override
+	public int sSumCommentsStars(String contentsNo) {
+		return commentsMapper.mSumCommentsStars(contentsNo);
+	}
 
 	@Override
 	public void sCommentsDelete(int commentsNo) {

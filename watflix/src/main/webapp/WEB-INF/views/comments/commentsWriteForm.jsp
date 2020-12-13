@@ -73,7 +73,17 @@
 			displayPoint = starPoint;
 			$("#displayPoint").html(displayPoint);
 			$("#commentsStars").val(starPoint);
-		});		
+		});
+		// 글 내용 작성을 30자로 제한하고 글자 수를 나타낸다.
+		$("#commentsContents").on('keydown', function(){
+			$("#countContentsWord").html("("+$(this).val().length+" / 30)");
+			// 글자수가 30이 넘으면 30자 이하로 잘라내고 alert을 호출한다.
+			if($(this).val().length > 30){
+				$(this).val($(this).val().substring(0,30));
+				$("#countContentsWord").html("(30 / 30)");
+				alert("내용은 공백을 포함하여 30자 이하로 작성하세요.");
+			}
+		})
 	})
 </script>
 <title>commentsWriteForm</title>
@@ -105,8 +115,11 @@
 			</td>
 		</tr>
 		<tr>
-			<td><textarea cols="60" rows="10" id="commentsContents"
-			name="comments" placeholder="한줄평을 남겨주세요" required="required" style="margin-top: 30px"></textarea></td>
+			<td>
+				<textarea cols="60" rows="10" id="commentsContents"
+				name="comments" placeholder="한줄평을 남겨주세요" required="required" style="margin-top: 30px; width: 100%"></textarea>
+				<div id="countContentsWord"style="float: right;">(0/30)</div>
+			</td>
 		</tr>
 		<tr>
 			<td>

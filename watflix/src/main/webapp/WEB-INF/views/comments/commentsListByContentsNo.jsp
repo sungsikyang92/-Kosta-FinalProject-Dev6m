@@ -65,7 +65,7 @@
 	<sec:authentication property="principal.id" var="userId"/>
 	</sec:authorize>
 	<c:choose>
-	<c:when test="${requestScope.commentsListByContentsNo.list != null}">
+	<c:when test="${requestScope.commentsListByContentsNo.list[0] == null}">
 		<div>현재 해당 contents에는 평점이 존재하지 않습니다.</div>
 	</c:when>
 	<c:otherwise>

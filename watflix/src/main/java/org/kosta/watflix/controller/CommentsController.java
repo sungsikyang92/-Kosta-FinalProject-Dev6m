@@ -61,29 +61,44 @@ public class CommentsController {
 		contentsVO.setContentsNo(contentsNo);
 		commentsVO.setContentsVO(contentsVO);
 		commentsService.sCommentsWrite(commentsVO);
+		// 평균 별점을 입력하기 위해 contents의 총 comments 수를 조회한다.
+		float totalCommentsCount = commentsService.sCommentsGetTotalPostCountByContentNo(contentsNo);
+		// 평균 별점을 입력하기 위해 contents의 별점 총합을 조회한다.
+		float sumCommentsStars = commentsService.sSumCommentsStars(contentsNo);
+		// 평균 별점을 입력한다.
+		contentsService.sUpdateAvgStar(sumCommentsStars/totalCommentsCount, contentsNo);
 		redirectAttributes.addAttribute("contentsNo", contentsNo);
 		redirectAttributes.addAttribute("commentsNo", commentsVO.getCommentsNo());
-		System.out.println(contentsNo);
-		System.out.println(commentsVO.getCommentsNo());
 		return "redirect:contentsDetail.do";
 			
 	}
-	
+	// 삭제버튼으로 삭제
 	@PostMapping("commentsDelete.do")
 	public String commentsDelete(String[] commentsDelete, String contentsNo, String pageNo, RedirectAttributes redirectAttributes) {
 		for(int i = 0; i < commentsDelete.length; i++) {
 			commentsService.sCommentsDelete(Integer.parseInt(commentsDelete[i]));
 		}
-		System.out.println("삭제완료");
+		// 평균 별점을 입력하기 위해 contents의 총 comments 수를 조회한다.
+		float totalCommentsCount = commentsService.sCommentsGetTotalPostCountByContentNo(contentsNo);
+		// 평균 별점을 입력하기 위해 contents의 별점 총합을 조회한다.
+		float sumCommentsStars = commentsService.sSumCommentsStars(contentsNo);
+		// 평균 별점을 입력한다.
+		contentsService.sUpdateAvgStar(sumCommentsStars/totalCommentsCount, contentsNo);
 		redirectAttributes.addAttribute("contentsNo", contentsNo);
 		redirectAttributes.addAttribute("commentPageNo", pageNo);
 		return "redirect:contentsDetail.do";
 	}
-	
+	// 체크박스로 삭제
 	@PostMapping("commentsDeleteByCheckbox.do")
-	public String commentsDelete(int[] deleteCheckbox, String pageNo, RedirectAttributes redirectAttributes) {
+	public String commentsDelete(int[] deleteCheckbox, String[] deleteContentsNo, String pageNo, RedirectAttributes redirectAttributes) {
 		for(int i = 0; i < deleteCheckbox.length; i++) {
 			commentsService.sCommentsDelete(deleteCheckbox[i]);
+			// 평균 별점을 입력하기 위해 contents의 총 comments 수를 조회한다.
+			float totalCommentsCount = commentsService.sCommentsGetTotalPostCountByContentNo(deleteContentsNo[i]);
+			// 평균 별점을 입력하기 위해 contents의 별점 총합을 조회한다.
+			float sumCommentsStars = commentsService.sSumCommentsStars(deleteContentsNo[i]);
+			// 평균 별점을 입력한다.
+			contentsService.sUpdateAvgStar(sumCommentsStars/totalCommentsCount, deleteContentsNo[i]);
 		}
 		redirectAttributes.addAttribute("pageNo", pageNo);
 		return "redirect:allPostForAdmin.do";

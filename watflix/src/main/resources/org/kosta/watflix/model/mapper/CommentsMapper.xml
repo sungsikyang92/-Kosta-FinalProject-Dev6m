@@ -62,6 +62,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	<delete id="mCommentsDelete" parameterType="int">
  		DELETE FROM comments WHERE comments_no=#{value}
  	</delete>
+ 	<!-- Connents 별 comments_stars 합계 -->
+ 	<select id="mSumCommentsStars" parameterType="string" resultType="int">
+ 		SELECT SUM(comments_stars) FROM comments WHERE contents_no=#{contentsNo}
+ 	</select>
 </mapper>
 
 

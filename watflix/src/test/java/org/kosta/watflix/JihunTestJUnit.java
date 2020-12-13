@@ -5,6 +5,7 @@ import javax.annotation.Resource;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kosta.watflix.model.service.CommentsService;
+import org.kosta.watflix.model.service.ContentsService;
 import org.kosta.watflix.model.service.MemberService;
 import org.kosta.watflix.model.service.NoticeService;
 import org.kosta.watflix.model.service.ReportService;
@@ -44,6 +45,8 @@ public class JihunTestJUnit {
 	private ReportService reportService;
 	@Resource
 	private MemberService memberService;
+	@Resource
+	private ContentsService contentsService;
 	@Test
 	public void test(){
 		
@@ -158,6 +161,18 @@ public class JihunTestJUnit {
 		
 		//13. 해당 컨텐츠에 user의 아이디로 작성한 comments 유무 확인
 		//System.out.println(commentsService.sCheckWorteOrNot("java", "81095669"));
+		
+		//14. 각 contents에 평균 별점 넣기
+		//14-1. 각 contents별 별점 총합 구하기
+		//System.out.println(commentsService.sSumCommentsStars("81095669"));
+		//14-2. 각 contents별 평점 총 갯수 구하기
+		//System.out.println(commentsService.sCommentsGetTotalPostCountByContentNo("81095669"));
+		//14-3. 각 contents별 별점 평균 구하기
+		//int sum = commentsService.sSumCommentsStars("81095669");
+		//int count = commentsService.sCommentsGetTotalPostCountByContentNo("81095669");
+		//float avgStars = (float)sum/count;
+		//contentsService.sUpdateAvgStar(avgStars, 81095669);
+		//System.out.println(contentsService.sFindContentsByNo("81095669"));
 		
 	}
 }
