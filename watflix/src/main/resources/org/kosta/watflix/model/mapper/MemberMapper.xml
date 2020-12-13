@@ -98,21 +98,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update member set point=point+#{pointUp} where id=#{id}
 	</update>
 	
+	
 	<select id="mMemberAllCount" resultType="int">
 		select count(*) from MEMBER
 	</select>
 	
+	<!-- 페이징을 위한 멤버리스트(관리자페이지에서) -->
 	<select id="mMemberAllList" resultMap="memberRM">
 	SELECT RNUM,M.ID,M.PASSWORD,M.NAME,M.TEL,M.BIRTH,M.SEX,M.EMAIL,M.ADDRESS,M.LOGIN_TIME,M.LOGIN_FAIL,M.POINT,
  		M.SIGNUP_DATE,M.AGREEMENT,M.ACC_STATUS_NO,A.ACC_STATUS_INFO,M.REPORTCOUNT
  		
- 		FROM (SELECT ROW_NUMBER() OVER(ORDER BY ID DESC) AS RNUM,ID,PASSWORD,NAME,TEL,BIRTH,SEX,EMAIL,ADDRESS,LOGIN_TIME,LOGIN_FAIL,
+ 		FROM (SELECT ROW_NUMBER() OVER(ORDER BY ID ASC) AS RNUM,ID,PASSWORD,NAME,TEL,BIRTH,SEX,EMAIL,ADDRESS,LOGIN_TIME,LOGIN_FAIL,
  		POINT,TO_CHAR(SIGNUP_DATE, 'YYYY-MM-DD') AS SIGNUP_DATE,AGREEMENT,ACC_STATUS_NO ,REPORTCOUNT
  		
  		FROM MEMBER )M,  ACC_STATUS A
- 		WHERE M.ACC_STATUS_NO = A.ACC_STATUS_NO AND RNUM BETWEEN #{startRowNumber} AND #{endRowNumber} ORDER BY M.ID ASC
+ 		WHERE M.ACC_STATUS_NO = A.ACC_STATUS_NO AND RNUM BETWEEN #{startRowNumber} AND #{endRowNumber} <!-- ORDER BY M.ID ASC -->
 	</select>
 	
+	<!-- 관리자페이지에서 멤버 정지 or 정지해제 -->
 	<update id="mMemberStatusUpdate" parameterType="hashmap">
 		UPDATE MEMBER SET ACC_STATUS_NO = #{accStatusNo} WHERE ID = #{id}
 	</update>
