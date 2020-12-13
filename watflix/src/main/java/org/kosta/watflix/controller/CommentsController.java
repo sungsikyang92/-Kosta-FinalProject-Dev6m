@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -41,7 +42,16 @@ public class CommentsController {
 	public String commentsWriteForm(String contentsNo, Model model) {
 		model.addAttribute("contentsVO", contentsService.sFindContentsByNo(contentsNo));
 		return "comments/commentsWriteForm";
-	}	
+	}
+	// 해당 컨텐츠에 user의 아이디로 작성한 comments 유무 확인
+	@RequestMapping("checkWorteOrNot.do")
+	@ResponseBody
+	public int checkWorteOrNot(String contentsNo) {
+		MemberVO memberVO = (MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String userId = memberVO.getId();
+		// 유저가 작성한 comments가 존재할 경우 0 이상의 값을 받는다.
+		return commentsService.sCheckWorteOrNot(userId, contentsNo);
+	}
 	
 	@PostMapping("commentsWrite.do")
 	public String commentsWrite(CommentsVO commentsVO, String contentsNo, String pageNo, RedirectAttributes redirectAttributes) {

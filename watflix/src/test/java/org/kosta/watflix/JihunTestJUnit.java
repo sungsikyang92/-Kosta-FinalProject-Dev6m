@@ -156,18 +156,9 @@ public class JihunTestJUnit {
 		//reportService.sReportWriteReview(reportVO);
 		//System.out.println(reportService.sReportGetDetailNoHits(1)); 
 		
-		//13. 회원등록
-		 MemberVO memberVO = new MemberVO();
-	      memberVO.setId("java14");
-	      memberVO.setPassword("123");
-	      memberVO.setName("테스트");
-	      memberVO.setEmail("email");
-	      memberVO.setTel("123");
-	      memberVO.setBirth("1992-09-03");
-	      memberVO.setSex("남성");
-	      memberVO.setAddress("경기도");
-	      memberVO.setAgreement("동의");
-	      memberService.sMemberRegister(memberVO);
+		//13. 해당 컨텐츠에 user의 아이디로 작성한 comments 유무 확인
+		//System.out.println(commentsService.sCheckWorteOrNot("java", "81095669"));
+		
 	}
 }
 

@@ -29,7 +29,7 @@ public class ContentsController {
 	CommentsService commentsService;
 	
 	@RequestMapping("contentsDetail.do")
-	public String ContentsDetail(Model model, ContentsVO contentsVO, String commentsPageNo, String reviewPageNo) {
+	public String ContentsDetail(Model model, ContentsVO contentsVO, String commentsPageNo, String reviewPageNo, String countComments) {
 		//CommentsListByContentsNo in ContentsDetail
 		model.addAttribute("contentsVO", contentsService.sFindContentsByNo(contentsVO.getContentsNo()));
 		model.addAttribute("commentsListByContentsNo", commentsService.sCommentsGetListByContentsNo(commentsPageNo, contentsVO.getContentsNo()));

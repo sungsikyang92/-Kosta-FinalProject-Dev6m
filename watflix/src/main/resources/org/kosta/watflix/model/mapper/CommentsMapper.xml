@@ -46,6 +46,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM comments where id = #{id})
 		WHERE rnum BETWEEN #{pagingBean.startRowNumber} AND #{pagingBean.endRowNumber}
  	</select>
+ 	<!-- 해당 contents에 내가 쓴 comments 유무 확인 -->
+ 	<select id="mCheckWorteOrNot" parameterType="map" resultType="int">
+ 		SELECT COUNT(*) FROM comments WHERE id=#{userId} AND contents_no=#{contentsNo}
+ 	</select>
  	<!-- Comments 게시물 쓰기 -->
  	<insert id="mCommentsWrite" parameterType="commentsVO">
  		<selectKey keyProperty="commentsNo" resultType="int" order="BEFORE">

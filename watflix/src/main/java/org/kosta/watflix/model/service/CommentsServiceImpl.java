@@ -65,8 +65,7 @@ public class CommentsServiceImpl implements CommentsService {
 
 	@Override
 	public void sCommentsDelete(int commentsNo) {
-		commentsMapper.mCommentsDelete(commentsNo);
-		
+		commentsMapper.mCommentsDelete(commentsNo);		
 	}
 
 	// 내가 작성한 Comments 게시물 리스트
@@ -85,5 +84,11 @@ public class CommentsServiceImpl implements CommentsService {
 		}
 		CommentsListVO commentsListVO = new CommentsListVO(commentsMapper.mMyCommentsGetAllList(id, pagingBean),pagingBean);
 		return commentsListVO;
+	}
+	// 해당 컨텐츠에 user의 아이디로 작성한 comments 유무 확인
+	@Override
+	public int sCheckWorteOrNot(String userId, String contentsNo) {
+		return commentsMapper.mCheckWorteOrNot(userId, contentsNo);
+				
 	}
 }
