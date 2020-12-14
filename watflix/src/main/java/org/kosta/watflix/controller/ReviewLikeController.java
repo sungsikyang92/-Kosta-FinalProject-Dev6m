@@ -20,13 +20,12 @@ public class ReviewLikeController {
 	@Secured("ROLE_MEMBER")
 	@RequestMapping("reviewLikeExist.do")
 	@ResponseBody
-	public int reviewLikeExist(int reviewNo, String id) {
+	public int reviewLikeExist(int reviewNo) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		MemberVO memberVO = (MemberVO)principal;
 		ReviewLikeVO reviewLikeVO = new ReviewLikeVO();
 		ReviewVO reviewVO = new ReviewVO();
 		reviewVO.setReviewNo(reviewNo);
-		memberVO.setId(id);
 		reviewLikeVO.setReviewVO(reviewVO);
 		reviewLikeVO.setMemberVO(memberVO);
 		return reviewLikeService.sReviewLikeExist(reviewLikeVO); 

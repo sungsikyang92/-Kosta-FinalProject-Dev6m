@@ -10,8 +10,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	<!-- 리뷰좋아요 유무 여부 -->
 	<select id="mReviewLikeExist" parameterType="reviewLikeVO" resultType="int">
-		SELECT (SELECT COUNT(*) FROM REVIEW_LIKE WHERE REVIEW_NO = #{reviewVO.reviewNo} AND ID = #{memberVO.id}) AS REVIEW_LIKE_COUNT, 
-		REVIEW_NO, ID FROM REVIEW WHERE REVIEW_NO = #{reviewVO.reviewNo} AND ID = #{memberVO.id}
+		SELECT COUNT(*) FROM REVIEW_LIKE WHERE REVIEW_NO = #{reviewVO.reviewNo} AND ID = #{memberVO.id}
+		
 	</select>
 	<!-- 리뷰좋아요 제거 -->
 	<delete id="mReviewLikeRemove" parameterType="revieWLikeVO">

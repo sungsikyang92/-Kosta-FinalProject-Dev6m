@@ -9,7 +9,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		INSERT INTO CONTENTS_LIKE(CONTENTS_NO,ID) VALUES(#{contentsVO.contentsNo},#{memberVO.id})
 	</insert>
 	<!-- 컨텐츠좋아요 유무 여부 -->
-	<select id="mContentsLikeExist" parameterType="contentsLikeVO" resultType="string">
+	<select id="mContentsLikeExist" parameterType="contentsLikeVO" resultType="int">
 		SELECT count(*) FROM CONTENTS_LIKE WHERE REVIEW_NO = #{contentsVO.contentsNo} AND ID = #{memberVO.id}
 	</select>
 	<!-- 컨텐츠좋아요 제거 -->

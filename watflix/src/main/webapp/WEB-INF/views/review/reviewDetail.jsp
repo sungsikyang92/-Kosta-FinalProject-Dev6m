@@ -54,7 +54,7 @@
 			<th>
 				<a href="#">
 				<c:choose>
-					<c:when test="${reviewDetail.reviewLikeStatus eq 1}">
+					<c:when test="${reviewDetail.reviewLikeStatus == 1}">
 						<img id="ReviewLike" class="ReviewLike" src="/watflix/resources/media/icons/RedHeart.png" width=30px height=30px>
 					</c:when>
 					<c:otherwise>
