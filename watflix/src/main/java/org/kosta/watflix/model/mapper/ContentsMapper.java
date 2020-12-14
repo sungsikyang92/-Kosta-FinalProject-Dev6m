@@ -29,7 +29,7 @@ public interface ContentsMapper {
 	//컨텐츠 추천수 감소
 	void mContentsLikeRemove(String contentsNo);
 	//각 content에 contents_avg_stars 넣기
-	void mUpdateAvgStars(float avgStars, String contentsNo);
+	void mUpdateAvgStars(@Param("avgStars")double avgStars, @Param("contentsNo")String contentsNo);
 }
 
 

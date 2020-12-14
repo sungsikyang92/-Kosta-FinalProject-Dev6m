@@ -1,5 +1,7 @@
 package org.kosta.watflix.controller;
 
+import java.util.Locale;
+
 import javax.annotation.Resource;
 
 import org.kosta.watflix.model.service.CommentsService;
@@ -79,11 +81,20 @@ public class CommentsController {
 			commentsService.sCommentsDelete(Integer.parseInt(commentsDelete[i]));
 		}
 		// 평균 별점을 입력하기 위해 contents의 총 comments 수를 조회한다.
-		float totalCommentsCount = commentsService.sCommentsGetTotalPostCountByContentNo(contentsNo);
+		int totalCommentsCount = commentsService.sCommentsGetTotalPostCountByContentNo(contentsNo);
 		// 평균 별점을 입력하기 위해 contents의 별점 총합을 조회한다.
 		float sumCommentsStars = commentsService.sSumCommentsStars(contentsNo);
+		// 평균 별점을 계산한다.
+		// totalCommentsCount와 sumCommentsStars가 모두 0일경우 NaN이 발생하므로 
+		// 둘다 0일 경우에는 avgStars를 0으로 초기화한다.
+		float avgStars;
+		if(totalCommentsCount == 0 && sumCommentsStars == 0) {
+			avgStars = 0;
+		} else {
+			avgStars = sumCommentsStars/totalCommentsCount;
+		}
 		// 평균 별점을 입력한다.
-		contentsService.sUpdateAvgStar(sumCommentsStars/totalCommentsCount, contentsNo);
+		contentsService.sUpdateAvgStar(avgStars, contentsNo);
 		redirectAttributes.addAttribute("contentsNo", contentsNo);
 		redirectAttributes.addAttribute("commentPageNo", pageNo);
 		return "redirect:contentsDetail.do";

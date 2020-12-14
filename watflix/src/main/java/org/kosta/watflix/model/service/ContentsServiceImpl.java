@@ -70,7 +70,6 @@ public class ContentsServiceImpl implements ContentsService {
 	//컨텐츠 상세보기
 	@Override
 	public ContentsVO sFindContentsByNo(String contentsNo) {
-		System.out.println(contentsMapper.mFindContentsByNo(contentsNo));
 		ContentsVO contentsVO = contentsMapper.mFindContentsByNo(contentsNo);
 		contentsVO.setContentsReviewCount(reviewMapper.mGetContentsReviewCount(contentsNo));
 		return contentsVO;
@@ -102,7 +101,7 @@ public class ContentsServiceImpl implements ContentsService {
 	
 	//각 content에 contents_avg_stars 넣기
 	@Override
-	public void sUpdateAvgStar(float avgStars, String contentsNo) {
+	public void sUpdateAvgStar(double avgStars, String contentsNo) {
 		contentsMapper.mUpdateAvgStars(avgStars, contentsNo);
 	}
 	
