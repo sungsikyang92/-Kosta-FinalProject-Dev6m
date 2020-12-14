@@ -20,7 +20,7 @@ public class ContentsLikeController {
 	@Secured("ROLE_MEMBER")
 	@RequestMapping("contentsLikeExist.do")
 	@ResponseBody
-	public String contentsLikeExsit(String contentsNo, String id) {
+	public int contentsLikeExsit(String contentsNo, String id) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		MemberVO memberVO = (MemberVO)principal;
 		ContentsLikeVO contentsLikeVO = new ContentsLikeVO();

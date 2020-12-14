@@ -8,6 +8,7 @@ import org.kosta.watflix.model.vo.MemberVO;
 import org.kosta.watflix.model.vo.ReviewLikeVO;
 import org.kosta.watflix.model.vo.ReviewVO;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ReviewLikeServiceImpl implements ReviewLikeService {
@@ -16,6 +17,7 @@ public class ReviewLikeServiceImpl implements ReviewLikeService {
 	@Resource
 	ReviewMapper reviewMapper;
 	//리뷰좋아요 여부
+	@Transactional
 	@Override
 	public int sReviewLikeExist(ReviewLikeVO reviewLikeVO) {
 		int reviewLikeExist = reviewLikeMapper.mReviewLikeExist(reviewLikeVO);

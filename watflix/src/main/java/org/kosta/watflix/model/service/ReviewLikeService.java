@@ -7,6 +7,6 @@ public interface ReviewLikeService {
 	int sReviewLikeExist(ReviewLikeVO reviewLikeVO);
 	//리뷰좋아요 개수
 	int sGetReviewLikeCount();
-	//상세 접속 시 좋아요 유무체크용
+	//리뷰상세보기 시 좋아요 유무체크용
 	int sGetReviewExist(int reviewNo, String id);
 }

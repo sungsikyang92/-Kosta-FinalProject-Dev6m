@@ -6,7 +6,7 @@ import org.kosta.watflix.model.vo.ContentsLikeVO;
 public interface ContentsLikeMapper {
 	
 	//컨텐츠좋아요 여부
-	String mContentsLikeExist(ContentsLikeVO contentsLikeVO);
+	int mContentsLikeExist(ContentsLikeVO contentsLikeVO);
 	//컨텐츠좋아요++
 	void mContentsLikeAdd(ContentsLikeVO contentsLikeVO);
 	//컨텐츠좋아요 제거
