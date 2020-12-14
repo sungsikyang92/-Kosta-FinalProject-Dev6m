@@ -123,7 +123,7 @@ INSERT INTO Comments VALUES (COMMENTS_SEQ.NEXTVAL, 'java', '81095669', '진격�
 
 /*report 테스트를 위한 데이터 추가*/
 INSERT INTO report VALUES (report_seq.nextval, 'java', null, 257, 1, '신고합니다', sysdate);
-INSERT INTO report VALUES (report_seq.nextval, 'java14', 10, null, 2, '신고합니다', sysdate);
+INSERT INTO report VALUES (report_seq.nextval, 'java', 93, null, 2, '신고합니다', sysdate);
 
 INSERT INTO review VALUES (review_seq.nextval, 'java3', '81004276', '리뷰 제목', '리뷰 내용', 0, 0, sysdate)
 
