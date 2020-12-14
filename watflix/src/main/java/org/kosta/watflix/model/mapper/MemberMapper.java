@@ -25,13 +25,14 @@ public interface MemberMapper {
 	void mMemberLoginTimeUpdate(String id);
 	void mMemberLoginFailUp(String id);
 	int mMemberPointCheck(String id);
-	void mMemberPointUp(Map<String, Object> map);
+	void mMemberPointUpdate(MemberVO memberVO);
 	int mMemberAllCount();
 	List<ProductOrderVO> mMemberProductOrderHistory(String id);
 	// 멤버리스트, 페이징
 	List<MemberVO> mMemberAllList(PagingBean pagingBean);
 	//멤버 정지 or 정지해제
 	void mMemberStatusUpdate(HashMap<String, Object> map);
+
 	
 	
 }

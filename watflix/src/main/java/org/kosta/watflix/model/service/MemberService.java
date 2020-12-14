@@ -21,7 +21,7 @@ public interface MemberService {
 	List<Authority> sFindAuthorityById(String id);
 	String idcheck(String id);
 	int sMemberPointCheck(String id);
-	void sMemberPointUp(Map<String, Object> map);
+	void sMemberPointUpdate(MemberVO memberVO);
 	List<ProductOrderVO> sMemberProductOrderHistory(String id);
 	//멤버 총 수
 	int sMemberAllCount();

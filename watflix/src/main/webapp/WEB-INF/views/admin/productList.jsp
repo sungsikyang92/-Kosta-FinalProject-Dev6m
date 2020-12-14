@@ -23,7 +23,6 @@ $(document).ready(function(){
 	  	<tr>
 	  		<c:forEach items="${productListVO.productList}" var="pvo" begin="${(index-1)*3}" end="${index*3-1}">
 	  		<td class="productListTd">
-	  		${pvo.productNo}
 		  		<form action="${pageContext.request.contextPath}/productDetail.do" class="productDetailForm">
 		  			<input type="hidden" name="productNo" value="${pvo.productNo}">
 		  			<img alt="상품이미지" src="${pageContext.request.contextPath}/${pvo.productPic}">

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.kosta.watflix.model.vo.ContentsVO;
 import org.kosta.watflix.model.vo.GenreVO;
 @Mapper
@@ -23,6 +24,12 @@ public interface ContentsMapper {
 	List<GenreVO> mGetAllGenreList();
 	List<GenreVO> mGetGenreSelectForType(String contentsType);
 	List<ContentsVO> mGetContentsSelectForType(String contentsType);
+	//컨텐츠 추천수 업데이트
+	void mContentsLikeUpdate(String contentsNo);
+	//컨텐츠 추천수 감소
+	void mContentsLikeRemove(String contentsNo);
+	//각 content에 contents_avg_stars 넣기
+	void mUpdateAvgStars(float avgStars, String contentsNo);
 }
 
 

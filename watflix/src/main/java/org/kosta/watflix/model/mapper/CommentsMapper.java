@@ -18,6 +18,8 @@ public interface CommentsMapper {
 	List<CommentsVO> mCommentsGetListByContentsNo (@Param("pagingBean") PagingBean pagingBean, @Param("contentsNo") String contentsNo);
 	
 	void mCommentsWrite(CommentsVO commentsVO);
+	// contents 별 comments_star 총합 조회
+	int mSumCommentsStars(String contentsNo);
 	
 	void mCommentsDelete(int commentsNo);
 	
@@ -25,6 +27,8 @@ public interface CommentsMapper {
 	int mMyCommentsGetTotalPostCount(String id);
 	// 내가 작성한 Comments 게시물 리스트 조회
 	List<CommentsVO> mMyCommentsGetAllList(@Param("id")String id, @Param("pagingBean")PagingBean pagingBean);
+	// 해당 컨텐츠에서 동일한 아이디가 작성한 comments 유무 조회
+	int mCheckWorteOrNot(@Param("userId")String id, @Param("contentsNo")String contentsNo);
 }
 
 

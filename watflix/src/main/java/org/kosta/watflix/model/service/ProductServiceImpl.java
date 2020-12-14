@@ -4,17 +4,27 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.kosta.watflix.model.mapper.MemberMapper;
 import org.kosta.watflix.model.mapper.ProductCategoryMapper;
 import org.kosta.watflix.model.mapper.ProductMapper;
-import org.kosta.watflix.model.vo.ProductCategoryVO;
+import org.kosta.watflix.model.mapper.ProductOrderMapper;
+import org.kosta.watflix.model.vo.MemberVO;
+import org.kosta.watflix.model.vo.ProductOrderVO;
 import org.kosta.watflix.model.vo.ProductVO;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ProductServiceImpl implements ProductService {
 
 	@Resource
 	ProductMapper productMapper;
+	
+	@Resource
+	MemberMapper memberMapper;
+	
+	@Resource
+	ProductOrderMapper productOrderMapper;
 	
 	@Resource
 	ProductCategoryMapper productCategoryMapper;
@@ -47,6 +57,31 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public void sProductUpdate(ProductVO productVO) {
 		productMapper.mProductUpdate(productVO);
+	}
+
+	//상품 삭제하기
+	@Override
+	public void sProductDelete(int productNo) {
+		productMapper.mProductDelete(productNo);
+	}
+
+	//상품구매하기
+	@Transactional
+	@Override
+	public void sProductBuy(ProductVO productVO, MemberVO memberVO,ProductOrderVO productOrderVO) {
+		System.out.println("주문내역추가전"+productOrderVO);
+		productOrderMapper.mProductOrderAdd(productOrderVO);
+		System.out.println("주문내역추가완료"+productOrderVO);
+		memberMapper.mMemberPointUpdate(memberVO);
+		System.out.println("회원포인트갱신완료"+memberVO);
+		productMapper.mProductStockDown(productVO);
+		System.out.println("상품재고갱신완료"+productVO);
+	}
+
+	//상품재고수 조회
+	@Override
+	public int sGetProductStock(int productNo) {
+		return productMapper.mGetProductStock(productNo);
 	}
 
 }

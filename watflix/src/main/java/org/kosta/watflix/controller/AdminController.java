@@ -162,7 +162,7 @@ public class AdminController {
 	}
 	return "contents/contentsUpdateAdminComplete";
 	}   
-   
+   //관리자- 멤버관리 페이지
    @RequestMapping("adminControlMember.do")
    public String adminControlMember(Model model, String pageNo) {
 	   MemberListVO memberListVO = memberService.sMemberAllList(pageNo);
@@ -187,8 +187,12 @@ public class AdminController {
    
    //계정 정지 or 정지해제
    @RequestMapping("updateMemberStatus.do")
-   public String updateMemberStatus(String id, int accstatus) {
+   public String updateMemberStatus(String id, int accstatus, String nowPage) {
+	  String pageNo = nowPage;
+	  if(pageNo == "") {
+		  pageNo="1";
+	  }
 	   memberService.sMemberStatusUpdate(id,accstatus);
-	   return "redirect:adminControlMember.do";
+	   return "redirect:adminControlMember.do?pageNo="+pageNo;
    }
 }

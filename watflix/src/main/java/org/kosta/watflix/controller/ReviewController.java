@@ -1,5 +1,7 @@
 package org.kosta.watflix.controller;
 
+import java.util.HashMap;
+
 import javax.annotation.Resource;
 
 import org.kosta.watflix.model.service.ReviewLikeService;
@@ -65,20 +67,20 @@ public class ReviewController {
 		reviewVO.setContentsVO(contentsVO);
 		reviewService.sReviewWrite(reviewVO);
 	ra.addAttribute("reviewNo",reviewVO.getReviewNo());
+	reviewService.sGetReviewDetailNoHits(memberVO.getId(),reviewVO.getReviewNo());
 	return "redirect:reviewDetailNoHits.do";
 	}
 	
 	//리뷰 상세보기(조회수 증가X, 세션추가 불필요?)
 	//그러나 조회수가 증가 되지 않는 컨트롤러 메서드이다. (자기자신이 자기글 디테일 보는 경우이다)
-	//리뷰 작성 후 자신의 글 확인, 혹은 리뷰 수정 후 확인하는 용도이다. 
+	//리뷰 작성 후 자신의 글 확인, 혹은 리뷰 수정 후 확인하는 용도이다.
+	@Secured("ROLE_MEMBER")
 	@RequestMapping("reviewDetailNoHits.do")
 	public String reviewDetailNoHits(int reviewNo,Model model) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		MemberVO memberVO = (MemberVO)principal;
-		ReviewVO rvo = reviewService.sGetReviewDetailNoHits(reviewNo);
-		int check = reviewLikeService.sGetReviewExist(reviewNo,memberVO.getId());
-		model.addAttribute("rdvo",rvo);
-		model.addAttribute("check",check);
+		ReviewVO reviewVO = reviewService.sGetReviewDetailNoHits(memberVO.getId(),reviewNo);
+		model.addAttribute("rdvo",reviewVO);
 		return "review/reviewDetail.tiles";
 	}
 	
@@ -97,7 +99,9 @@ public class ReviewController {
 	@Secured("ROLE_MEMBER")
 	@RequestMapping("reviewUpdateForm.do")
 	public ModelAndView reviewUpdateForm(int reviewNo) {
-		return new ModelAndView("review/reviewUpdateForm.tiles","ru",reviewService.sGetReviewDetailNoHits(reviewNo));
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		MemberVO memberVO = (MemberVO)principal;
+		return new ModelAndView("review/reviewUpdateForm.tiles","ru",reviewService.sGetReviewDetailNoHits(memberVO.getId(),reviewNo));
 	}
 	
 	//리뷰 업데이트(세션 추가 필요함)
@@ -113,7 +117,9 @@ public class ReviewController {
 	@PostMapping("reviewDelete.do")
 	public String reviewDelete(int reviewNo) {
 		//변수에 컨텐츠넘버 담기
-		String contentsNoforDelete=reviewService.sGetReviewDetailNoHits(reviewNo).getContentsVO().getContentsNo();
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		MemberVO memberVO = (MemberVO)principal;
+		String contentsNoforDelete=reviewService.sGetReviewDetailNoHits(memberVO.getId(),reviewNo).getContentsVO().getContentsNo();
 		reviewService.sReviewDelete(reviewNo);
 		//"redirect:contentsDetail.do? 컨텐츠넘버주기
 		return "redirect:contentsDetail.do?contentsNo="+contentsNoforDelete;

@@ -36,26 +36,22 @@ public class ProductCategoryController {
 		//카테고리 리스트 가져오기
 		List<ProductCategoryVO> pcvolist = productCategoryService.sGetProductCategoryList(pagingBean);
 		model.addAttribute("productCategoryListVO",new ProductCategoryListVO(pcvolist, pagingBean));
-		return "product/productCategoryList";
+		return "admin/productCategoryList";
 	}
 	
 	//카테고리 등록 폼으로 이동
+	@Secured("ROLE_ADMIN")
 	@RequestMapping("productCategoryRegisterForm.do")
 	public String productCategoryRegisterForm(){
-		return "product/productCategoryRegisterForm";
+		return "admin/productCategoryRegisterForm";
 	}
 	
 	//카테고리 등록하기
+	@Secured("ROLE_ADMIN")
 	@RequestMapping("productCategoryRegister.do")
 	public String productCategoryRegister(ProductCategoryVO productCategoryVO,RedirectAttributes ra) {
 		productCategoryService.sProductCategoryRegister(productCategoryVO);
 		ra.addAttribute("productCategoryName",productCategoryVO.getProductCategoryName());
-		return "redirect:productCategoryRegister_result.do";
-	}
-	//카테고리 등록완료
-	@RequestMapping("productCategoryRegister_result.do")
-	public String productCategoryRegister_result(ProductCategoryVO productCategoryVO,Model model) {
-		model.addAttribute("productCategoryName",productCategoryVO.getProductCategoryName());
 		return "product/productCategoryRegister_result";
 	}
 }

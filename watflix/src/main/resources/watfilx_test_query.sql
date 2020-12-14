@@ -23,7 +23,11 @@ INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL,ACC_STAUTS_NO) VALUES('jikang','1','�
 INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('spring','1','강상훈','gmail')
 INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('yuki','1','유리','gmail')
 INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('java','$2a$10$i2cyl1OhUeJ71PUTHozM9enjjiJ0rZVVjn/z7FVXnJA1pBi7gOUH2','강상훈','gmail');
+INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('java14','$2a$10$i2cyl1OhUeJ71PUTHozM9enjjiJ0rZVVjn/z7FVXnJA1pBi7gOUH2','킹왕짱','gmail');
 INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('spring','$2a$10$i2cyl1OhUeJ71PUTHozM9enjjiJ0rZVVjn/z7FVXnJA1pBi7gOUH2','양성식','gmail');
+INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('java1','$2a$10$i2cyl1OhUeJ71PUTHozM9enjjiJ0rZVVjn/z7FVXnJA1pBi7gOUH2','양성식','gmail');
+INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('spring1','$2a$10$i2cyl1OhUeJ71PUTHozM9enjjiJ0rZVVjn/z7FVXnJA1pBi7gOUH2','양성식','gmail');
+
 
 /*ReviewWrite쿼리문 테스트를 위한 CONTENTS TABLE 데이터 추가*/
 INSERT INTO CONTENTS VALUES(CONTENTS_SEQ.NEXTVAL,'트랜스포머','타입','장르','요약','트레일러',0,1,1)
@@ -118,8 +122,8 @@ INSERT INTO Comments VALUES (COMMENTS_SEQ.NEXTVAL, 'java', '60004481', '나도 �
 INSERT INTO Comments VALUES (COMMENTS_SEQ.NEXTVAL, 'java', '81095669', '진격의 거인이 그렇게 재미있냐?', 8, SYSDATE);
 
 /*report 테스트를 위한 데이터 추가*/
-INSERT INTO report VALUES (report_seq.nextval, 'java2', null, 1, 1, '신고합니다', sysdate)
-INSERT INTO report VALUES (report_seq.nextval, 'java2', 1, null, 2, '신고합니다', sysdate)
+INSERT INTO report VALUES (report_seq.nextval, 'java', null, 257, 1, '신고합니다', sysdate);
+INSERT INTO report VALUES (report_seq.nextval, 'java14', 10, null, 2, '신고합니다', sysdate);
 
 INSERT INTO review VALUES (review_seq.nextval, 'java3', '81004276', '리뷰 제목', '리뷰 내용', 0, 0, sysdate)
 
@@ -455,8 +459,15 @@ select * from review
 select * from grade where id='java'
 insert into grade values ( 'ROLE_MEMBER' , 'java');
 insert into grade values ( 'ROLE_MEMBER' , 'spring');
+<<<<<<< HEAD
+insert into grade values ( 'ROLE_MEMBER' , 'spring1');
+insert into grade values ( 'ROLE_MEMBER' , 'java1');
+insert into grade values ( 'ROLE_MEMBER' , 'java14');
+
+=======
 update grade set grade = 'ROLE_ADMIN' where id='java'
 insert into grade values('')
+>>>>>>> branch 'master' of https://github.com/Minikanko/-Kosta-FinalProject-Dev6m.git
 /*컨텐츠*/
 CREATE TABLE CONTENTS(
    CONTENTS_NO VARCHAR2(1000) PRIMARY KEY,
@@ -631,6 +642,8 @@ select rnum,C.CONTENTS_NO,C.CONTENTS_TITLE,C.CONTENTS_TYPE,G.GENRE_CODE,G.GENRE_
 		CONTENTS_AVG_STARS,CONTENTS_LIKES,CONTENTS_HITS,CONTENTS_DATE,CONTENTS_RUNNINGTIME,CONTENTS_ACTOR,CONTENTS_PRODUCER,CONTENTS_AGE from contents where CONTENTS_TYPE LIKE '%영화%' and genre_code='783') C, 
 		 GENRE G
 		where C.GENRE_CODE=G.GENRE_CODE and rnum BETWEEN 0 AND 5
+<<<<<<< HEAD
+=======
 		
 		select RNUM, m.id,m.password,m.name,m.tel,to_char(m.birth,'YYYY-MM-DD') as birth,m.sex,m.email,m.address,m.login_time,
  		m.login_fail,m.point,m.signup_date,m.agreement,m.acc_status_no,a.acc_status_info ,  		
@@ -696,14 +709,71 @@ SELECT RNUM,M.ID,M.PASSWORD,M.NAME,M.TEL,M.BIRTH,M.SEX,M.EMAIL,M.ADDRESS,M.LOGIN
 ALTER TABLE MEMBER ADD REPORTCOUNT NUMBER DEFAULT 0;
 SELECT * FROM MEMBER
 
+>>>>>>> branch 'master' of https://github.com/Minikanko/-Kosta-FinalProject-Dev6m.git
 
-/*리뷰 좋아요 테스트*/
+		/*리뷰 좋아요 테스트*/
 INSERT INTO REVIEW_LIKE VALUES(195,'java14')
 INSERT INTO REVIEW_LIKE VALUES(196,'java14')
 INSERT INTO REVIEW_LIKE VALUES(198,'java14')
-SELECT * FROM REVIEW_LIKE 
+INSERT INTO REVIEW_LIKE VALUES(198,'java1');
+INSERT INTO REVIEW_LIKE VALUES(198,'spring');
+INSERT INTO REVIEW_LIKE VALUES(198,'spring1');
+SELECT FROM REVIEW_LIKE 
+SELECT COUNT(*) FROM REVIEW_LIKE 
 SELECT COUNT(*) FROM REVIEW_LIKE WHERE REVIEW_NO = 198
 
 DELETE FROM REVIEW_LIKE WHERE REVIEW_NO = 196 AND ID = 'java14'
 
+<<<<<<< HEAD
 DELETE FROM REVIEW WHERE REVIEW_NO = #{reviewNo}
+SELECT COUNT(*) FROM REVIEW WHERE REVIEW_NO = 270
+SELECT RL.count(*),R.REVIEW_NO,R.ID FROM REVIEW R, REVIEW_LIKE RL WHERE R.ID = RL.ID AND REVIEW_NO = 270 AND ID = 'java'
+=======
+DELETE FROM REVIEW WHERE REVIEW_NO = #{reviewNo}
+>>>>>>> branch 'master' of https://github.com/Minikanko/-Kosta-FinalProject-Dev6m.git
+
+<<<<<<< HEAD
+SELECT (SELECT COUNT(*) FROM REVIEW_LIKE WHERE REVIEW_NO = 270 AND ID = 'java') AS REVIEW_LIKE_STATUS, REVIEW_NO, ID FROM REVIEW WHERE REVIEW_NO = 270 AND ID = 'java'
+SELECT REVIEW_LIKE_STATUS, REVIEW_NO, ID FROM REVIEW_LIKE WHERE REVIEW_NO = 270 AND ID = 'java'
+
+	<!-- 리뷰좋아요 유무 여부 -->
+	<select id="mReviewLikeExist" parameterType="reviewLikeVO" resultType="int">
+		SELECT (SELECT COUNT(*) FROM REVIEW_LIKE WHERE REVIEW_NO = #{reviewVO.reviewNo} AND ID = #{memberVO.id}) AS REVIEW_LIKE_COUNT, 
+		REVIEW_NO, ID FROM REVIEW WHERE REVIEW_NO = #{reviewVO.reviewNo} AND ID = #{memberVO.id}
+	</select>
+		<!-- 리뷰 디테일 -->
+	<select id="mGetReviewDetail" resultMap="reviewRM">
+		SELECT R.REVIEW_NO,R.REVIEW_TITLE,R.REVIEW_LIKES,C.CONTENTS_NO,TO_CHAR(R.REVIEW_POSTED_TIME, 'YYYY.MM.DD HH24:MI:SS') 
+		AS REVIEW_POSTED_TIME,M.ID,R.REVIEW_HITS,R.REVIEW_CONTENTS 
+		FROM REVIEW R, MEMBER M, CONTENTS C 
+		WHERE R.ID = M.ID AND R.REVIEW_NO = 1 and R.CONTENTS_NO=C.CONTENTS_NO
+	</select>
+	SELECT (SELECT COUNT(*) FROM REVIEW_LIKE WHERE REVIEW_NO = 1 AND ID = 'java') AS REVIEW_LIKE_STATUS, REVIEW_NO, ID FROM REVIEW WHERE REVIEW_NO = 1 AND ID = 'java'
+	
+	SELECT (SELECT COUNT(*) FROM REVIEW_LIKE WHERE REVIEW_NO = 1 AND ID = 'java') AS REVIEW_LIKE_STATUS,R.REVIEW_NO,R.REVIEW_TITLE,R.REVIEW_LIKES,C.CONTENTS_NO,TO_CHAR(R.REVIEW_POSTED_TIME, 'YYYY.MM.DD HH24:MI:SS') 
+		AS REVIEW_POSTED_TIME,M.ID,R.REVIEW_HITS,R.REVIEW_CONTENTS 
+		FROM REVIEW R, MEMBER M, CONTENTS C 
+		WHERE R.ID = M.ID AND R.REVIEW_NO = 1 AND M.ID = 'java' AND R.CONTENTS_NO=C.CONTENTS_NO
+		
+	<select id="mReviewLikeExist" parameterType="reviewLikeVO" resultType="int">
+		SELECT (SELECT COUNT(*) FROM REVIEW_LIKE WHERE REVIEW_NO = #{reviewVO.reviewNo} AND ID = #{memberVO.id}) AS REVIEW_LIKE_COUNT,
+		R.REVIEW_NO,R.REVIEW_TITLE,R.REVIEW_LIKES,C.CONTENTS_NO,TO_CHAR(R.REVIEW_POSTED_TIME, 'YYYY.MM.DD HH24:MI:SS') 
+		AS REVIEW_POSTED_TIME,M.ID,R.REVIEW_HITS,R.REVIEW_CONTENTS 
+		FROM REVIEW R, MEMBER M, CONTENTS C 
+		WHERE R.ID = M.ID AND R.REVIEW_NO = #{reviewNo} and R.CONTENTS_NO=C.CONTENTS_NO
+	</select>
+	
+	SELECT (SELECT COUNT(*) FROM REVIEW_LIKE WHERE REVIEW_NO = 1 AND ID = 'java') AS REVIEW_LIKE_STATUS,R.REVIEW_NO,R.REVIEW_TITLE,
+	R.REVIEW_LIKES,C.CONTENTS_NO,TO_CHAR(R.REVIEW_POSTED_TIME, 'YYYY.MM.DD HH24:MI:SS') 
+	AS REVIEW_POSTED_TIME,M.ID,R.REVIEW_HITS,R.REVIEW_CONTENTS 
+	FROM REVIEW R, MEMBER M, CONTENTS C 
+	WHERE R.ID = M.ID AND R.REVIEW_NO = 1 AND R.CONTENTS_NO=C.CONTENTS_NO
+	
+	
+	
+	
+	
+	
+=======
+UPDATE contents SET contents_avg_stars = 8 WHERE contents_no = 81171201;
+>>>>>>> branch 'master' of https://github.com/Minikanko/-Kosta-FinalProject-Dev6m.git

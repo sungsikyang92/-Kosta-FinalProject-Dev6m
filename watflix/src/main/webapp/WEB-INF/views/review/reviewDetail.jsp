@@ -30,14 +30,6 @@
 						$('#LikesCount').text(Number($('#LikesCount').text())+1);
 					}else{
 						$('#ReviewLike').attr('src','/watflix/resources/media/icons/HeartLine.png');
-						/* <c:choose>
-							<c:when test='${requestScope.rdvo.reviewLikes==0}'>
-								$('#LikesCount').text(0)
-							</c:when>
-							<c:otherwise>
-								$('#LikesCount').text('${requestScope.rdvo.reviewLikes-1}')
-							</c:otherwise>
-						</c:choose> */
 						$('#LikesCount').text(Number($('#LikesCount').text())-1);
 					}
 				}
@@ -62,7 +54,7 @@
 			<th>
 				<a href="#">
 				<c:choose>
-					<c:when test="${check==1}">
+					<c:when test="${reviewDetail.reviewLikeStatus eq 1}">
 						<img id="ReviewLike" class="ReviewLike" src="/watflix/resources/media/icons/RedHeart.png" width=30px height=30px>
 					</c:when>
 					<c:otherwise>

@@ -117,8 +117,8 @@ public class MemberServiceImpl implements MemberService {
 	//포인트 증가, 이 기능은 로그인을 위한 기능임,
 	//리뷰쓰기,평점쓰기등의 포인트를 증가시켜야하는 서비스에서는 mapper쪽에 있는 기능을 사용하기 바람
 	@Override
-	public void sMemberPointUp(Map<String, Object> map) {
-		memberMapper.mMemberPointUp(map);
+	public void sMemberPointUpdate(MemberVO memberVO) {
+		memberMapper.mMemberPointUpdate(memberVO);
 	}
 
 	//포인트 사용내역(상품 구매내역)
@@ -126,7 +126,7 @@ public class MemberServiceImpl implements MemberService {
 	public List<ProductOrderVO> sMemberProductOrderHistory(String id) {
 		return memberMapper.mMemberProductOrderHistory(id);
 	}
-//=====================
+
 	@Override
 	public MemberListVO sMemberAllList() {
 		return sMemberAllList("1");
