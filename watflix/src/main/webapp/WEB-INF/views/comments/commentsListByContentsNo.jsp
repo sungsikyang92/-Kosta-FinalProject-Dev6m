@@ -47,7 +47,7 @@
 		// 리뷰 신고
 		function reportPopup(commentsNo, commentsWriterId){
 			// 신고에 필요한 데이터 전송
-			var path = "${pageContext.request.contextPath}/reportCommentsForm.do?commentsNo="+commentsNo+"&&"+"commentsWriterId="+commentsWriterId;
+			var path = "${pageContext.request.contextPath}/reportForm.do?commentsNo="+commentsNo+"&&"+"commentsWriterId="+commentsWriterId;
 			window.open(path, "reportComments","width=465, height=180, top=150, left=200");
 			
 		}
