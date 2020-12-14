@@ -39,7 +39,7 @@
 	// 평점 신고
 	function reportPopup(reviewNo, reviewWriterId){
 		// 신고에 필요한 데이터를 신고 form에 보낸다.
-		var path = "${pageContext.request.contextPath}/reportReviewForm.do?reviewNo="+reviewNo+"&&"+"reviewWriterId="+reviewWriterId;
+		var path = "${pageContext.request.contextPath}/reportForm.do?reviewNo="+reviewNo+"&&"+"reviewWriterId="+reviewWriterId;
 		window.open(path, "reportReview","width=465, height=180, top=150, left=200");
 	}
 </script>
@@ -65,7 +65,7 @@
 				</a>
 				Likes <span id="LikesCount">${reviewDetail.reviewLikes}</span>	
 			</th>
-			<th><a href="#">신고</a></th>
+			<th><a href="#" onclick="reportPopup(${reviewDetail.reviewNo},'${reviewDetail.memberVO.id}');return false;">신고</a></th>
 		</tr>
 		<tr>
 			<td class="contentsTitle">${requestScope.contentsTitle}리뷰</td>

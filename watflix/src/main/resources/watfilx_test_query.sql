@@ -370,10 +370,6 @@ SELECT COUNT(REVIEW_TITLE) AS CONTENTS_REVIEW_NO FROM REVIEW WHERE CONTENTS_NO =
 delete from genre
 drop table contents
 
-/*재우 test*/
-select * from report
-select * from review
-union (all)
 
 		SELECT R.REVIEW_NO,R.REVIEW_TITLE,R.REVIEW_LIKES,C.CONTENTS_NO,TO_CHAR(R.REVIEW_POSTED_TIME, 'YYYY.MM.DD HH24:MI:SS') 
 		AS REVIEW_POSTED_TIME,M.ID,R.REVIEW_HITS,R.REVIEW_CONTENTS 
@@ -454,20 +450,34 @@ WHERE rnum BETWEEN 1 AND 5;
 -- 내가 작성한 전체 평점 count
 select count(*) from review where id='spring'
 select * from review
+-- drop 시퀀스
+drop SEQUENCE COMMENTS_SEQ;
+drop SEQUENCE REVIEW_SEQ;
+drop SEQUENCE NOTICE_SEQ;
+drop SEQUENCE REPORT_SEQ;
+drop SEQUENCE PRODUCT_SEQ;
+drop SEQUENCE PRODUCT_CATEGORY_SEQ;
+drop SEQUENCE PRODUCT_ORDER_SEQ;
+drop SEQUENCE PARTY_SEQ;
+drop SEQUENCE FAQ_SEQ;
+-- 권한 추가
+insert into grade values ( 'ROLE_ADMIN' , 'java');
+-- 신고 당한 횟수 추가
+ALTER TABLE MEMBER ADD REPORTCOUNT NUMBER DEFAULT 0;
+
 
 
 select * from grade where id='java'
 insert into grade values ( 'ROLE_MEMBER' , 'java');
 insert into grade values ( 'ROLE_MEMBER' , 'spring');
-<<<<<<< HEAD
 insert into grade values ( 'ROLE_MEMBER' , 'spring1');
 insert into grade values ( 'ROLE_MEMBER' , 'java1');
 insert into grade values ( 'ROLE_MEMBER' , 'java14');
 
-=======
+
 update grade set grade = 'ROLE_ADMIN' where id='java'
 insert into grade values('')
->>>>>>> branch 'master' of https://github.com/Minikanko/-Kosta-FinalProject-Dev6m.git
+
 /*컨텐츠*/
 CREATE TABLE CONTENTS(
    CONTENTS_NO VARCHAR2(1000) PRIMARY KEY,
@@ -642,8 +652,6 @@ select rnum,C.CONTENTS_NO,C.CONTENTS_TITLE,C.CONTENTS_TYPE,G.GENRE_CODE,G.GENRE_
 		CONTENTS_AVG_STARS,CONTENTS_LIKES,CONTENTS_HITS,CONTENTS_DATE,CONTENTS_RUNNINGTIME,CONTENTS_ACTOR,CONTENTS_PRODUCER,CONTENTS_AGE from contents where CONTENTS_TYPE LIKE '%영화%' and genre_code='783') C, 
 		 GENRE G
 		where C.GENRE_CODE=G.GENRE_CODE and rnum BETWEEN 0 AND 5
-<<<<<<< HEAD
-=======
 		
 		select RNUM, m.id,m.password,m.name,m.tel,to_char(m.birth,'YYYY-MM-DD') as birth,m.sex,m.email,m.address,m.login_time,
  		m.login_fail,m.point,m.signup_date,m.agreement,m.acc_status_no,a.acc_status_info ,  		
@@ -709,7 +717,6 @@ SELECT RNUM,M.ID,M.PASSWORD,M.NAME,M.TEL,M.BIRTH,M.SEX,M.EMAIL,M.ADDRESS,M.LOGIN
 ALTER TABLE MEMBER ADD REPORTCOUNT NUMBER DEFAULT 0;
 SELECT * FROM MEMBER
 
->>>>>>> branch 'master' of https://github.com/Minikanko/-Kosta-FinalProject-Dev6m.git
 
 		/*리뷰 좋아요 테스트*/
 INSERT INTO REVIEW_LIKE VALUES(195,'java14')
@@ -724,15 +731,13 @@ SELECT COUNT(*) FROM REVIEW_LIKE WHERE REVIEW_NO = 198
 
 DELETE FROM REVIEW_LIKE WHERE REVIEW_NO = 196 AND ID = 'java14'
 
-<<<<<<< HEAD
+
 DELETE FROM REVIEW WHERE REVIEW_NO = #{reviewNo}
 SELECT COUNT(*) FROM REVIEW WHERE REVIEW_NO = 270
 SELECT RL.count(*),R.REVIEW_NO,R.ID FROM REVIEW R, REVIEW_LIKE RL WHERE R.ID = RL.ID AND REVIEW_NO = 270 AND ID = 'java'
-=======
-DELETE FROM REVIEW WHERE REVIEW_NO = #{reviewNo}
->>>>>>> branch 'master' of https://github.com/Minikanko/-Kosta-FinalProject-Dev6m.git
 
-<<<<<<< HEAD
+
+
 SELECT (SELECT COUNT(*) FROM REVIEW_LIKE WHERE REVIEW_NO = 270 AND ID = 'java') AS REVIEW_LIKE_STATUS, REVIEW_NO, ID FROM REVIEW WHERE REVIEW_NO = 270 AND ID = 'java'
 SELECT REVIEW_LIKE_STATUS, REVIEW_NO, ID FROM REVIEW_LIKE WHERE REVIEW_NO = 270 AND ID = 'java'
 
@@ -770,10 +775,6 @@ SELECT REVIEW_LIKE_STATUS, REVIEW_NO, ID FROM REVIEW_LIKE WHERE REVIEW_NO = 270 
 	WHERE R.ID = M.ID AND R.REVIEW_NO = 1 AND R.CONTENTS_NO=C.CONTENTS_NO
 	
 	
-	
-	
-	
-	
-=======
+
 UPDATE contents SET contents_avg_stars = 8 WHERE contents_no = 81171201;
->>>>>>> branch 'master' of https://github.com/Minikanko/-Kosta-FinalProject-Dev6m.git
+

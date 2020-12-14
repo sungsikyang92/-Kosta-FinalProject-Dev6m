@@ -12,11 +12,72 @@
 	<script src="//code.jquery.com/jquery.min.js"></script>
 	<script type="text/javascript">
 		function reviewPaging(reviewPageNo){
-			var test2 = "";
-
+			// 테이블에 집어넣을 문자열 데이터 변수
+			var reviewTbody = "";
+			var reportTfoot ="";
 			$.ajax({
 				type: "get",
-				url: "${pageContext.request.contextPath}/"
+				url: "${pageContext.request.contextPath}/myReviewList.do?pageNo="+reviewPageNo,
+				success:function(data){
+					//table의 tbody
+					for (var i = 0; i < data.reviewList.length; i++){
+						reviewTbody += "<tr>";
+							reviewTbody += "<th>";
+								reviewTbody += "<a href=\"${pageContext.request.contextPath}/reviewDetailNoHits.do?reviewNo="+data.reviewList[i].reviewNo+"\">";
+									reviewTbody += data.reviewList[i].reviewTitle;
+								reviewTbody += "</a>";
+							reviewTbody += "</th>";
+							reviewTbody += "<th>";
+								reviewTbody += data.reviewList[i].reviewPostedTime;
+							reviewTbody += "</th>";
+							reviewTbody += "<th>";
+								reviewTbody += data.reviewList[i].reviewLikes;
+							reviewTbody += "</th>";
+							reviewTbody += "<th>";
+								reviewTbody += data.reviewList[i].reviewHits;
+							reviewTbody += "</th>";
+						reviewTbody += "</tr>";
+					}
+					$("#reviewTbody").html(reviewTbody);
+					
+					// table 페이징
+					var startPageGroup = data.pagingBean.startPageOfPageGroup;
+					var endPageGroup = data.pagingBean.endPageOfPageGroup;
+					// 왼쪽 페이징 화살표
+					if (data.pagingBean.previousPageGroup){
+						reportTfoot += "<li>";
+							reportTfoot += "<a href=\"#\" onclick=\"reviewPaging("+ (startPageGroup -1) +");return false;\">";
+								reportTfoot += "&laquo;";
+							reportTfoot += "</a>";
+						reportTfoot += "</li>";
+					}
+					// 페이징 번호
+					for (var reviewPageNo = startPageGroup; reviewPageNo < endPageGroup + 1; reviewPageNo++){
+						if(data.pagingBean.nowPage != reviewPageNo){
+							reportTfoot += "<li>";
+								reportTfoot += "<a href=\"#\" onclick=\"reviewPaging("+ reviewPageNo +");return false;\">";
+									reportTfoot += reviewPageNo;
+								reportTfoot += "</a>";
+							reportTfoot += "</li>";
+						}else{
+							reportTfoot += "<li>";
+								reportTfoot += "<a href=\"#\" onclick=\"return false\">";
+									reportTfoot += reviewPageNo;
+								reportTfoot += "</a>";
+							reportTfoot += "</li>";
+						}
+					}
+					// 오른쪽 화살표 페이징
+					if(data.pagingBean.nextPageGroup){
+						reportTfoot += "<li>";
+							reportTfoot += "<a href=\"#\" onclick=\"reviewPaging("+ (endPageGroup + 1) +");return false\">";
+								reportTfoot += "&raquo;";
+							reportTfoot += "</a>";
+						reportTfoot += "</li>";
+					}
+					$("#reviewPaging").html(reportTfoot);
+					
+				}
 			})
 		}
 	</script>
@@ -31,7 +92,7 @@
 			<th>조회</th>
 	      </tr>
 	    </thead>
-	    <tbody>
+	    <tbody id="reviewTbody">
 			<c:forEach var="rvoc" items="${requestScope.reviewListVO.reviewList}">
 				<tr>
 					<!-- 리뷰제목 불러오기 -->
@@ -46,7 +107,7 @@
 		<div class="boardBottomDiv">
 			<div class="pagingInfo" id="pagingLocation">
 				<c:set var="rpbc" value="${requestScope.reviewListVO.pagingBean}"/>
-				<ul class="pagination">
+				<ul class="pagination" id = "reviewPaging">
 					<c:forEach var="i" begin="${rpbc.startPageOfPageGroup}" end="${rpbc.endPageOfPageGroup}">
 						<c:choose>
 							<c:when test="${rpbc.nowPage != i}">

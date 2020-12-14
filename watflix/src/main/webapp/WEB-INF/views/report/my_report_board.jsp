@@ -38,12 +38,12 @@
 				success:function(data){	
 					//table의 thead
 					reportThead += "<th>";
-						reportThead +="<a href=\"#\" onclick=\"reportReviewPaging(1);return false\">";
+						reportThead +="<a class=\"reportReview active\" href=\"#\" onclick=\"reportReviewPaging(1);return false\">";
 							reportThead += "리뷰";
 						reportThead += "</a>";
 					reportThead += "</th>";
 					reportThead += "<th>";
-						reportThead +="<a href=\"#\" onclick=\"reportCommentsPaging(1);return false\">";
+						reportThead +="<a class=\"reportComments\" href=\"#\" onclick=\"reportCommentsPaging(1);return false\">";
 							reportThead += "평점";
 						reportThead += "</a>";
 					reportThead += "</th>";
@@ -115,11 +115,12 @@
 		
 		// 리뷰 페이징
 		function reportReviewPaging(reportPageNo){
+			alert($(this).val)
 			var reportTbody = "";
 			var reportTfoot = "";
 			$.ajax({
 				type: "get",
-				url: "${pageContext.request.contextPath}/myReportReviewBoardNext.do?pageNo="+reportPageNo,
+				url: "${pageContext.request.contextPath}/myReportReviewBoard.do?pageNo="+reportPageNo,
 				success:function(data){
 					// table의 tbody
 					for (var i=0; i < data.list.length; i++){
@@ -198,7 +199,7 @@
 			var reportTfoot = "";
 			$.ajax({
 				type: "get",
-				url: "${pageContext.request.contextPath}/myReportCommentsBoardNext.do?pageNo="+reportPageNo,
+				url: "${pageContext.request.contextPath}/myReportCommentsBoard.do?pageNo="+reportPageNo,
 				success:function(data){
 					// table의 tbody
 					for (var i=0; i < data.list.length; i++){
@@ -288,7 +289,7 @@
 			<tr>
 				<td colspan="5">
 					<div class="tableTopMargin">
-						<ul id ="reportTfoot" class="pagination" h>
+						<ul id ="reportTfoot" class="pagination">
 						</ul>
 					</div>
 				</td>
