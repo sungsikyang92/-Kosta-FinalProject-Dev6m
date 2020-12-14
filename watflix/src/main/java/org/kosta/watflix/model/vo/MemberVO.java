@@ -19,10 +19,6 @@ public class MemberVO {
 	public MemberVO() {
 		super();
 	}
-	
-	
-	
-
 	@Override
 	public String toString() {
 		return "MemberVO [id=" + id + ", password=" + password + ", name=" + name + ", tel=" + tel + ", birth=" + birth
@@ -30,10 +26,6 @@ public class MemberVO {
 				+ ", loginFail=" + loginFail + ", point=" + point + ", signupDate=" + signupDate + ", agreement="
 				+ agreement + ", accStatusVO=" + accStatusVO + ", reportCount=" + reportCount + "]";
 	}
-
-
-
-
 	public String getId() {
 		return id;
 	}

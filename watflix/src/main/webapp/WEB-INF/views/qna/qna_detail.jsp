@@ -23,6 +23,7 @@
 	<thead>
 		<tr>
 			<th class="qnaNo">NO</th>
+			<th class="qnaTypeNo">문의</th>
 			<th class="qnaTitle"></th>
 			<th class="qnaWriter"></th>
 			<th class="qnaPostedTime"></th>
@@ -32,6 +33,7 @@
 	<tbody>	
 			<tr>
 				<td>${requestScope.qvo.qnaNo}</td>
+				<td>${requestScope.qvo.qnaTypeVO.qType}</td>
 				<td>${requestScope.qvo.qnaTitle}</td>
 				<td>${requestScope.qvo.memberVO.id}</td>
 				<td>${requestScope.qvo.qnaPostedTime}</td>

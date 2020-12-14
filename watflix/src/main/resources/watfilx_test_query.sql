@@ -154,6 +154,14 @@ FROM report WHERE report_no=#{value}
 SELECT r.report_no, r.id, r.review_no, r.comments_no, r.report_type_no, r.report_contents, r.report_posted_time, t.report_type_info
 FROM report r, report_type t WHERE r.report_type_no=t.report_type_no AND r.report_no = 1
 
+/* qna test
+ */
+
+select q.QNA_NO, q.QNA_TITLE,to_char(q.QNA_POSTED_TIME,'YYYY.MM.DD HH24:MI:SS')
+	as QNA_POSTED_TIME,q.ID,q.QNA_CONTENTS,t.QNA_TYPE
+	from qna q,member m,qna_Type t
+	where q.ID=m.id and q.QNA_NO='29' and q.QNA_TYPE_NO=t.QNA_TYPE_NO
+
 /* comments 갯수 순 content 리스트 조회 */
 SELECT b.contents_no, b.contents_title, b.contents_type, b.genre_code, b.contents_small_thumbnail, b.contents_big_thumbnail, b.contents_avg_stars, b.contents_likes, b.contents_hits, count(a.comments_no) as comments_count
 FROM comments a, contents b

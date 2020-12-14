@@ -9,15 +9,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<selectKey keyProperty="qnaNo" resultType="int" order="BEFORE"> 
 		select qna_seq.nextval from dual
 	</selectKey>
-	insert into qna(QNA_NO,ID,QNA_TITLE,QNA_CONTENTS)
-	values(#{qnaNo},#{memberVO.id},#{qnaTitle},#{qnaContents})
+	insert into qna(QNA_NO,ID,QNA_TITLE,QNA_CONTENTS,QNA_TYPE_NO)
+	values(#{qnaNo},#{memberVO.id},#{qnaTitle},#{qnaContents},#{qnaTypeVO.qnaTypeNo})
 </insert>
+
 <!-- QNA 상세보기-->
-<select id="mQnADetail" resultType="qnaVO">
-	select QNA_NO, QNA_TITLE,to_char(QNA_POSTED_TIME,'YYYY.MM.DD HH24:MI:SS')
-	as QNA_POSTED_TIME,ID,QNA_CONTENTS
-	from qna
-	where QNA_NO=#{qnaNo}
+<select id="mQnADetail" resultMap="qnaRM">
+	select q.QNA_NO, q.QNA_TITLE,to_char(q.QNA_POSTED_TIME,'YYYY.MM.DD HH24:MI:SS')
+	as QNA_POSTED_TIME,q.ID,q.QNA_CONTENTS,t.QNA_TYPE,t.QNA_TYPE_NO
+	from qna q,member m,qna_Type t
+	where q.ID=m.id and q.QNA_NO=#{qnaNo} and q.QNA_TYPE_NO=t.QNA_TYPE_NO
 </select>
 <!-- QNA 삭제 -->
 <delete id="mQnADelete" parameterType="faqVO">
@@ -35,7 +36,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	<!-- QnAVO에 MemberVO의 id(has a 관계)를 넣을 수 있도록 ResaultMap을 셋팅한다. -->
 	<resultMap type="qnaVO" id="qnaRM">
 		<result property="memberVO.id" column="id" />
-	</resultMap>
+		<result property="qnaTypeVO.qType" column="QNA_TYPE" />
+		<result property="qnaTypeVO.qnaTypeNo" column="QNA_TYPE_NO" />
+	</resultMap> 
  </mapper>
  
  

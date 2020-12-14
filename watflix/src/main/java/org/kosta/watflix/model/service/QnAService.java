@@ -17,5 +17,5 @@ public interface QnAService {
 	QnAListVO sGetQnAList();
 	// QnA 삭제(관리자만 삭제 가능)
 	void sQnADelete(int qnaNo);
-	
+
 }
