@@ -9,12 +9,13 @@ public class ReviewVO {
 	private String reviewPostedTime;
 	private MemberVO memberVO;
 	private ContentsVO contentsVO;
+	private int reviewLikeStatus;
 	public ReviewVO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	public ReviewVO(int reviewNo, String reviewTitle, String reviewContents, int reviewHits, int reviewLikes,
-			String reviewPostedTime, MemberVO memberVO, ContentsVO contentsVO) {
+			String reviewPostedTime, MemberVO memberVO, ContentsVO contentsVO, int reviewLikeStatus) {
 		super();
 		this.reviewNo = reviewNo;
 		this.reviewTitle = reviewTitle;
@@ -24,6 +25,7 @@ public class ReviewVO {
 		this.reviewPostedTime = reviewPostedTime;
 		this.memberVO = memberVO;
 		this.contentsVO = contentsVO;
+		this.reviewLikeStatus = reviewLikeStatus;
 	}
 	public int getReviewNo() {
 		return reviewNo;
@@ -55,10 +57,10 @@ public class ReviewVO {
 	public void setReviewLikes(int reviewLikes) {
 		this.reviewLikes = reviewLikes;
 	}
-	public String getreviewPostedTime() {
+	public String getReviewPostedTime() {
 		return reviewPostedTime;
 	}
-	public void setreviewPostedTime(String reviewPostedTime) {
+	public void setReviewPostedTime(String reviewPostedTime) {
 		this.reviewPostedTime = reviewPostedTime;
 	}
 	public MemberVO getMemberVO() {
@@ -73,11 +75,18 @@ public class ReviewVO {
 	public void setContentsVO(ContentsVO contentsVO) {
 		this.contentsVO = contentsVO;
 	}
+	public int getReviewLikeStatus() {
+		return reviewLikeStatus;
+	}
+	public void setReviewLikeStatus(int reviewLikeStatus) {
+		this.reviewLikeStatus = reviewLikeStatus;
+	}
 	@Override
 	public String toString() {
 		return "ReviewVO [reviewNo=" + reviewNo + ", reviewTitle=" + reviewTitle + ", reviewContents=" + reviewContents
 				+ ", reviewHits=" + reviewHits + ", reviewLikes=" + reviewLikes + ", reviewPostedTime="
-				+ reviewPostedTime + ", memberVO=" + memberVO + ", contentsVO=" + contentsVO + "]";
+				+ reviewPostedTime + ", memberVO=" + memberVO + ", contentsVO=" + contentsVO + ", reviewLikeStatus="
+				+ reviewLikeStatus + "]";
 	}
 	
 }

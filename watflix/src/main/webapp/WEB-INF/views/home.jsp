@@ -322,8 +322,16 @@
                                 ${contentsVO.contentsDate}
                             </div>
                             <div class="col-4 text-center no-padding">
-                                <a href="">
+                                <a href="#">
                                     <img src="${pageContext.request.contextPath}/resources/media/icons/heart.png" width="10" alt="">
+									<c:choose>
+										<c:when test="${check==1}">
+											<img id="ReviewLike" class="ReviewLike" src="/watflix/resources/media/icons/RedHeart.png" width=30px height=30px>
+										</c:when>
+										<c:otherwise>
+											<img id="ReviewLike" class="ReviewLike" src="/watflix/resources/media/icons/HeartLine.png" width=30px height=30px>
+										</c:otherwise>
+									</c:choose>
                                 </a>
                             </div>
                             <div class="col-4 text-right no-padding rating">

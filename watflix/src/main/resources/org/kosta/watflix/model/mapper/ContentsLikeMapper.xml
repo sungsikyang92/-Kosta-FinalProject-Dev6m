@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sql Mapper -->
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.kosta.watflix.model.mapper.ContentsLikeMapper">
+	<!-- 컨텐츠좋아요 추가 -->
+	<insert id="mContentsLikeAdd" parameterType="contentsLikeVO">
+		INSERT INTO CONTENTS_LIKE(CONTENTS_NO,ID) VALUES(#{contentsVO.contentsNo},#{memberVO.id})
+	</insert>
+	<!-- 컨텐츠좋아요 유무 여부 -->
+	<select id="mContentsLikeExist" parameterType="contentsLikeVO" resultType="string">
+		SELECT count(*) FROM CONTENTS_LIKE WHERE REVIEW_NO = #{contentsVO.contentsNo} AND ID = #{memberVO.id}
+	</select>
+	<!-- 컨텐츠좋아요 제거 -->
+	<delete id="mContentsLikeRemove" parameterType="contentsLikeVO">
+		DELETE FROM CONTENTS_LIKE WHERE CONTENTS_NO = #{contentsVO.contentsNo} AND ID = #{memberVO.id}
+	</delete>
+	<!-- 컨텐츠좋아요 개수 -->
+	<select id="mGetContentsLikeCount" resultType="int">
+		SELECT COUNT(*) FROM CONTENTS_LIKE
+	</select>
+</mapper>

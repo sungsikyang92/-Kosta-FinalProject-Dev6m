@@ -24,9 +24,12 @@ public interface ContentsMapper {
 	List<GenreVO> mGetAllGenreList();
 	List<GenreVO> mGetGenreSelectForType(String contentsType);
 	List<ContentsVO> mGetContentsSelectForType(String contentsType);
+	//컨텐츠 추천수 업데이트
+	void mContentsLikeUpdate(String contentsNo);
+	//컨텐츠 추천수 감소
+	void mContentsLikeRemove(String contentsNo);
 	//각 content에 contents_avg_stars 넣기
-	void mUpdateAvgStars(@Param("avgStars")float avgStars, @Param("contentsNo")String contentsNo);
-	
+	void mUpdateAvgStars(float avgStars, String contentsNo);
 }
 
 
