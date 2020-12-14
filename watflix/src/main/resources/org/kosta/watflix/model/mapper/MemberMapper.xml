@@ -83,19 +83,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 
 		포인트 증가 
-		포인트 증가시켜줄 ID와 몇 포인트를 증가 시킬것인지 값이 필요
-		두개이상의 parameter일때는 vo 또는 collection을 사용하여야함
-		현재 상황에서는 map을 사용함
-		사용법: service 단계에서
-		Map<String, Object> map = new HashMap<String, Object>();
-		선언 후 아래와 같이 id와 포인트 증가량을 추가한다.
-		참고로 hashmap이 아니라 map을 사용한는것은 다형성 때문에 사용한다. 언제든지 hashmap에서 linkedHashMap등을 변경시킬수 있도록 하기 위함
-		map.put("id", "java");
-		map.put("pointUp", 4);
+		포인트 증가시켜줄 ID와 몇 포인트로 변경 시킬것인지 값이 필요
+		
+		사용법:controller에서 몇 포인트를 업할지 정하고 memberVO.setPoint로 값을 전달한다.
 		예상 사용처: 리뷰쓰기, 평점쓰기,로그인 서비스에 해당 기능을 추가해야 할듯
 	-->
-	<update id="mMemberPointUp" parameterType="map">
-		update member set point=point+#{pointUp} where id=#{id}
+	<update id="mMemberPointUpdate" parameterType="memberVO">
+		update member set point=#{point} where id=#{id}
 	</update>
 	
 	<select id="mMemberAllCount" resultType="int">

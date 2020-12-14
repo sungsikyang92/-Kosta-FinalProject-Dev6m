@@ -22,7 +22,7 @@
 			<td class="picTd"><img alt="상품이미지" src="${pageContext.request.contextPath}/${productVO.productPic}"></td>
 			<td>
 				<p><font color="#2E2EFE" size="1.2rm;">상품브랜드${productVO.productBrand}</font></p>
-				<h1>상품명${productVO.productName}</h1>
+				<h1>상품명${productVO.productName}<font color="pink" size="1.8rm">(${productVO.proStatusVO.proStatusInfo})</font></h1>
 				<hr>
 				<div style="width:100%;height:50px; margin:50px 0;">
 					<p><font color="#FA5858" style="font-weight:bold" size="4px;">상품가격${productVO.productPoint}원</font></p>
@@ -30,7 +30,7 @@
 				<hr>
 				<!-- 상품설명 START -->
 				<div class="detail">
-					<p><font size="1.5rm"><pre>상품 설명${productVO.productDetail}</pre></font></p>
+					<p><font size="1.5rm"><pre>상품 설명: ${productVO.productDetail}</pre></font></p>
 				</div>
 				<!-- 상품설명 END -->
 				<hr>
@@ -49,9 +49,18 @@
 					</div>
 					<!-- 수정버튼 END -->
 					<!--삭제버튼 START -->
-					<div style="width:30%; margin:80px 0.5%; float:left;">		
-						<button form="productDelete" class="btn-danger" type="submit">삭제</button>
-						<form action="${pageContext.request.contextPath}/productDelete.do" id="productDelete">
+						<div style="width:30%; margin:80px 0.5%; float:left;">
+						<c:choose>
+							<c:when test="${productVO.proStatusVO.proStatusNo==1}">
+								<button form="productDelete" class="btn-danger" type="submit">삭제</button>
+							</c:when>
+							<c:otherwise>
+								<button form="productDelete" class="btn-danger" type="submit" disabled="disabled">삭제불가능</button>
+							</c:otherwise>
+						</c:choose>		
+
+						<form action="${pageContext.request.contextPath}/productDelete.do" id="productDelete" method="post">
+							<sec:csrfInput/>
 							<input type="hidden" name="productNo" value="${productVO.productNo}">
 						</form>
 					</div>

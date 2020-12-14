@@ -134,6 +134,17 @@ public class ReportController {
 		return reportService.sGetMyReportReviewList(id, pageNo);
 	}
 	
+	
+	@RequestMapping("myReportBoard.do")
+	@ResponseBody
+	public ReportListVO myReportReviewBoard(String pageNo, ReviewVO reviewVO, CommentsVO commentsVO) {
+		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String id = mvo.getId();
+		return reportService.sGetMyReportReviewList(id);
+	}
+	
+	
+	
 	// 내 신고 리스트(평점)
 	@RequestMapping("myReportCommentsBoard.do")
 	@ResponseBody

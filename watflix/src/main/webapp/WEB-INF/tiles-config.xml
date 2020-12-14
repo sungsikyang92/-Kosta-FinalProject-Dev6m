@@ -40,14 +40,7 @@
  	<!-- 관리자페이지 템플릿 -->
 	<definition name="admin/*.tiles" extends="adminHome.tiles">
  		<put-attribute name="main"  value="/WEB-INF/views/admin/{1}.jsp"/>
- 	</definition>
-
- 	<!-- 관리자페이지 템플릿 -->
-	<definition name="product/*.tiles" extends="adminHome.tiles">
- 		<put-attribute name="main"  value="/WEB-INF/views/product/{1}.jsp"/>
- 	</definition>
- 	
- 	
+ 	</definition> 	
 
 	<definition name="*/*Form.tiles" extends="loginForm.tiles">
 		<put-attribute name="title"  value="{2}" />

@@ -868,14 +868,17 @@ a, a:hover {
 .boardClassMain{
 	background-color: white;
 	color: black;
+	position:relative;
+	top:50px;
     padding-bottom: 40px;
     margin-bottom: 80px;
-    margin-top: 100px;
    	padding-top: 15px;
 }
 .boardClassMain a, a:hover{
 	color:black;
 }
+
+
 .boardBottomDiv{
 	width:100%;
 	margin:auto 0px;
@@ -887,48 +890,58 @@ a, a:hover {
 	position: relative;
 	padding-top: 15px;
 }
-.writeBtn{
-	position: absolute;
-	right:30px;
-	width:300px;
-	padding:0px 10px;
-	margin-right:0%;
 
+.productListDiv{
+	width:90%;
+	margin-left:5%;
+	height: 100%;
 }
-.writeBtn div{
-	width:50%;
-	float: right;
+.productListDiv table{
+	width:100%;
+	padding:50px 0.5%;
 }
-
-.boardBtnSubmit{
-	margin-right:0%;
-	width: 100%;
-	float: left;
+.productListDiv table tr td{
+	width:23%;
+	margin:10px 1.5%;
 }
-.boardDetailTr{
+.productListDiv img{
+	width:100%;
 	height:150px;
-	overflow: scroll;
+	position:relative;
+	top:0;
+	left:0;
+	object-fit:fill;
 }
-.boardDetailBtn{
-	color:black;
-	margin:auto 50px;
-	border-radius: 0px;
-	width:20%;
-	margin-left: 40%;
-	
+.tabled{
+	width: 100%;
+	margin-bottom: 1rem;
+ 	color: #212529;
+ 	padding:50px;
+ 	vertical-align: middle
 }
-.boardDetailBtn:hover{
-	background-color: #E6E6E6;
-	opacity: 0.4;
+.tabled .picTd{
+	height:400px;
+	width:60%;
 }
-.boardTd{
-	width:18%;
-}
-.boardTextarea{
+.picTd img{
 	width:100%;
-	height:180px;
-	overflow: scroll;
+	height:150px;
+	position:relative;
+	top:0;
+	left:0;
+	object-fit:fill;
 }
-.boardTitle{
-	width:100%;
+.tabled th,
+.tabled td {
+  padding: 0.75rem;
+  vertical-align: middle
+}
+
+.tabled .detail{
+	-webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;  
+    box-sizing: border-box; 
+    width:100%;
+    height:100px; 
+    margin:100px 0; 
 }

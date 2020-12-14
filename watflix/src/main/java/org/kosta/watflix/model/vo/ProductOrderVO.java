@@ -3,10 +3,20 @@ package org.kosta.watflix.model.vo;
 public class ProductOrderVO {
 	private int orderNo;
 	private ProductVO productVO;
-	private int QUANTITY;
+	private int quantity;
 	private MemberVO memberVO;
-	private String PURCHASED_TIME;
-	
+	private String purchasedTime;
+	public ProductOrderVO() {
+		super();
+	}
+	public ProductOrderVO(int orderNo, ProductVO productVO, int quantity, MemberVO memberVO, String purchasedTime) {
+		super();
+		this.orderNo = orderNo;
+		this.productVO = productVO;
+		this.quantity = quantity;
+		this.memberVO = memberVO;
+		this.purchasedTime = purchasedTime;
+	}
 	public int getOrderNo() {
 		return orderNo;
 	}
@@ -19,11 +29,11 @@ public class ProductOrderVO {
 	public void setProductVO(ProductVO productVO) {
 		this.productVO = productVO;
 	}
-	public int getQUANTITY() {
-		return QUANTITY;
+	public int getQuantity() {
+		return quantity;
 	}
-	public void setQUANTITY(int qUANTITY) {
-		QUANTITY = qUANTITY;
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 	public MemberVO getMemberVO() {
 		return memberVO;
@@ -31,26 +41,17 @@ public class ProductOrderVO {
 	public void setMemberVO(MemberVO memberVO) {
 		this.memberVO = memberVO;
 	}
-	public String getPURCHASED_TIME() {
-		return PURCHASED_TIME;
+	public String getPurchasedTime() {
+		return purchasedTime;
 	}
-	public void setPURCHASED_TIME(String pURCHASED_TIME) {
-		PURCHASED_TIME = pURCHASED_TIME;
-	}
-	public ProductOrderVO() {
-		super();
-	}
-	public ProductOrderVO(int orderNo, ProductVO productVO, int qUANTITY, MemberVO memberVO, String pURCHASED_TIME) {
-		super();
-		this.orderNo = orderNo;
-		this.productVO = productVO;
-		QUANTITY = qUANTITY;
-		this.memberVO = memberVO;
-		PURCHASED_TIME = pURCHASED_TIME;
+	public void setPurchasedTime(String purchasedTime) {
+		this.purchasedTime = purchasedTime;
 	}
 	@Override
 	public String toString() {
-		return "ProductOrderVO [orderNo=" + orderNo + ", productVO=" + productVO + ", QUANTITY=" + QUANTITY
-				+ ", memberVO=" + memberVO + ", PURCHASED_TIME=" + PURCHASED_TIME + "]";
+		return "ProductOrderVO [orderNo=" + orderNo + ", productVO=" + productVO + ", quantity=" + quantity
+				+ ", memberVO=" + memberVO + ", purchasedTime=" + purchasedTime + "]";
 	}
+	
+	
 }

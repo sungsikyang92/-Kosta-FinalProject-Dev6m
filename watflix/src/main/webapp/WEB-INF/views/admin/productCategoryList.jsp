@@ -25,9 +25,9 @@
 	
 	<script type="text/javascript">
 	$(document).ready(function(){
+		var category = window.opener.document.productForm;
 		$("tr").click(function(){
 			if(confirm($(this).children(".categoryName").text()+"를 선택하시겠습니까?")){
-				var category = window.opener.document.productForm;
 				category.productCategoryNo.value=$(this).children(".categoryNo").text();
 				category.productCategoryName.value=$(this).children(".categoryName").text();
 				self.close();

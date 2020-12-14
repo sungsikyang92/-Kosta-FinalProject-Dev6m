@@ -29,7 +29,7 @@
 			</tr>
 			<tr>
 				<td>상품포인트</td>
-				<td><input type="number" name="productPoint" value="100" required="required"  min="1" value="${productVO.productPoint}"></td>
+				<td><input type="number" name="productPoint" required="required"  min="1" value="${productVO.productPoint}"></td>
 			</tr>
 			<tr>
 				<td>상품설명</td>
@@ -54,7 +54,7 @@
 			</tr>
 			<tr>
 				<td>상품재고</td>
-				<td><input type="number" name="productStock" value="100" required="required" value="${productVO.productStock}" min="1" max="999"></td>
+				<td><input type="number" name="productStock" required="required" value="${productVO.productStock}" min="1" max="999"></td>
 			</tr>
 			<tr>		
 				<td colspan="2" class="btnArea">

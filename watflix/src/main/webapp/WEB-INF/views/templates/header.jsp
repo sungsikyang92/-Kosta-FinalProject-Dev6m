@@ -138,7 +138,7 @@
 			        <a class="js-scroll-trigger" href="${pageContext.request.contextPath}/faqList.do">고객센터</a>
 			      </li>
 			      <li class="sidebar-nav-item">
-			        <a class="js-scroll-trigger" href="#contact">포인트마켓</a>
+			        <a class="js-scroll-trigger" href="${pageContext.request.contextPath}/productMarket.do">포인트마켓</a>
 			      </li>
 			      <!-- 관리자만 볼수 있도록 코딩해야함 -->
 			      <li class="sidebar-nav-item">
