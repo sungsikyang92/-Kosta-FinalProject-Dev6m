@@ -16,7 +16,7 @@ public class ContentsVO {
 	private String contentsActor;
 	private String contentsProducer;
 	private String contentsAge;
-	private int contentsAvgStars;
+	private float contentsAvgStars;
 	private int contentsLikes;
 	private int contentsHits;
 	private int contentsReviewCount;
@@ -30,7 +30,7 @@ public class ContentsVO {
 	public ContentsVO(String contentsNo, String contentsTitle, String contentsType, GenreVO genreVO,
 			String contentsSummary, String contentsSmallThumbnail, String contentsBigThumbnail, String contentsDate,
 			String contentsRunningtime, String contentsActor, String contentsProducer, String contentsAge,
-			int contentsAvgStars, int contentsLikes, int contentsHits, int contentsReviewCount) {
+			float contentsAvgStars, int contentsLikes, int contentsHits, int contentsReviewCount) {
 		super();
 		this.contentsNo = contentsNo;
 		this.contentsTitle = contentsTitle;
@@ -171,12 +171,12 @@ public class ContentsVO {
 	}
 
 
-	public int getContentsAvgStars() {
+	public float getContentsAvgStars() {
 		return contentsAvgStars;
 	}
 
 
-	public void setContentsAvgStars(int contentsAvgStars) {
+	public void setContentsAvgStars(float contentsAvgStars) {
 		this.contentsAvgStars = contentsAvgStars;
 	}
 

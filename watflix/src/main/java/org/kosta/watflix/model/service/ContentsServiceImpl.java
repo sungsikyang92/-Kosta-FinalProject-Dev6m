@@ -70,6 +70,7 @@ public class ContentsServiceImpl implements ContentsService {
 	//컨텐츠 상세보기
 	@Override
 	public ContentsVO sFindContentsByNo(String contentsNo) {
+		System.out.println(contentsMapper.mFindContentsByNo(contentsNo));
 		ContentsVO contentsVO = contentsMapper.mFindContentsByNo(contentsNo);
 		contentsVO.setContentsReviewCount(reviewMapper.mGetContentsReviewCount(contentsNo));
 		return contentsVO;

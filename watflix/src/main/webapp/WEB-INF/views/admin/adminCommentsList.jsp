@@ -53,7 +53,7 @@
 					${commentsList.commentsPostedTime}				
 				</td>
 				<td>
-					<input type="hidden" value="${commentsList.contentsNo}" name="deleteContentsNo">
+					<input type="hidden" value="${commentsList.contentsVO.contentsNo}" name="deleteContentsNo">
 					<input type="checkbox" value="${commentsList.commentsNo}" name="deleteCheckbox">
 				</td>
 			</tr>
