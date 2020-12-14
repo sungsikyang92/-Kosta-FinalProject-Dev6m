@@ -370,10 +370,6 @@ SELECT COUNT(REVIEW_TITLE) AS CONTENTS_REVIEW_NO FROM REVIEW WHERE CONTENTS_NO =
 delete from genre
 drop table contents
 
-/*재우 test*/
-select * from report
-select * from review
-union (all)
 
 		SELECT R.REVIEW_NO,R.REVIEW_TITLE,R.REVIEW_LIKES,C.CONTENTS_NO,TO_CHAR(R.REVIEW_POSTED_TIME, 'YYYY.MM.DD HH24:MI:SS') 
 		AS REVIEW_POSTED_TIME,M.ID,R.REVIEW_HITS,R.REVIEW_CONTENTS 
@@ -454,6 +450,21 @@ WHERE rnum BETWEEN 1 AND 5;
 -- 내가 작성한 전체 평점 count
 select count(*) from review where id='spring'
 select * from review
+-- drop 시퀀스
+drop SEQUENCE COMMENTS_SEQ;
+drop SEQUENCE REVIEW_SEQ;
+drop SEQUENCE NOTICE_SEQ;
+drop SEQUENCE REPORT_SEQ;
+drop SEQUENCE PRODUCT_SEQ;
+drop SEQUENCE PRODUCT_CATEGORY_SEQ;
+drop SEQUENCE PRODUCT_ORDER_SEQ;
+drop SEQUENCE PARTY_SEQ;
+drop SEQUENCE FAQ_SEQ;
+-- 권한 추가
+insert into grade values ( 'ROLE_ADMIN' , 'java');
+-- 신고 당한 횟수 추가
+ALTER TABLE MEMBER ADD REPORTCOUNT NUMBER DEFAULT 0;
+
 
 
 select * from grade where id='java'

@@ -95,7 +95,7 @@
 							<!-- 조건이 맞으면 왼쪽 화살표 -->
 							<c:if test="${pb.previousPageGroup}">
 								<li>
-									<a href="${pageContext.request.contextPath }/reportCommentsBoardNext.do?pageNo=${pb.startPageOfPageGroup-1}">
+									<a href="${pageContext.request.contextPath }/reportCommentsBoard.do?pageNo=${pb.startPageOfPageGroup-1}">
 										&laquo;
 									</a>
 								</li>
@@ -107,7 +107,7 @@
 								<c:choose>
 									<c:when test="${pb.nowPage!=pageNumber }">
 										<li>
-											<a href="${pageContext.request.contextPath }/reportCommentsBoardNext.do?pageNo=${pageNumber}">
+											<a href="${pageContext.request.contextPath }/reportCommentsBoard.do?pageNo=${pageNumber}">
 												${pageNumber}
 											</a>
 										</li>
@@ -125,7 +125,7 @@
 							<!-- 조건에 맞으면 오른쪽 화살표 -->
 							<c:if test="${pb.nextPageGroup}">
 								<li>
-									<a href="${pageContext.request.contextPath }/reportCommentsBoardNext.do?pageNo=${pb.endPageOfPageGroup+1}">
+									<a href="${pageContext.request.contextPath }/reportCommentsBoard.do?pageNo=${pb.endPageOfPageGroup+1}">
 										&raquo;
 									</a>
 								</li>
