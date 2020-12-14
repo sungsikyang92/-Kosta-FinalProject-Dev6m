@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.kosta.watflix.model.mapper.CommentsMapper;
 import org.kosta.watflix.model.mapper.ReportMapper;
 import org.kosta.watflix.model.mapper.ReviewMapper;
 import org.kosta.watflix.model.service.PagingBean;
@@ -21,6 +22,8 @@ public class JaeWooTestUnit {
 	private ReportMapper reportMapper;
 	@Resource
 	private ReviewMapper reviewMapper;
+	@Resource
+	private CommentsMapper commentsMapper;
 	
 	@Resource
 	private ReportService reportService;
@@ -150,6 +153,13 @@ public class JaeWooTestUnit {
 		int total = reviewMapper.mGetMyTotalReviewCount("java");
 		PagingBean pagingBean = new PagingBean(total, 1);
 		System.out.println(reviewMapper.mGetMyReviewList("java", pagingBean));;
+		//*/
+		
+		/*/
+		// 내 평점 리스트 보기
+		int total = commentsMapper.mMyCommentsGetTotalPostCount("spring");
+		PagingBean pagingBean = new PagingBean(total, 1);
+		System.out.println(commentsMapper.mMyCommentsGetAllList("spring", pagingBean));
 		//*/
 	}
 }

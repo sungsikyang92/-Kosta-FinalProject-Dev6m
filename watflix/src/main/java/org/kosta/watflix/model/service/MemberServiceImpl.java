@@ -1,5 +1,6 @@
 package org.kosta.watflix.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -7,8 +8,11 @@ import javax.annotation.Resource;
 
 import org.kosta.watflix.model.mapper.MemberMapper;
 import org.kosta.watflix.model.vo.Authority;
+import org.kosta.watflix.model.vo.MemberListVO;
 import org.kosta.watflix.model.vo.MemberVO;
+import org.kosta.watflix.model.vo.PartyListVO;
 import org.kosta.watflix.model.vo.ProductOrderVO;
+import org.kosta.watflix.model.vo.ReportListVO;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -113,8 +117,8 @@ public class MemberServiceImpl implements MemberService {
 	//포인트 증가, 이 기능은 로그인을 위한 기능임,
 	//리뷰쓰기,평점쓰기등의 포인트를 증가시켜야하는 서비스에서는 mapper쪽에 있는 기능을 사용하기 바람
 	@Override
-	public void sMemberPointUp(Map<String, Object> map) {
-		memberMapper.mMemberPointUp(map);
+	public void sMemberPointUpdate(MemberVO memberVO) {
+		memberMapper.mMemberPointUpdate(memberVO);
 	}
 
 	//포인트 사용내역(상품 구매내역)
@@ -122,6 +126,44 @@ public class MemberServiceImpl implements MemberService {
 	public List<ProductOrderVO> sMemberProductOrderHistory(String id) {
 		return memberMapper.mMemberProductOrderHistory(id);
 	}
+
+	@Override
+	public MemberListVO sMemberAllList() {
+		return sMemberAllList("1");
+	}
+
+	@Override
+	public MemberListVO sMemberAllList(String pageNo) {
+		int totalMemberCount = memberMapper.mMemberAllCount();
+		PagingBean pagingBean = null;
+		if(pageNo == null) {
+			int contentNumberPerPage=10;
+			int pageNumberPerPageGroup=5;
+			pagingBean = new PagingBean(totalMemberCount,contentNumberPerPage,pageNumberPerPageGroup);
+		}else {
+			int contentNumberPerPage=10;
+			int pageNumberPerPageGroup=5;
+			pagingBean = new PagingBean(totalMemberCount, contentNumberPerPage,pageNumberPerPageGroup,Integer.parseInt(pageNo));
+		}		
+		MemberListVO memberListVO = new MemberListVO(memberMapper.mMemberAllList(pagingBean),pagingBean);
+		return memberListVO;
+	}	
+	
+	@Override
+	public int sMemberAllCount() {
+		return memberMapper.mMemberAllCount();
+	}
+
+	@Override
+	public void sMemberStatusUpdate(String id, int accStatusNo) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("id", id);
+		map.put("accStatusNo", accStatusNo);
+		memberMapper.mMemberStatusUpdate(map);
+		
+	}
+
+	
 
 }
 

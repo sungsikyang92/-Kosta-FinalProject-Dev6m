@@ -99,4 +99,10 @@ public class ContentsServiceImpl implements ContentsService {
 		contentsMapper.mContentsLikeRemove(reviewNo);
 	}
 	
+	//각 content에 contents_avg_stars 넣기
+	@Override
+	public void sUpdateAvgStar(float avgStars, String contentsNo) {
+		contentsMapper.mUpdateAvgStars(avgStars, contentsNo);
+	}
+	
 }

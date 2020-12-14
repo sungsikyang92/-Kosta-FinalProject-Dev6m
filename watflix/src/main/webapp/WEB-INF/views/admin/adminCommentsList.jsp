@@ -22,6 +22,7 @@
 				return confirm("삭제하시겠습니까?");
 			}					
 		})
+		// 별점 이미지 삽입
 		$(".starPointImg").each(function(){
 				var starPoint = $(this).html();
 				$(this).html("<img src='${pageContext.request.contextPath}/resources/media/icons/star"+starPoint+".png' style='height: 25px'>");
@@ -30,67 +31,72 @@
 	// delete confirm
 	function commentsDeleteConfirm(){
 		return confirm('삭제하시겠습니까?');
-	}
-	
+	}	
 </script>
-<div class="container boardClassMain">
-<sec:authorize access="hasRole('ROLE_ADMIN')">
-	<%-- <sec:authentication property="principal.id" var="userId"/> --%>
-	<%-- <sec:authorize access="hasRole('ROLE_ADMIN')" var="isAdmin"/> --%>
-	
-	<table class="table table-borderde table-hober boardlist">
-		<c:forEach items="${requestScope.commentsList.list}" var="commentsList">
-		<tr>
-			<td class="starPointImg">${commentsList.commentsStars}</td>
-			<td>${commentsList.commentsStars}</td>
-			<td>
-				${commentsList.comments}<br>
-				${commentsList.memberVO.id }
-				${commentsList.commentsPostedTime}
-				<!-- 삭제버튼 (작성자와 관리자에게만 노출된다.) -->
-				<%-- <c:set var="writerId" value="${commentsList.memberVO.id }"/> --%>
-				<%-- <c:if test="${writerId == userId || isAdmin == 'true'}"> --%>
-	 			<form action="${pageContext.request.contextPath}/commentsDelete.do" method="post" onsubmit="return commentsDeleteConfirm()" style="display: inline-flex;">
-					<sec:csrfInput/>
-					<input type="hidden" name="contentsNo" value="${requestScope.contentsNo}">
-					<input type="hidden" name="commentsDelete" value="${commentsList.commentsNo}">
+	<div class="container-lg margin-top margin-bottom" style="margin:100px auto;">
+	<div class="container boardClassMain" style="border-radius: 1.5px;">
+	<sec:authorize access="hasRole('ROLE_ADMIN')">
+		<%-- <sec:authentication property="principal.id" var="userId"/> --%>
+		<%-- <sec:authorize access="hasRole('ROLE_ADMIN')" var="isAdmin"/> --%>
+		<form action="${pageContext.request.contextPath}/commentsDeleteByCheckbox.do"
+		id="deleteNoticeByCheckboxForm" method="post">	
+		<sec:csrfInput/>
+		<h3 style="display: inline-flex;">전체 한줄평</h3><a href="commentsList.do">더보기</a>
+		<table class="table table-hover table-bordered" style="border-radius: 1.5px;">
+			<c:forEach items="${requestScope.commentsList.list}" var="commentsList">
+			<tr>
+				<td class="starPointImg">${commentsList.commentsStars}</td>
+				<td>${commentsList.commentsStars}</td>
+				<td>
+					${commentsList.comments}<br>
+					${commentsList.memberVO.id }
+					${commentsList.commentsPostedTime}				
+				</td>
+				<td>
+					<input type="hidden" value="${commentsList.contentsNo}" name="deleteContentsNo">
+					<input type="checkbox" value="${commentsList.commentsNo}" name="deleteCheckbox">
+				</td>
+			</tr>
+			</c:forEach>
+			<tr>
+				<td colspan="3"></td>
+				<td>
 					<input type="hidden" name="pageNo" value="${requestScope.commentsList.pagingBean.nowPage}">
 					<input type="submit" value="삭제">
-				</form>
-				<%-- </c:if> --%>
-			</td>
-		</tr>
-		</c:forEach>
-	</table>
-	<!--
-	전체게시물조회 메인화면에서 페이징과 버튼을 사용하지 않기 위해 사용한다.
-	tiles를 통해서 불러오는 리스트의 경우 forNotUsePagingAndBtn의 값은 true
-	-->
-	<c:if test="${requestScope.forNotUsePagingAndBtn != true}">
-<div class="boardBottomDiv">
-	<div class="pagingInfo" id="pagingLocation">
-		<c:set var="pagingBean" value="${requestScope.commentsList.pagingBean}"/>
-		<ul class="pagination">
-			<c:if test="${pagingBean.previousPageGroup}">
-				<li><a href="${pageContext.request.contextPath}/getCommentsList.do?pageNo=${pagingBean.startPageOfPageGroup-1}">&laquo;</a></li>
-			</c:if>
-			<c:forEach var="i" begin="${pagingBean.startPageOfPageGroup}" end="${pagingBean.endPageOfPageGroup}">
-				<c:choose>
-					<c:when test="${pagingBean.nowPage!=i}">
-						<li><a href="${pageContext.request.contextPath}/getCommentsList.do?pageNo=${i}">${i}</a></li>
-					</c:when>
-				<c:otherwise>
-					<li class="active"><a href="#">${i}</a></li>
-				</c:otherwise>
-				</c:choose>
-				&nbsp;
-			</c:forEach>
-			<c:if test="${pagingBean.nextPageGroup}">
-				<li><a href="${pageContext.request.contextPath}/getCommentsList.do?pageNo=${pagingBean.endPageOfPageGroup+1}">&raquo;</a></li>
-			</c:if>
-		</ul>
+				</td>
+			</tr>
+		</table>
+		</form>
+		<!--
+		전체게시물조회 메인화면에서 페이징과 버튼을 사용하지 않기 위해 사용한다.
+		tiles를 통해서 불러오는 리스트의 경우 forNotUsePagingAndBtn의 값은 true
+		-->
+		<c:if test="${requestScope.forNotUsePagingAndBtn != true}">
+	<div class="boardBottomDiv">
+		<div class="pagingInfo" id="pagingLocation">
+			<c:set var="pagingBean" value="${requestScope.commentsList.pagingBean}"/>
+			<ul class="pagination">
+				<c:if test="${pagingBean.previousPageGroup}">
+					<li><a href="${pageContext.request.contextPath}/getCommentsList.do?pageNo=${pagingBean.startPageOfPageGroup-1}">&laquo;</a></li>
+				</c:if>
+				<c:forEach var="i" begin="${pagingBean.startPageOfPageGroup}" end="${pagingBean.endPageOfPageGroup}">
+					<c:choose>
+						<c:when test="${pagingBean.nowPage!=i}">
+							<li><a href="${pageContext.request.contextPath}/getCommentsList.do?pageNo=${i}">${i}</a></li>
+						</c:when>
+						<c:otherwise>
+							<li class="active"><a href="#">${i}</a></li>
+						</c:otherwise>
+					</c:choose>
+					&nbsp;
+				</c:forEach>
+					<c:if test="${pagingBean.nextPageGroup}">
+						<li><a href="${pageContext.request.contextPath}/getCommentsList.do?pageNo=${pagingBean.endPageOfPageGroup+1}">&raquo;</a></li>
+					</c:if>
+			</ul>
+		</div>
+		</div>
+	</c:if>
+	</sec:authorize>
 	</div>
-	</div>
-</c:if>
-</sec:authorize>
 </div>

@@ -17,12 +17,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 <select id="mGetProductCategoryList" resultType="productCategoryVO" parameterType="pagingBean">
 	 	SELECT P.PRODUCT_CATEGORY_NO,P.PRODUCT_CATEGORY_NAME 
 	 	FROM
-	 	(SELECT row_number() over(order by PRODUCT_CATEGORY_NO desc) as rnum, PRODUCT_CATEGORY_NO,PRODUCT_CATEGORY_NAME FROM PRODUCT_CATEGORY)  P
+	 	(SELECT row_number() over(order by PRODUCT_CATEGORY_NO) as rnum, PRODUCT_CATEGORY_NO,PRODUCT_CATEGORY_NAME FROM PRODUCT_CATEGORY)  P
 		WHERE rnum BETWEEN #{startRowNumber} AND #{endRowNumber}
 	 </select>
 	 
  	<!-- 상품 카테고리 추가 -->
  	<insert id="mProductCategoryRegister" parameterType="productCategoryVO">
- 		insert into PRODUCT_CATEGORY(PRODUCT_CATEGORY_NO,PRODUCT_CATEGORY_NAME) values(PRODUCT_CATEGORY_SEQ.nextval(),#{productCategoryName})
+ 		insert into PRODUCT_CATEGORY(PRODUCT_CATEGORY_NO,PRODUCT_CATEGORY_NAME) values(PRODUCT_CATEGORY_SEQ.nextval,#{productCategoryName})
  	</insert>
 </mapper>

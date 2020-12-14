@@ -15,141 +15,330 @@ public class MemberVO {
 	private String signupDate;
 	private String agreement;
 	private AccStatusVO accStatusVO;
+	private int reportCount;
 	public MemberVO() {
 		super();
 	}
+	
+	
+	
 
-	public MemberVO(String id, String password, String name, String tel, String birth, String sex, String email,
-			String address, String loginTime, int loginFail, int point, String signupDate, String agreement,
-			AccStatusVO accStatusVO) {
-		super();
-		this.id = id;
-		this.password = password;
-		this.name = name;
-		this.tel = tel;
-		this.birth = birth;
-		this.sex = sex;
-		this.email = email;
-		this.address = address;
-		this.loginTime = loginTime;
-		this.loginFail = loginFail;
-		this.point = point;
-		this.signupDate = signupDate;
-		this.agreement = agreement;
-		this.accStatusVO = accStatusVO;
+	@Override
+	public String toString() {
+		return "MemberVO [id=" + id + ", password=" + password + ", name=" + name + ", tel=" + tel + ", birth=" + birth
+				+ ", sex=" + sex + ", email=" + email + ", address=" + address + ", loginTime=" + loginTime
+				+ ", loginFail=" + loginFail + ", point=" + point + ", signupDate=" + signupDate + ", agreement="
+				+ agreement + ", accStatusVO=" + accStatusVO + ", reportCount=" + reportCount + "]";
 	}
+
+
+
 
 	public String getId() {
 		return id;
 	}
 
+
+
+
 	public void setId(String id) {
 		this.id = id;
 	}
+
+
+
 
 	public String getPassword() {
 		return password;
 	}
 
+
+
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+
+
 
 	public String getName() {
 		return name;
 	}
 
+
+
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
+
+
 
 	public String getTel() {
 		return tel;
 	}
 
+
+
+
 	public void setTel(String tel) {
 		this.tel = tel;
 	}
+
+
+
 
 	public String getBirth() {
 		return birth;
 	}
 
+
+
+
 	public void setBirth(String birth) {
 		this.birth = birth;
 	}
+
+
+
 
 	public String getSex() {
 		return sex;
 	}
 
+
+
+
 	public void setSex(String sex) {
 		this.sex = sex;
 	}
+
+
+
 
 	public String getEmail() {
 		return email;
 	}
 
+
+
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+
+
 
 	public String getAddress() {
 		return address;
 	}
 
+
+
+
 	public void setAddress(String address) {
 		this.address = address;
 	}
+
+
+
 
 	public String getLoginTime() {
 		return loginTime;
 	}
 
+
+
+
 	public void setLoginTime(String loginTime) {
 		this.loginTime = loginTime;
 	}
+
+
+
 
 	public int getLoginFail() {
 		return loginFail;
 	}
 
+
+
+
 	public void setLoginFail(int loginFail) {
 		this.loginFail = loginFail;
 	}
+
+
+
 
 	public int getPoint() {
 		return point;
 	}
 
+
+
+
 	public void setPoint(int point) {
 		this.point = point;
 	}
+
+
+
 
 	public String getSignupDate() {
 		return signupDate;
 	}
 
+
+
+
 	public void setSignupDate(String signupDate) {
 		this.signupDate = signupDate;
 	}
+
+
+
 
 	public String getAgreement() {
 		return agreement;
 	}
 
+
+
+
 	public void setAgreement(String agreement) {
 		this.agreement = agreement;
 	}
+
+
+
 
 	public AccStatusVO getAccStatusVO() {
 		return accStatusVO;
 	}
 
+
+
+
 	public void setAccStatusVO(AccStatusVO accStatusVO) {
 		this.accStatusVO = accStatusVO;
 	}
+
+
+
+
+	public int getReportCount() {
+		return reportCount;
+	}
+
+
+
+
+	public void setReportCount(int reportCount) {
+		this.reportCount = reportCount;
+	}
+
+
+
+
+	public MemberVO(String id, String password, String name, String tel, String birth, String sex, String email,
+			String address, String loginTime, int loginFail, int point, String signupDate, String agreement,
+			AccStatusVO accStatusVO, int reportCount) {
+		super();
+		this.id = id;
+		this.password = password;
+		this.name = name;
+		this.tel = tel;
+		this.birth = birth;
+		this.sex = sex;
+		this.email = email;
+		this.address = address;
+		this.loginTime = loginTime;
+		this.loginFail = loginFail;
+		this.point = point;
+		this.signupDate = signupDate;
+		this.agreement = agreement;
+		this.accStatusVO = accStatusVO;
+		this.reportCount = reportCount;
+	}
+
+
+
+
+	/*
+	 * public MemberVO(String id, String password, String name, String tel, String
+	 * birth, String sex, String email, String address, String loginTime, int
+	 * loginFail, int point, String signupDate, String agreement, AccStatusVO
+	 * accStatusVO) { super(); this.id = id; this.password = password; this.name =
+	 * name; this.tel = tel; this.birth = birth; this.sex = sex; this.email = email;
+	 * this.address = address; this.loginTime = loginTime; this.loginFail =
+	 * loginFail; this.point = point; this.signupDate = signupDate; this.agreement =
+	 * agreement; this.accStatusVO = accStatusVO; }
+	 * 
+	 * public String getId() { return id; }
+	 * 
+	 * public void setId(String id) { this.id = id; }
+	 * 
+	 * public String getPassword() { return password; }
+	 * 
+	 * public void setPassword(String password) { this.password = password; }
+	 * 
+	 * public String getName() { return name; }
+	 * 
+	 * public void setName(String name) { this.name = name; }
+	 * 
+	 * public String getTel() { return tel; }
+	 * 
+	 * public void setTel(String tel) { this.tel = tel; }
+	 * 
+	 * public String getBirth() { return birth; }
+	 * 
+	 * public void setBirth(String birth) { this.birth = birth; }
+	 * 
+	 * public String getSex() { return sex; }
+	 * 
+	 * public void setSex(String sex) { this.sex = sex; }
+	 * 
+	 * public String getEmail() { return email; }
+	 * 
+	 * public void setEmail(String email) { this.email = email; }
+	 * 
+	 * public String getAddress() { return address; }
+	 * 
+	 * public void setAddress(String address) { this.address = address; }
+	 * 
+	 * public String getLoginTime() { return loginTime; }
+	 * 
+	 * public void setLoginTime(String loginTime) { this.loginTime = loginTime; }
+	 * 
+	 * public int getLoginFail() { return loginFail; }
+	 * 
+	 * public void setLoginFail(int loginFail) { this.loginFail = loginFail; }
+	 * 
+	 * public int getPoint() { return point; }
+	 * 
+	 * public void setPoint(int point) { this.point = point; }
+	 * 
+	 * public String getSignupDate() { return signupDate; }
+	 * 
+	 * public void setSignupDate(String signupDate) { this.signupDate = signupDate;
+	 * }
+	 * 
+	 * public String getAgreement() { return agreement; }
+	 * 
+	 * public void setAgreement(String agreement) { this.agreement = agreement; }
+	 * 
+	 * public AccStatusVO getAccStatusVO() { return accStatusVO; }
+	 * 
+	 * public void setAccStatusVO(AccStatusVO accStatusVO) { this.accStatusVO =
+	 * accStatusVO; }
+	 */
+
+	
+
 
 	@Override
 	public int hashCode() {
@@ -171,6 +360,8 @@ public class MemberVO {
 		result = prime * result + ((tel == null) ? 0 : tel.hashCode());
 		return result;
 	}
+
+	
 
 	@Override
 	public boolean equals(Object obj) {
@@ -248,13 +439,15 @@ public class MemberVO {
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		return "MemberVO [id=" + id + ", password=" + password + ", name=" + name + ", tel=" + tel + ", birth=" + birth
-				+ ", sex=" + sex + ", email=" + email + ", address=" + address + ", loginTime=" + loginTime
-				+ ", loginFail=" + loginFail + ", point=" + point + ", signupDate=" + signupDate + ", agreement="
-				+ agreement + ", accStatusVO=" + accStatusVO + "]";
-	}
+	
+	/*
+	 * @Override public String toString() { return "MemberVO [id=" + id +
+	 * ", password=" + password + ", name=" + name + ", tel=" + tel + ", birth=" +
+	 * birth + ", sex=" + sex + ", email=" + email + ", address=" + address +
+	 * ", loginTime=" + loginTime + ", loginFail=" + loginFail + ", point=" + point
+	 * + ", signupDate=" + signupDate + ", agreement=" + agreement +
+	 * ", accStatusVO=" + accStatusVO + "]"; }
+	 */
 	
 	
 }

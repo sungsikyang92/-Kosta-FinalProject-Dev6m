@@ -22,23 +22,21 @@ public class ReviewServiceImpl implements ReviewService {
 	ReviewLikeMapper reviewLikeMapper;
 	
 	//리뷰리스트불러오기 pageNo 없는 ver
-	@Override
-	public ReviewListVO sGetReviewList() {
-		return sGetReviewList("1");
-	}
+	//@Override
+	//public ReviewListVO sGetReviewList() {
+	//	return sGetReviewList("1");
+	//}
 	//리뷰리스트불러오기
 	@Override
 	public ReviewListVO sGetReviewList(String pageNo) {
 		int reviewTotalCount = reviewMapper.mGetTotalReviewCount();
 		PagingBean pagingBean = null;
+		int pageNumberPerPageGroup=5;
 		if(pageNo == null) {
-			int contentNumberPerPage=10;
-			int pageNumberPerPageGroup=5;
-			pagingBean = new PagingBean(reviewTotalCount,contentNumberPerPage,pageNumberPerPageGroup);
+			pagingBean = new PagingBean(reviewTotalCount);
 		}else {
 			int contentNumberPerPage=10;
-			int pageNumberPerPageGroup=5;
-			pagingBean = new PagingBean(reviewTotalCount,contentNumberPerPage,pageNumberPerPageGroup,Integer.parseInt(pageNo));
+			pagingBean = new PagingBean(reviewTotalCount, contentNumberPerPage, pageNumberPerPageGroup, Integer.parseInt(pageNo));
 		}
 		ReviewListVO reviewListVO = new ReviewListVO(reviewMapper.mGetReviewList(pagingBean),pagingBean);
 		return reviewListVO;
@@ -109,6 +107,24 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public void sReviewLikesRemove(int reviewNo) {
 		reviewMapper.mReviewLikesRemove(reviewNo);
+	}
+	
+	// 내 리뷰 리스트
+	@Override
+	public ReviewListVO sGetMyReviewList(String id) {
+		return sGetMyReviewList(id, "1");
+	}
+	@Override
+	public ReviewListVO sGetMyReviewList(String id, String pageNo) {
+		int myReviewTotalCount = reviewMapper.mGetMyTotalReviewCount(id);
+		PagingBean pagingBean = null;
+		if(pageNo == null) {
+			pagingBean = new PagingBean(myReviewTotalCount);
+		}else {
+			pagingBean = new PagingBean(myReviewTotalCount, Integer.parseInt(pageNo));
+		}
+		ReviewListVO reviewListVO = new ReviewListVO(reviewMapper.mGetMyReviewList(id, pagingBean), pagingBean);
+		return reviewListVO;
 	}
 
 

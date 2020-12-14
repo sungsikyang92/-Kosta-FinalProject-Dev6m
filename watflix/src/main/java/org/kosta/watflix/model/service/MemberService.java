@@ -4,8 +4,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.kosta.watflix.model.vo.Authority;
+import org.kosta.watflix.model.vo.MemberListVO;
 import org.kosta.watflix.model.vo.MemberVO;
 import org.kosta.watflix.model.vo.ProductOrderVO;
+import org.kosta.watflix.model.vo.ReportListVO;
 
 public interface MemberService {
 	void sMemberRegister(MemberVO memberVO);
@@ -19,6 +21,13 @@ public interface MemberService {
 	List<Authority> sFindAuthorityById(String id);
 	String idcheck(String id);
 	int sMemberPointCheck(String id);
-	void sMemberPointUp(Map<String, Object> map);
+	void sMemberPointUpdate(MemberVO memberVO);
 	List<ProductOrderVO> sMemberProductOrderHistory(String id);
+	//멤버 총 수
+	int sMemberAllCount();
+	//멤버 리스트
+	MemberListVO sMemberAllList();
+	MemberListVO sMemberAllList(String pageNo);
+	//멤버 계정 정지 or 해제
+	void sMemberStatusUpdate(String id, int accStatusNo);
 }

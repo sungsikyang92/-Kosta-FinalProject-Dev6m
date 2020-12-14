@@ -49,7 +49,7 @@ public class HomeController {
 		//영화 타입의 장르를 검색
 		model.addAttribute("movieGenreList",contentsService.sGetGenreSelectForType("영화"));
 		
-		//컨텐츠 리스트 출력(홈화면에서 하위에 있는 전체리스트 출력
+		//컨텐츠 리스트 출력(홈화면에서 하위에 있는 전체리스트 출력)
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("startNumber", Integer.toString(0));
 		map.put("endNumber", Integer.toString(10));

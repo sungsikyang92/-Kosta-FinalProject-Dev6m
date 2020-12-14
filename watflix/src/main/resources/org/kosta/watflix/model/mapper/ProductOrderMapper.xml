@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sql Mapper -->
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.kosta.watflix.model.mapper.ProductOrderMapper">
+ 	
+ 	<!-- 상품구매 -->
+ 	<insert id="mProductOrderAdd" parameterType="productOrderVO">
+ 		<selectKey keyProperty="orderNo" resultType="int" order="BEFORE">
+ 			SELECT PRODUCT_ORDER_SEQ.NEXTVAL FROM DUAL
+ 		</selectKey>
+ 			INSERT INTO PRODUCT_ORDER(ORDER_NO,PRODUCT_NO,QUANTITY,ID) VALUES(#{orderNo},#{productVO.productNo},#{quantity},#{memberVO.id})
+ 	</insert>
+ 	
+</mapper>
+
+
+
+
+
+
+
+
