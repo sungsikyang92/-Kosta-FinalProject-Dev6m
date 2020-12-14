@@ -87,16 +87,16 @@ public class ContentsServiceImpl implements ContentsService {
 		return contentsMapper.mGetGenreSelectForType(contentsType);
 	}
 
-	//리뷰추천수증가
+	//컨텐츠추천수증가
 	@Override
-	public void sContentsLikesUpdate(String reviewNo) {
-		contentsMapper.mContentsLikeUpdate(reviewNo);
+	public void sContentsLikesUpdate(String contentsNo) {
+		contentsMapper.mContentsLikeUpdate(contentsNo);
 	}
 
-	//리뷰추천수감소
+	//컨텐츠추천수감소
 	@Override
-	public void sContentsLikeRevmoew(String reviewNo) {
-		contentsMapper.mContentsLikeRemove(reviewNo);
+	public void sContentsLikeRevmoew(String contentsNo) {
+		contentsMapper.mContentsLikeRemove(contentsNo);
 	}
 	
 	//각 content에 contents_avg_stars 넣기

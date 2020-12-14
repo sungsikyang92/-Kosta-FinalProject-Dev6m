@@ -21,9 +21,9 @@ public interface ContentsService {
 	List<GenreVO> sGetGenreSelectForType(String contentsType);
 	List<ContentsVO> sGetContentsSelectForType(String contentsType);
 	//컨텐츠추천수증가
-	void sContentsLikesUpdate(String reviewNo);
+	void sContentsLikesUpdate(String contentsNo);
 	//컨텐츠추천수감소
-	void sContentsLikeRevmoew(String reviewNo);
+	void sContentsLikeRevmoew(String contentsNo);
 	//컨텐츠추천여부검사를위한 서비스
 	//각 content에 contents_avg_stars 넣기
 	void sUpdateAvgStar(double avgStars, String contentsNo);
