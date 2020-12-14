@@ -75,8 +75,14 @@ public class ReviewServiceImpl implements ReviewService {
 
 	//리뷰상세보기와 조회수증가방지
 	@Override
-	public ReviewVO sGetReviewDetailNoHits(int reviewNo) {
-		return reviewMapper.mGetReviewDetail(reviewNo);
+//	public ReviewVO sGetReviewDetailNoHits(int reviewNo) { id
+//		return reviewMapper.mGetReviewDetail(reviewNo);
+//	}			reviewNo랑 id를 넣어야함
+	public ReviewVO sGetReviewDetailNoHits(String id, int reviewNo) {
+		HashMap<String, Object>map = new HashMap<String, Object>();
+		map.put("id", id);
+		map.put("reviewNo", reviewNo);		
+		return reviewMapper.mGetReviewDetail(map);
 	}
 
 	//리뷰 삭제 
@@ -101,6 +107,24 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public void sReviewLikesRemove(int reviewNo) {
 		reviewMapper.mReviewLikesRemove(reviewNo);
+	}
+	
+	// 내 리뷰 리스트
+	@Override
+	public ReviewListVO sGetMyReviewList(String id) {
+		return sGetMyReviewList(id, "1");
+	}
+	@Override
+	public ReviewListVO sGetMyReviewList(String id, String pageNo) {
+		int myReviewTotalCount = reviewMapper.mGetMyTotalReviewCount(id);
+		PagingBean pagingBean = null;
+		if(pageNo == null) {
+			pagingBean = new PagingBean(myReviewTotalCount);
+		}else {
+			pagingBean = new PagingBean(myReviewTotalCount, Integer.parseInt(pageNo));
+		}
+		ReviewListVO reviewListVO = new ReviewListVO(reviewMapper.mGetMyReviewList(id, pagingBean), pagingBean);
+		return reviewListVO;
 	}
 
 

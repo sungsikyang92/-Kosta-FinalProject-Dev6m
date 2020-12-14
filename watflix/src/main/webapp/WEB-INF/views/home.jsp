@@ -19,6 +19,21 @@
 					genreDenote(result);
 				}			
 			})
+			$("#grid-movies").html("");
+			for(var i=0;i<2;i++){
+				$.ajax({
+					type:"get",
+					url:"${pageContext.request.contextPath}/getContentsAllForType.do",
+					data:{
+						"contentsType":contentsType,
+						"pageNo": i+1
+					},
+					dataType: "json",
+					success:function(result){
+						denote(result);
+					}
+				})//ajax
+			}
 		})
 		//movie 탭클릭시 movie 장르 가져옴
 		$("#movie").click(function(){
@@ -36,7 +51,58 @@
 					genreDenote(result);
 				}			
 			})
-		})
+			$("#grid-movies").html("");
+			for(var i=0;i<2;i++){
+				$.ajax({
+					type:"get",
+					url:"${pageContext.request.contextPath}/getContentsAllForType.do",
+					data:{
+						"contentsType":contentsType,
+						"pageNo": i+1
+					},
+					dataType: "json",
+					success:function(result){
+						denote(result);
+					}
+				})//ajax
+			}//for문 종료
+		})//movie 탭클릭시 movie 장르 가져옴 종료
+		
+		//장르버튼 클릭시 이벤트
+		$(document).on('click','.genreBtn',function(){
+			$(this).parent().parent().children(".active").children().removeAttr("style");
+			$(this).parent().parent().children(".active").removeClass("active");
+			$(this).parent().addClass("active");
+			
+			$(this).attr("style","background-color:red");
+			//장르코드
+			
+			var genreCode= $(this).val();
+			//컨텐츠 타입
+			if($("#movie").hasClass("active") === true){
+				contentsType = "영화";
+			}
+			else{
+				contentsType ="TV";
+			}
+			$("#grid-movies").html("");
+			for(var i=0;i<2;i++){
+				$.ajax({
+					type:"get",
+					url:"${pageContext.request.contextPath}/getContentsAllForTypeAndGenre.do",
+					data:{
+						"contentsType":contentsType,
+						"pageNo":i+1,
+						"genreCode":genreCode
+					},
+					dataType: "json",
+					success:function(result){
+						denote(result);
+					}
+				})//비동기
+			}//for문
+		})//장르버튼 클릭이벤트 종료
+		
 		
 		//홈화면에서 more버튼을 클릭시에 자료를 더 가져오는 비동기 함수
 		var pageNo = 3;
@@ -84,45 +150,10 @@
 				})
 			}
 			
-		})//click
-		
-		//장르버튼 클릭시 이벤트
-		$(".genreBtn").click(function(){
-			$(this).parent().parent().children(".active").children().removeAttr("style");
-			$(this).parent().parent().children(".active").removeClass("active");
-			$(this).parent().addClass("active");
-			
-			$(this).attr("style","background-color:red");
-			//장르코드
-			
-			var genreCode= $(this).val();
-			alert(genreCode)
-			//컨텐츠 타입
-			if($("#movie").hasClass("active") === true){
-				contentsType = "영화";
-			}
-			else{
-				contentsType ="TV";
-			}
-			$("#grid-movies").html("");
-			for(var i=0;i<2;i++){
-				$.ajax({
-					type:"get",
-					url:"${pageContext.request.contextPath}/getContentsAllForTypeAndGenre.do",
-					data:{
-						"contentsType":contentsType,
-						"pageNo":i+1,
-						"genreCode":genreCode
-					},
-					dataType: "json",
-					success:function(result){
-						denote(result);
-					}
-				})
-			}
-			pageNo=3;	
-		})//#genreBtn click 종료
+		})//click	
 	})//ready
+	
+	
 	//컨텐츠 출력
 	function denote(contentsList){
 		  if(contentsList.length==0){
@@ -163,8 +194,8 @@
 	function genreDenote(genreList){
 	var percent = 0;
 	  for(let genre of genreList){
-	    let $cellsOfRow =$("<div class='carousel-filter-cell text-center' style='position: absolute; left: "+percent+"%;'><button class='btn btn-outline-primary btn-md margin-top-under-sm genreBtn'"+ 
-	    		"data-filter='"+genre.genreCode+"' value='"+genre.genreCode+"'>"+genre.genreName+"</button></div>"
+		  let $cellsOfRow =$("<div class='carousel-filter-cell text-center' style='position: absolute; left: "+percent+"%;'><button class='btn btn-outline-primary btn-md margin-top-under-sm genreBtn'"+ 
+				  "data-filter='"+genre.genreCode+"' value='"+genre.genreCode+"'>"+genre.genreName+"</button></div>"
     	);
 	    $("#typeForGenre>.flickity-viewport>.flickity-slider").append($cellsOfRow);
 	    percent+=20;
@@ -291,8 +322,16 @@
                                 ${contentsVO.contentsDate}
                             </div>
                             <div class="col-4 text-center no-padding">
-                                <a href="">
+                                <a href="#">
                                     <img src="${pageContext.request.contextPath}/resources/media/icons/heart.png" width="10" alt="">
+									<c:choose>
+										<c:when test="${check==1}">
+											<img id="ReviewLike" class="ReviewLike" src="/watflix/resources/media/icons/RedHeart.png" width=30px height=30px>
+										</c:when>
+										<c:otherwise>
+											<img id="ReviewLike" class="ReviewLike" src="/watflix/resources/media/icons/HeartLine.png" width=30px height=30px>
+										</c:otherwise>
+									</c:choose>
                                 </a>
                             </div>
                             <div class="col-4 text-right no-padding rating">
@@ -409,7 +448,7 @@
 					<c:forEach items="${requestScope.movieGenreList}" var="genreVO">
 						<!-- Genre Action - OPEN -->
 	                    <div class="carousel-filter-cell text-center">
-	                        <button class="btn btn-outline-primary btn-md margin-top-under-sm genreBtn" data-filter="${genreVO.genreCode}" value="${genreVO.genreCode}" >
+	                        <button class="btn btn-outline-primary btn-md margin-top-under-sm genreBtn" data-filter="${genreVO.genreCode}" value="${genreVO.genreCode}">
 	                            ${genreVO.genreName}
 	                        </button>
 	                    </div>

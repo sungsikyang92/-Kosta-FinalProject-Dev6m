@@ -8,7 +8,7 @@ select * from review
 INSERT INTO REVIEW(REVIEW_NO,ID,CONTENTS_NO,REVIEW_TITLE,REVIEW_CONTENTS) 
 VALUES('454','BOSE','81171201','블러드 샷 봤냐?','지린다 가슴이 웅장해진다...꼭봐라...')
 
-SELECT * FROM COMMENTS
+SELECT * FROM product
 
 SELECT * FROM REVIEW WHERE REVIEW_NO=777
 /*ReviewWrite쿼리문 테스트*/
@@ -23,7 +23,11 @@ INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL,ACC_STAUTS_NO) VALUES('jikang','1','�
 INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('spring','1','강상훈','gmail')
 INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('yuki','1','유리','gmail')
 INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('java','$2a$10$i2cyl1OhUeJ71PUTHozM9enjjiJ0rZVVjn/z7FVXnJA1pBi7gOUH2','강상훈','gmail');
+INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('java14','$2a$10$i2cyl1OhUeJ71PUTHozM9enjjiJ0rZVVjn/z7FVXnJA1pBi7gOUH2','킹왕짱','gmail');
 INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('spring','$2a$10$i2cyl1OhUeJ71PUTHozM9enjjiJ0rZVVjn/z7FVXnJA1pBi7gOUH2','양성식','gmail');
+INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('java1','$2a$10$i2cyl1OhUeJ71PUTHozM9enjjiJ0rZVVjn/z7FVXnJA1pBi7gOUH2','양성식','gmail');
+INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('spring1','$2a$10$i2cyl1OhUeJ71PUTHozM9enjjiJ0rZVVjn/z7FVXnJA1pBi7gOUH2','양성식','gmail');
+
 
 /*ReviewWrite쿼리문 테스트를 위한 CONTENTS TABLE 데이터 추가*/
 INSERT INTO CONTENTS VALUES(CONTENTS_SEQ.NEXTVAL,'트랜스포머','타입','장르','요약','트레일러',0,1,1)
@@ -118,8 +122,8 @@ INSERT INTO Comments VALUES (COMMENTS_SEQ.NEXTVAL, 'java', '60004481', '나도 �
 INSERT INTO Comments VALUES (COMMENTS_SEQ.NEXTVAL, 'java', '81095669', '진격의 거인이 그렇게 재미있냐?', 8, SYSDATE);
 
 /*report 테스트를 위한 데이터 추가*/
-INSERT INTO report VALUES (report_seq.nextval, 'java2', null, 1, 1, '신고합니다', sysdate)
-INSERT INTO report VALUES (report_seq.nextval, 'java2', 1, null, 2, '신고합니다', sysdate)
+INSERT INTO report VALUES (report_seq.nextval, 'java', null, 257, 1, '신고합니다', sysdate);
+INSERT INTO report VALUES (report_seq.nextval, 'java', 93, null, 2, '신고합니다', sysdate);
 
 INSERT INTO review VALUES (review_seq.nextval, 'java3', '81004276', '리뷰 제목', '리뷰 내용', 0, 0, sysdate)
 
@@ -374,10 +378,6 @@ SELECT COUNT(REVIEW_TITLE) AS CONTENTS_REVIEW_NO FROM REVIEW WHERE CONTENTS_NO =
 delete from genre
 drop table contents
 
-/*재우 test*/
-select * from report
-select * from review
-union (all)
 
 		SELECT R.REVIEW_NO,R.REVIEW_TITLE,R.REVIEW_LIKES,C.CONTENTS_NO,TO_CHAR(R.REVIEW_POSTED_TIME, 'YYYY.MM.DD HH24:MI:SS') 
 		AS REVIEW_POSTED_TIME,M.ID,R.REVIEW_HITS,R.REVIEW_CONTENTS 
@@ -396,7 +396,7 @@ FROM (SELECT ROW_NUMBER() OVER(ORDER BY REVIEW_NO DESC) AS RNUM,REVIEW_NO,ID,CON
 R, MEMBER M, CONTENTS C
 WHERE R.ID = M.ID AND R.CONTENTS_NO = C.CONTENTS_NO AND RNUM BETWEEN 1 AND 100
 
-
+/* 재우 test */
 -- 제약 조건 비활성화, 확성화
 alter table REPORT disable constraint REPORT_REVIEW_NO_FK
 alter table REPORT enable constraint REPORT_REVIEW_NO_FK
@@ -450,13 +450,42 @@ FROM REVIEW where id='java')
 WHERE RNUM BETWEEN 1 AND 5 ORDER BY review_no desc;
 -- 내가 작성한 전체 리뷰 count
 select count(*) from review where id =''
+-- 내 평점 게시물 가져오기
+SELECT comments_no, id, contents_no, comments, comments_stars, comments_posted_time
+FROM(SELECT row_number() over(order by comments_no desc) as rnum, comments_no, id, contents_no, comments, comments_stars, comments_posted_time
+FROM comments where id = 'java')
+WHERE rnum BETWEEN 1 AND 5;
+-- 내가 작성한 전체 평점 count
+select count(*) from review where id='spring'
+select * from review
+-- drop 시퀀스
+drop SEQUENCE COMMENTS_SEQ;
+drop SEQUENCE REVIEW_SEQ;
+drop SEQUENCE NOTICE_SEQ;
+drop SEQUENCE REPORT_SEQ;
+drop SEQUENCE PRODUCT_SEQ;
+drop SEQUENCE PRODUCT_CATEGORY_SEQ;
+drop SEQUENCE PRODUCT_ORDER_SEQ;
+drop SEQUENCE PARTY_SEQ;
+drop SEQUENCE FAQ_SEQ;
+-- 권한 추가
+insert into grade values ( 'ROLE_ADMIN' , 'java');
+-- 신고 당한 횟수 추가
+ALTER TABLE MEMBER ADD REPORTCOUNT NUMBER DEFAULT 0;
+
 
 
 select * from grade where id='java'
 insert into grade values ( 'ROLE_MEMBER' , 'java');
 insert into grade values ( 'ROLE_MEMBER' , 'spring');
+
+insert into grade values ( 'ROLE_MEMBER' , 'spring1');
+insert into grade values ( 'ROLE_MEMBER' , 'java1');
+insert into grade values ( 'ROLE_MEMBER' , 'java14');
+
 update grade set grade = 'ROLE_ADMIN' where id='java'
 insert into grade values('')
+
 /*컨텐츠*/
 CREATE TABLE CONTENTS(
    CONTENTS_NO VARCHAR2(1000) PRIMARY KEY,
@@ -696,15 +725,62 @@ SELECT RNUM,M.ID,M.PASSWORD,M.NAME,M.TEL,M.BIRTH,M.SEX,M.EMAIL,M.ADDRESS,M.LOGIN
 ALTER TABLE MEMBER ADD REPORTCOUNT NUMBER DEFAULT 0;
 SELECT * FROM MEMBER
 
-
-/*리뷰 좋아요 테스트*/
+		/*리뷰 좋아요 테스트*/
 INSERT INTO REVIEW_LIKE VALUES(195,'java14')
 INSERT INTO REVIEW_LIKE VALUES(196,'java14')
 INSERT INTO REVIEW_LIKE VALUES(198,'java14')
-SELECT * FROM REVIEW_LIKE 
+INSERT INTO REVIEW_LIKE VALUES(198,'java1');
+INSERT INTO REVIEW_LIKE VALUES(198,'spring');
+INSERT INTO REVIEW_LIKE VALUES(198,'spring1');
+SELECT FROM REVIEW_LIKE 
+SELECT COUNT(*) FROM REVIEW_LIKE 
 SELECT COUNT(*) FROM REVIEW_LIKE WHERE REVIEW_NO = 198
 
 DELETE FROM REVIEW_LIKE WHERE REVIEW_NO = 196 AND ID = 'java14'
 
+
 DELETE FROM REVIEW WHERE REVIEW_NO = #{reviewNo}
+SELECT COUNT(*) FROM REVIEW WHERE REVIEW_NO = 270
+SELECT RL.count(*),R.REVIEW_NO,R.ID FROM REVIEW R, REVIEW_LIKE RL WHERE R.ID = RL.ID AND REVIEW_NO = 270 AND ID = 'java'
+
+
+SELECT (SELECT COUNT(*) FROM REVIEW_LIKE WHERE REVIEW_NO = 270 AND ID = 'java') AS REVIEW_LIKE_STATUS, REVIEW_NO, ID FROM REVIEW WHERE REVIEW_NO = 270 AND ID = 'java'
+SELECT REVIEW_LIKE_STATUS, REVIEW_NO, ID FROM REVIEW_LIKE WHERE REVIEW_NO = 270 AND ID = 'java'
+
+	<!-- 리뷰좋아요 유무 여부 -->
+	<select id="mReviewLikeExist" parameterType="reviewLikeVO" resultType="int">
+		SELECT (SELECT COUNT(*) FROM REVIEW_LIKE WHERE REVIEW_NO = #{reviewVO.reviewNo} AND ID = #{memberVO.id}) AS REVIEW_LIKE_COUNT, 
+		REVIEW_NO, ID FROM REVIEW WHERE REVIEW_NO = #{reviewVO.reviewNo} AND ID = #{memberVO.id}
+	</select>
+		<!-- 리뷰 디테일 -->
+	<select id="mGetReviewDetail" resultMap="reviewRM">
+		SELECT R.REVIEW_NO,R.REVIEW_TITLE,R.REVIEW_LIKES,C.CONTENTS_NO,TO_CHAR(R.REVIEW_POSTED_TIME, 'YYYY.MM.DD HH24:MI:SS') 
+		AS REVIEW_POSTED_TIME,M.ID,R.REVIEW_HITS,R.REVIEW_CONTENTS 
+		FROM REVIEW R, MEMBER M, CONTENTS C 
+		WHERE R.ID = M.ID AND R.REVIEW_NO = 1 and R.CONTENTS_NO=C.CONTENTS_NO
+	</select>
+	SELECT (SELECT COUNT(*) FROM REVIEW_LIKE WHERE REVIEW_NO = 1 AND ID = 'java') AS REVIEW_LIKE_STATUS, REVIEW_NO, ID FROM REVIEW WHERE REVIEW_NO = 1 AND ID = 'java'
+	
+	SELECT (SELECT COUNT(*) FROM REVIEW_LIKE WHERE REVIEW_NO = 1 AND ID = 'java') AS REVIEW_LIKE_STATUS,R.REVIEW_NO,R.REVIEW_TITLE,R.REVIEW_LIKES,C.CONTENTS_NO,TO_CHAR(R.REVIEW_POSTED_TIME, 'YYYY.MM.DD HH24:MI:SS') 
+		AS REVIEW_POSTED_TIME,M.ID,R.REVIEW_HITS,R.REVIEW_CONTENTS 
+		FROM REVIEW R, MEMBER M, CONTENTS C 
+		WHERE R.ID = M.ID AND R.REVIEW_NO = 1 AND M.ID = 'java' AND R.CONTENTS_NO=C.CONTENTS_NO
+		
+	<select id="mReviewLikeExist" parameterType="reviewLikeVO" resultType="int">
+		SELECT (SELECT COUNT(*) FROM REVIEW_LIKE WHERE REVIEW_NO = #{reviewVO.reviewNo} AND ID = #{memberVO.id}) AS REVIEW_LIKE_COUNT,
+		R.REVIEW_NO,R.REVIEW_TITLE,R.REVIEW_LIKES,C.CONTENTS_NO,TO_CHAR(R.REVIEW_POSTED_TIME, 'YYYY.MM.DD HH24:MI:SS') 
+		AS REVIEW_POSTED_TIME,M.ID,R.REVIEW_HITS,R.REVIEW_CONTENTS 
+		FROM REVIEW R, MEMBER M, CONTENTS C 
+		WHERE R.ID = M.ID AND R.REVIEW_NO = #{reviewNo} and R.CONTENTS_NO=C.CONTENTS_NO
+	</select>
+	
+	SELECT (SELECT COUNT(*) FROM REVIEW_LIKE WHERE REVIEW_NO = 1 AND ID = 'java') AS REVIEW_LIKE_STATUS,R.REVIEW_NO,R.REVIEW_TITLE,
+	R.REVIEW_LIKES,C.CONTENTS_NO,TO_CHAR(R.REVIEW_POSTED_TIME, 'YYYY.MM.DD HH24:MI:SS') 
+	AS REVIEW_POSTED_TIME,M.ID,R.REVIEW_HITS,R.REVIEW_CONTENTS 
+	FROM REVIEW R, MEMBER M, CONTENTS C 
+	WHERE R.ID = M.ID AND R.REVIEW_NO = 1 AND R.CONTENTS_NO=C.CONTENTS_NO
+	
+	
+
+	SELECT NVL(SUM(comments_stars), 0) FROM comments WHERE contents_no=70131314;
 

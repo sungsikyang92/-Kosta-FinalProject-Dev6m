@@ -162,7 +162,7 @@ public class AdminController {
 	}
 	return "contents/contentsUpdateAdminComplete";
 	}   
-   
+   //관리자- 멤버관리 페이지
    @RequestMapping("adminControlMember.do")
    public String adminControlMember(Model model, String pageNo) {
 	   MemberListVO memberListVO = memberService.sMemberAllList(pageNo);
@@ -172,8 +172,10 @@ public class AdminController {
 // 관리자 전체 게시물 조회 페이지로 이동
    @RequestMapping("allPostForAdmin.do")
    public String allPostForAdmin(Model model) {
+	   System.out.println("allPostForAdmin.do 실행");
 	   // comments 리스트를 불러온다.
 	   model.addAttribute("commentsList", commentsService.sCommentsGetList());
+	   System.out.println("commentsService.sCommentsGetList()"+commentsService.sCommentsGetList());
 	   // review 리스트를 불러온다.
 	   model.addAttribute("reviewList", reviewService.sGetReviewList(null));
 	   // reportComments 리스트를 불러온다.
@@ -187,8 +189,12 @@ public class AdminController {
    
    //계정 정지 or 정지해제
    @RequestMapping("updateMemberStatus.do")
-   public String updateMemberStatus(String id, int accstatus) {
+   public String updateMemberStatus(String id, int accstatus, String nowPage) {
+	  String pageNo = nowPage;
+	  if(pageNo == "") {
+		  pageNo="1";
+	  }
 	   memberService.sMemberStatusUpdate(id,accstatus);
-	   return "redirect:adminControlMember.do";
+	   return "redirect:adminControlMember.do?pageNo="+pageNo;
    }
 }

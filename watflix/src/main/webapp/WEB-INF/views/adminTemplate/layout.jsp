@@ -58,7 +58,7 @@
 		src="${pageContext.request.contextPath}/resources/js/flickity.min.js"
 		defer></script>
 	<!-- Main JS -->
-	<script src="${pageContext.request.contextPath}/resources/js/main.js"
+	<script src="${pageContext.request.contextPath}/resources/js/adminMain.js"
 		defer></script>
 
 </body>

@@ -4,15 +4,71 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.kosta.watflix.model.mapper.ProductMapper">
+ 	<resultMap type="productVO" id="productRM">
+ 		<result property="productCategoryVO.productCategoryName" column="product_category_name"/>
+ 		<result property="productCategoryVO.productCategoryNo" column="product_category_no"/>
+ 		<result property="proStatusVO.proStatusNo" column="pro_status_no"/>
+ 		<result property="proStatusVO.proStatusInfo" column="pro_status_info"/>
+ 	</resultMap>
+ 	
+ 	<!-- select sql  -->
+ 	<sql id="selectProduct">
+ 		select P.PRODUCT_NO,P.PRODUCT_NAME,P.PRODUCT_POINT,P.PRODUCT_DETAIL,P.PRODUCT_CATEGORY_NO,C.PRODUCT_CATEGORY_NAME,P.PRODUCT_PIC,P.PRODUCT_BRAND,P.PRODUCT_STOCK,P.PRO_STATUS_NO,S.PRO_STATUS_INFO
+	 	FROM (SELECT row_number() over(order by PRODUCT_NO) as rnum,PRODUCT_NO,PRODUCT_NAME,PRODUCT_POINT,PRODUCT_DETAIL,
+	 	PRODUCT_CATEGORY_NO,PRODUCT_PIC,PRODUCT_BRAND,PRODUCT_STOCK,PRO_STATUS_NO FROM PRODUCT) P, PRODUCT_CATEGORY C, PRO_STATUS S
+	 	WHERE P.PRODUCT_CATEGORY_NO=C.PRODUCT_CATEGORY_NO AND P.PRO_STATUS_NO=S.PRO_STATUS_NO
+ 	</sql>
+ 	
+ 	<!-- 상품 총개수  -->
+ 	<select id="mProductGetTotalCount" resultType="int">
+ 		SELECT COUNT(*) FROM PRODUCT
+ 	</select>
+ 	
+ 	<!-- 상품조회 -->
+ 	<select id="mProductDetail" resultMap="productRM" parameterType="int">
+	 	<include refid="selectProduct"></include>
+	 	 AND P.PRODUCT_NO=#{VALUE}
+ 	</select>
+ 	
+ 	<!-- 상품리스트 조회 -->
+ 	<select id="mGetProductList" resultMap="productRM" parameterType="pagingBean">
+ 		<include refid="selectProduct"></include>
+	  AND rnum BETWEEN #{startRowNumber} AND #{endRowNumber}
+ 	</select>
+ 	
+ 	<!-- 재고수량 조회 -->
+ 	<select id="mGetProductStock" parameterType="int" resultType="int">
+ 		select product_stock from product where product_no=#{value}
+ 	</select>
  	
  	<!-- 상품등록 -->
  	<insert id="mProductRegister" parameterType="productVO">
+ 		<selectKey keyProperty="productNo" resultType="int" order="BEFORE">
+ 			select product_seq.nextval from dual		
+ 		</selectKey>
 	 	INSERT INTO PRODUCT(PRODUCT_NO,PRODUCT_NAME,PRODUCT_POINT,PRODUCT_DETAIL,PRODUCT_CATEGORY_NO,PRODUCT_PIC,PRODUCT_BRAND,PRODUCT_STOCK)
-	 	VALUES(PRODUCT_SEQ.NEXTVAL(),#{productName},#{productPoint},#{productDetail},#{productCategoryNo},#{productPic},#{productBrand},#{productStock})
+	 	VALUES(#{productNo},#{productName},#{productPoint},#{productDetail},#{productCategoryVO.productCategoryNo},#{productPic},#{productBrand},#{productStock})
  	</insert>
+ 	
+ 	<!-- 상품수정 -->
+ 	<update id="mProductUpdate" parameterType="productVO">
+ 		update product set PRODUCT_NAME=#{productName},PRODUCT_POINT=#{productPoint},
+ 		PRODUCT_DETAIL=#{productDetail},PRODUCT_CATEGORY_NO=#{productCategoryVO.productCategoryNo},PRODUCT_PIC=#{productPic},
+ 		PRODUCT_BRAND=#{productBrand},PRODUCT_STOCK=#{productStock} where PRODUCT_NO=#{productNo}
+ 	</update>
+ 	
+ 	<!-- 상품삭제 -->
+ 	<update id="mProductDelete" parameterType="int">
+ 		UPDATE PRODUCT SET PRO_STATUS_NO=2 WHERE PRODUCT_NO=#{VALUE}
+ 	</update>
+ 	
+ 	<!-- 재고 감소 -->
+ 	<update id="mProductStockDown" parameterType="productVO">
+ 		UPDATE PRODUCT SET PRODUCT_STOCK=#{productStock} WHERE PRODUCT_NO=#{productNo}
+ 	</update>
+ 	
+ 	
 </mapper>
-
-
 
 
 

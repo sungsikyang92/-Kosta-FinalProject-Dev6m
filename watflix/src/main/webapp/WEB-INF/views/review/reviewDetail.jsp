@@ -30,14 +30,6 @@
 						$('#LikesCount').text(Number($('#LikesCount').text())+1);
 					}else{
 						$('#ReviewLike').attr('src','/watflix/resources/media/icons/HeartLine.png');
-						/* <c:choose>
-							<c:when test='${requestScope.rdvo.reviewLikes==0}'>
-								$('#LikesCount').text(0)
-							</c:when>
-							<c:otherwise>
-								$('#LikesCount').text('${requestScope.rdvo.reviewLikes-1}')
-							</c:otherwise>
-						</c:choose> */
 						$('#LikesCount').text(Number($('#LikesCount').text())-1);
 					}
 				}
@@ -47,7 +39,7 @@
 	// 평점 신고
 	function reportPopup(reviewNo, reviewWriterId){
 		// 신고에 필요한 데이터를 신고 form에 보낸다.
-		var path = "${pageContext.request.contextPath}/reportReviewForm.do?reviewNo="+reviewNo+"&&"+"reviewWriterId="+reviewWriterId;
+		var path = "${pageContext.request.contextPath}/reportForm.do?reviewNo="+reviewNo+"&&"+"reviewWriterId="+reviewWriterId;
 		window.open(path, "reportReview","width=465, height=180, top=150, left=200");
 	}
 </script>
@@ -62,7 +54,7 @@
 			<th>
 				<a href="#">
 				<c:choose>
-					<c:when test="${check==1}">
+					<c:when test="${reviewDetail.reviewLikeStatus == 1}">
 						<img id="ReviewLike" class="ReviewLike" src="/watflix/resources/media/icons/RedHeart.png" width=30px height=30px>
 					</c:when>
 					<c:otherwise>
@@ -73,7 +65,7 @@
 				</a>
 				Likes <span id="LikesCount">${reviewDetail.reviewLikes}</span>	
 			</th>
-			<th><a href="#">신고</a></th>
+			<th><a href="#" onclick="reportPopup(${reviewDetail.reviewNo},'${reviewDetail.memberVO.id}');return false;">신고</a></th>
 		</tr>
 		<tr>
 			<td class="contentsTitle">${requestScope.contentsTitle}리뷰</td>

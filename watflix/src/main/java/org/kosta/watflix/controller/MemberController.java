@@ -1,11 +1,10 @@
 package org.kosta.watflix.controller;
 
-import java.lang.reflect.Member;
-
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 
+import org.kosta.watflix.model.service.CommentsService;
 import org.kosta.watflix.model.service.MemberService;
+import org.kosta.watflix.model.service.ReviewService;
 import org.kosta.watflix.model.vo.MemberVO;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,13 +13,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class MemberController {
 	
 	@Resource
 	MemberService memberService;
+	@Resource
+	ReviewService reviewService;
 	
 	@RequestMapping("loginForm.do")
 	public String loginForm() {
@@ -124,4 +124,13 @@ public class MemberController {
 		return "member/watflixSelectMarketing";
 	}
 	/*이용약관동의 end*/
+	
+	// 내 게시물 리스트
+	@RequestMapping("myPostList.do")
+	public String MyPostList(Model model) {
+		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		model.addAttribute("reviewListVO",reviewService.sGetMyReviewList(mvo.getId()));
+		return "my_post_list.tiles";
+	}
+	
 }

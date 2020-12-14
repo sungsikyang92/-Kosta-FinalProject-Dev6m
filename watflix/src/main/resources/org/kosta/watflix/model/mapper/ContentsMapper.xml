@@ -45,7 +45,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	
  	<!-- 특정 카테고리의 컨텐츠 개수 출력 -->
  	<select id="mGetTotalContentsCountForType" resultType="int">
- 		select count(*) from contents where CONTENTS_TYPE=#{value}
+ 		select count(*) from contents where CONTENTS_TYPE LIKE '%'||#{contentsType}||'%'
  	</select>
  	
  	<!-- 모든 컨텐츠 리스트 출력 -->
@@ -126,6 +126,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		GROUP BY b.contents_no, b.contents_title, b.contents_type, b.genre_code, b.contents_small_thumbnail, b.contents_big_thumbnail, b.contents_avg_stars, b.contents_likes, b.contents_hits
 		ORDER BY comments_count DESC;
  	</select>
+ 	<!-- 컨텐츠 추천수 증가 -->
+ 	<update id="mContentsLikeUpdate">
+ 		UPDATE CONTENTS SET CONTENTS_LIKES=CONTENTS_LIKES+1 WHERE CONTENTS_NO=#{VALUE}
+ 	</update>
+ 	<!-- 컨텐츠 추천수 감소 -->
+ 	<update id="mContentsLikeRemove">
+ 		UPDATE CONTENTS SET CONTENTS_LIKES=CONTENTS_LIKES-1 WHERE CONTENTS_NO=#{VALUE}
+ 	</update>
+ 	<!-- 각 content에 contents_avg_stars 넣기 -->
+ 	<update id="mUpdateAvgStars" parameterType="map">
+ 		UPDATE contents SET contents_avg_stars = #{avgStars} WHERE contents_no = #{contentsNo}
+ 	</update>
 </mapper>
 
 

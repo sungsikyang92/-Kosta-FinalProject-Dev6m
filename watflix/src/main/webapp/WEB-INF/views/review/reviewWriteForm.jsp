@@ -40,7 +40,7 @@
 					<textarea name="reviewContents" required="required" class="boardTextarea" name="reviewContents" placeholder="리뷰의 내용을 입력해주세요!"></textarea>
 				</td>
 			</tr>
-			<tr>			<!-- 임시로 align="center"줘서 중앙배열 시켜놓음 CSS로 해야함 -->
+			<tr>			
 				<td colspan="2" class="btnArea">
 					<button type="button" class="btn-list btn btn-default boardDetailBtn" id="backToReviewList">목록</button>
 					<button type="reset" class="btn-reset btn btn-default boardDetailBtn">초기화</button>

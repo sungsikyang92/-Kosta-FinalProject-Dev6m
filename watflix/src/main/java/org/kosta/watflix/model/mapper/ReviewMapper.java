@@ -1,5 +1,6 @@
 package org.kosta.watflix.model.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -24,7 +25,8 @@ public interface ReviewMapper {
 	// 특정 컨텐츠에 대한 리뷰리스트
 	List<ReviewVO> mGetReviewListByContentsNo(@Param("pagingBean")PagingBean pagingBean, @Param("contentsNo")String contentsNo);
 	//리뷰상세보기
-	ReviewVO mGetReviewDetail(int reviewNo);
+	//ReviewVO mGetReviewDetail(map);
+	ReviewVO mGetReviewDetail(HashMap<String, Object> map);
 	//리뷰 삭제
 	void mReviewDelete(int reviewNo);
 	//리뷰 조회수 업데이트

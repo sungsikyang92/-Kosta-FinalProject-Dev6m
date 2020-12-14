@@ -70,12 +70,15 @@
 <body>
 <div style="position: fixed; z-index: -99; width: 100%; height: 100%">
 
+<!-- 뒷백경 동영상-->
 <iframe frameborder="0" height="100%" width="100%" 
-src="https://www.youtube.com/embed/linlz7-Pnvw?mute=1&loop=1&autoplay=1&rel=0&controls=0&showinfo=0" allow="autoplay; encrypted-media" allowfullscreen>
+src="https://www.youtube.com/embed/Ck-h9YGKyOc?mute=1&loop=1&autoplay=1&rel=0&controls=0&showinfo=0" allow="autoplay; encrypted-media" allowfullscreen>
 </iframe>
 
 </div>
-		<table class="table table-hover" style="bgcolor:white;  filter:alpha(opacity=80);" >
+		<table class="table table-hover" style="bgcolor:white;  filter:alpha(opacity=80);      width: 100%;
+    border-top: 1px solid #444444;
+    border-collapse: collapse;      ">
 			<tr>
 				<th>번호</th>
 				<th>제목</th>

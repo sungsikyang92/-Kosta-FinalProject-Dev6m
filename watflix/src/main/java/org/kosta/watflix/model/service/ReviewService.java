@@ -17,7 +17,7 @@ public interface ReviewService {
 	//리뷰수정
 	void sReviewUpdate(ReviewVO reviewVO);
 	//리뷰상세보기와 조회수증가방지
-	ReviewVO sGetReviewDetailNoHits(int reviewNo);
+	ReviewVO sGetReviewDetailNoHits(String id, int reviewNo);	
 	//리뷰삭제
 	void sReviewDelete(int reviewNo);
 	//리뷰조회수증가
@@ -26,4 +26,7 @@ public interface ReviewService {
 	void sReviewLikesUpdate(int reviewNo);
 	//리뷰추천수감소
 	void sReviewLikesRemove(int reviewNo);
+	//내 리뷰리스트
+	ReviewListVO sGetMyReviewList(String id);
+	ReviewListVO sGetMyReviewList(String id, String pageNo);
 }
