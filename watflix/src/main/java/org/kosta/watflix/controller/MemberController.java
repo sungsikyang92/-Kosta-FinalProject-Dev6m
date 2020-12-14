@@ -126,7 +126,7 @@ public class MemberController {
 	/*이용약관동의 end*/
 	
 	// 내 게시물 리스트
-	@RequestMapping("MyPostList.do")
+	@RequestMapping("myPostList.do")
 	public String MyPostList(Model model) {
 		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		model.addAttribute("reviewListVO",reviewService.sGetMyReviewList(mvo.getId()));
