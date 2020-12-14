@@ -86,5 +86,17 @@ public class ContentsServiceImpl implements ContentsService {
 	public List<GenreVO> sGetGenreSelectForType(String contentsType) {
 		return contentsMapper.mGetGenreSelectForType(contentsType);
 	}
+
+	//리뷰추천수증가
+	@Override
+	public void sContentsLikesUpdate(String reviewNo) {
+		contentsMapper.mContentsLikeUpdate(reviewNo);
+	}
+
+	//리뷰추천수감소
+	@Override
+	public void sContentsLikeRevmoew(String reviewNo) {
+		contentsMapper.mContentsLikeRemove(reviewNo);
+	}
 	
 }

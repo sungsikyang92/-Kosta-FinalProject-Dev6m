@@ -23,6 +23,10 @@ public interface ContentsMapper {
 	List<GenreVO> mGetAllGenreList();
 	List<GenreVO> mGetGenreSelectForType(String contentsType);
 	List<ContentsVO> mGetContentsSelectForType(String contentsType);
+	//컨텐츠 추천수 업데이트
+	void mContentsLikeUpdate(String contentsNo);
+	//컨텐츠 추천수 감소
+	void mContentsLikeRemove(String contentsNo);
 }
 
 

@@ -77,8 +77,14 @@ public class ReviewServiceImpl implements ReviewService {
 
 	//리뷰상세보기와 조회수증가방지
 	@Override
-	public ReviewVO sGetReviewDetailNoHits(int reviewNo) {
-		return reviewMapper.mGetReviewDetail(reviewNo);
+//	public ReviewVO sGetReviewDetailNoHits(int reviewNo) { id
+//		return reviewMapper.mGetReviewDetail(reviewNo);
+//	}			reviewNo랑 id를 넣어야함
+	public ReviewVO sGetReviewDetailNoHits(String id, int reviewNo) {
+		HashMap<String, Object>map = new HashMap<String, Object>();
+		map.put("id", id);
+		map.put("reviewNo", reviewNo);		
+		return reviewMapper.mGetReviewDetail(map);
 	}
 
 	//리뷰 삭제 
