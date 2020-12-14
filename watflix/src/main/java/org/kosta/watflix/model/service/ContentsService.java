@@ -20,4 +20,6 @@ public interface ContentsService {
 	List<GenreVO> sGetAllGenreList();
 	List<GenreVO> sGetGenreSelectForType(String contentsType);
 	List<ContentsVO> sGetContentsSelectForType(String contentsType);
+	//각 content에 contents_avg_stars 넣기
+	void sUpdateAvgStar(float avgStars, String contentsNo);
 }

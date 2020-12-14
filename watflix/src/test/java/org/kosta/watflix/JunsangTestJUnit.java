@@ -157,14 +157,27 @@ public class JunsangTestJUnit {
 	 */
 	
 	@Test public void test() {
-		String id = "java";
-		int accStatusNo = 3;
-		MemberVO mvo = new MemberVO();
-		mvo = (MemberVO) memberService.sFindMemberById(id);
-		System.out.println(mvo);
-		memberService.sMemberStatusUpdate(id,accStatusNo);
-		mvo = (MemberVO) memberService.sFindMemberById(id);
-		System.out.println(mvo);
+		/*
+		 * String id = "java"; int accStatusNo = 3; MemberVO mvo = new MemberVO(); mvo =
+		 * (MemberVO) memberService.sFindMemberById(id); System.out.println(mvo);
+		 * memberService.sMemberStatusUpdate(id,accStatusNo); mvo = (MemberVO)
+		 * memberService.sFindMemberById(id); System.out.println(mvo);
+		 */
+		
+		for(int i=1 ; i<= 10 ; i++) {
+			MemberVO memberVO = new MemberVO();
+			memberVO.setId("admin"+i+"번");
+			memberVO.setPassword("123");
+			memberVO.setName("테스트");
+			memberVO.setEmail("email");
+			memberVO.setTel("123");
+			memberVO.setBirth("1992-09-03");
+			memberVO.setSex("남성");
+			memberVO.setAddress("경기도");
+			memberVO.setAgreement("동의");
+			memberService.sMemberAdminRegister(memberVO);
+		}
+		
 	}
 }
 

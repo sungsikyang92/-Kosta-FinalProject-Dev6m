@@ -118,8 +118,8 @@ INSERT INTO Comments VALUES (COMMENTS_SEQ.NEXTVAL, 'java', '60004481', '나도 �
 INSERT INTO Comments VALUES (COMMENTS_SEQ.NEXTVAL, 'java', '81095669', '진격의 거인이 그렇게 재미있냐?', 8, SYSDATE);
 
 /*report 테스트를 위한 데이터 추가*/
-INSERT INTO report VALUES (report_seq.nextval, 'java2', null, 1, 1, '신고합니다', sysdate)
-INSERT INTO report VALUES (report_seq.nextval, 'java2', 1, null, 2, '신고합니다', sysdate)
+INSERT INTO report VALUES (report_seq.nextval, 'java', null, 257, 1, '신고합니다', sysdate);
+INSERT INTO report VALUES (report_seq.nextval, 'java14', 10, null, 2, '신고합니다', sysdate);
 
 INSERT INTO review VALUES (review_seq.nextval, 'java3', '81004276', '리뷰 제목', '리뷰 내용', 0, 0, sysdate)
 
@@ -707,3 +707,5 @@ SELECT COUNT(*) FROM REVIEW_LIKE WHERE REVIEW_NO = 198
 DELETE FROM REVIEW_LIKE WHERE REVIEW_NO = 196 AND ID = 'java14'
 
 DELETE FROM REVIEW WHERE REVIEW_NO = #{reviewNo}
+
+UPDATE contents SET contents_avg_stars = 8 WHERE contents_no = 81171201;

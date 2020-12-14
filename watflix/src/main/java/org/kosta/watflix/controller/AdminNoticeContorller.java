@@ -1,7 +1,5 @@
 package org.kosta.watflix.controller;
 
-import java.util.Map;
-
 import javax.annotation.Resource;
 
 import org.kosta.watflix.model.service.NoticeService;
@@ -13,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -30,9 +27,11 @@ public class AdminNoticeContorller {
 	}
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("noticeWriteForm.do")
-	public String noticeWriteForm(){
+	public String noticeWriteForm(String pageNo, Model model){
+		model.addAttribute("pageNo", pageNo);
 		return "notice/noticeWriteForm.tiles";
 	}
+	@Secured("ROLE_ADMIN")
 	@PostMapping("noticeWrite.do")
 	public String noticeWrite(NoticeVO noticeVO, Model model, RedirectAttributes redirectAttributes) {
 		MemberVO memberVO = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -68,14 +67,14 @@ public class AdminNoticeContorller {
 		redirectAttributes.addAttribute("pageNo", pageNo);
 		return "redirect:noticeDetailNoHits.do";
 	}	
-	
+	@Secured("ROLE_ADMIN")
 	@PostMapping("noticeUpdateForm.do")
 	public String noticeUpdateForm(int noticeNo, String pageNo, Model model) {
 		model.addAttribute("noticeUpdateForm", noticeService.sNoticeGetDetailNoHits(noticeNo));
 		model.addAttribute("pageNo", pageNo);
 		return "notice/noticeUpdateForm.tiles";
 	}
-	//@Secured("ROLE_MEMBER")
+	@Secured("ROLE_ADMIN")
 	@PostMapping("noticeUpdate.do")
 	public String noticeUpdate(NoticeVO noticeVO, int noticeNo, String pageNo, RedirectAttributes redirectAttributes) {
 		MemberVO memberVO = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -85,14 +84,14 @@ public class AdminNoticeContorller {
 		redirectAttributes.addAttribute("pageNo", pageNo);
 		return "redirect:noticeDetailNoHits.do";
 	}
-	
+	@Secured("ROLE_ADMIN")
 	@PostMapping("noticeDelete.do")
 	public String noticeDelete(int noticeNo, String pageNo, RedirectAttributes redirectAttributes) {
 		noticeService.sNoticeDelete(noticeNo);
 		redirectAttributes.addAttribute("pageNo", pageNo);
 		return "redirect:getNoticeList.do";
 	}
-	
+	@Secured("ROLE_ADMIN")
 	@PostMapping("noticeDeleteByCheckbox.do")
 	public String noticeDelete(int[] deleteCheckbox, String pageNo, RedirectAttributes redirectAttributes) {
 		for(int i = 0; i < deleteCheckbox.length; i++) {

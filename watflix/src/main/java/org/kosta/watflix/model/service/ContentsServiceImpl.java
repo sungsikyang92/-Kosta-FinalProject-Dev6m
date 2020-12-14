@@ -87,4 +87,10 @@ public class ContentsServiceImpl implements ContentsService {
 		return contentsMapper.mGetGenreSelectForType(contentsType);
 	}
 	
+	//각 content에 contents_avg_stars 넣기
+	@Override
+	public void sUpdateAvgStar(float avgStars, String contentsNo) {
+		contentsMapper.mUpdateAvgStars(avgStars, contentsNo);
+	}
+	
 }

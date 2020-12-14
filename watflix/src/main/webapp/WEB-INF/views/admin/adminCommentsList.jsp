@@ -22,6 +22,7 @@
 				return confirm("삭제하시겠습니까?");
 			}					
 		})
+		// 별점 이미지 삽입
 		$(".starPointImg").each(function(){
 				var starPoint = $(this).html();
 				$(this).html("<img src='${pageContext.request.contextPath}/resources/media/icons/star"+starPoint+".png' style='height: 25px'>");
@@ -51,7 +52,10 @@
 					${commentsList.memberVO.id }
 					${commentsList.commentsPostedTime}				
 				</td>
-				<td><input type="checkbox" value="${commentsList.commentsNo}" name="deleteCheckbox"></td>
+				<td>
+					<input type="hidden" value="${commentsList.contentsNo}" name="deleteContentsNo">
+					<input type="checkbox" value="${commentsList.commentsNo}" name="deleteCheckbox">
+				</td>
 			</tr>
 			</c:forEach>
 			<tr>
