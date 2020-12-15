@@ -16,6 +16,7 @@ public interface ContentsService {
 	List<ContentsVO> sGetContentsAllForType(Map<String,String> map);
 	ContentsVO sFindContentsByNo(String contentsNo);
 	List<ContentsVO> sContentsHighHits();
+	List<ContentsVO> sContentsHighHitsLogin(String id);
 	List<ContentsVO> sContentsHighAvgStars();
 	List<GenreVO> sGetAllGenreList();
 	List<GenreVO> sGetGenreSelectForType(String contentsType);

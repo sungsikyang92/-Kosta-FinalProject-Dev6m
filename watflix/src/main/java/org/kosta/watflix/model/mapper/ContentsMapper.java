@@ -1,5 +1,6 @@
 package org.kosta.watflix.model.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,7 +21,7 @@ public interface ContentsMapper {
 	List<ContentsVO> mGetContentsAllForTypeAndGenre(Map<String,String> map);
 	List<ContentsVO> mGetContentsAllForType(Map<String,String> map);
 	List<ContentsVO> mContentsHighHits();
-	List<ContentsVO> mContentsHighHitsLogin();
+	List<ContentsVO> mContentsHighHitsLogin(String id);
 	List<ContentsVO> mContentsHighAvgStars();
 	List<ContentsVO> mContentsHighAvgStarsLogin();
 	List<GenreVO> mGetAllGenreList();

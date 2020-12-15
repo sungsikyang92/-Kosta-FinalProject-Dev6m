@@ -1,6 +1,7 @@
 package org.kosta.watflix.model.service;
 
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,7 +9,6 @@ import javax.annotation.Resource;
 
 import org.kosta.watflix.model.mapper.ContentsMapper;
 import org.kosta.watflix.model.mapper.ReviewMapper;
-import org.kosta.watflix.model.vo.ProductCategoryListVO;
 import org.kosta.watflix.model.vo.ContentsVO;
 import org.kosta.watflix.model.vo.GenreVO;
 import org.springframework.stereotype.Service;
@@ -55,7 +55,17 @@ public class ContentsServiceImpl implements ContentsService {
 	public List<ContentsVO> sContentsHighHits() {
 		return contentsMapper.mContentsHighHits();
 	}
-
+	
+	//조회수 높은순 with Login
+	@Override
+	public List<ContentsVO> sContentsHighHitsLogin(String id) {
+//		HashMap<String, Object>map = new HashMap<String, Object>();
+//		map.put("id", id);
+//		map.put("contentsNo", contentsNo);
+//		return contentsMapper.mContentsHighHitsLogin(map);
+		return contentsMapper.mContentsHighHitsLogin(id);
+	}
+	
 	//평점 높은순
 	@Override
 	public List<ContentsVO> sContentsHighAvgStars() {
@@ -104,5 +114,5 @@ public class ContentsServiceImpl implements ContentsService {
 	public void sUpdateAvgStar(double avgStars, String contentsNo) {
 		contentsMapper.mUpdateAvgStars(avgStars, contentsNo);
 	}
-	
+
 }

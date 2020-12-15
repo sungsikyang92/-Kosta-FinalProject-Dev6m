@@ -16,8 +16,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="mContentsLikeRemove" parameterType="contentsLikeVO">
 		DELETE FROM CONTENTS_LIKE WHERE CONTENTS_NO = #{contentsVO.contentsNo} AND ID = #{memberVO.id}
 	</delete>
-	<!-- 컨텐츠좋아요 개수 -->
+	<!-- 컨텐츠좋아요 total개수 -->
 	<select id="mGetContentsLikeCount" resultType="int">
 		SELECT COUNT(*) FROM CONTENTS_LIKE
 	</select>
+	 	
+ 	<select id="mIsLike" parameterType="hashmap" resultType="int">
+ 		select count(*) from CONTENTS_LIKE WHERE ID=#{id} and CONTENTS_NO = #{contentsNo}
+ 	</select>
+ 	
 </mapper>
