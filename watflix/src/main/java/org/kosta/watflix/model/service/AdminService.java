@@ -11,6 +11,6 @@ public interface AdminService {
 
 	void genreRegister(String genreCode, String genreName);
 
-	GenreVO findByGenreCode(String genreCode);
+	int findByGenreCode(String genreCode);
 
 }

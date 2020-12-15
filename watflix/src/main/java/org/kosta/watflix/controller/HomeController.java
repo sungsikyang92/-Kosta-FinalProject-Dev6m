@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 
 import org.kosta.watflix.model.service.ContentsLikeService;
 import org.kosta.watflix.model.service.ContentsService;
+import org.kosta.watflix.model.service.PagingBean;
 import org.kosta.watflix.model.service.ReviewLikeService;
 import org.kosta.watflix.model.service.ReviewService;
 import org.kosta.watflix.model.vo.ContentsLikeVO;
@@ -40,10 +41,16 @@ public class HomeController {
 		//랜덤함수(홈화면에서 상위 슬라이드에 랜덤으로 컨텐츠를 보여주기 위함)
 		int random = new Random().nextInt(contentsList.size()-5);
 		model.addAttribute("randomIndex",random);
+		
 		//조회수 높은 컨텐츠 출력(1~10위)//인기컨텐츠
-		model.addAttribute("contentsHighHits",contentsService.sContentsHighHits());
-		//평점 높은 컨텐츠 출력(1~10위)
-		model.addAttribute("contentsHighAvgStars",contentsService.sContentsHighAvgStars());
+		model.addAttribute("highHits",contentsService.sContentsHighHits());
+		
+		//평점높은 컨텐츠
+		model.addAttribute("highAgeStar",contentsService.sContentsHighAvgStars());
+		
+		//최다등록평점 컨텐츠
+		model.addAttribute("highCommentsCount",contentsService.sContentsHighCommentsCount());
+		
 		
 		//영화 타입의 장르를 검색
 		model.addAttribute("movieGenreList",contentsService.sGetGenreSelectForType("영화"));

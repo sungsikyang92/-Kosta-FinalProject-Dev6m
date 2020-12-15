@@ -2,225 +2,300 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <script type="text/javascript">
-	$(document).ready(function(){
-		//tvshow 탭클릭시 tvshow 장르 가져옴
-		$("#tvshow").click(function(){
-			contentsType="TV";
-			$("#typeForGenre").children().children().html("");
-			//TV쇼에 대한 장르가져오기
-			$.ajax({
-				type: "get",
-				url:"${pageContext.request.contextPath}/getGenreSelectForType.do",
-				data: {
-					"contentsType":contentsType
-				},
-				dataType: "json",
-				success:function(result){ // result변수로 응답정보가 전달된다.
-					genreDenote(result);
-				}			
-			})
-			$("#grid-movies").html("");
-			for(var i=0;i<2;i++){
-				$.ajax({
-					type:"get",
-					url:"${pageContext.request.contextPath}/getContentsAllForType.do",
-					data:{
-						"contentsType":contentsType,
-						"pageNo": i+1
-					},
-					dataType: "json",
-					success:function(result){
-						denote(result);
-					}
-				})//ajax
-			}
+$(document).ready(function(){
+	//sorting 변수값
+	var sortType;
+	//More버튼클릭시 페이징을 주기위한 변수
+	var pageNo = 3;
+	var contentsType;
+	//tvshow 탭클릭시 tvshow 장르 가져옴
+	$("#tvshow").click(function(){
+		//정렬기준 초기화
+		$("#sorting option:eq(0)").prop("selected", true);
+		sortType="null";
+		contentsType="TV";
+		$("#typeForGenre").children().children().html("");
+		//TV쇼에 대한 장르가져오기
+		$.ajax({
+			type: "get",
+			url:"${pageContext.request.contextPath}/getGenreSelectForType.do",
+			data: {
+				"contentsType":contentsType
+			},
+			dataType: "json",
+			success:function(result){ // result변수로 응답정보가 전달된다.
+				genreDenote(result);
+			}			
 		})
-		//movie 탭클릭시 movie 장르 가져옴
-		$("#movie").click(function(){
-			contentsType="영화";
-			$("#typeForGenre").children().children().html("");
-			//TV쇼에 대한 장르가져오기
+		$("#grid-movies").html("");
+		for(var i=0;i<2;i++){
+			$.ajax({
+				type:"get",
+				url:"${pageContext.request.contextPath}/sortingContents.do",
+				data:{
+					"contentsType":contentsType,
+					"pageNo": i+1,
+					"sortType":sortType
+				},
+				dataType: "json",
+				success:function(result){
+					denote(result);
+				}
+			})//ajax
+		}
+		pageNo = 3;
+	})
+	//movie 탭클릭시 movie 장르 가져옴
+	$("#movie").click(function(){
+		//정렬기준 초기화
+		$("#sorting option:eq(0)").prop("selected", true);
+		sortType="null";
+		contentsType="영화";
+		$("#typeForGenre").children().children().html("");
+		//movie에 대한 장르가져오기
+		$.ajax({
+			type: "get",
+			url:"${pageContext.request.contextPath}/getGenreSelectForType.do",
+			data: {
+				"contentsType":contentsType
+			},
+			dataType: "json",
+			success:function(result){ // result변수로 응답정보가 전달된다.
+				genreDenote(result);
+			}			
+		})
+		$("#grid-movies").html("");
+		for(var i=0;i<2;i++){
+			$.ajax({
+				type:"get",
+				url:"${pageContext.request.contextPath}/sortingContents.do",
+				data:{
+					"contentsType":contentsType,
+					"pageNo": i+1,
+					"sortType":sortType
+				},
+				dataType: "json",
+				success:function(result){
+					denote(result);
+				}
+			})//ajax
+		}//for문 종료
+		pageNo = 3;
+	})//movie 탭클릭시 movie 장르 가져옴 종료
+	
+	//장르버튼 클릭시 이벤트
+	$(document).on('click','.genreBtn',function(){
+		//정렬기준 초기화
+		$("#sorting option:eq(0)").prop("selected", true);
+		sortType="null";
+		$(this).parent().parent().children(".active").children().removeAttr("style");
+		$(this).parent().parent().children(".active").removeClass("active");
+		$(this).parent().addClass("active");
+		
+		$(this).attr("style","background-color:red");
+		//장르코드
+		
+		var genreCode= $(this).val();
+		//컨텐츠 타입
+		if($("#movie").hasClass("active") === true){
+			contentsType = "영화";
+		}
+		else{
+			contentsType ="TV";
+		}
+		$("#grid-movies").html("");
+		for(var i=0;i<2;i++){
+			$.ajax({
+				type:"get",
+				url:"${pageContext.request.contextPath}/getContentsAllForTypeAndGenre.do",
+				data:{
+					"contentsType":contentsType,
+					"pageNo":i+1,
+					"genreCode":genreCode,
+					"sortType":sortType
+				},
+				dataType: "json",
+				success:function(result){
+					denote(result);
+				}
+			})//비동기
+		}//for문
+		pageNo = 3;
+	})//장르버튼 클릭이벤트 종료
+	
+	//홈화면에서 more버튼을 클릭시에 자료를 더 가져오는 비동기 함수
+	$("#loadMore").click(function(){
+		if($("#movie").hasClass("active") === true){
+			contentsType = "영화";
+		}
+		else{
+			contentsType ="TV";
+		}
+		var genreBtn = $("div.contentsForType").children(".flickity-viewport").children(".flickity-slider").children(".active").children();
+		
+		//전체리스트 출력(장르를 선택하지 않은 상황,타입만으로 출력함)
+		if(genreBtn.html()==null){
 			$.ajax({
 				type: "get",
-				url:"${pageContext.request.contextPath}/getGenreSelectForType.do",
+				url:"${pageContext.request.contextPath}/sortingContents.do",
 				data: {
-					"contentsType":contentsType
+					"contentsType":contentsType,
+					"pageNo":pageNo,
+					"sortType":sortType
 				},
 				dataType: "json",
 				success:function(result){ // result변수로 응답정보가 전달된다.
-					genreDenote(result);
+					pageNo++;
+					denote(result)
+				}			
+			})//ajax끝
+		}
+		//전체리스트 출력(장르와 타입으로 loadMore)
+		else{
+			var genreCode = genreBtn.val();
+			$.ajax({
+				type: "get",
+				url:"${pageContext.request.contextPath}/getContentsAllForTypeAndGenre.do",
+				data: {
+					"contentsType":contentsType,
+					"pageNo":pageNo,
+					"genreCode":genreCode,
+					"sortType":sortType
+				},
+				dataType: "json",
+				success:function(result){ // result변수로 응답정보가 전달된다.
+					pageNo++;
+					denote(result)
 				}			
 			})
-			$("#grid-movies").html("");
-			for(var i=0;i<2;i++){
-				$.ajax({
-					type:"get",
-					url:"${pageContext.request.contextPath}/getContentsAllForType.do",
-					data:{
-						"contentsType":contentsType,
-						"pageNo": i+1
-					},
-					dataType: "json",
-					success:function(result){
-						denote(result);
-					}
-				})//ajax
-			}//for문 종료
-		})//movie 탭클릭시 movie 장르 가져옴 종료
+		}
 		
-		//장르버튼 클릭시 이벤트
-		$(document).on('click','.genreBtn',function(){
-			$(this).parent().parent().children(".active").children().removeAttr("style");
-			$(this).parent().parent().children(".active").removeClass("active");
-			$(this).parent().addClass("active");
-			
-			$(this).attr("style","background-color:red");
-			//장르코드
-			
-			var genreCode= $(this).val();
-			//컨텐츠 타입
-			if($("#movie").hasClass("active") === true){
-				contentsType = "영화";
-			}
-			else{
-				contentsType ="TV";
-			}
-			$("#grid-movies").html("");
-			for(var i=0;i<2;i++){
-				$.ajax({
-					type:"get",
-					url:"${pageContext.request.contextPath}/getContentsAllForTypeAndGenre.do",
-					data:{
-						"contentsType":contentsType,
-						"pageNo":i+1,
-						"genreCode":genreCode
-					},
-					dataType: "json",
-					success:function(result){
-						denote(result);
-					}
-				})//비동기
-			}//for문
-		})//장르버튼 클릭이벤트 종료
-		
-		
-		//홈화면에서 more버튼을 클릭시에 자료를 더 가져오는 비동기 함수
-		var pageNo = 3;
-		var contentsType;
-		$("#loadMore").click(function(){
-			if($("#movie").hasClass("active") === true){
-				contentsType = "영화";
-			}
-			else{
-				contentsType ="TV";
-			}
-			var genreBtn = $("div.contentsForType").children(".flickity-viewport").children(".flickity-slider").children(".active").children();
-			//전체리스트 출력(장르를 선택하지 않은 상황,타입만으로 출력함)
-			if(genreBtn.html()==null){
-				$.ajax({
-					type: "get",
-					url:"${pageContext.request.contextPath}/getContentsAllForType.do",
-					data: {
-						"contentsType":contentsType,
-						"pageNo":pageNo
-					},
-					dataType: "json",
-					success:function(result){ // result변수로 응답정보가 전달된다.
-						pageNo++;
-						denote(result)
-					}			
-				})
-			}
-			//전체리스트 출력(장르와 타입으로 loadMore)
-			else{
-				var genreCode = genreBtn.val();
-				$.ajax({
-					type: "get",
-					url:"${pageContext.request.contextPath}/getContentsAllForTypeAndGenre.do",
-					data: {
-						"contentsType":contentsType,
-						"pageNo":pageNo,
-						"genreCode":genreCode
-					},
-					dataType: "json",
-					success:function(result){ // result변수로 응답정보가 전달된다.
-						pageNo++;
-						denote(result)
-					}			
-				})
-			}
-			
-		})//click	
-		//컨텐츠 좋아요	
-		$(document).on("click","#ContentsLike",function(){
-		var me = $(this);
-		var num = Number(me.parent().children("#ContentsLikeCount").text());
-			$.ajax({
-				url: "contentsLikeExist.do",
-				type: "POST",
-				beforeSend : function(xhr){   
-	                xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-	            },
-	            dataType: "text",
-	            data: "contentsNo="+$(this).parent().children("input[type=hidden]").val(),
-	            success: function(data){
-	            	if(data == "0"){
-	            		me.parent().children("#ContentsLike").attr("src","/watflix/resources/media/icons/RedHeart.png");
-						me.parent().children("#ContentsLikeCount").text(num+1);
-					}else{
-						me.parent().children("#ContentsLike").attr("src","/watflix/resources/media/icons/HeartLine.png");
-						me.parent().children("#ContentsLikeCount").text(num-1);
-	            	}
-	            }
-			});//ajax
-		});//click func for 컨텐츠 좋아요 
-	})//ready
+	})//click	
 	
-	//컨텐츠 출력
-	function denote(contentsList){
-		  if(contentsList.length==0){
-			  $("#loadMore").attr('style',"margin-top: 0px;display:none;");
-		  }
-		  else{
-			  $newTbody = $("<div class='card-deck'>")
-			  $("#grid-movies").append($newTbody)
-			  
-			  for(let contents of contentsList){
-			    let $cellsOfRow = 
-			    	$("<div class='card carousel-cell' style='display:block'>"+
-	                 	"<img class='card-img-top' src='${pageContext.request.contextPath}/"+contents.contentsSmallThumbnail+"'/>" +
-	                       "<h5 class='card-title text-center' style='font-size:13px;'>"+contents.contentsTitle+"</h5>"+
-	                        "<div class='row'>"+
-	                        "<div class='col-3 text-left no-padding'>"+contents.contentsDate+"</div>"+
-	                   		"<div class='col-3 text-center no-padding'>"+
-	                       	"<a href=''>"+"<img src='${pageContext.request.contextPath}/resources/media/icons/eye.png' width='10' alt='상세보기'></a>"+"</div>"+
-	                        "<div class='col-3 text-left no-padding'>"+
-	                        "<a href=''>"+"<img src='${pageContext.request.contextPath}/resources/media/icons/heart.png' width='10' alt='좋아요'></a>"+"</div>"+
-	            			"<div class='col-3 text-right no-padding rating'>"+"<img src='${pageContext.request.contextPath}/resources/media/icons/star.png' width='10' alt='' class='padding-bottom-sm'>"+contents.contentsAvgStars+"</div>"+
-					        "</div>"+
-					        "<div class='overlay'>"+"<div class='text'>"+
-		                    "<a href='${pageContext.request.contextPath}/contentsDetail.do?contentsNo="+contents.contentsNo+"' class='btn btn-primary btn-sm margin-top-under-sm' role='button' aria-pressed='true'>"+
-		                        "<img src='${pageContext.request.contextPath}/resources/media/icons/play.png' width='10' alt=''>상세보기"+"</a>"+
-			                "</div>"+
-		            	"</div>"+
-		            	"</div>"+
-		            "</div>");
-			    $newTbody.append($cellsOfRow);
-			  }
-			  $("#loadMore").attr('style',"margin-top: 0px;");
-		  }
-	}
-	//장르 출력
-	function genreDenote(genreList){
-	var percent = 0;
-	  for(let genre of genreList){
-		  let $cellsOfRow =$("<div class='carousel-filter-cell text-center' style='position: absolute; left: "+percent+"%;'><button class='btn btn-outline-primary btn-md margin-top-under-sm genreBtn'"+ 
-				  "data-filter='"+genre.genreCode+"' value='"+genre.genreCode+"'>"+genre.genreName+"</button></div>"
-    	);
-	    $("#typeForGenre>.flickity-viewport>.flickity-slider").append($cellsOfRow);
-	    percent+=20;
+//컨텐츠 좋아요	
+	$(document).on("click","#ContentsLike",function(){
+	var me = $(this);
+	var num = Number(me.parent().children("#ContentsLikeCount").text());
+		$.ajax({
+			url: "contentsLikeExist.do",
+			type: "POST",
+			beforeSend : function(xhr){   
+                xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+            },
+            dataType: "text",
+            data: "contentsNo="+$(this).parent().children("input[type=hidden]").val(),
+            success: function(data){
+            	if(data == "0"){
+            		me.parent().children("#ContentsLike").attr("src","/watflix/resources/media/icons/RedHeart.png");
+					me.parent().children("#ContentsLikeCount").text(num+1);
+				}else{
+					me.parent().children("#ContentsLike").attr("src","/watflix/resources/media/icons/HeartLine.png");
+					me.parent().children("#ContentsLikeCount").text(num-1);
+            	}
+            }
+		});//ajax
+	});//click func for 컨텐츠 좋아요
+	
+	//정렬기준에 따른 액션
+	$('#sorting').change(function () {
+		sortType=$('#sorting').val();
+		if($("#movie").hasClass("active") === true){
+			contentsType = "영화";
+		}
+		else{
+			contentsType ="TV";
+		}
+		//장르코드
+		var genreCode = $("div.contentsForType").children(".flickity-viewport").children(".flickity-slider").children(".active").children().val();
+		$("#grid-movies").html("");
+		//장르를 선택하지 않았으니 전체 컨텐츠에서만 정렬적용
+		if(genreCode==null){
+			for(var i=0;i<2;i++){
+				alert(i)
+					$.ajax({
+						type: "get",
+						url:"${pageContext.request.contextPath}/sortingContents.do",
+						data: {
+							"sortType":sortType,
+							"contentsType":contentsType,
+							"pageNo": i+1
+						},
+						dataType: "json",
+						success:function(result){ // result변수로 응답정보가 전달된다.
+							denote(result);
+						}			
+					})
+			}
+		}//if문 종료
+		//특정 장르에서 정렬적용
+		else{
+			for(var i=0;i<2;i++){
+				alert(i)
+					$.ajax({
+						type: "get",
+						url:"${pageContext.request.contextPath}/getContentsAllForTypeAndGenre.do",
+						data: {
+							"sortType":sortType,
+							"contentsType":contentsType,
+							"pageNo": i+1,
+							"genreCode":genreCode
+						},
+						dataType: "json",
+						success:function(result){ // result변수로 응답정보가 전달된다.
+							denote(result);
+						}			
+					})
+			}
+		}//else문 종료
+	})// sort
+	
+})//ready
+	
+//컨텐츠 출력
+function denote(contentsList){
+	  if(contentsList.length==0){
+		  $("#loadMore").attr('style',"margin-top: 0px;display:none;");
 	  }
-	}
+	  else{
+		  $newTbody = $("<div class='card-deck'>")
+		  $("#grid-movies").append($newTbody)
+		  
+		  for(let contents of contentsList){
+		    let $cellsOfRow = 
+		    	$("<div class='card carousel-cell' style='display:block'>"+
+                 	"<img class='card-img-top' src='${pageContext.request.contextPath}/"+contents.contentsSmallThumbnail+"'/>" +
+                       "<h5 class='card-title text-center' style='font-size:13px;'>"+contents.contentsTitle+"</h5>"+
+                        "<div class='row'>"+
+                        "<div class='col-3 text-left no-padding'>"+contents.contentsDate+"</div>"+
+                   		"<div class='col-3 text-center no-padding'>"+
+                       	"<a href=''>"+"<img src='${pageContext.request.contextPath}/resources/media/icons/eye.png' width='10' alt='상세보기'></a>"+"</div>"+
+                        "<div class='col-3 text-left no-padding'>"+
+                        "<a href=''>"+"<img src='${pageContext.request.contextPath}/resources/media/icons/heart.png' width='10' alt='좋아요'></a>"+"</div>"+
+            			"<div class='col-3 text-right no-padding rating'>"+"<img src='${pageContext.request.contextPath}/resources/media/icons/star.png' width='10' alt='' class='padding-bottom-sm'>"+contents.contentsAvgStars+"</div>"+
+				        "</div>"+
+				        "<div class='overlay'>"+"<div class='text'>"+
+	                    "<a href='${pageContext.request.contextPath}/contentsDetail.do?contentsNo="+contents.contentsNo+"' class='btn btn-primary btn-sm margin-top-under-sm' role='button' aria-pressed='true'>"+
+	                        "<img src='${pageContext.request.contextPath}/resources/media/icons/play.png' width='10' alt=''>상세보기"+"</a>"+
+		                "</div>"+
+	            	"</div>"+
+	            	"</div>"+
+	            "</div>");
+		    $newTbody.append($cellsOfRow);
+		  }
+		  $("#loadMore").attr('style',"margin-top: 0px;");
+	  }
+}
+//장르 출력
+function genreDenote(genreList){
+var percent = 0;
+  for(let genre of genreList){
+	  let $cellsOfRow =$("<div class='carousel-filter-cell text-center' style='position: absolute; left: "+percent+"%;'><button class='btn btn-outline-primary btn-md margin-top-under-sm genreBtn'"+ 
+			  "data-filter='"+genre.genreCode+"' value='"+genre.genreCode+"'>"+genre.genreName+"</button></div>"
+   	);
+    $("#typeForGenre>.flickity-viewport>.flickity-slider").append($cellsOfRow);
+    percent+=20;
+  }
+}//장르출력 종료
 </script>
 
   <!-- Slider - OPEN -->
@@ -290,22 +365,21 @@
     <!-- Slider - CLOSE -->
     <!-- Content - OPEN -->
     <div class="container-lg margin-top margin-bottom">
-
         <!-- Tabs nav - OPEN -->
         <nav class="nav nav-fill nav-pills" id="pills-tab" role="tablist">
-            <a class="nav-item nav-link active" id="trend-tab" data-toggle="pill" href="#trend" role="tab" aria-controls="trend-tab" aria-selected="true">
+            <a class="nav-item nav-link active" id="trend-tab" data-toggle="pill" href="#highHits" role="tab" aria-controls="trend-tab" aria-selected="true">
                 <div class="icon-nav">
-                    <img src="${pageContext.request.contextPath}/resources/media/icons/trend.png" width="20" alt="" class="margin-right-sm">
+                    <img src="${pageContext.request.contextPath}/resources/media/icons/trend.png" width="15" alt="" class="margin-right-sm">
                     인기컨텐츠
                 </div>
             </a>
-            <a class="nav-item nav-link" id="popular-tab" data-toggle="pill" href="#popular" role="tab" aria-controls="popular-tab" aria-selected="false">
+            <a class="nav-item nav-link" id="popular-tab" data-toggle="pill" href="#highAgeStar" role="tab" aria-controls="popular-tab" aria-selected="false">
                 <div class="icon-nav">
                     <img src="${pageContext.request.contextPath}/resources/media/icons/fire.png" width="15" alt="" class="margin-right-sm">
                    	평점높은 컨텐츠
                 </div>
             </a>
-            <a class="nav-item nav-link" id="new-tab" data-toggle="pill" href="#new" role="tab" aria-controls="new-tab" aria-selected="false">
+            <a class="nav-item nav-link" id="manyCommentsTab" data-toggle="pill" href="#highCommentsCount" role="tab" aria-controls="new-tab" aria-selected="false">
                 <div class="icon-nav">
                     <img src="${pageContext.request.contextPath}/resources/media/icons/clock.png" width="15" alt="" class="margin-right-sm">
                     최다등록평점
@@ -318,11 +392,11 @@
         <!-- Tabs content - OPEN -->
         <div class="tab-content" id="myTabContent">
             <!-- 인기 컨텐츠 tab - OPEN -->
-            <div class="margin-top-under-sm tab-pane fade show active" id="trend" role="tabpanel" aria-labelledby="trend-tab">
+            <div class="margin-top-under-sm tab-pane fade show active" id="highHits" role="tabpanel" aria-labelledby="trend-tab">
                 <!-- Carousel - OPEN -->
                 <div class="carousel" data-flickity='{ "groupCells": true, "cellAlign": "center", "pageDots": false, "wrapAround": true, "draggable": false }' style="height: 280px; padding-top: 15px;">
 					<!--컨텐츠 리스트 출력 For문 START  -->
-                  	<c:forEach items="${requestScope.contentsHighHits}" var="contentsVO">
+                  	<c:forEach items="${requestScope.highHits}" var="contentsVO">
                   	<div class="carousel-cell">
                   			<!-- 컨텐츠 작은 썸네일 -->
                         	<img class="carousel-cell-image" src="${pageContext.request.contextPath}/${contentsVO.contentsSmallThumbnail}" />
@@ -369,41 +443,47 @@
                 <!-- Carousel - CLOSE -->
             </div>
             <!-- Trend tab - CLOSE -->
-
-            <!-- 평점 높은 순 tab - OPEN -->
-            <div class="margin-top-under-sm tab-pane fade" id="popular" role="tabpanel" aria-labelledby="popular-tab">
-                 <!-- Carousel - OPEN -->
-                <div class="carousel" data-flickity='{ "groupCells": true, "cellAlign": "center", "pageDots": false, "wrapAround": true, "draggable": false }' style="height: 280px;padding-top: 15px;">
+            
+             <!-- 평점높은순 tab - OPEN -->
+            <div class="margin-top-under-sm tab-pane fade" id="highAgeStar" role="tabpanel" aria-labelledby="popular-tab">
+                <!-- Carousel - OPEN -->
+                <div class="carousel" data-flickity='{ "groupCells": true, "cellAlign": "center", "pageDots": false, "wrapAround": true, "draggable": false }' style="height: 280px; padding-top: 15px;" tabindex="0" >
 					<!--컨텐츠 리스트 출력 For문 START  -->
-                  	<c:forEach items="${requestScope.contentsHighAvgStars}" var="contentsVO">
+                  	<c:forEach items="${requestScope.highAgeStar}" var="contentsVO">
                   	<div class="carousel-cell">
                   			<!-- 컨텐츠 작은 썸네일 -->
                         	<img class="carousel-cell-image" src="${pageContext.request.contextPath}/${contentsVO.contentsSmallThumbnail}" />
                         	<!-- 컨텐츠 제목 -->
-                        	<h5 class="text-center">${contentsVO.contentsTitle}</h5>
+                        	<h5 class="text-center" style="font-size:13px;">${contentsVO.contentsTitle}</h5>
                         	
                         	<div class="row">
-                            <div class="col-3 text-left no-padding">
+                            <div class="col-4 text-left no-padding">
                                 ${contentsVO.contentsDate}
                             </div>
-                            <div class="col-3 text-center no-padding">
-                                <a href="">
-                                    <img src="${pageContext.request.contextPath}/resources/media/icons/eye.png" width="10" alt="">
-                                </a>
+                            <div class="col-4 text-center no-padding">
+                               <!-- 좋아요 영역 시작 -->
+                                <span>
+									<c:choose>
+										<c:when test="${contentsVO.contentsLikeStatus == 1}">
+											<img id="ContentsLike" class="ContentsLike" src="/watflix/resources/media/icons/RedHeart.png" width=30px height=30px>
+										</c:when>
+										<c:otherwise>
+											<img id="ContentsLike" class="ContentsLike" src="/watflix/resources/media/icons/HeartLine.png" width=30px height=30px>
+										</c:otherwise>
+									</c:choose>
+									Likes <span id="ContentsLikeCount">${contentsVO.contentsLikes}</span>
+										<input type="hidden" value="${contentsVO.contentsNo}">
+								</span>
+								 <!-- 좋아요 영역 끝 -->
                             </div>
-                            <div class="col-3 text-left no-padding">
-                                <a href="">
-                                    <img src="${pageContext.request.contextPath}/resources/media/icons/heart.png" width="10" alt="">
-                                </a>
-                            </div>
-                            <div class="col-3 text-right no-padding rating">
+                            <div class="col-4 text-right no-padding rating">
                                 <img src="${pageContext.request.contextPath}/resources/media/icons/star.png" width="10" alt="" style="padding-bottom: 3px">
                                 ${contentsVO.contentsAvgStars}
                             </div>
                         </div>
                         <div class="overlay">
                             <div class="text">
-                                <a href="#" class="btn btn-primary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                <a href="${pageContext.request.contextPath}/contentsDetail.do?contentsNo=${contentsVO.contentsNo}" class="btn btn-primary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
                                     <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="10" alt="">
                                     상세보기
                                 </a>
@@ -412,18 +492,64 @@
                     </div>
                   	</c:forEach>
 					<!--컨텐츠 리스트 출력 For문 END  -->
-                    
                 </div>
                 <!-- Carousel - CLOSE -->
             </div>
-            <!-- 평점 높은 순 tab - CLOSE -->
+            <!-- 평점높은순 tab - CLOSE -->
 
             <!-- New tab - OPEN -->
-            <div class="margin-top-under-sm tab-pane fade" id="new" role="tabpanel" aria-labelledby="new-tab">
-                최다등록평점
+            <div class="margin-top-under-sm tab-pane fade" id="highCommentsCount" role="tabpanel" aria-labelledby="new-tab">
+                <!-- Carousel - OPEN -->
+                <div class="carousel" data-flickity='{ "groupCells": true, "cellAlign": "center", "pageDots": false, "wrapAround": true, "draggable": false }' style="height: 280px; padding-top: 15px;" tabindex="0" >
+					<!--컨텐츠 리스트 출력 For문 START  -->
+                  	<c:forEach items="${requestScope.highCommentsCount}" var="contentsVO">
+                  	<div class="carousel-cell">
+                  			<!-- 컨텐츠 작은 썸네일 -->
+                        	<img class="carousel-cell-image" src="${pageContext.request.contextPath}/${contentsVO.contentsSmallThumbnail}" />
+                        	<!-- 컨텐츠 제목 -->
+                        	<h5 class="text-center" style="font-size:13px;">${contentsVO.contentsTitle}</h5>
+                        	
+                        	<div class="row">
+                            <div class="col-4 text-left no-padding">
+                                ${contentsVO.contentsDate}
+                            </div>
+                            <div class="col-4 text-center no-padding">
+                               <!-- 좋아요 영역 시작 -->
+                                <span>
+									<c:choose>
+										<c:when test="${contentsVO.contentsLikeStatus == 1}">
+											<img id="ContentsLike" class="ContentsLike" src="/watflix/resources/media/icons/RedHeart.png" width=30px height=30px>
+										</c:when>
+										<c:otherwise>
+											<img id="ContentsLike" class="ContentsLike" src="/watflix/resources/media/icons/HeartLine.png" width=30px height=30px>
+										</c:otherwise>
+									</c:choose>
+									Likes <span id="ContentsLikeCount">${contentsVO.contentsLikes}</span>
+										<input type="hidden" value="${contentsVO.contentsNo}">
+								</span>
+								 <!-- 좋아요 영역 끝 -->
+                            </div>
+                            <div class="col-4 text-right no-padding rating">
+                                <img src="${pageContext.request.contextPath}/resources/media/icons/star.png" width="10" alt="" style="padding-bottom: 3px">
+                                ${contentsVO.contentsAvgStars}
+                            </div>
+                        </div>
+                        <div class="overlay">
+                            <div class="text">
+                                <a href="${pageContext.request.contextPath}/contentsDetail.do?contentsNo=${contentsVO.contentsNo}" class="btn btn-primary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="10" alt="">
+                                    상세보기
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                  	</c:forEach>
+					<!--컨텐츠 리스트 출력 For문 END  -->
+                </div>
+                <!-- Carousel - CLOSE -->
             </div>
             <!-- New tab - CLOSE -->
-
+            
         </div>
         <!-- Tabs content - OPEN -->
 
@@ -479,11 +605,9 @@
                             <!-- Sorting - OPEN -->
                             <h5 class="inline"> Sort by </h5>
                             <select id="sorting" class="custom-select my-select inline">
-                                <option value="popular"> Popular </option>
-                                <option value="year_recent"> Year newest </option>
-                                <option value="year_oldest"> Year oldest </option>
-                                <option value="rating_best"> Rating best </option>
-                                <option value="rating_worst"> Rating worst</option>
+                                <option>정렬기준 </option>
+                                <option value="New">최신순</option>
+                                <option value="Old">오래된순</option>
                             </select>
                             <!-- Sorting - CLOSE -->
                         </div>

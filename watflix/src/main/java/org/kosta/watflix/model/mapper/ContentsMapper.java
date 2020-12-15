@@ -12,14 +12,14 @@ public interface ContentsMapper {
 
 	void mGenreRegister(GenreVO gvo);
 	void mContentsRegister(ContentsVO cvo);
-	GenreVO mFindGenreByCode(String genreCode);
+	int mFindGenreByCode(String genreCode);
 	ContentsVO mFindContentsByNo(String contentsNo);
 	int mGetTotalContentsCount();
-	int mGetTotalContentsCountForType(String contentsType);
 	List<ContentsVO> mGetAllContentsList();
 	List<ContentsVO> mGetContentsAllForTypeAndGenre(Map<String,String> map);
 	List<ContentsVO> mGetContentsAllForType(Map<String,String> map);
 	List<ContentsVO> mContentsHighHits();
+	List<ContentsVO> mContentsHighCommentsCount();
 	List<ContentsVO> mContentsHighHitsLogin();
 	List<ContentsVO> mContentsHighAvgStars();
 	List<ContentsVO> mContentsHighAvgStarsLogin();
@@ -32,6 +32,10 @@ public interface ContentsMapper {
 	void mContentsLikeRemove(String contentsNo);
 	//각 content에 contents_avg_stars 넣기
 	void mUpdateAvgStars(@Param("avgStars")double avgStars, @Param("contentsNo")String contentsNo);
+	List<ContentsVO> mGetAllContentsListSortByNew(Map<String, String> map);
+	List<ContentsVO> mGetAllContentsListSortByOld(Map<String, String> map);
+	List<ContentsVO> mGetAllContentsForGenreListSortByNew(Map<String, String> map);
+	List<ContentsVO> mGetAllContentsForGenreListSortByOld(Map<String, String> map);
 }
 
 

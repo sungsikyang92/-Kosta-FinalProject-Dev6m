@@ -33,12 +33,6 @@ public class ContentsServiceImpl implements ContentsService {
 		return contentsMapper.mGetAllContentsList();
 	}
 	
-	//특정 타입의 컨텐츠 총 개수
-	@Override
-	public int sGetTotalContentsCountForType(String contentsType) {
-		return contentsMapper.mGetTotalContentsCountForType(contentsType);
-	}
-	
 	//장르&타입의 컨텐츠 리스트
 	@Override
 	public List<ContentsVO> sGetContentsAllForTypeAndGenre(Map<String,String> map) {
@@ -104,5 +98,33 @@ public class ContentsServiceImpl implements ContentsService {
 	public void sUpdateAvgStar(double avgStars, String contentsNo) {
 		contentsMapper.mUpdateAvgStars(avgStars, contentsNo);
 	}
-	
+
+	//최다평점순
+	@Override
+	public List<ContentsVO> sContentsHighCommentsCount() {
+		return contentsMapper.mContentsHighCommentsCount();
+	}
+
+	//출시일이 최신순인 컨텐츠 리스트
+	@Override
+	public List<ContentsVO> sGetAllContentsListSortByNew(Map<String, String> map) {
+		return contentsMapper.mGetAllContentsListSortByNew(map);
+	}
+	//출시일이 오래된순인 컨텐츠 리스트
+	@Override
+	public List<ContentsVO> sGetAllContentsListSortByOld(Map<String, String> map) {
+		return contentsMapper.mGetAllContentsListSortByOld(map);
+	}
+
+	//특정 장르에서 출시일이 최신순인 컨텐츠 리스트
+	@Override
+	public List<ContentsVO> sGetAllContentsForGenreListSortByNew(Map<String, String> map) {
+		return contentsMapper.mGetAllContentsForGenreListSortByNew(map);
+	}
+	//특정 장르에서 출시일이 오래된순인 컨텐츠 리스트
+	@Override
+	public List<ContentsVO> sGetAllContentsForGenreListSortByOld(Map<String, String> map) {
+		return contentsMapper.mGetAllContentsForGenreListSortByOld(map);
+	}
+
 }

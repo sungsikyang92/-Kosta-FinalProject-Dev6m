@@ -1,10 +1,8 @@
 package org.kosta.watflix.model.service;
 
-import java.util.List;
 
 import org.kosta.watflix.model.vo.CommentsListVO;
 import org.kosta.watflix.model.vo.CommentsVO;
-import org.kosta.watflix.model.vo.GenreVO;
 
 public interface CommentsService {
 	// comments 갯수 조회

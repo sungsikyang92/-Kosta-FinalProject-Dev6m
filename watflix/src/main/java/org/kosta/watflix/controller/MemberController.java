@@ -163,4 +163,15 @@ public class MemberController {
 		return "member/pointHistoryCheck.tiles";
 	}
 	
+	//포인트조회
+	@Secured("ROLE_MEMBER")
+	@PostMapping("memberPointCheck.do")
+	@ResponseBody
+	public MemberVO memberPointCheck() {
+		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		//세션에 포인트값을 갱신함
+		MemberVO smvo = memberService.sFindMemberById(mvo.getId());
+		mvo.setPoint(smvo.getPoint());
+		return mvo;
+	}
 }
