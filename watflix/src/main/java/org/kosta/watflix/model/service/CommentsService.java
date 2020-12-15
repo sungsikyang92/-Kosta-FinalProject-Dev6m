@@ -1,6 +1,5 @@
 package org.kosta.watflix.model.service;
 
-import java.util.List;
 
 import org.kosta.watflix.model.vo.CommentsListVO;
 import org.kosta.watflix.model.vo.CommentsVO;

@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 
 import org.kosta.watflix.model.service.ContentsLikeService;
 import org.kosta.watflix.model.service.ContentsService;
+import org.kosta.watflix.model.service.PagingBean;
 import org.kosta.watflix.model.service.ReviewLikeService;
 import org.kosta.watflix.model.service.ReviewService;
 import org.kosta.watflix.model.vo.ContentsLikeVO;
@@ -43,7 +44,13 @@ public class HomeController {
 		int random = new Random().nextInt(contentsList.size()-5);
 		model.addAttribute("randomIndex",random);
 		
-		//조회수 높은 컨텐츠 출력(1~10위)//인기컨텐츠
+		
+		//평점높은 컨텐츠
+		model.addAttribute("highAgeStar",contentsService.sContentsHighAvgStars());
+		
+		//최다등록평점 컨텐츠
+		model.addAttribute("highCommentsCount",contentsService.sContentsHighCommentsCount());
+		
 		//좋아요 유지를 위한 로그인 여부 체크
 		MemberVO memberVO = new MemberVO();
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -59,10 +66,10 @@ public class HomeController {
 //				list.get(i).setContentsLikeStatus(result);
 //			}
 //			model.addAttribute("contentsHighHits",list);	
-			model.addAttribute("contentsHighHits",contentsService.sContentsHighHitsLogin(memberVO.getId()));
+			model.addAttribute("highHits",contentsService.sContentsHighHitsLogin(memberVO.getId()));
 		}else {
 			memberVO.setId("guest");//비로그인상태
-			model.addAttribute("contentsHighHits",contentsService.sContentsHighHits());	
+			model.addAttribute("highHits",contentsService.sContentsHighHits());	
 		}
 		
 		
