@@ -1,34 +1,73 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-	<script type="text/javascript">
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>	
+	<script type="text/javascript">
 $(document).ready(function(){
 	$(".starPointImg").each(function(){
 		var starPoint = $(this).html();
 		$(this).html("<img src='${pageContext.request.contextPath}/resources/media/icons/star"+starPoint+".png' style='height: 25px'>");
 	})
 })
-<!-- ajax 페이징 -->
-	function commentsPaging(commentsPageNo){
+function getMyCommentsByPaging(commnetsPageNo){
+		$.ajax({
+			type: "get",
+			url: "${pageContext.request.contextPath}/myCommentsList.do",
+			dataType: "json",
+			data: 'pageNo='+commentsPageNo
+			success:function(commentsData){	
+				listByReportType(commentsData);	
+				reportPostPaging(rcommentsData);
+			}
+		});
+}
+function getCommentsAfterDelete(contentsNo, commentsNo, commentsPageNo){
+	$.ajax({
+		type: "get",
+		url: "${pageContext.request.contextPath}/commentsDelete.do",
+		dataType: "json",
+		data:{
+			"contentsNo" : contentsNo
+			"commentsNo" : commentsNo
+			"commentsPageNo" : commentsPageNo
+		},
+		beforeSend : function (){
+			
+		},
+		success:function(commentsData){	
+			listByReportType(commentsData);	
+			reportPostPaging(commentsData);
+		}
+	});
+}
+function listByReportType(commentsListVO){
 			// 테이블에 집어넣을 문자열 데이터 변수
 			var commentsTbody = "";
-			var commentsPaging ="";
-			$.ajax({
-				type: "get",
-				url: "${pageContext.request.contextPath}/myCommentsList.do?pageNo="+commentsPageNo,
-				success:function(data){
-					//commentsTbody += "<tr><td><input type='checkbox' id='checkAll'></td></tr>"
-					//table의 tbody
-					for (var i = 0; i < data.list.length; i++){
+			//table의 tbody
+			for (var i = 0; i < commentsListVO.list.length; i++){
 						commentsTbody += "<tr>";
-							commentsTbody += "<td class='starPointImg'>"+data.list[i].commentsStars+"</td>";
-							commentsTbody += "<td>"+ data.list[i].commentsStars + "</td>";
-							commentsTbody += "<td>"+ data.list[i].comments + "<br>" + data.list[i].memberVO.id + data.list[i].commentsPostedTime +"</td>";
+							commentsTbody += "<td class='starPointImg' style='width: 15%''>"+commentsListVO.list[i].commentsStars+"</td>";
+							commentsTbody += "<td style='width: 5%'>"+ commentsListVO.list[i].commentsStars + "</td>";
+							commentsTbody += "<td>";
+							commentsTbody += data.list[i].comments + "<br>" + commentsListVO.list[i].memberVO.id +" "+ commentsListVO.list[i].commentsPostedTime;
+							/* 권한 부여하고자 하였으나 실패함 */
+							commentsTbody += "<form action='commentsDelete.do' method='post' onsubmit='return commentsDeleteConfirm()' style='display: inline-flex;'>";
+							commentsTbody += '<sec:csrfInput/>';
+							commentsTbody += "<input type='hidden' name='contentsNo' value='"+ commentsListVO.list[i].contentsNo +"'>";	
+							commentsTbody += "<input type='hidden' name='commentsDelete' value='"+ commentsListVO.list[i].commentsNo +"'>";	
+							commentsTbody += "<input type='hidden' name='pageNo' value='"+ commentsListVO.pagingBean.nowPage+"'>";	
+							commentsTbody += "<input type='submit' value='삭제'>";	
+							commentsTbody += "</form>";	
+							commentsTbody += "</td>";
+						commentsTbody += "</tr>";	
 					}
 					$("#commentsTbody").html(commentsTbody);
-					
+				}
+			})
+}
+function reportPostPaging(commentsListVO){				
 					// table 페이징
+					var commentsPaging ="";
 					var startPageGroup = data.pagingBean.startPageOfPageGroup;
 					var endPageGroup = data.pagingBean.endPageOfPageGroup;
 					// 왼쪽 페이징 화살표
@@ -54,34 +93,40 @@ $(document).ready(function(){
 						$(this).html("<img src='${pageContext.request.contextPath}/resources/media/icons/star"+starPoint+".png' style='height: 25px'>");
 					})
 				}
-			})
-		}
 	</script>
 	<div class="tableMargin" id="commentsList">
 	<div class="container-lg boardClassMain" style="margin-top: 100px">
 	  <h2>평점리스트</h2>           
-	  <form action="${pageContext.request.contextPath}/commentsDeleteByCheckboxMember.do"
-		id="deleteNoticeByCheckboxForm" method="post">
-	<sec:csrfInput/>
-	  <table class="table table-hover table-bordered" style="border-radius: 1.5px;">
-	    <tbody id="commentsTbody">
+	  <table class="table table-hover table-bordered" id="commentsTbody" style="border-radius: 1.5px;">
+	<sec:authorize access="hasRole('ROLE_MEMBER')">
+		<sec:authentication property="principal.id" var="userId"/>
+	</sec:authorize>
+	    <!-- <tbody id="commentsTbody"> -->
 	    <c:forEach items="${requestScope.commentsListVO.list}" var="commentsList">
 	      <tr>
-			<td class="starPointImg">${commentsList.commentsStars}</td>
-				<td>${commentsList.commentsStars}</td>
+			<td class="starPointImg" style="width: 15%">${commentsList.commentsStars}</td>
+				<td style="width: 5%">${commentsList.commentsStars}</td>
 				<td>
 					${commentsList.comments}<br>
 					${commentsList.memberVO.id }
-					${commentsList.commentsPostedTime}				
-				</td>				
+					${commentsList.commentsPostedTime}
+					<!-- 삭제버튼 (작성자와 관리자에게만 노출된다.) -->
+					<c:set var="writerId" value="${commentsList.memberVO.id }"/>
+					<c:if test="${writerId == userId}">
+					<form action="${pageContext.request.contextPath}/commentsDelete.do" method="post" onsubmit="return commentsDeleteConfirm()" style="display: inline-flex;">
+						<sec:csrfInput/>
+						<input type="hidden" name="contentsNo" value="${requestScope.contentsNo}">
+						<input type="hidden" name="commentsDelete" value="${commentsListByContentsNo.commentsNo}">
+						<input type="hidden" name="pageNo" value="${requestScope.commentsListByContentsNo.pagingBean.nowPage}">
+						<input type="submit" value="삭제">
+					</form>
+					</c:if>
+				</td>			
 	      </tr>
 	      </c:forEach>
-	    </tbody>
+	    <!-- </tbody> -->
 	  </table>
-	  <input type="hidden" name="pageNo" value="${requestScope.commentsList.pagingBean.nowPage}">
-	  </form>
-	  <button type="submit" form="deleteNoticeByCheckboxForm" style="width: 80px; float:right;">삭제</button>
-		<div class="boardBottomDiv" style="width: 50%">
+	  	<div class="boardBottomDiv" style="width: 50%">
 			<div class="pagingInfo" id="pagingLocation">
 				<c:set var="pagingBean" value="${requestScope.commentsListVO.pagingBean}"/>
 				<ul class="pagination" id = "commentsPaging">

@@ -102,6 +102,7 @@ public class CommentsController {
 		redirectAttributes.addAttribute("contentsNo", contentsNo);
 		redirectAttributes.addAttribute("commentPageNo", pageNo);
 		return "redirect:contentsDetail.do";
+		
 	}
 	
 	// 관리자 삭제버튼으로 삭제
@@ -131,8 +132,8 @@ public class CommentsController {
 	}
 	
 	// 체크박스로 삭제
-	@PostMapping("commentsDeleteByCheckbox.do")
-	public String commentsDeleteByCheckbox(int[] deleteCheckbox, String[] deleteContentsNo, String pageNo, RedirectAttributes redirectAttributes) {
+	@PostMapping("commentsDeleteByCheckboxAdmin.do")
+	public String commentsDeleteByCheckboxAdmin(int[] deleteCheckbox, String[] deleteContentsNo, String pageNo, RedirectAttributes redirectAttributes) {
 		for(int i = 0; i < deleteCheckbox.length; i++) {
 			commentsService.sCommentsDelete(deleteCheckbox[i]);
 			// 평균 별점을 입력하기 위해 contents의 총 comments 수를 조회한다.
@@ -149,7 +150,7 @@ public class CommentsController {
 			contentsService.sUpdateAvgStar(avgStars, deleteContentsNo[i]);
 		}
 		redirectAttributes.addAttribute("pageNo", pageNo);
-		return "redirect:allPostForAdmin.do";
+		return "redirect:getCommentsList.do";
 	}
 	
 	// 평점 정보 popup창 띄우기(관리자,회원)

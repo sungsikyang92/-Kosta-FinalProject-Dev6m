@@ -40,14 +40,14 @@
 					reportTbody += "<form action='deleteReport.do' method='post' onsubmit='return deleteCheck()'>"
 					<!-- CSRF 방지 토큰,  Cross-site request forgery(사이트간 요청 위조)를 방지  -->
 						reportTbody += '<sec:csrfInput/>';
-						reportTbody += "<input type='hidden' name='reportNo' value='${rvo.reportNo}'>";
-						reportTbody += "<input type='hidden' name='commentsNo' value='${rvo.commentsVO.commentsNo}'>";
+						reportTbody += "<input type='hidden' name='reportNo' value='"+reportListVO.list[i].reportNo+"'>";			
+						reportTbody += "<input type='hidden' name='commentsNo' value='"+reportListVO.list[i].commentsVO.commentsNo+"'>";
 						reportTbody += "<input type='submit' value='deleteReport'>";
 					reportTbody += "</form>"
 				reportTbody += "</td>"
 			reportTbody += "</tr>";
 			reportTbody += "<tr>";
-			reportTbody += "<td colspan='6'><pre>${rvo.reportContents }</pre></td>";
+			reportTbody += "<td colspan='6'><pre>"+reportListVO.list[i].reportContents+"</pre></td>";
 			<!-- 신고된 평점 삭제 -->
 			<!-- CommentsController 참고 후 수정 -->
 			reportTbody += "<td>";

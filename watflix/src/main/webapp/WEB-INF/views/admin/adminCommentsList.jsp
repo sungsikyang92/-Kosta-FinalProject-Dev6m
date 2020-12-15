@@ -34,7 +34,7 @@
 	<sec:authorize access="hasRole('ROLE_ADMIN')">
 		<%-- <sec:authentication property="principal.id" var="userId"/> --%>
 		<%-- <sec:authorize access="hasRole('ROLE_ADMIN')" var="isAdmin"/> --%>
-		<form action="${pageContext.request.contextPath}/commentsDeleteByCheckbox.do"
+		<form action="${pageContext.request.contextPath}/commentsDeleteByCheckboxAdmin.do"
 		id="deleteNoticeByCheckboxForm" method="post">	
 		<sec:csrfInput/>
 		<h4>전체 평점</h4>
@@ -44,29 +44,31 @@
 		<table class="table table-hover table-bordered" style="border-radius: 1.5px;">
 			<c:forEach items="${requestScope.commentsList.list}" var="commentsList">
 			<tr>
-				<td class="starPointImg">${commentsList.commentsStars}</td>
-				<td>${commentsList.commentsStars}</td>
+				<td class="starPointImg" style="width: 15%">${commentsList.commentsStars}</td>
+				<td style="width: 5%">${commentsList.commentsStars}</td>
 				<td>
 					${commentsList.comments}<br>
 					${commentsList.memberVO.id }
 					${commentsList.commentsPostedTime}				
 				</td>
+				<c:if test="${requestScope.forNotUsePagingAndBtn != true}">
 				<td>
 					<input type="hidden" value="${commentsList.contentsVO.contentsNo}" name="deleteContentsNo">
 					<input type="checkbox" value="${commentsList.commentsNo}" name="deleteCheckbox">
 				</td>
+				</c:if>
 			</tr>
 			</c:forEach>
 		</table>
 			<input type="hidden" name="pageNo" value="${requestScope.commentsList.pagingBean.nowPage}">
 		</form>
-		<button type="submit" form="deleteNoticeByCheckboxForm" style="width: 80px; float:right;">삭제</button>
 		<!--
 			전체게시물조회 메인화면에서 페이징과 버튼을 사용하지 않기 위해 사용한다.
 			tiles를 통해서 불러오는 리스트의 경우 forNotUsePagingAndBtn의 값은 true
 		-->
 		<c:if test="${requestScope.forNotUsePagingAndBtn != true}">
-	<div class="boardBottomDiv">
+		<button type="submit" form="deleteNoticeByCheckboxForm" style="width: 80px; float:right;">삭제</button>
+	<div class="boardBottomDiv" style="width: 50%">
 		<div class="pagingInfo" id="pagingLocation">
 			<c:set var="pagingBean" value="${requestScope.commentsList.pagingBean}"/>
 			<ul class="pagination">

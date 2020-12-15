@@ -34,18 +34,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		<include refid="selectGenre"></include>
  	</select>
  	<!-- 장르코드 검색 -->
- 	<select id="mFindGenreByCode" resultType="genreVO">
- 		<include refid="selectGenre"></include>
+ 	<select id="mFindGenreByCode" resultType="int">
+ 		select count(*) from genre where genre_code=#{value}
  	</select>
  	
  	<!-- 모든 컨텐츠 개수 출력 -->
  	<select id="mGetTotalContentsCount" resultType="int">
  		select count(*) from contents
- 	</select>
- 	
- 	<!-- 특정 카테고리의 컨텐츠 개수 출력 -->
- 	<select id="mGetTotalContentsCountForType" resultType="int">
- 		select count(*) from contents where CONTENTS_TYPE LIKE '%'||#{contentsType}||'%'
  	</select>
  	
  	<!-- 모든 컨텐츠 리스트 출력 -->
@@ -63,6 +58,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		select C.CONTENTS_NO,C.CONTENTS_TITLE,C.CONTENTS_TYPE,G.GENRE_CODE,G.GENRE_NAME,C.CONTENTS_SUMMARY,C.CONTENTS_SMALL_THUMBNAIL,C.CONTENTS_BIG_THUMBNAIL,C.CONTENTS_AVG_STARS,C.CONTENTS_LIKES,C.CONTENTS_HITS,
  		CONTENTS_DATE,CONTENTS_RUNNINGTIME,CONTENTS_ACTOR,CONTENTS_PRODUCER,CONTENTS_AGE
 		from (select row_number() over(order by CONTENTS_NO DESC) as rnum,CONTENTS_NO,CONTENTS_TITLE,CONTENTS_TYPE,GENRE_CODE,CONTENTS_SUMMARY,CONTENTS_SMALL_THUMBNAIL,CONTENTS_BIG_THUMBNAIL,
+		CONTENTS_AVG_STARS,CONTENTS_LIKES,CONTENTS_HITS,CONTENTS_DATE,CONTENTS_RUNNINGTIME,CONTENTS_ACTOR,CONTENTS_PRODUCER,CONTENTS_AGE from contents where CONTENTS_TYPE LIKE '%'||#{contentsType}||'%' and genre_code=#{genreCode}) C, 
+		GENRE G
+		where C.GENRE_CODE=G.GENRE_CODE and rnum BETWEEN #{startNumber} AND #{endNumber}
+ 	</select>
+ 	
+ 	<!-- 특정장르에서 최신순인 컨텐츠 리스트 출력 -->
+ 	<select id="mGetAllContentsForGenreListSortByNew" resultMap="contentsRM" parameterType="map">
+ 		select rnum,C.CONTENTS_NO,C.CONTENTS_TITLE,C.CONTENTS_TYPE,G.GENRE_CODE,G.GENRE_NAME,C.CONTENTS_SUMMARY,C.CONTENTS_SMALL_THUMBNAIL,C.CONTENTS_BIG_THUMBNAIL,C.CONTENTS_AVG_STARS,C.CONTENTS_LIKES,C.CONTENTS_HITS,
+ 		CONTENTS_DATE,CONTENTS_RUNNINGTIME,CONTENTS_ACTOR,CONTENTS_PRODUCER,CONTENTS_AGE
+		from (select row_number() over(order by CONTENTS_DATE DESC) as rnum,CONTENTS_NO,CONTENTS_TITLE,CONTENTS_TYPE,GENRE_CODE,CONTENTS_SUMMARY,CONTENTS_SMALL_THUMBNAIL,CONTENTS_BIG_THUMBNAIL,
+		CONTENTS_AVG_STARS,CONTENTS_LIKES,CONTENTS_HITS,CONTENTS_DATE,CONTENTS_RUNNINGTIME,CONTENTS_ACTOR,CONTENTS_PRODUCER,CONTENTS_AGE from contents where CONTENTS_TYPE LIKE '%'||#{contentsType}||'%' and genre_code=#{genreCode}) C, 
+		GENRE G
+		where C.GENRE_CODE=G.GENRE_CODE and rnum BETWEEN #{startNumber} AND #{endNumber}
+ 	</select>
+ 	
+ 	<!-- 특정장르에서 오래된순인 컨텐츠 리스트 출력 -->
+ 	<select id="mGetAllContentsForGenreListSortByOld" resultMap="contentsRM" parameterType="map">
+ 		select rnum,C.CONTENTS_NO,C.CONTENTS_TITLE,C.CONTENTS_TYPE,G.GENRE_CODE,G.GENRE_NAME,C.CONTENTS_SUMMARY,C.CONTENTS_SMALL_THUMBNAIL,C.CONTENTS_BIG_THUMBNAIL,C.CONTENTS_AVG_STARS,C.CONTENTS_LIKES,C.CONTENTS_HITS,
+ 		CONTENTS_DATE,CONTENTS_RUNNINGTIME,CONTENTS_ACTOR,CONTENTS_PRODUCER,CONTENTS_AGE
+		from (select row_number() over(order by CONTENTS_DATE ) as rnum,CONTENTS_NO,CONTENTS_TITLE,CONTENTS_TYPE,GENRE_CODE,CONTENTS_SUMMARY,CONTENTS_SMALL_THUMBNAIL,CONTENTS_BIG_THUMBNAIL,
 		CONTENTS_AVG_STARS,CONTENTS_LIKES,CONTENTS_HITS,CONTENTS_DATE,CONTENTS_RUNNINGTIME,CONTENTS_ACTOR,CONTENTS_PRODUCER,CONTENTS_AGE from contents where CONTENTS_TYPE LIKE '%'||#{contentsType}||'%' and genre_code=#{genreCode}) C, 
 		GENRE G
 		where C.GENRE_CODE=G.GENRE_CODE and rnum BETWEEN #{startNumber} AND #{endNumber}
@@ -129,6 +144,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where C.GENRE_CODE=G.GENRE_CODE and rnum BETWEEN 1 AND 10
  	</select>
  	
+ 	<!-- 최신순에 따른 컨텐츠 리스트 출력 -->
+ 	<select id="mGetAllContentsListSortByNew" resultMap="contentsRM" parameterType="map">
+ 		select rnum,C.CONTENTS_NO,C.CONTENTS_TITLE,C.CONTENTS_TYPE,G.GENRE_CODE,G.GENRE_NAME,C.CONTENTS_SUMMARY,C.CONTENTS_SMALL_THUMBNAIL,C.CONTENTS_BIG_THUMBNAIL,C.CONTENTS_AVG_STARS,C.CONTENTS_LIKES,C.CONTENTS_HITS,
+ 		CONTENTS_DATE,CONTENTS_RUNNINGTIME,CONTENTS_ACTOR,CONTENTS_PRODUCER,CONTENTS_AGE
+		from (select row_number() over(order by CONTENTS_DATE DESC) as rnum,CONTENTS_NO,CONTENTS_TITLE,CONTENTS_TYPE,GENRE_CODE,CONTENTS_SUMMARY,CONTENTS_SMALL_THUMBNAIL,CONTENTS_BIG_THUMBNAIL,
+		CONTENTS_AVG_STARS,CONTENTS_LIKES,CONTENTS_HITS,CONTENTS_DATE,CONTENTS_RUNNINGTIME,CONTENTS_ACTOR,CONTENTS_PRODUCER,CONTENTS_AGE from contents where CONTENTS_TYPE LIKE '%'||#{contentsType}||'%') C, 
+		GENRE G
+		where C.GENRE_CODE=G.GENRE_CODE and rnum BETWEEN #{startNumber} AND #{endNumber} 
+ 	</select>
+ 	
+ 	<!-- 오래된순에 따른 컨텐츠 리스트 출력 -->
+ 	<select id="mGetAllContentsListSortByOld" resultMap="contentsRM" parameterType="map">
+ 		select rnum,C.CONTENTS_NO,C.CONTENTS_TITLE,C.CONTENTS_TYPE,G.GENRE_CODE,G.GENRE_NAME,C.CONTENTS_SUMMARY,C.CONTENTS_SMALL_THUMBNAIL,C.CONTENTS_BIG_THUMBNAIL,C.CONTENTS_AVG_STARS,C.CONTENTS_LIKES,C.CONTENTS_HITS,
+ 		CONTENTS_DATE,CONTENTS_RUNNINGTIME,CONTENTS_ACTOR,CONTENTS_PRODUCER,CONTENTS_AGE
+		from (select row_number() over(order by CONTENTS_DATE ) as rnum,CONTENTS_NO,CONTENTS_TITLE,CONTENTS_TYPE,GENRE_CODE,CONTENTS_SUMMARY,CONTENTS_SMALL_THUMBNAIL,CONTENTS_BIG_THUMBNAIL,
+		CONTENTS_AVG_STARS,CONTENTS_LIKES,CONTENTS_HITS,CONTENTS_DATE,CONTENTS_RUNNINGTIME,CONTENTS_ACTOR,CONTENTS_PRODUCER,CONTENTS_AGE from contents where CONTENTS_TYPE LIKE '%'||#{contentsType}||'%') C, 
+		GENRE G
+		where C.GENRE_CODE=G.GENRE_CODE and rnum BETWEEN #{startNumber} AND #{endNumber} 
+ 	</select>
+ 	
  	<!-- 장르 insert -->
  	<insert id="mGenreRegister" parameterType="genreVO">
  		insert into genre(GENRE_CODE,GENRE_NAME) values(#{genreCode},#{genreName})
@@ -142,12 +177,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	</insert>
  	
  	<!-- comment 많은 순으로 content 불러오기 전체 장르(resultType 고민) -->
- 	<select id="mContentsGetListByCommentCount">
- 		SELECT b.contents_no, b.contents_title, b.contents_type, b.genre_code, b.contents_small_thumbnail, b.contents_big_thumbnail, b.contents_avg_stars, b.contents_likes, b.contents_hits, count(a.comments_no) as comments_count
-		FROM comments a, contents b
-		WHERE a.contents_no(+)=b.contents_no
-		GROUP BY b.contents_no, b.contents_title, b.contents_type, b.genre_code, b.contents_small_thumbnail, b.contents_big_thumbnail, b.contents_avg_stars, b.contents_likes, b.contents_hits
-		ORDER BY comments_count DESC;
+ 	<select id="mContentsHighCommentsCount" resultMap="contentsRM">
+ 		select c.ea, C.CONTENTS_NO,C.CONTENTS_TITLE,C.CONTENTS_TYPE,G.GENRE_CODE,G.GENRE_NAME,C.CONTENTS_SUMMARY,C.CONTENTS_SMALL_THUMBNAIL,C.CONTENTS_BIG_THUMBNAIL,C.CONTENTS_AVG_STARS,C.CONTENTS_LIKES,C.CONTENTS_HITS,
+		CONTENTS_DATE,CONTENTS_RUNNINGTIME,CONTENTS_ACTOR,CONTENTS_PRODUCER,CONTENTS_AGE
+		from (select row_number() over(order by ea DESC) as rnum,c.ea,C.CONTENTS_NO,C.CONTENTS_TITLE,C.CONTENTS_TYPE,C.GENRE_CODE,
+		C.CONTENTS_SUMMARY,C.CONTENTS_SMALL_THUMBNAIL,C.CONTENTS_BIG_THUMBNAIL,
+		C.CONTENTS_AVG_STARS,C.CONTENTS_LIKES,C.CONTENTS_HITS,C.CONTENTS_DATE,C.CONTENTS_RUNNINGTIME,C.CONTENTS_ACTOR,C.CONTENTS_PRODUCER,C.CONTENTS_AGE from 
+		(select distinct (select count(*) from comments where contents_no=c.contents_no) as ea,C.CONTENTS_NO,C.CONTENTS_TITLE,C.CONTENTS_TYPE,C.GENRE_CODE,C.CONTENTS_SUMMARY,C.CONTENTS_SMALL_THUMBNAIL,
+		C.CONTENTS_BIG_THUMBNAIL,C.CONTENTS_AVG_STARS,C.CONTENTS_LIKES,C.CONTENTS_HITS,
+		C.CONTENTS_DATE,C.CONTENTS_RUNNINGTIME,C.CONTENTS_ACTOR,C.CONTENTS_PRODUCER,C.CONTENTS_AGE from contents c) C)
+		C, GENRE G
+		where C.GENRE_CODE=G.GENRE_CODE and rnum BETWEEN 1 AND 10 
  	</select>
  	<!-- 컨텐츠 추천수 증가 -->
  	<update id="mContentsLikeUpdate">
@@ -178,13 +218,4 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where C.GENRE_CODE=G.GENRE_CODE
  	</select>
 </mapper>
-
-
-
-
-
-
-
-
-
 

@@ -1,5 +1,6 @@
 package org.kosta.watflix.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -64,35 +65,57 @@ public class ContentsController {
 	//장르 & 타입별 컨텐츠 리스트
 	@RequestMapping("getContentsAllForTypeAndGenre.do")
 	@ResponseBody
-	public List<ContentsVO> getContentsAllForTypeAndGenre(Model model,String pageNo,String contentsType,String genreCode) {
+	public List<ContentsVO> getContentsAllForTypeAndGenre(Model model,String pageNo,String contentsType,String genreCode,String sortType) {
 		Map<String, String> map = new HashMap<String, String>();
-		int startNumber,endNumber;
-		startNumber = (5*(Integer.parseInt(pageNo)-1));
-		endNumber = (5*Integer.parseInt(pageNo)-1);
-
+		List<ContentsVO> list = new ArrayList<ContentsVO>();
+		int startNumber = (5*(Integer.parseInt(pageNo)-1)+1);
+		int endNumber = (5*Integer.parseInt(pageNo));
 		map.put("startNumber", Integer.toString(startNumber));
 		map.put("endNumber", Integer.toString(endNumber));
 		map.put("contentsType", contentsType);
 		map.put("genreCode", genreCode);
-		return contentsService.sGetContentsAllForTypeAndGenre(map);
-	}
-	//타입 전체 컨텐츠 리스트
-	@RequestMapping("getContentsAllForType.do")
-	@ResponseBody
-	public List<ContentsVO> getContentsAllForType(String pageNo,String contentsType) {
-		Map<String, String> map = new HashMap<String, String>();
-		int totalContentsCountForType = contentsService.sGetTotalContentsCountForType(contentsType);
-		int startNumber = (5*(Integer.parseInt(pageNo)-1));
-		int endNumber = (5*Integer.parseInt(pageNo)-1);
-		if(endNumber>totalContentsCountForType) {
-			endNumber = totalContentsCountForType;
+		if(sortType.equals("New")) {
+			list = contentsService.sGetAllContentsForGenreListSortByNew(map);
 		}
+		else if(sortType.equals("Old")) {
+			list = contentsService.sGetAllContentsForGenreListSortByOld(map);
+		}
+		else {
+			list = contentsService.sGetContentsAllForTypeAndGenre(map);
+		}
+		
+		return list;
+	}
+	
+	//정렬기준에 따른 컨텐츠리스트
+	@ResponseBody
+	@RequestMapping("sortingContents.do")
+	public List<ContentsVO> test(String sortType,String contentsType, String pageNo) {
+		
+		Map<String, String> map = new HashMap<String, String>();
+		List<ContentsVO> list = new ArrayList<ContentsVO>();
+		int startNumber = (5*(Integer.parseInt(pageNo)-1)+1);
+		int endNumber = (5*Integer.parseInt(pageNo));
 		
 		map.put("startNumber", Integer.toString(startNumber));
 		map.put("endNumber", Integer.toString(endNumber));
 		map.put("contentsType", contentsType);
-		return contentsService.sGetContentsAllForType(map);
-	}
+		System.out.println(map);
+		System.out.println(sortType);
+		if(sortType.equals("New")) {
+			list = contentsService.sGetAllContentsListSortByNew(map);
+		}
+		else if(sortType.equals("Old")) {
+			list = contentsService.sGetAllContentsListSortByOld(map);
+		}
+		else {
+			list = contentsService.sGetContentsAllForType(map);
+		}
+		System.out.println(list);
+		
+		return list;
+	}	
+	
 	//타입별 장르가져오기
 	@ResponseBody
 	@RequestMapping("getGenreSelectForType.do")
