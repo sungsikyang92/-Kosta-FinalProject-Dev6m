@@ -6,7 +6,6 @@
 		getReportList("1", "1");
 	});
 	function getReportList(reportPageNo, reportType){
-		alert("success실행");
 		$.ajax({
 			type: "get",
 			url: "${pageContext.request.contextPath}/myReportBoard.do",
@@ -19,8 +18,6 @@
 		});
 	}
 	function listByReportType(reportListVO){
-		alert("listByReportType호출");
-		alert(reportListVO);
 		var reportTbody = "";
 		for (var i=0; i < reportListVO.list.length; i++){
 			reportTbody += "<tr>";
@@ -49,7 +46,6 @@
 	}
 	
 	function reportPostPaging(reportListVO) {
-		alert("reportPostPaging호출");
 		// table의 tfoot( 페이징 )
 		var reportPaging = "";
 		var startPageGroup = reportListVO.pagingBean.startPageOfPageGroup;

@@ -89,21 +89,21 @@ public class ReportController {
 		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String id = mvo.getId();
 		// 레포트의 타입이 NULL 일 경우 1(리뷰)로 초기화한다.
-		//if(reportType == null) {
-		//	reportType = "1";
-		//}
+		if(reportType == null) {
+			reportType = "1";
+		}
 		// 레포트의 타입을 구분해준다 1은 리뷰 2는 평점
-		//if(reportType == "1") {
+		if(reportType == "1") {
 			System.out.println(reportType);
 			System.out.println(reportService.sGetMyReportReviewList(id, reportPageNo));
 			System.out.println("reviewReport 호출");
 			return reportService.sGetMyReportReviewList(id, reportPageNo);
-		//} else {
-		//	System.out.println(reportType);
-		//	System.out.println(reportService.sGetMyReportCommentsList(id, reportPageNo));
-		//	System.out.println("commentsReport 호출");
-		//	return reportService.sGetMyReportCommentsList(id, reportPageNo);
-		//}
+		} else {
+			System.out.println(reportType);
+			System.out.println(reportService.sGetMyReportCommentsList(id, reportPageNo));
+			System.out.println("commentsReport 호출");
+			return reportService.sGetMyReportCommentsList(id, reportPageNo);
+		}
 	}
 	
 	// 내 신고 리스트(평점)
