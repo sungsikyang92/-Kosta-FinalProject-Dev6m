@@ -27,4 +27,8 @@ public interface ContentsService {
 	//컨텐츠추천여부검사를위한 서비스
 	//각 content에 contents_avg_stars 넣기
 	void sUpdateAvgStar(float avgStars, String contentsNo);
+	//컨텐츠 검색
+	List<GenreVO> sGenreSelectForTitle(String contentsTitle);
+	List<ContentsVO> sGetContentsSelectForTitle(String contentsTitle);
+	
 }

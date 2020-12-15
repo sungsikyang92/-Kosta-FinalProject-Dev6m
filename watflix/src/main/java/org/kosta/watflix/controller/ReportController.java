@@ -99,11 +99,6 @@ public class ReportController {
 		return reportService.sGetMyReportCommentsList(id, pageNo);
 	}
 	
-	// 마이페이지로 이동(임시)
-	@RequestMapping("testMyPageBoard.do")
-	public ModelAndView testMyPageBoard() {
-		return new ModelAndView("report/my_report_board.tiles");
-	}
 }
 
 

@@ -138,6 +138,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	<update id="mUpdateAvgStars" parameterType="map">
  		UPDATE contents SET contents_avg_stars = #{avgStars} WHERE contents_no = #{contentsNo}
  	</update>
+ 	
+ 	<!-- 컨텐츠 검색 -->
+ 	<select id="mGetContentsSelectForTitle" parameterType="string" resultMap="contentsRM">
+ 		select C.CONTENTS_NO,C.CONTENTS_TITLE,C.CONTENTS_TYPE,G.GENRE_CODE,G.GENRE_NAME,C.CONTENTS_SUMMARY,C.CONTENTS_SMALL_THUMBNAIL,C.CONTENTS_BIG_THUMBNAIL,
+		C.CONTENTS_AVG_STARS,C.CONTENTS_LIKES,C.CONTENTS_HITS,CONTENTS_DATE,CONTENTS_RUNNINGTIME,CONTENTS_ACTOR,CONTENTS_PRODUCER,CONTENTS_AGE
+		from (select row_number() over(order by CONTENTS_NO DESC) as rnum,CONTENTS_NO,CONTENTS_TITLE,CONTENTS_TYPE,GENRE_CODE,CONTENTS_SUMMARY,CONTENTS_SMALL_THUMBNAIL,
+		CONTENTS_BIG_THUMBNAIL,CONTENTS_AVG_STARS,CONTENTS_LIKES,CONTENTS_HITS,CONTENTS_DATE,CONTENTS_RUNNINGTIME,CONTENTS_ACTOR,CONTENTS_PRODUCER,CONTENTS_AGE
+		from contents where contents_title like '%'||#{value}||'%') C, GENRE G
+		where C.GENRE_CODE=G.GENRE_CODE
+ 	</select>
+ 	<!-- 검색된 컨텐츠의 장르 출력 -->
+ 	<select id="mGenreSelectForTitle" parameterType="string" resultType="genreVO">
+ 		select distinct G.GENRE_CODE, G.GENRE_NAME
+		from (select CONTENTS_TYPE, GENRE_CODE
+		from CONTENTS where contents_title like '%'||#{value}||'%') C, GENRE G
+		where C.GENRE_CODE=G.GENRE_CODE
+ 	</select>
 </mapper>
 
 
