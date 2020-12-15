@@ -487,7 +487,11 @@ select * from CONTENTS
 --
 select comments_no, id, contents_no, comments, comments_stars, comments_posted_time from comments where comments_no = 1
 select * from COmments
-
+-- 신고 테이블 제약조건 수정
+alter table report drop CONSTRAINT REPORT_REVIEW_NO_FK;
+alter table report drop CONSTRAINT REPORT_COMMENTS_NO_FK;
+alter table report add CONSTRAINT REPORT_REVIEW_NO_FK FOREIGN KEY (REVIEW_NO) REFERENCES REVIEW(REVIEW_NO) on delete cascade;
+alter table report add CONSTRAINT REPORT_COMMENTS_NO_FK FOREIGN KEY(COMMENTS_NO) REFERENCES COMMENTS(COMMENTS_NO) on delete cascade;
 
 
 select * from grade where id='java'

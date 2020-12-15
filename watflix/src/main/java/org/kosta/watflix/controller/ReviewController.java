@@ -123,6 +123,20 @@ public class ReviewController {
 		//"redirect:contentsDetail.do? 컨텐츠넘버주기
 		return "redirect:contentsDetail.do?contentsNo="+contentsNoforDelete;
 	}
+	
+	//관리자 리뷰 삭제
+	@PostMapping("adminReviewDelete.do")
+	public String adminReviewDelete(int reviewNo) {
+		reviewService.sReviewDelete(reviewNo);
+		return "report/report_ok";
+	}
+	
+	//관리자 리뷰 상세보기 popup 창 띄우기
+	@RequestMapping("reviewByReviewNo.do")
+	public ModelAndView reviewByReviewNo(int reviewNo) {
+		MemberVO memberVO = (MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return new ModelAndView("report/reviewByReviewNo","rdvo",reviewService.sGetReviewDetailNoHits(memberVO.getId(),reviewNo));
+	}
 }
 
 

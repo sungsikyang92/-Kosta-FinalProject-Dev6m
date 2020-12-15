@@ -104,7 +104,7 @@ public class CommentsController {
 		return "redirect:contentsDetail.do";
 	}
 	
-	// 삭제버튼으로 삭제
+	// 관리자 삭제버튼으로 삭제
 	@PostMapping("adminCommentsDelete.do")
 	public String adminCommentsDelete(String[] commentsDelete, String contentsNo, String pageNo, RedirectAttributes redirectAttributes) {
 		for(int i = 0; i < commentsDelete.length; i++) {
@@ -152,10 +152,9 @@ public class CommentsController {
 		return "redirect:allPostForAdmin.do";
 	}
 	
-	// 평점 정보 popup창 띄우기
-	//@RequestMapping("commentsByCommentsNo.do")
-	//public ModelAndView commentsByCommentsNo(int commentsNo) {
-	//	System.out.println("하하");
-	//	return new ModelAndView("report/comentsByCommentsNo", "commentsListByContentsNo", commentsService.sGetCommentsByCommentsNo(commentsNo));
-	//}
+	// 평점 정보 popup창 띄우기(관리자,회원)
+	@RequestMapping("commentsByCommentsNo.do")
+	public ModelAndView commentsByCommentsNo(int commentsNo) {
+		return new ModelAndView("report/comentsByCommentsNo", "commentsVOContentsNo", commentsService.sGetCommentsByCommentsNo(commentsNo));
+	}
 }
