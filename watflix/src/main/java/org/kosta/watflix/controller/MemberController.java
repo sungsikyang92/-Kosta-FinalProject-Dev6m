@@ -9,9 +9,11 @@ import org.kosta.watflix.model.service.MemberService;
 import org.kosta.watflix.model.service.PagingBean;
 import org.kosta.watflix.model.service.PointHistoryService;
 import org.kosta.watflix.model.service.ReviewService;
+import org.kosta.watflix.model.vo.CommentsListVO;
 import org.kosta.watflix.model.vo.MemberVO;
 import org.kosta.watflix.model.vo.PointHistoryListVO;
 import org.kosta.watflix.model.vo.PointHistoryVO;
+import org.kosta.watflix.model.vo.ReviewListVO;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -19,7 +21,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class MemberController {
@@ -29,6 +30,8 @@ public class MemberController {
 	
 	@Resource
 	ReviewService reviewService;
+	@Resource
+	CommentsService commentsService;
 	
 	@Resource
 	PointHistoryService pointHistoryService;
@@ -139,11 +142,31 @@ public class MemberController {
 	// 내 게시물 리스트
 	@RequestMapping("myPostList.do")
 	public String MyPostList(Model model) {
+		System.out.println("myPostList.do 실행");
 		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		System.out.println(commentsService.sGetMyCommentsList(mvo.getId()));
+		model.addAttribute("commentsListVO", commentsService.sGetMyCommentsList(mvo.getId()));
 		model.addAttribute("reviewListVO",reviewService.sGetMyReviewList(mvo.getId()));
 		return "my_post_list.tiles";
+	}	
+	
+	// 내 리뷰 리스트 Ajax
+	@RequestMapping("myReviewList.do")
+	@ResponseBody
+	public ReviewListVO myReviewList(String pageNo) {
+		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return reviewService.sGetMyReviewList(mvo.getId(), pageNo);
 	}
 	
+
+	// 내 Comments 리스트 Ajax
+	@RequestMapping("myCommentsList.do")
+	@ResponseBody
+	public CommentsListVO myCommentsList(String pageNo) {
+		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return commentsService.sGetMyCommentsList(mvo.getId(), pageNo);
+	}
+
 	//포인트사용내역 조회
 	@RequestMapping("memberPointHistoryCheck.do")
 	public String memberPointHistoryCheck(Model model,String pageNo) {
@@ -162,5 +185,5 @@ public class MemberController {
 		model.addAttribute("pointHistoryListVO",new PointHistoryListVO(list,pagingBean));
 		return "member/pointHistoryCheck.tiles";
 	}
-	
+
 }

@@ -43,11 +43,9 @@
 	<tiles:insertAttribute name="commentsList" />	
 	<!-- Tiles reviewList 영역 -->
 	<tiles:insertAttribute name="reviewList" />	
-	<!-- Tiles reportCommentsList 영역 -->
-	<tiles:insertAttribute name="reportCommentsList" />	
-	<!-- Tiles reportReviewList 영역 -->
-	<tiles:insertAttribute name="reportReviewList" />	
-
+	<!-- Tiles reportList 영역 -->
+	<tiles:insertAttribute name="reportList" />	
+	
 	<script
 		src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 	<!-- JQuery UI -->

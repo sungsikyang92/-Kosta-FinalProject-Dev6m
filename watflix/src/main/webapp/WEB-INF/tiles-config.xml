@@ -64,16 +64,14 @@
  		<put-attribute name="header" value="/WEB-INF/views/adminTemplate/header.jsp"/>
  		<put-attribute name="commentsList"  value="/WEB-INF/views/admin/adminCommentsList.jsp"/>
  		<put-attribute name="reviewList"  value="/WEB-INF/views/admin/adminReviewList.jsp"/>
- 		<put-attribute name="reportCommentsList"  value="/WEB-INF/views/admin/adminReportCommentsList.jsp"/>
- 		<put-attribute name="reportReviewList"  value="/WEB-INF/views/admin/adminReportReviewList.jsp"/>
+ 		<put-attribute name="reportList"  value="/WEB-INF/views/admin/adminReportList.jsp"/>
  	</definition>	
 
 	<!-- 내 게시물 리스트 -->
 	<definition name="my_post_list.tiles" template="/WEB-INF/views/templates/mypostlist.jsp">
 		<put-attribute name="title"  value="WATFLIX" />
  		<put-attribute name="header" value="/WEB-INF/views/templates/header.jsp"/>
- 		<!-- <put-attribute name=""></put-attribute> -->
-		<put-attribute name="main" value="/WEB-INF/views/report/my_comments_board.jsp"/>
+ 		<put-attribute name="main" value="/WEB-INF/views/report/my_comments_board.jsp"/>
 		<put-attribute name="main2" value="/WEB-INF/views/report/my_review_board.jsp"/>
 		<put-attribute name="main3" value="/WEB-INF/views/report/my_report_board_copy.jsp"/>
 		<put-attribute name="footer" value="/WEB-INF/views/templates/footer.jsp"/>
