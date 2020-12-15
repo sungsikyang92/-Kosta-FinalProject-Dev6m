@@ -15,6 +15,7 @@ public interface ContentsService {
 	List<ContentsVO> sGetContentsAllForType(Map<String,String> map);
 	ContentsVO sFindContentsByNo(String contentsNo);
 	List<ContentsVO> sContentsHighHits();
+	List<ContentsVO> sContentsHighHitsLogin(String id);
 	List<ContentsVO> sContentsHighAvgStars();
 	List<ContentsVO> sContentsHighCommentsCount();
 	List<GenreVO> sGetAllGenreList();
@@ -31,4 +32,7 @@ public interface ContentsService {
 	List<ContentsVO> sGetAllContentsListSortByOld(Map<String,String> map);
 	List<ContentsVO> sGetAllContentsForGenreListSortByNew(Map<String, String> map);
 	List<ContentsVO> sGetAllContentsForGenreListSortByOld(Map<String, String> map);
+	//컨텐츠 검색
+	List<GenreVO> sGenreSelectForTitle(String contentsTitle);
+	List<ContentsVO> sGetContentsSelectForTitle(String contentsTitle);
 }

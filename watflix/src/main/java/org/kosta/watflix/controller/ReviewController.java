@@ -31,6 +31,8 @@ public class ReviewController {
 	@RequestMapping("reviewList.do")
 	public String getReviewList(String pageNo, Model model) {
 		model.addAttribute("reviewList",reviewService.sGetReviewList(pageNo));
+		// 전체게시물조회 메인화면과 각 게시판에서 페이징과 버튼을 사용하지 않기 위해 사용한다.
+		model.addAttribute("forNotUsePagingAndBtn", false);
 		return "admin/adminReviewList.tiles";
 	}
 	//컨텐츠별 리뷰리스트
@@ -121,15 +123,6 @@ public class ReviewController {
 		//"redirect:contentsDetail.do? 컨텐츠넘버주기
 		return "redirect:contentsDetail.do?contentsNo="+contentsNoforDelete;
 	}
-	
-	// 내 리뷰 리스트 Ajax
-	@RequestMapping("myReviewList.do")
-	@ResponseBody
-	public ReviewListVO myReviewList(String pageNo) {
-		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		return reviewService.sGetMyReviewList(mvo.getId(), pageNo);
-	}
-	
 }
 
 

@@ -279,11 +279,8 @@ CREATE SEQUENCE FAQ_SEQ NOCACHE;
 CREATE SEQUENCE QNA_SEQ NOCACHE;
 /*PARTY 시퀀스 생성*/
 CREATE SEQUENCE PARTY_SEQ NOCACHE;
-<<<<<<< HEAD
 /*POINT_HISTORY 시퀀스 생성*/
 CREATE SEQUENCE POINT_HISTORY_SEQ NOCACHE;
-=======
->>>>>>> branch 'master' of https://github.com/Minikanko/-Kosta-FinalProject-Dev6m.git
 
 /*계정상태, 신고타입, 멤버쉽,상품 카테고리 데이터 미리 생성*/
 INSERT INTO ACC_STATUS VALUES(0,'사용계정');
@@ -300,19 +297,13 @@ INSERT INTO MEMBERSHIP VALUES(3,'PREMIUM',4);
 INSERT INTO PRODUCT_CATEGORY VALUES(1,'뷰티');
 INSERT INTO PRODUCT_CATEGORY VALUES(2,'식품');
 
-<<<<<<< HEAD
 INSERT INTO QNA_TYPE VALUES(1,'포인트');
 INSERT INTO QNA_TYPE VALUES(2,'회원문의');
 
-=======
 INSERT INTO PRO_STATUS VALUES(1,'정상판매');
 INSERT INTO PRO_STATUS VALUES(2,'판매중지');
 
 /*Table drop*/
-<<<<<<< HEAD
-=======
->>>>>>> branch 'master' of https://github.com/Minikanko/-Kosta-FinalProject-Dev6m.git
->>>>>>> branch 'master' of https://github.com/Minikanko/-Kosta-FinalProject-Dev6m.git
 drop table apply;
 drop table party;
 drop table membership;

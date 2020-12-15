@@ -80,7 +80,7 @@
 	<sec:authorize access="hasRole('ROLE_ADMIN')">
 		<button type="submit" form="deleteNoticeByCheckboxForm" style="width: 66px; float: right;">삭제</button>
 	</sec:authorize>
-<div class="boardBottomDiv" style="width: 1037px">
+<div class="boardBottomDiv" style="width: 50%">
 <div class="pagingInfo" id="pagingLocation">
 	<c:set var="pagingBean" value="${requestScope.noticeList.pagingBean}"></c:set>
 		<ul class="pagination">

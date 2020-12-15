@@ -1,17 +1,14 @@
 package org.kosta.watflix;
 
-import java.util.List;
-
 import javax.annotation.Resource;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kosta.watflix.model.mapper.CommentsMapper;
+import org.kosta.watflix.model.mapper.ContentsMapper;
 import org.kosta.watflix.model.mapper.ReportMapper;
 import org.kosta.watflix.model.mapper.ReviewMapper;
-import org.kosta.watflix.model.service.PagingBean;
 import org.kosta.watflix.model.service.ReportService;
-import org.kosta.watflix.model.vo.ReportVO;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -24,6 +21,8 @@ public class JaeWooTestUnit {
 	private ReviewMapper reviewMapper;
 	@Resource
 	private CommentsMapper commentsMapper;
+	@Resource
+	private ContentsMapper contentsMapper;
 	
 	@Resource
 	private ReportService reportService;
@@ -160,6 +159,18 @@ public class JaeWooTestUnit {
 		int total = commentsMapper.mMyCommentsGetTotalPostCount("spring");
 		PagingBean pagingBean = new PagingBean(total, 1);
 		System.out.println(commentsMapper.mMyCommentsGetAllList("spring", pagingBean));
+		//*/
+		
+		/*/
+		//컨텐츠 검색
+		String contentsTitle = "인";
+		System.out.println(contentsMapper.mGetSearchContents(contentsTitle));
+		System.out.println(contentsMapper.mGetSearchGenre(contentsTitle));
+		//*/
+		
+		/*/
+		// 평점 넘버에 대응하는 평점 조회
+		System.out.println(commentsMapper.mGetCommentsByCommentsNo(1));
 		//*/
 	}
 }

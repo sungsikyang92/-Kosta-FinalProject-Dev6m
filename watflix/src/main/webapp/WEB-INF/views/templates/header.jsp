@@ -28,9 +28,19 @@
 		 $("#mypageBtn").click(function(){
 			 $("#mypageDiv").toggle('slow');
 		 })
-		 </sec:authorize> 
-	 })
-	
+		 </sec:authorize>
+	 });
+	 
+	//컨텐츠 검색
+	function searchContentsTitle(){
+		 if($("#contentsTitle").prop("type") == "hidden"){
+			$("#contentsTitle").prop("type", "text");
+		}else if($("#contentsTitle").val().length >= 2) {
+			location.href="${pageContext.request.contextPath}/contentsByTitle.do?contentsTitle="+$("#contentsTitle").val();
+		}else{
+			alert("두 글자 이상부터 검색 가능")
+		}
+	 };
 </script>
   <!-- Navbar - OPEN -->
     <nav class="navbar navbar-expand-lg fixed-top navbar-dark" id="navbar">
@@ -74,8 +84,14 @@
 
                 <!-- Right - OPEN -->
                 <ul class="navbar-nav my-2 my-lg-0 navbar-right">
+                	<!-- 검색 키워드 입력 -->
+                	<li class="nav-item">
+                		<!-- if(event.keyCode == 13) 엔터키 입력시 이벤트 발생 -->
+                		<input type="hidden" id="contentsTitle" onkeypress="javascript:if(event.keyCode == 13){searchContentsTitle();}" style="width:300px;height:30px;font-size:15px;margin-top:15px;">
+                	</li>
+                	<!-- 컨텐츠 title 검색  -->
                     <li class="nav-item">
-                        <a class="nav-link float-center" href="#">
+                        <a class="nav-link float-center" id="searchContents" href="#" onclick="searchContentsTitle()">
                             <img src="${pageContext.request.contextPath}/resources/media/icons/search.png" width="20" alt="">
                         </a>
                     </li>

@@ -29,7 +29,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM REVIEW where id=#{id})
 		WHERE RNUM BETWEEN #{pagingBean.startRowNumber} AND #{pagingBean.endRowNumber} ORDER BY review_no desc	
 	</select>
-	<!-- 내가 작성항 리뷰 수 -->
+	<!-- 내가 작성한 리뷰 수 -->
 	<select id="mGetMyTotalReviewCount" parameterType="string" resultType="int">
 		select count(*) from review where id = #{value}
 	</select>

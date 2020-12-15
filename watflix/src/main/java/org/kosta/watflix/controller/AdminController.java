@@ -12,15 +12,21 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.kosta.watflix.model.service.AdminService;
 import org.kosta.watflix.model.service.MemberService;
+import org.kosta.watflix.model.vo.CommentsListVO;
 import org.kosta.watflix.model.vo.MemberListVO;
+import org.kosta.watflix.model.vo.MemberVO;
+import org.kosta.watflix.model.vo.ReportListVO;
+import org.kosta.watflix.model.vo.ReviewListVO;
 import org.kosta.watflix.model.service.CommentsService;
 import org.kosta.watflix.model.service.ReportService;
 import org.kosta.watflix.model.service.ReviewService;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class AdminController {
@@ -184,18 +190,29 @@ public class AdminController {
    public String allPostForAdmin(Model model) {
 	   System.out.println("allPostForAdmin.do 실행");
 	   // comments 리스트를 불러온다.
-	   model.addAttribute("commentsList", commentsService.sCommentsGetList());
-	   System.out.println("commentsService.sCommentsGetList()"+commentsService.sCommentsGetList());
+	   model.addAttribute("commentsList", commentsService.sCommentsGetList(null));
 	   // review 리스트를 불러온다.
 	   model.addAttribute("reviewList", reviewService.sGetReviewList(null));
 	   // reportComments 리스트를 불러온다.
 	   model.addAttribute("reportCommentsList", reportService.sGetReportCommentsList());
 	   // reportReview 리스트를 불러온다.
 	   model.addAttribute("reportReviewList", reportService.sGetReportReviewList());
-	   // 전체게시물조회 메인화면에서 페이징과 버튼을 사용하지 않기 위해 사용한다.
+	   // 전체게시물조회 메인화면과 각 게시판에서 페이징과 버튼을 사용하지 않기 위해 사용한다.
 	   model.addAttribute("forNotUsePagingAndBtn", true);
 	   return "allPostForAdmin.tiles";	   
    }
+	// 내 신고 리스트(리뷰)
+	// ResponseBody는 비동기 통신에 필요한 어노테이션이다.
+	@RequestMapping("reportBoardAdmin.do")
+	@ResponseBody
+	public ReportListVO reportBoardAdmin(String reportPageNo, boolean reportType) {
+		System.out.println("reportBoardAdmin.do 실행");
+		if(reportType) {
+			return reportService.sGetReportCommentsList(reportPageNo);
+		} else {
+			return reportService.sGetReportReviewList(reportPageNo);
+		}
+	}
    
    //계정 정지 or 정지해제
    @RequestMapping("updateMemberStatus.do")

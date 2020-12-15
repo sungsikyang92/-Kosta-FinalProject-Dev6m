@@ -27,11 +27,7 @@
 				var starPoint = $(this).html();
 				$(this).html("<img src='${pageContext.request.contextPath}/resources/media/icons/star"+starPoint+".png' style='height: 25px'>");
 		})
-	})
-	// delete confirm
-	function commentsDeleteConfirm(){
-		return confirm('삭제하시겠습니까?');
-	}	
+	})	
 </script>
 	<div class="tableMargin" id="commentsList">
 	<div class="container-lg boardClassMain" style="margin-top: 100px">
@@ -42,7 +38,9 @@
 		id="deleteNoticeByCheckboxForm" method="post">	
 		<sec:csrfInput/>
 		<h4>전체 평점</h4>
-		<a href="commentsList.do" style="float: right">더보기</a>
+		<c:if test="${requestScope.forNotUsePagingAndBtn != false}">
+		<a href="getCommentsList.do?pageNo=1" style="float: right">더보기</a>
+		</c:if>
 		<table class="table table-hover table-bordered" style="border-radius: 1.5px;">
 			<c:forEach items="${requestScope.commentsList.list}" var="commentsList">
 			<tr>
