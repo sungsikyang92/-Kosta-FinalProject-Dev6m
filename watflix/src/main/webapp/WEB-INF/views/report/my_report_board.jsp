@@ -37,78 +37,41 @@
 				url: "${pageContext.request.contextPath}/myReportReviewBoard.do",
 				success:function(data){	
 					//table의 thead
-					reportThead += "<th>";
-						reportThead +="<a class=\"reportReview active\" href=\"#\" onclick=\"reportReviewPaging(1);return false\">";
-							reportThead += "리뷰";
-						reportThead += "</a>";
-					reportThead += "</th>";
-					reportThead += "<th>";
-						reportThead +="<a class=\"reportComments\" href=\"#\" onclick=\"reportCommentsPaging(1);return false\">";
-							reportThead += "평점";
-						reportThead += "</a>";
-					reportThead += "</th>";
-					$("#reportThead").html(reportThead);
+					reportThead += "<th><a class=\"reportReview active\" href=\"#\" onclick=\"reportReviewPaging(1);return false\">리뷰</a></th>";
+					reportThead += "<th><a class=\"reportComments\" href=\"#\" onclick=\"reportCommentsPaging(1);return false\">평점</a></th>";
 					
+					$("#reportThead").html(reportThead);
 					// table의 tbody
 					for (var i=0; i < data.list.length; i++){
 						reportTbody += "<tr>";
-							reportTbody += "<th>";
-								reportTbody += data.list[i].reviewVO.reviewNo;
-							reportTbody += "</th>";
-							reportTbody += "<th>";
-								reportTbody += data.list[i].reportTypeVO.reportTypeInfo;
-							reportTbody += "</th>";
-							reportTbody += "<th>";
-								reportTbody += data.list[i].reviewVO.memberVO.id;
-							reportTbody += "</th>";
-							reportTbody += "<th>";
-								reportTbody += data.list[i].reportPostedTime;
-							reportTbody += "</th>";
-							reportTbody += "<th>";
-								reportTbody += "<a href=\"${pageContext.request.contextPath}/reviewDetailNoHits.do?reviewNo="+ data.list[i].reviewVO.reviewNo +"\">";
-									reportTbody += "게시물로 이동"; // 링크 추가 예정
-								reportTbody += "</a>"
-							reportTbody += "</th>";
+							reportTbody += "<th>"+data.list[i].reviewVO.reviewNo+"</th>";
+							reportTbody += "<th>"+data.list[i].reportTypeVO.reportTypeInfo+"</th>";
+							reportTbody += "<th>"+data.list[i].reviewVO.memberVO.id+"</th>";
+							reportTbody += "<th>"+data.list[i].reportPostedTime+"</th>";
+							reportTbody += "<th>"+data.list[i].reportPostedTime+"</th>";
+							reportTbody += "<th><a href=\"${pageContext.request.contextPath}/reviewDetailNoHits.do?reviewNo="+ data.list[i].reviewVO.reviewNo +"\">게시물로 이동</a></th>";
 						reportTbody += "</tr>";
 						reportTbody += "<tr>";
-							reportTbody += "<td colspan=\"5\">";
-								reportTbody += "<pre>";
-									reportTbody += data.list[i].reportContents;
-								reportTbody += "</pre>";
-							reportTbody += "</td>";
+							reportTbody += "<td colspan=\"5\"><pre>"+data.list[i].reportContents+"</pre></td>";
 						reportTbody += "</tr>";
 					}
 					$("#reportTbody").html(reportTbody);
-					
 					// table의 tfoot( 페이징 )
 					var startPageGroup = data.pagingBean.startPageOfPageGroup;
 					var endPageGroup = data.pagingBean.endPageOfPageGroup;
 					// 페이징 번호
 					for (var reportPageNo = startPageGroup; reportPageNo < endPageGroup + 1; reportPageNo++){
 						if(data.pagingBean.nowPage != reportPageNo){
-							reportTfoot += "<li>";
-								reportTfoot += "<a href=\"#\" onclick=\"reportReviewPaging("+ reportPageNo +");return false;\">";
-									reportTfoot += reportPageNo;
-								reportTfoot += "</a>";
-							reportTfoot += "</li>";
+							reportTfoot += "<li><a href=\"#\" onclick=\"reportReviewPaging("+ reportPageNo +");return false;\">"+reportPageNo+"</a></li>";
 						}else{
-							reportTfoot += "<li>";
-								reportTfoot += "<a href=\"#\" onclick=\"return false\">";
-									reportTfoot += reportPageNo;
-								reportTfoot += "</a>";
-							reportTfoot += "</li>";
+							reportTfoot += "<li><a href=\"#\" onclick=\"return false\">"+reportPageNo+"</a></li>";
 						}
 					}
 					// 오른쪽 화살표 페이징
 					if(data.pagingBean.nextPageGroup){
-						reportTfoot += "<li>";
-							reportTfoot += "<a href=\"#\" onclick=\"reportReviewPaging("+ (endPageGroup + 1) +");return false\">";
-								reportTfoot += "&raquo;";
-							reportTfoot += "</a>";
-						reportTfoot += "</li>";
+						reportTfoot += "<li><a href=\"#\" onclick=\"reportReviewPaging("+ (endPageGroup + 1) +");return false\">&raquo;</a></li>";
 					}
-					$("#reportTfoot").html(reportTfoot);
-					
+					$("#reportTfoot").html(reportTfoot);					
 				}
 			})
 		})
@@ -121,72 +84,41 @@
 			$.ajax({
 				type: "get",
 				url: "${pageContext.request.contextPath}/myReportReviewBoard.do?pageNo="+reportPageNo,
+				// active
+				// url: "${pageContext.request.contextPath}/myReportCommentsBoard.do?pageNo="+reportPageNo,
 				success:function(data){
 					// table의 tbody
 					for (var i=0; i < data.list.length; i++){
 						reportTbody += "<tr>";
-							reportTbody += "<th>";
-								reportTbody += data.list[i].reviewVO.reviewNo;
-							reportTbody += "</th>";
-							reportTbody += "<th>";
-								reportTbody += data.list[i].reportTypeVO.reportTypeInfo;
-							reportTbody += "</th>";
-							reportTbody += "<th>";
-								reportTbody += data.list[i].reviewVO.memberVO.id;
-							reportTbody += "</th>";
-							reportTbody += "<th>";
-								reportTbody += data.list[i].reportPostedTime;
-							reportTbody += "</th>";
-							reportTbody += "<th>";
-								reportTbody += "<a href=\"${pageContext.request.contextPath}/reviewDetailNoHits.do?reviewNo="+ data.list[i].reviewVO.reviewNo +"\">";
-									reportTbody += "게시물로 이동"; // 링크 추가 예정
-								reportTbody += "</a>"
-							reportTbody += "</th>";
+							reportTbody += "<th>"+data.list[i].reviewVO.reviewNo+"</th>";
+							reportTbody += "<th>"+data.list[i].reportTypeVO.reportTypeInfo+"</th>";
+							reportTbody += "<th>"+data.list[i].reviewVO.memberVO.id+"</th>";
+							reportTbody += "<th>"+data.list[i].reportPostedTime+"</th>";
+							reportTbody += "<th><a href=\"${pageContext.request.contextPath}/reviewDetailNoHits.do?reviewNo="+ data.list[i].reviewVO.reviewNo +"\">게시물로 이동</a></th>";
 						reportTbody += "</tr>";
 						reportTbody += "<tr>";
-							reportTbody += "<td colspan=\"5\">";
-								reportTbody += "<pre>";
-									reportTbody += data.list[i].reportContents;
-								reportTbody += "</pre>";
-							reportTbody += "</td>";
+							reportTbody += "<td colspan=\"5\"><pre>"+data.list[i].reportContents+"</pre></td>";
 						reportTbody += "</tr>";
 					}
 					$("#reportTbody").html(reportTbody);
-					
 					// table의 tfoot( 페이징 )
 					var startPageGroup = data.pagingBean.startPageOfPageGroup;
 					var endPageGroup = data.pagingBean.endPageOfPageGroup;
 					// 왼쪽 페이징 화살표
 					if (data.pagingBean.previousPageGroup){
-						reportTfoot += "<li>";
-							reportTfoot += "<a href=\"#\" onclick=\"reportReviewPaging("+ (startPageGroup -1) +");return false;\">";
-								reportTfoot += "&laquo;";
-							reportTfoot += "</a>";
-						reportTfoot += "</li>";
+						reportTfoot += "<li><a href=\"#\" onclick=\"reportReviewPaging("+ (startPageGroup -1) +");return false;\">&laquo;</a></li>";
 					}
 					// 페이징 번호
 					for (var reportPageNo = startPageGroup; reportPageNo < endPageGroup + 1; reportPageNo++){
 						if(data.pagingBean.nowPage != reportPageNo){
-							reportTfoot += "<li>";
-								reportTfoot += "<a href=\"#\" onclick=\"reportReviewPaging("+ reportPageNo +");return false;\">";
-									reportTfoot += reportPageNo;
-								reportTfoot += "</a>";
-							reportTfoot += "</li>";
+							reportTfoot += "<li><a href=\"#\" onclick=\"reportReviewPaging("+ reportPageNo +");return false;\">"+reportPageNo+"</a></li>";
 						}else{
-							reportTfoot += "<li>";
-								reportTfoot += "<a href=\"#\" onclick=\"return false\">";
-									reportTfoot += reportPageNo;
-								reportTfoot += "</a>";
-							reportTfoot += "</li>";
+							reportTfoot += "<li><a href=\"#\" onclick=\"return false\">"+reportPageNo+"</a></li>";
 						}
 					}
 					// 오른쪽 화살표 페이징
 					if(data.pagingBean.nextPageGroup){
-						reportTfoot += "<li>";
-							reportTfoot += "<a href=\"#\" onclick=\"reportReviewPaging("+ (endPageGroup + 1) +");return false\">";
-								reportTfoot += "&raquo;";
-							reportTfoot += "</a>";
-						reportTfoot += "</li>";
+						reportTfoot += "<li><a href=\"#\" onclick=\"reportReviewPaging("+ (endPageGroup + 1) +");return false\">&raquo;</a></li>";
 					}
 					$("#reportTfoot").html(reportTfoot);
 				}

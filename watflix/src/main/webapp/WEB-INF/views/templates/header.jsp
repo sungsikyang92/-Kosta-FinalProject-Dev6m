@@ -101,7 +101,7 @@
                         </a>
                     </li>
                      <li class="nav-item nav-toggle">
-                        <a class="nav-link float-center " href="#">
+                        <a class="nav-link float-center" href="#">
                         <span class="navbar-toggler-icon"></span>
                         </a>
                     </li>			
@@ -136,9 +136,9 @@
 						  <div class="mypageDiv" id="mypageDiv">
 						  	<ul class="mypageList">
 						  		<li><a href="${pageContext.request.contextPath}/memberUpdateForm.do">- 회원정보수정</a></li>
-						  		<li><a href="#">- 포인트조회</a></li>
+						  		<li><a href="${pageContext.request.contextPath}/memberPointHistoryCheck.do">- 포인트조회</a></li>
 						  		<!-- 임시로 경로 설정 -->
-						  		<li><a href="${pageContext.request.contextPath}/MyPostList.do">- 내 게시물 조회</a></li>
+						  		<li><a href="${pageContext.request.contextPath}/myPostList.do">- 내 게시물 조회</a></li>
 						  		<li><a href="${pageContext.request.contextPath}/qnaList.do">- 1:1문의</a></li>
 						  	</ul>
 						  </div>

@@ -151,8 +151,30 @@
 			}
 			
 		})//click	
+		//컨텐츠 좋아요	
+		$(document).on("click","#ContentsLike",function(){
+		var me = $(this);
+		var num = Number(me.parent().children("#ContentsLikeCount").text());
+			$.ajax({
+				url: "contentsLikeExist.do",
+				type: "POST",
+				beforeSend : function(xhr){   
+	                xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+	            },
+	            dataType: "text",
+	            data: "contentsNo="+$(this).parent().children("input[type=hidden]").val(),
+	            success: function(data){
+	            	if(data == "0"){
+	            		me.parent().children("#ContentsLike").attr("src","/watflix/resources/media/icons/RedHeart.png");
+						me.parent().children("#ContentsLikeCount").text(num+1);
+					}else{
+						me.parent().children("#ContentsLike").attr("src","/watflix/resources/media/icons/HeartLine.png");
+						me.parent().children("#ContentsLikeCount").text(num-1);
+	            	}
+	            }
+			});//ajax
+		});//click func for 컨텐츠 좋아요 
 	})//ready
-	
 	
 	//컨텐츠 출력
 	function denote(contentsList){
@@ -177,8 +199,6 @@
 	            			"<div class='col-3 text-right no-padding rating'>"+"<img src='${pageContext.request.contextPath}/resources/media/icons/star.png' width='10' alt='' class='padding-bottom-sm'>"+contents.contentsAvgStars+"</div>"+
 					        "</div>"+
 					        "<div class='overlay'>"+"<div class='text'>"+
-		                    "<a href='#' class='btn btn-secondary btn-sm margin-top-under-sm' role='button' aria-pressed='true'>"+
-		                        "<img src='${pageContext.request.contextPath}/resources/media/icons/info.png' width='10' alt=''>Info"+"</a>"+
 		                    "<a href='${pageContext.request.contextPath}/contentsDetail.do?contentsNo="+contents.contentsNo+"' class='btn btn-primary btn-sm margin-top-under-sm' role='button' aria-pressed='true'>"+
 		                        "<img src='${pageContext.request.contextPath}/resources/media/icons/play.png' width='10' alt=''>상세보기"+"</a>"+
 			                "</div>"+
@@ -234,10 +254,6 @@
 		                            <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="20" alt="">
 		                            상세보기
 		                        </a>
-		                        <a href="#" class="btn btn-secondary btn-lg margin-right" role="button" aria-pressed="true">
-		                            <img src="${pageContext.request.contextPath}/resources/media/icons/plus.png" width="15" alt="">
-		                           찜하기
-		                        </a>
 		                    </div>
 		                </div>
 		            </div>
@@ -259,10 +275,6 @@
 		                        <a href="${pageContext.request.contextPath}/contentsDetail.do?contentsNo=${contentsVO.contentsNo}" class="btn btn-primary btn-lg margin-right" role="button" aria-pressed="true">
 		                            <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="20" alt="">
 		                            상세보기
-		                        </a>
-		                        <a href="#" class="btn btn-secondary btn-lg margin-right" role="button" aria-pressed="true">
-		                            <img src="${pageContext.request.contextPath}/resources/media/icons/plus.png" width="15" alt="">
-		                            찜하기
 		                        </a>
 		                    </div>
 		                </div>
@@ -322,17 +334,20 @@
                                 ${contentsVO.contentsDate}
                             </div>
                             <div class="col-4 text-center no-padding">
-                                <a href="#">
-                                    <img src="${pageContext.request.contextPath}/resources/media/icons/heart.png" width="10" alt="">
+                               <!-- 좋아요 영역 시작 -->
+                                <span>
 									<c:choose>
-										<c:when test="${check==1}">
-											<img id="ReviewLike" class="ReviewLike" src="/watflix/resources/media/icons/RedHeart.png" width=30px height=30px>
+										<c:when test="${contentsVO.contentsLikeStatus == 1}">
+											<img id="ContentsLike" class="ContentsLike" src="/watflix/resources/media/icons/RedHeart.png" width=30px height=30px>
 										</c:when>
 										<c:otherwise>
-											<img id="ReviewLike" class="ReviewLike" src="/watflix/resources/media/icons/HeartLine.png" width=30px height=30px>
+											<img id="ContentsLike" class="ContentsLike" src="/watflix/resources/media/icons/HeartLine.png" width=30px height=30px>
 										</c:otherwise>
 									</c:choose>
-                                </a>
+									Likes <span id="ContentsLikeCount">${contentsVO.contentsLikes}</span>
+										<input type="hidden" value="${contentsVO.contentsNo}">
+								</span>
+								 <!-- 좋아요 영역 끝 -->
                             </div>
                             <div class="col-4 text-right no-padding rating">
                                 <img src="${pageContext.request.contextPath}/resources/media/icons/star.png" width="10" alt="" style="padding-bottom: 3px">
@@ -341,10 +356,6 @@
                         </div>
                         <div class="overlay">
                             <div class="text">
-                                <a href="#" class="btn btn-secondary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
-                                    <img src="${pageContext.request.contextPath}/resources/media/icons/info.png" width="10" alt="">
-                                    Info
-                                </a>
                                 <a href="${pageContext.request.contextPath}/contentsDetail.do?contentsNo=${contentsVO.contentsNo}" class="btn btn-primary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
                                     <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="10" alt="">
                                     상세보기
@@ -392,13 +403,9 @@
                         </div>
                         <div class="overlay">
                             <div class="text">
-                                <a href="#" class="btn btn-secondary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
-                                    <img src="${pageContext.request.contextPath}/resources/media/icons/info.png" width="10" alt="">
-                                    Info
-                                </a>
                                 <a href="#" class="btn btn-primary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
                                     <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="10" alt="">
-                                    Watch
+                                    상세보기
                                 </a>
                             </div>
                         </div>
@@ -514,10 +521,6 @@
 			                            </div>
 			                            <div class="overlay">
 			                                <div class="text">
-			                                    <a href="#" class="btn btn-secondary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
-			                                        <img src="${pageContext.request.contextPath}/resources/media/icons/info.png" width="10" alt="">
-			                                        Info
-			                                    </a>
 			                                    <a href="${pageContext.request.contextPath}/contentsDetail.do?contentsNo=${contentsVO.contentsNo}" class="btn btn-primary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
 			                                        <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="10" alt="">
 			                                        상세보기

@@ -33,6 +33,7 @@ public class ContentsLikeServiceImpl implements ContentsLikeService {
 	public int sGetContentsLikeCount() {
 		return contentsLikeMapper.mGetContentsLikeCount();
 	}
+	//로그인시 컨튼체 좋아요 유무 체크
 	@Override
 	public int sGetCLikeExist(String contentsNo, String id) {
 		ContentsLikeVO contentsLikeVO = new ContentsLikeVO();

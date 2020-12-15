@@ -172,7 +172,9 @@ public class JihunTestJUnit {
 		//int count = commentsService.sCommentsGetTotalPostCountByContentNo("81095669");
 		//float avgStars = (float)sum/count;
 		//contentsService.sUpdateAvgStar(avgStars, 81095669);
-		//System.out.println(contentsService.sFindContentsByNo("81095669"));
+		//41-4. 평균 별점 조회하기
+		System.out.println(contentsService.sFindContentsByNo("81171201"));
+		
 		
 	}
 }

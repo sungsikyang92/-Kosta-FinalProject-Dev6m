@@ -40,9 +40,8 @@ public class HomeController {
 		//랜덤함수(홈화면에서 상위 슬라이드에 랜덤으로 컨텐츠를 보여주기 위함)
 		int random = new Random().nextInt(contentsList.size()-5);
 		model.addAttribute("randomIndex",random);
-		//조회수 높은 컨텐츠 출력(1~10위)
+		//조회수 높은 컨텐츠 출력(1~10위)//인기컨텐츠
 		model.addAttribute("contentsHighHits",contentsService.sContentsHighHits());
-		
 		//평점 높은 컨텐츠 출력(1~10위)
 		model.addAttribute("contentsHighAvgStars",contentsService.sContentsHighAvgStars());
 		
@@ -55,19 +54,6 @@ public class HomeController {
 		map.put("endNumber", Integer.toString(10));
 		map.put("contentsType", "영화");
 		model.addAttribute("contentListForType",contentsService.sGetContentsAllForType(map));
-		
-		//컨텐츠 좋아요를 이미 눌렀었는지 검사
-	/*	ContentsLikeVO contentsLikeVO = new ContentsLikeVO();
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		MemberVO memberVO = (MemberVO)principal;
-		memberVO.getId();
-		ContentsVO contentsVO = contentsService.sFindContentsByNo(contentsNo);
-		contentsLikeVO.setContentsVO(contentsVO);
-		contentsLikeVO.setMemberVO(memberVO);
-		String contentsLikeChecking = contentsLikeService.sContentsLikeExist(contentsLikeVO);	
-		model.addAttribute("contentsVO",contentsVO);
-		model.addAttribute("contentsLikeChecking",contentsLikeChecking);
-		*/
 		
 		return "home.tiles";
 	}

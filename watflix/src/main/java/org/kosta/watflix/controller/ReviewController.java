@@ -77,8 +77,7 @@ public class ReviewController {
 	@Secured("ROLE_MEMBER")
 	@RequestMapping("reviewDetailNoHits.do")
 	public String reviewDetailNoHits(int reviewNo,Model model) {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		MemberVO memberVO = (MemberVO)principal;
+		MemberVO memberVO = (MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		ReviewVO reviewVO = reviewService.sGetReviewDetailNoHits(memberVO.getId(),reviewNo);
 		model.addAttribute("rdvo",reviewVO);
 		return "review/reviewDetail.tiles";
@@ -99,8 +98,7 @@ public class ReviewController {
 	@Secured("ROLE_MEMBER")
 	@RequestMapping("reviewUpdateForm.do")
 	public ModelAndView reviewUpdateForm(int reviewNo) {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		MemberVO memberVO = (MemberVO)principal;
+		MemberVO memberVO = (MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		return new ModelAndView("review/reviewUpdateForm.tiles","ru",reviewService.sGetReviewDetailNoHits(memberVO.getId(),reviewNo));
 	}
 	
@@ -117,8 +115,7 @@ public class ReviewController {
 	@PostMapping("reviewDelete.do")
 	public String reviewDelete(int reviewNo) {
 		//변수에 컨텐츠넘버 담기
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		MemberVO memberVO = (MemberVO)principal;
+		MemberVO memberVO = (MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String contentsNoforDelete=reviewService.sGetReviewDetailNoHits(memberVO.getId(),reviewNo).getContentsVO().getContentsNo();
 		reviewService.sReviewDelete(reviewNo);
 		//"redirect:contentsDetail.do? 컨텐츠넘버주기

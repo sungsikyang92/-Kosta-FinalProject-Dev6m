@@ -50,8 +50,10 @@ function updateBtn() {
 
 </table>
 <div class="faqBtn">
+<sec:authorize access="hasRole('ROLE_ADMIN')">
 <button id="updateBtn" onclick="updateBtn()">수정</button>
 <button form="faqDelete" type="submit" id="faq-delete-btn" >삭제</button>
+</sec:authorize>
 <button id="faqListBtn" onclick="faqListBtn()">목록</button>
 <br><br>
 <button id="qnaBtn" onclick="qnaListBtn()">문의하기</button>

@@ -54,7 +54,7 @@
 	</script>
 <!-- commentsList DIV Start -->
 <div class="tableMargin" id="commentsList">
-<div class="container-lg boardClassMain" style="margin-top: 100px">
+<div class="container-lg boardClassMain">
 	<h4 style="display: inline-flex;">평점</h4>
 	
 	<!-- 유저가  ROLE_ADMIN이상의 권한을 가질 경우 isAdmin변수에는 true값이 초기화된다. --> 
@@ -67,6 +67,7 @@
 	<c:choose>
 	<c:when test="${requestScope.commentsListByContentsNo.list[0] == null}">
 		<div>현재 해당 contents에는 평점이 존재하지 않습니다.</div>
+		<button type="button" id="openCommentsWriteFormButton" style="width: 80px; float:right;">평점쓰기</button>
 	</c:when>
 	<c:otherwise>
 	<table class="table table-hover table-bordered" style="border-radius: 1.5px;">
@@ -96,12 +97,8 @@
 		</tr>
 		</c:forEach>
 	</table>
-	</c:otherwise>
-	</c:choose>
-	<sec:authorize access="hasRole('ROLE_MEMBER')" >
-		<button type="button" id="openCommentsWriteFormButton" style="width: 80px; float:right;">평점쓰기</button>
-	</sec:authorize>
-<div class="boardBottomDiv" style="width: 1000px;"> 
+	<button type="button" id="openCommentsWriteFormButton" style="width: 80px; float:right;">평점쓰기</button>
+	<div class="boardBottomDiv" style="width: 1000px;"> 
 	<div class="pagingInfo" id="pagingLocation">
 		<c:set var="pagingBean" value="${requestScope.commentsListByContentsNo.pagingBean}"/>
 		<ul class="pagination">
@@ -124,5 +121,8 @@
 		</ul>
 	</div>
 </div>
+	</c:otherwise>
+	</c:choose>
+
 </div>	<!-- commentsList DIV End -->
 </div>
