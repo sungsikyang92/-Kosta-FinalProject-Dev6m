@@ -278,10 +278,16 @@ INSERT INTO MEMBERSHIP VALUES(3,'PREMIUM',4);
 INSERT INTO PRODUCT_CATEGORY VALUES(1,'뷰티');
 INSERT INTO PRODUCT_CATEGORY VALUES(2,'식품');
 
+<<<<<<< HEAD
+INSERT INTO QNA_TYPE VALUES(1,'포인트');
+INSERT INTO QNA_TYPE VALUES(2,'회원문의');
+
+=======
 INSERT INTO PRO_STATUS VALUES(1,'정상판매');
 INSERT INTO PRO_STATUS VALUES(2,'판매중지');
 
 /*Table drop*/
+>>>>>>> branch 'master' of https://github.com/Minikanko/-Kosta-FinalProject-Dev6m.git
 drop table apply;
 drop table party;
 drop table membership;

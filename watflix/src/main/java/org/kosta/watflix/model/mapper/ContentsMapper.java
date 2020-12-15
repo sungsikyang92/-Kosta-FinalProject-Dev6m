@@ -20,7 +20,9 @@ public interface ContentsMapper {
 	List<ContentsVO> mGetContentsAllForTypeAndGenre(Map<String,String> map);
 	List<ContentsVO> mGetContentsAllForType(Map<String,String> map);
 	List<ContentsVO> mContentsHighHits();
+	List<ContentsVO> mContentsHighHitsLogin();
 	List<ContentsVO> mContentsHighAvgStars();
+	List<ContentsVO> mContentsHighAvgStarsLogin();
 	List<GenreVO> mGetAllGenreList();
 	List<GenreVO> mGetGenreSelectForType(String contentsType);
 	List<ContentsVO> mGetContentsSelectForType(String contentsType);

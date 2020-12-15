@@ -4,19 +4,13 @@ import javax.annotation.Resource;
 
 import org.kosta.watflix.model.mapper.QnAMapper;
 import org.kosta.watflix.model.vo.QnAListVO;
+import org.kosta.watflix.model.vo.QnATypeVO;
 import org.kosta.watflix.model.vo.QnAVO;
 import org.springframework.stereotype.Service;
 @Service
 public class QnAServiceImpl implements QnAService {
 	@Resource
 	private QnAMapper qnaMapper;
-	
-	// QnA 작성
-	@Override
-	public void sQnAWrite(QnAVO qnaVO) {
-		qnaMapper.mQnAWrite(qnaVO);
-		
-	}
 	
 	// QnA 상세보기
 	@Override
@@ -55,5 +49,13 @@ public class QnAServiceImpl implements QnAService {
 	public void sQnADelete(int qnaNo) {
 		qnaMapper.mQnADelete(qnaNo);
 	}
+	
+	//QnA 작성
+	@Override
+	public void sQnAWrite(QnAVO qnaVO) {
+		qnaMapper.mQnAWrite(qnaVO);
+		
+	}
+
 
 }

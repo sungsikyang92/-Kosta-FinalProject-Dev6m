@@ -4,6 +4,12 @@
 <div class="container boardClassMain" id="reviewList">
   <h2>리뷰리스트</h2>           
   <table class="table table-hover table-bordered" style="border-radius: 1.5px;">
+    <c:choose>
+    <c:when test="${requestScope.reviewListByContentsNo.reviewList[0] == null}">
+    <span>현재 해당 컨텐츠에는 리뷰가 존재하지 않습니다.</span><br>
+    <span>첫 번째 리뷰어가 되어보세요!</span>
+    </c:when>
+    <c:otherwise>
     <thead>
       <tr>
 		<th>제목</th>
@@ -25,6 +31,8 @@
 			</tr>	
 		</c:forEach>
 	</tbody>
+	</c:otherwise>
+	</c:choose>
   </table>
 <div class="boardBottomDiv">
 	<div class="pagingInfo" id="pagingLocation">

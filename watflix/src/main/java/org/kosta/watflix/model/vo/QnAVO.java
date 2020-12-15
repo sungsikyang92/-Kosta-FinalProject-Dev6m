@@ -8,17 +8,10 @@ public class QnAVO {
 	private QnAAnswerVO qnaAnswerVO;
 	private String qnaTitle;
 	private String qnaContents;
-	public QnATypeVO getQnaTypeVO() {
-		return qnaTypeVO;
-	}
-	public void setQnaTypeVO(QnATypeVO qnaTypeVO) {
-		this.qnaTypeVO = qnaTypeVO;
-	}
-	public QnAAnswerVO getQnaAnswerVO() {
-		return qnaAnswerVO;
-	}
-	public void setQnaAnswerVO(QnAAnswerVO qnaAnswerVO) {
-		this.qnaAnswerVO = qnaAnswerVO;
+	private String qnaPostedTime;
+	public QnAVO() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 	public QnAVO(int qnaNo, MemberVO memberVO, QnATypeVO qnaTypeVO, QnAAnswerVO qnaAnswerVO, String qnaTitle,
 			String qnaContents, String qnaPostedTime) {
@@ -27,19 +20,6 @@ public class QnAVO {
 		this.memberVO = memberVO;
 		this.qnaTypeVO = qnaTypeVO;
 		this.qnaAnswerVO = qnaAnswerVO;
-		this.qnaTitle = qnaTitle;
-		this.qnaContents = qnaContents;
-		this.qnaPostedTime = qnaPostedTime;
-	}
-	private String qnaPostedTime;
-	public QnAVO() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	public QnAVO(int qnaNo, MemberVO memberVO, String qnaTitle, String qnaContents, String qnaPostedTime) {
-		super();
-		this.qnaNo = qnaNo;
-		this.memberVO = memberVO;
 		this.qnaTitle = qnaTitle;
 		this.qnaContents = qnaContents;
 		this.qnaPostedTime = qnaPostedTime;
@@ -55,6 +35,18 @@ public class QnAVO {
 	}
 	public void setMemberVO(MemberVO memberVO) {
 		this.memberVO = memberVO;
+	}
+	public QnATypeVO getQnaTypeVO() {
+		return qnaTypeVO;
+	}
+	public void setQnaTypeVO(QnATypeVO qnaTypeVO) {
+		this.qnaTypeVO = qnaTypeVO;
+	}
+	public QnAAnswerVO getQnaAnswerVO() {
+		return qnaAnswerVO;
+	}
+	public void setQnaAnswerVO(QnAAnswerVO qnaAnswerVO) {
+		this.qnaAnswerVO = qnaAnswerVO;
 	}
 	public String getQnaTitle() {
 		return qnaTitle;
@@ -81,6 +73,4 @@ public class QnAVO {
 				+ qnaPostedTime + "]";
 	}
 }
-
-
-
+	

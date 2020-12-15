@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 
 import org.kosta.watflix.model.service.QnAService;
 import org.kosta.watflix.model.vo.MemberVO;
+import org.kosta.watflix.model.vo.QnATypeVO;
 import org.kosta.watflix.model.vo.QnAVO;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -34,12 +35,16 @@ public class QnAController {
 	}
 	// qna 작성
 	@RequestMapping("qnaWrite.do")
-	public String qnaWrite(QnAVO qnaVO,RedirectAttributes re) {
+	public String qnaWrite(QnAVO qnaVO,QnATypeVO qnaTypeVO,RedirectAttributes re) {
 		// 아래의 1번 문장은 시큐리티를 통해서 세션을 가져와 MemberVO 값을 가져온다.
 		//1. SecurityContextHolder.getContext().getAuthentication().getPrincipal() : (MemberVO) 다운캐스팅 USERVO .
 		MemberVO memberVO = (MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		//System.out.println(memberVO.getId());
 		qnaVO.setMemberVO(memberVO);
+		// 사용자가 선택한 문의유형 넣어주기
+		qnaVO.setQnaTypeVO(qnaTypeVO);
+		System.out.println(qnaTypeVO);
+		System.out.println(qnaVO);
 		qnaService.sQnAWrite(qnaVO);
 		re.addAttribute("qnaNo",qnaVO.getQnaNo());
 		return "redirect:qnaDetail.do";
@@ -48,8 +53,16 @@ public class QnAController {
 	// qna 상세보기 
 	@RequestMapping("qnaDetail.do")
 	public ModelAndView qnaDeteail(int qnaNo) {
+		System.out.println(qnaService.sQnADetail(qnaNo));
 		return new ModelAndView("qna/qna_detail.tiles","qvo",qnaService.sQnADetail(qnaNo));
 	}
+	// qna 문의유형 선택
+	/*
+	@RequestMapping("selectQnAType.do")
+	public String selectQnAType(Model model) {
+		return "selectQnAType";
+	}
+	*/
 }
 
 
