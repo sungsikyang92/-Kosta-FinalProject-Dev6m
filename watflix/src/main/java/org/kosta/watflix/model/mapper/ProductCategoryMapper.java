@@ -14,6 +14,5 @@ public interface ProductCategoryMapper {
 	int mProductCategoryGetTotalCount();
 
 	List<ProductCategoryVO> mGetProductCategoryList(PagingBean pagingBean); 
-
 	
 }

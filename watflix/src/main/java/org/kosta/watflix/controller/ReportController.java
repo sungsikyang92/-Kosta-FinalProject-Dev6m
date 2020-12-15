@@ -96,11 +96,22 @@ public class ReportController {
 		}
 	}
 	
+
 	// 마이페이지로 이동(임시)
 	@RequestMapping("testMyPageBoard.do")
 	public ModelAndView testMyPageBoard() {
 		return new ModelAndView("report/my_report_board.tiles");
 	}
+
+	// 내 신고 리스트(평점)
+	//@RequestMapping("myReportCommentsBoard.do")
+	//@ResponseBody
+	//public ReportListVO myReportCommentsBoard(String pageNo) {
+	//	MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	//	String id = mvo.getId();
+	//	
+	//}	
+
 }
 
 

@@ -1,13 +1,22 @@
 package org.kosta.watflix.controller;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.kosta.watflix.model.service.CommentsService;
 import org.kosta.watflix.model.service.MemberService;
+import org.kosta.watflix.model.service.PagingBean;
+import org.kosta.watflix.model.service.PointHistoryService;
 import org.kosta.watflix.model.service.ReviewService;
 import org.kosta.watflix.model.vo.CommentsListVO;
 import org.kosta.watflix.model.vo.MemberVO;
+<<<<<<< HEAD
 import org.kosta.watflix.model.vo.ReviewListVO;
+=======
+import org.kosta.watflix.model.vo.PointHistoryListVO;
+import org.kosta.watflix.model.vo.PointHistoryVO;
+>>>>>>> branch 'master' of https://github.com/Minikanko/-Kosta-FinalProject-Dev6m.git
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -15,16 +24,21 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class MemberController {
 	
 	@Resource
 	MemberService memberService;
+	
 	@Resource
 	ReviewService reviewService;
 	@Resource
 	CommentsService commentsService;
+	
+	@Resource
+	PointHistoryService pointHistoryService;
 	
 	@RequestMapping("loginForm.do")
 	public String loginForm() {
@@ -148,6 +162,7 @@ public class MemberController {
 		return reviewService.sGetMyReviewList(mvo.getId(), pageNo);
 	}
 	
+
 	// 내 Comments 리스트 Ajax
 	@RequestMapping("myCommentsList.do")
 	@ResponseBody
@@ -155,4 +170,24 @@ public class MemberController {
 		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		return commentsService.sGetMyCommentsList(mvo.getId(), pageNo);
 	}
+
+	//포인트사용내역 조회
+	@RequestMapping("memberPointHistoryCheck.do")
+	public String memberPointHistoryCheck(Model model,String pageNo) {
+		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		PagingBean pagingBean=null;
+		int totalMemberSelectPoint = pointHistoryService.sProductHistoryGetTotalCount(mvo.getId());
+		System.out.println("총 포인트사용내역 건수"+totalMemberSelectPoint);
+		if(pageNo==null) {
+			pagingBean = new PagingBean(totalMemberSelectPoint);
+		}
+		else {
+			pagingBean = new PagingBean(totalMemberSelectPoint, Integer.parseInt(pageNo));
+		}
+		
+		List<PointHistoryVO> list = pointHistoryService.sMemberPointHistoryCheck(mvo.getId(),pagingBean);
+		model.addAttribute("pointHistoryListVO",new PointHistoryListVO(list,pagingBean));
+		return "member/pointHistoryCheck.tiles";
+	}
+
 }
