@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,16 +30,31 @@
 			})
 		})		
 	</script>
-	<form action="reportCommentsRegister.do" method="post">
+	<form action="reportRegister.do" method="post">
 		<!-- CSRF 방지 토큰,  Cross-site request forgery(사이트간 요청 위조)를 방지  -->
 		<sec:csrfInput/>
-		<!-- commentsNo -->
-		<input type="hidden" name="commentsNo" value="${param.commentsNo}">
 		<table class="table table-hover">
 			<thead>
 				<tr>
-					<!-- ${param.reviewWriterName} 변수명 수정할 것 -->
-					<th>평점 No.${param.commentsNo }</th><th>평점 작성자 :${param.commentsWriterId }</th>
+					<!-- 리뷰, 평점 신고글 판단 -->
+					<!-- JSTL 안에 주석을 달을 시 오류 발생 -->
+					<!-- empty 변수에 데이터가 없을 시 true 반환 -->
+					<c:choose>
+						<c:when test="${empty param.commentsNo }">
+							<th>
+								리뷰 No.${param.reviewNo}
+								<input type="hidden" name="reviewNo" value="${param.reviewNo}">
+							</th>
+							<th>리뷰 작성자 : ${param.reviewWriterId}</th>
+						</c:when>
+						<c:otherwise>
+							<th>
+								평점 No.${param.commentsNo }
+								<input type="hidden" name="commentsNo" value="${param.commentsNo}">
+							</th>
+							<th>평점 작성자 :${param.commentsWriterId }</th>
+						</c:otherwise>
+					</c:choose>
 					<th>
 						<!-- 신고유형 선택을 안할시 false -->
 						<select name="reportTypeNo" required>

@@ -24,85 +24,48 @@ public class ReportController {
 	
 	// 신고 게시판(리뷰)
 	@RequestMapping("reportReviewBoard.do")
-	public ModelAndView reportReviewBoard() {
-		return new ModelAndView("report/report_review_board.tiles","reportReviewList",reportService.sGetReportReviewList());
-	}
-	@RequestMapping("reportReviewBoardNext.do")
-	public ModelAndView reportReviewBoardNext(String pageNo) {
+	public ModelAndView reportReviewBoard(String pageNo) {
 		return new ModelAndView("report/report_review_board.tiles","reportReviewList",reportService.sGetReportReviewList(pageNo));
 	}
 	
 	// 신고 게시판(평점)
 	@RequestMapping("reportCommentsBoard.do")
-	public ModelAndView reportCommentsBoard() {
-		return new ModelAndView("report/report_comments_board.tiles","reportCommentsList",reportService.sGetReportCommentsList());
-	}
-	@RequestMapping("reportCommentsBoardNext.do")
 	public ModelAndView reportCommentsBoard(String pageNo) {
 		return new ModelAndView("report/report_comments_board.tiles","reportCommentsList",reportService.sGetReportCommentsList(pageNo));
 	}
 	
-	// 신고 from(리뷰)으로 이동
-	@RequestMapping("reportReviewForm.do")
+	// 신고 from(리뷰, 평점)으로 이동
+	@RequestMapping("reportForm.do")
 	public ModelAndView reportReviewForm() {
-		return new ModelAndView("report/report_review_form");
-	}
-	// 신고 form(평점)으로 이동
-	@RequestMapping("reportCommentsForm.do")
-	public ModelAndView reportCommentsFrom() {
-		return new ModelAndView("report/report_comments_form");
+		return new ModelAndView("report/report_form");
 	}
 
-	// 신고글 등록(리뷰)
-	@PostMapping("reportReviewRegister.do")
-	public String reportReviewRegister(int reviewNo, int reportTypeNo, String reportContents) {
+	// 신고글 등록(리뷰, 평점)
+	@PostMapping("reportRegister.do")
+	public String reportReviewRegister(ReviewVO reviewVO, CommentsVO commentsVO, int reportTypeNo, String reportContents) {
 		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String id = mvo.getId();
-		// 신고할 리뷰VO
+		// 신고 VO
 		ReportVO reportVO = new ReportVO();
 		// 아이디
 		MemberVO memberVO = new MemberVO();
 		memberVO.setId(id);
 		reportVO.setMemberVO(memberVO);
-		// 리뷰No
-		ReviewVO reviewVO = new ReviewVO();
-		reviewVO.setReviewNo(reviewNo);
-		reportVO.setReviewVO(reviewVO);
 		// 신고 타입
 		ReportTypeVO reportTypeVO = new ReportTypeVO();
 		reportTypeVO.setReportTypeNo(reportTypeNo);
 		reportVO.setReportTypeVO(reportTypeVO);
 		// 신고 내용
 		reportVO.setReportContents(reportContents);
-		// 신고
-		reportService.sReportWriteReview(reportVO);
+		// 신고 데이터 저장(리뷰 No, 평점 No 확인)
+		if(Integer.toString(reviewVO.getReviewNo()).contentEquals("0")) {
+			reportVO.setCommentsVO(commentsVO);
+			reportService.sReportWriteComments(reportVO);
+		}else {
+			reportVO.setReviewVO(reviewVO);
+			reportService.sReportWriteReview(reportVO);
+		}
 		// 트랜잭션 처리후 수정이 필요함
-		return "report/report_ok";
-	}
-	// 신고글 등록(평점)
-	@PostMapping("reportCommentsRegister.do")
-	public String reportCommentsRegister(int commentsNo, int reportTypeNo, String reportContents) {
-		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String id = mvo.getId();
-		// 신고할 리뷰VO
-		ReportVO reportVO = new ReportVO();
-		// 아이디
-		MemberVO memberVO = new MemberVO();
-		memberVO.setId(id);
-		reportVO.setMemberVO(memberVO);
-		// 평점No
-		CommentsVO commentsVO= new CommentsVO();
-		commentsVO.setCommentsNo(commentsNo);
-		reportVO.setCommentsVO(commentsVO);
-		// 신고 타입
-		ReportTypeVO reportTypeVO = new ReportTypeVO();
-		reportTypeVO.setReportTypeNo(reportTypeNo);
-		reportVO.setReportTypeVO(reportTypeVO);
-		// 신고 내용
-		reportVO.setReportContents(reportContents);
-		// 신고
-		reportService.sReportWriteComments(reportVO);
-		// 트랜잭션 처리 후 수정이 필요함
 		return "report/report_ok";
 	}
 	
@@ -119,47 +82,38 @@ public class ReportController {
 	
 	// 내 신고 리스트(리뷰)
 	// ResponseBody는 비동기 통신에 필요한 어노테이션이다.
-	@RequestMapping("myReportReviewBoard.do")
-	@ResponseBody
-	public ReportListVO myReportReviewBoard() {
-		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String id = mvo.getId();
-		return reportService.sGetMyReportReviewList(id);
-	}
-	@RequestMapping("myReportReviewBoardNext.do")
-	@ResponseBody
-	public ReportListVO myReportReviewBoardNext(String pageNo) {
-		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String id = mvo.getId();
-		return reportService.sGetMyReportReviewList(id, pageNo);
-	}
-	
-	
 	@RequestMapping("myReportBoard.do")
 	@ResponseBody
-	public ReportListVO myReportReviewBoard(String pageNo, ReviewVO reviewVO, CommentsVO commentsVO) {
+	public ReportListVO myReportReviewBoard(String reportPageNo, String reportType) {
+		System.out.println("myReportBoard.do 실행");
 		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String id = mvo.getId();
-		return reportService.sGetMyReportReviewList(id);
+		// 레포트의 타입이 NULL 일 경우 1(리뷰)로 초기화한다.
+		//if(reportType == null) {
+		//	reportType = "1";
+		//}
+		// 레포트의 타입을 구분해준다 1은 리뷰 2는 평점
+		//if(reportType == "1") {
+			System.out.println(reportType);
+			System.out.println(reportService.sGetMyReportReviewList(id, reportPageNo));
+			System.out.println("reviewReport 호출");
+			return reportService.sGetMyReportReviewList(id, reportPageNo);
+		//} else {
+		//	System.out.println(reportType);
+		//	System.out.println(reportService.sGetMyReportCommentsList(id, reportPageNo));
+		//	System.out.println("commentsReport 호출");
+		//	return reportService.sGetMyReportCommentsList(id, reportPageNo);
+		//}
 	}
-	
-	
 	
 	// 내 신고 리스트(평점)
-	@RequestMapping("myReportCommentsBoard.do")
-	@ResponseBody
-	public ReportListVO myReportCommentsBoard() {
-		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String id = mvo.getId();
-		return reportService.sGetMyReportCommentsList(id);
-	}
-	@RequestMapping("myReportCommentsBoardNext.do")
-	@ResponseBody
-	public ReportListVO myReportCommentsBoardNext(String pageNo) {
-		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String id = mvo.getId();
-		return reportService.sGetMyReportCommentsList(id, pageNo);
-	}
+	//@RequestMapping("myReportCommentsBoard.do")
+	//@ResponseBody
+	//public ReportListVO myReportCommentsBoard(String pageNo) {
+	//	MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	//	String id = mvo.getId();
+	//	
+	//}
 	
 	// 마이페이지로 이동(임시)
 	@RequestMapping("testMyPageBoard.do")

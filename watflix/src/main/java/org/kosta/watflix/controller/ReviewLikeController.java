@@ -16,17 +16,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class ReviewLikeController {
 	@Resource
 	ReviewLikeService reviewLikeService;
-	//리뷰좋아요++
+	//리뷰좋아요
 	@Secured("ROLE_MEMBER")
 	@RequestMapping("reviewLikeExist.do")
 	@ResponseBody
-	public int reviewLikeExist(String reviewNo, String id) {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		MemberVO memberVO = (MemberVO)principal;
+	public int reviewLikeExist(int reviewNo) {
+		MemberVO memberVO = (MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		ReviewLikeVO reviewLikeVO = new ReviewLikeVO();
 		ReviewVO reviewVO = new ReviewVO();
-		reviewVO.setReviewNo(Integer.parseInt(reviewNo));
-		memberVO.setId(id);
+		reviewVO.setReviewNo(reviewNo);
 		reviewLikeVO.setReviewVO(reviewVO);
 		reviewLikeVO.setMemberVO(memberVO);
 		return reviewLikeService.sReviewLikeExist(reviewLikeVO); 

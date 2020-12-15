@@ -24,12 +24,15 @@ public class CommentsServiceImpl implements CommentsService {
 	
 	@Override
 	public CommentsListVO sCommentsGetList() {
+		System.out.println("sCommentsGetList() 실행");
 		return sCommentsGetList("1");
 	}
 	
 	@Override
 	public CommentsListVO sCommentsGetList(String pageNo) {
+		System.out.println("sCommentsGetList(pagNo) 실행");
 		int totalPostCount = commentsMapper.mCommentsGetTotalPostCount();
+		System.out.println("commentsMapper.mCommentsGetTotalPostCount()"+commentsMapper.mCommentsGetTotalPostCount());
 		PagingBean pagingBean = null;
 		if(pageNo==null) {
 			pagingBean = new PagingBean(totalPostCount);

@@ -12,6 +12,7 @@ import org.kosta.watflix.model.service.ContentsService;
 import org.kosta.watflix.model.service.ReviewService;
 import org.kosta.watflix.model.vo.ContentsVO;
 import org.kosta.watflix.model.vo.GenreVO;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +28,6 @@ public class ContentsController {
 	ReviewService reviewService;
 	@Resource
 	CommentsService commentsService;
-	
 	@RequestMapping("contentsDetail.do")
 	public String ContentsDetail(Model model, ContentsVO contentsVO, String commentsPageNo, String reviewPageNo, String countComments) {
 		//CommentsListByContentsNo in ContentsDetail

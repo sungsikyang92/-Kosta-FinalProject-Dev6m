@@ -55,11 +55,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE REVIEW_NO = #{reviewNo}
 	</update>
 	<!-- 리뷰 디테일 -->
-	<select id="mGetReviewDetail" resultMap="reviewRM">
-		SELECT R.REVIEW_NO,R.REVIEW_TITLE,R.REVIEW_LIKES,C.CONTENTS_NO,TO_CHAR(R.REVIEW_POSTED_TIME, 'YYYY.MM.DD HH24:MI:SS') 
+	<select id="mGetReviewDetail" resultMap="reviewRM" parameterType="hashMap">
+		SELECT (SELECT COUNT(*) FROM REVIEW_LIKE WHERE REVIEW_NO = #{reviewNo} AND ID = #{id}) AS REVIEW_LIKE_STATUS,R.REVIEW_NO,R.REVIEW_TITLE,R.REVIEW_LIKES,C.CONTENTS_NO,TO_CHAR(R.REVIEW_POSTED_TIME, 'YYYY.MM.DD HH24:MI:SS') 
 		AS REVIEW_POSTED_TIME,M.ID,R.REVIEW_HITS,R.REVIEW_CONTENTS 
 		FROM REVIEW R, MEMBER M, CONTENTS C 
-		WHERE R.ID = M.ID AND R.REVIEW_NO = #{reviewNo} and R.CONTENTS_NO=C.CONTENTS_NO
+		WHERE R.ID = M.ID AND R.REVIEW_NO = #{reviewNo} AND R.CONTENTS_NO=C.CONTENTS_NO
 	</select>
 	<!-- 리뷰 삭제 -->
 	<delete id="mReviewDelete" parameterType="int">
@@ -69,7 +69,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="mReviewHitsUpdate">
 		UPDATE REVIEW SET REVIEW_HITS=REVIEW_HITS+1 WHERE REVIEW_NO=#{VALUE}
 	</update>
-	
 	<!-- 특정컨텐츠에 대한 리뷰개수 -->
 	<select id="mGetContentsReviewCount" resultType="int">
 		SELECT COUNT(*) FROM REVIEW WHERE CONTENTS_NO = #{value}

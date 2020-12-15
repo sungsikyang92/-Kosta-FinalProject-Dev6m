@@ -1,6 +1,5 @@
 package org.kosta.watflix.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,21 +7,29 @@ import java.util.Random;
 
 import javax.annotation.Resource;
 
+import org.kosta.watflix.model.service.ContentsLikeService;
 import org.kosta.watflix.model.service.ContentsService;
-import org.kosta.watflix.model.service.PagingBean;
-import org.kosta.watflix.model.vo.ProductCategoryListVO;
+import org.kosta.watflix.model.service.ReviewLikeService;
+import org.kosta.watflix.model.service.ReviewService;
+import org.kosta.watflix.model.vo.ContentsLikeVO;
 import org.kosta.watflix.model.vo.ContentsVO;
+import org.kosta.watflix.model.vo.MemberVO;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class HomeController {	
 	
 	@Resource
 	ContentsService contentsService;
-	
+	@Resource
+	ReviewService reviewService;
+	@Resource
+	ReviewLikeService reviewLikeService;
+	@Resource
+	ContentsLikeService contentsLikeService;
 	@RequestMapping("home.do")
 	public String home(Model model){
 		List<ContentsVO> contentsList = contentsService.sGetAllContentsList();
@@ -33,9 +40,8 @@ public class HomeController {
 		//랜덤함수(홈화면에서 상위 슬라이드에 랜덤으로 컨텐츠를 보여주기 위함)
 		int random = new Random().nextInt(contentsList.size()-5);
 		model.addAttribute("randomIndex",random);
-		//조회수 높은 컨텐츠 출력(1~10위)
+		//조회수 높은 컨텐츠 출력(1~10위)//인기컨텐츠
 		model.addAttribute("contentsHighHits",contentsService.sContentsHighHits());
-		
 		//평점 높은 컨텐츠 출력(1~10위)
 		model.addAttribute("contentsHighAvgStars",contentsService.sContentsHighAvgStars());
 		
@@ -48,6 +54,7 @@ public class HomeController {
 		map.put("endNumber", Integer.toString(10));
 		map.put("contentsType", "영화");
 		model.addAttribute("contentListForType",contentsService.sGetContentsAllForType(map));
+		
 		return "home.tiles";
 	}
 }
