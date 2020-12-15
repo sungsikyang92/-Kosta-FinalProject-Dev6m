@@ -115,4 +115,16 @@ public class ContentsServiceImpl implements ContentsService {
 		contentsMapper.mUpdateAvgStars(avgStars, contentsNo);
 	}
 
+	//검색된 컨텐츠 장르 출력
+	@Override
+	public List<GenreVO> sGenreSelectForTitle(String contentsTitle) {
+		return contentsMapper.mGenreSelectForTitle(contentsTitle);
+	}
+
+	//컨텐츠 검색
+	@Override
+	public List<ContentsVO> sGetContentsSelectForTitle(String contentsTitle) {
+		return contentsMapper.mGetContentsSelectForTitle(contentsTitle);
+	}
+	
 }

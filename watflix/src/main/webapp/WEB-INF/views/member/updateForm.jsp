@@ -306,10 +306,10 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 				<form action="${pageContext.request.contextPath}/memberDelete.do" id="memberDeleteForm">
 				</form>
 				<div class="row" style="margin: auto; width: 50%">
-				  <div class="col-sm-offset-4 col-sm-5">
+				  <div>
 				  	<button class="btn login-button btn-submit btn-small" tabindex="0" onclick="memberDelete()" style="background-color: black">탈퇴신청</button>
 				  </div>
-				  <div class="col-sm-4">
+				  <div>
 				  	<button class="btn login-button btn-submit btn-small" tabindex="0" onclick="submit()">수정완료</button>
 				  </div>
 				</div>

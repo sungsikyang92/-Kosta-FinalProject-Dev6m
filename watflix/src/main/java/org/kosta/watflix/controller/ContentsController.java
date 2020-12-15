@@ -100,4 +100,15 @@ public class ContentsController {
 		//타입에 따른 장르를 검색
 		return contentsService.sGetGenreSelectForType(contentsType);
 	}
+	
+	//컨텐츠 검색
+	@RequestMapping("contentsByTitle.do")
+	public String contentsByTitle(Model model, String contentsTitle) {
+		model.addAttribute("contentsList",contentsService.sGetContentsSelectForTitle(contentsTitle));
+		model.addAttribute("genreList",contentsService.sGenreSelectForTitle(contentsTitle));
+		if(contentsTitle.length() < 2) {
+			model.addAttribute("titleLength", contentsTitle);
+		}
+		return "contents/contentsByTitle.tiles";
+	}
 }

@@ -21,6 +21,7 @@ public class ContentsVO {
 	private int contentsHits;
 	private int contentsReviewCount;
 	private int contentsLikeStatus;
+
 	public ContentsVO() {
 		super();
 		// TODO Auto-generated constructor stub

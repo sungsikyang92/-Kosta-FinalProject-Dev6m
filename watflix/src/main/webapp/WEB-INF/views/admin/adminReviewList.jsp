@@ -3,7 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="container-lg margin-top margin-bottom" style="margin:100px auto;">
 <div class="container boardClassMain" style="border-radius: 1.5px;">
-  <h4 style="display: inline-flex;">리뷰리스트</h4><a href="reviewList.do?pageNo=1">더보기</a>            
+  <h4>리뷰리스트</h4>
+  <c:if test="${requestScope.forNotUsePagingAndBtn != false}">
+  <a href="reviewList.do?pageNo=1" style="float: right">더보기</a>         
+  </c:if>   
   <table class="table table-hover table-bordered" style="border-radius: 1.5px;">
     <thead>
       <tr>

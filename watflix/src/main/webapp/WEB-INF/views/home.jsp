@@ -201,8 +201,6 @@
 	            			"<div class='col-3 text-right no-padding rating'>"+"<img src='${pageContext.request.contextPath}/resources/media/icons/star.png' width='10' alt='' class='padding-bottom-sm'>"+contents.contentsAvgStars+"</div>"+
 					        "</div>"+
 					        "<div class='overlay'>"+"<div class='text'>"+
-		                    "<a href='#' class='btn btn-secondary btn-sm margin-top-under-sm' role='button' aria-pressed='true'>"+
-		                        "<img src='${pageContext.request.contextPath}/resources/media/icons/info.png' width='10' alt=''>Info"+"</a>"+
 		                    "<a href='${pageContext.request.contextPath}/contentsDetail.do?contentsNo="+contents.contentsNo+"' class='btn btn-primary btn-sm margin-top-under-sm' role='button' aria-pressed='true'>"+
 		                        "<img src='${pageContext.request.contextPath}/resources/media/icons/play.png' width='10' alt=''>상세보기"+"</a>"+
 			                "</div>"+
@@ -258,10 +256,6 @@
 		                            <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="20" alt="">
 		                            상세보기
 		                        </a>
-		                        <a href="#" class="btn btn-secondary btn-lg margin-right" role="button" aria-pressed="true">
-		                            <img src="${pageContext.request.contextPath}/resources/media/icons/plus.png" width="15" alt="">
-		                           찜하기
-		                        </a>
 		                    </div>
 		                </div>
 		            </div>
@@ -283,10 +277,6 @@
 		                        <a href="${pageContext.request.contextPath}/contentsDetail.do?contentsNo=${contentsVO.contentsNo}" class="btn btn-primary btn-lg margin-right" role="button" aria-pressed="true">
 		                            <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="20" alt="">
 		                            상세보기
-		                        </a>
-		                        <a href="#" class="btn btn-secondary btn-lg margin-right" role="button" aria-pressed="true">
-		                            <img src="${pageContext.request.contextPath}/resources/media/icons/plus.png" width="15" alt="">
-		                            찜하기
 		                        </a>
 		                    </div>
 		                </div>
@@ -363,10 +353,6 @@
                         </div>
                         <div class="overlay">
                             <div class="text">
-                                <a href="#" class="btn btn-secondary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
-                                    <img src="${pageContext.request.contextPath}/resources/media/icons/info.png" width="10" alt="">
-                                    Info
-                                </a>
                                 <a href="${pageContext.request.contextPath}/contentsDetail.do?contentsNo=${contentsVO.contentsNo}" class="btn btn-primary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
                                     <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="10" alt="">
                                     상세보기
@@ -465,13 +451,9 @@
                         </div>
                         <div class="overlay">
                             <div class="text">
-                                <a href="#" class="btn btn-secondary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
-                                    <img src="${pageContext.request.contextPath}/resources/media/icons/info.png" width="10" alt="">
-                                    Info
-                                </a>
                                 <a href="#" class="btn btn-primary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
                                     <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="10" alt="">
-                                    Watch
+                                    상세보기
                                 </a>
                             </div>
                         </div>
@@ -587,10 +569,6 @@
 			                            </div>
 			                            <div class="overlay">
 			                                <div class="text">
-			                                    <a href="#" class="btn btn-secondary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
-			                                        <img src="${pageContext.request.contextPath}/resources/media/icons/info.png" width="10" alt="">
-			                                        Info
-			                                    </a>
 			                                    <a href="${pageContext.request.contextPath}/contentsDetail.do?contentsNo=${contentsVO.contentsNo}" class="btn btn-primary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
 			                                        <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="10" alt="">
 			                                        상세보기

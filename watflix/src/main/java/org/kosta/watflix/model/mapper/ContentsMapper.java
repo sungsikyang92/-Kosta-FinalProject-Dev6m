@@ -33,6 +33,9 @@ public interface ContentsMapper {
 	void mContentsLikeRemove(String contentsNo);
 	//각 content에 contents_avg_stars 넣기
 	void mUpdateAvgStars(@Param("avgStars")double avgStars, @Param("contentsNo")String contentsNo);
+	//컨텐츠 검색
+	List<GenreVO> mGenreSelectForTitle(String contentsTitle);
+	List<ContentsVO> mGetContentsSelectForTitle(String contentsTitle);
 }
 
 

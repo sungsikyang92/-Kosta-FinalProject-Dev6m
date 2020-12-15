@@ -743,8 +743,8 @@ a, a:hover {
 
 /*페이지랑 메뉴 겹치는거 방지*/
 .tableMargin{
-	margin-top: 70px;
-	margin-bottom: 70px;
+	margin-top: 100px;
+	margin-bottom: 100px;
 }
 /*회원가입 Start*/
 .registerTermUl{
@@ -873,14 +873,21 @@ a, a:hover {
     padding-bottom: 40px;
     margin-bottom: 80px;
    	padding-top: 15px;
+   	margin-top: 100px;
+}
+.boardClassMain .nav-link.active{
+	color: black;
+	border-bottom: 2px solid #E50914;
+	border-radius: 0;
+	background-color: transparent;
+	opacity: 1;
 }
 .boardClassMain a, a:hover{
 	color:black;
 }
 
-
 .boardBottomDiv{
-	width:100%;
+	width:80%;
 	margin:auto 0px;
 	position: relative;
 }
@@ -889,6 +896,38 @@ a, a:hover {
 	margin:auto 0px;
 	position: relative;
 	padding-top: 15px;
+}
+.boardBtnSubmit{
+	margin-right:0%;
+	width: 100%;
+	float: left;
+}
+.boardDetailTr{
+	height:150px;
+	overflow: scroll;
+}
+.boardDetailBtn{
+	color:black;
+	margin:auto 50px;
+	border-radius: 0px;
+	width:20%;
+	margin-left: 40%;
+
+}
+.boardDetailBtn:hover{
+	background-color: #E6E6E6;
+	opacity: 0.4;
+}
+.boardTd{
+	width:18%;
+}
+.boardTextarea{
+	width:100%;
+	height:180px;
+	overflow: scroll;
+}
+.boardTitle{
+	width:100%;
 }
 
 .productListDiv{
@@ -899,14 +938,25 @@ a, a:hover {
 .productListDiv table{
 	width:100%;
 	padding:50px 0.5%;
+	border-collapse: separate;
+	border-spacing: 0 40px;
 }
 .productListDiv table tr td{
 	width:23%;
-	margin:10px 1.5%;
+	margin:0px 1.5%;
+	position:relative;
+}
+.productListDiv table .row{
+	position: absolute; 
+	bottom:0px;
+	width:92%;
+}
+.productListDiv .productListTd{
+	border-top-width:0px;
 }
 .productListDiv img{
 	width:100%;
-	height:150px;
+	height:auto;
 	position:relative;
 	top:0;
 	left:0;
@@ -925,7 +975,7 @@ a, a:hover {
 }
 .picTd img{
 	width:100%;
-	height:150px;
+	height:auto;
 	position:relative;
 	top:0;
 	left:0;
