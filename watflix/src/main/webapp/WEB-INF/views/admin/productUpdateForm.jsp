@@ -36,7 +36,7 @@
 				<td><textarea required="required" name="productDetail" style="width:100%;height:80px;">${productVO.productDetail}	</textarea></td>
 			</tr>
 			<tr>
-				<td>상품카테고리</td>${productVO.productCategoryVO.productCategoryNo}
+				<td>상품카테고리</td>
 				<td><input type="text" id="selectedProductCategory" readonly="readonly" placeholder="상품카테고리 선택하세요" name="productCategoryName" value="${productVO.productCategoryVO.productCategoryName}"></td>
 				<input type="hidden" name="productCategoryNo" value="${productVO.productCategoryVO.productCategoryNo}">
 			</tr>

@@ -21,7 +21,6 @@ public class ContentsVO {
 	private int contentsHits;
 	private int contentsReviewCount;
 	
-	
 	public ContentsVO() {
 		super();
 	}

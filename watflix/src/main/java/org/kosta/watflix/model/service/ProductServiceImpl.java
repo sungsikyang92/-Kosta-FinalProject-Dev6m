@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.kosta.watflix.model.mapper.MemberMapper;
+import org.kosta.watflix.model.mapper.PointHistoryMapper;
 import org.kosta.watflix.model.mapper.ProductCategoryMapper;
 import org.kosta.watflix.model.mapper.ProductMapper;
 import org.kosta.watflix.model.mapper.ProductOrderMapper;
@@ -28,6 +29,9 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Resource
 	ProductCategoryMapper productCategoryMapper;
+	
+	@Resource
+	PointHistoryMapper pointHistoryMapper;
 	
 	//상품 등록하기
 	@Override
@@ -69,19 +73,31 @@ public class ProductServiceImpl implements ProductService {
 	@Transactional
 	@Override
 	public void sProductBuy(ProductVO productVO, MemberVO memberVO,ProductOrderVO productOrderVO) {
-		System.out.println("주문내역추가전"+productOrderVO);
 		productOrderMapper.mProductOrderAdd(productOrderVO);
 		System.out.println("주문내역추가완료"+productOrderVO);
 		memberMapper.mMemberPointUpdate(memberVO);
 		System.out.println("회원포인트갱신완료"+memberVO);
 		productMapper.mProductStockDown(productVO);
 		System.out.println("상품재고갱신완료"+productVO);
+		pointHistoryMapper.mPointHistoryAddWithOrder(productOrderVO, productOrderVO.getQuantity()*productOrderVO.getProductVO().getProductPoint());
 	}
 
 	//상품재고수 조회
 	@Override
 	public int sGetProductStock(int productNo) {
 		return productMapper.mGetProductStock(productNo);
+	}
+
+	//정상상품의 숫자구하기
+	@Override
+	public int sProductStatusNormalGetTotalCount() {
+		return productMapper.mProductStatusNormalGetTotalCount();
+	}
+	
+	//정상상품의 리스트구하기
+	@Override
+	public List<ProductVO> sGetProductStatusNormalList(PagingBean pagingBean) {
+		return productMapper.mGetProductStatusNormalList(pagingBean);
 	}
 
 }

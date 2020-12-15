@@ -26,6 +26,10 @@ public interface ProductMapper {
 
 	int mGetProductStock(int productNo);
 
+	int mProductStatusNormalGetTotalCount();
+
+	List<ProductVO> mGetProductStatusNormalList(PagingBean pagingBean);
+
 
 }
 
