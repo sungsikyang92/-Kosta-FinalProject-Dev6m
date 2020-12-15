@@ -6,14 +6,19 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.kosta.watflix.model.service.PagingBean;
 import org.kosta.watflix.model.vo.CommentsVO;
+import org.kosta.watflix.model.vo.ReviewVO;
 @Mapper
 public interface CommentsMapper {
 	
 	int mCommentsGetTotalPostCount();
+	
+	int mGetMyTotalCommentsCount(String id);
 
 	int mCommentsGetTotalPostCountByContentNo(String contentsNo);
 	
 	List<CommentsVO> mCommentsGetAllList(PagingBean pagingBean);
+	// 아이디별 comments list
+	List<CommentsVO> mCommentsGetMyList(@Param("id") String id, @Param("pagingBean") PagingBean pagingBean);
 
 	List<CommentsVO> mCommentsGetListByContentsNo (@Param("pagingBean") PagingBean pagingBean, @Param("contentsNo") String contentsNo);
 	
@@ -29,6 +34,7 @@ public interface CommentsMapper {
 	List<CommentsVO> mMyCommentsGetAllList(@Param("id")String id, @Param("pagingBean")PagingBean pagingBean);
 	// 해당 컨텐츠에서 동일한 아이디가 작성한 comments 유무 조회
 	int mCheckWorteOrNot(@Param("userId")String id, @Param("contentsNo")String contentsNo);
+
 }
 
 

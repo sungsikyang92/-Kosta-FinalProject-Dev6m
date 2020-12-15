@@ -346,6 +346,7 @@
                             <div class="col-4 text-center no-padding">
                                <!-- 좋아요 영역 시작 -->
                                 <span>
+									<img src="/watflix/resources/media/icons/HeartLine.png" width=30px height=30px>
 									<c:choose>
 										<c:when test="${contentsVO.contentsLikeStatus == 1}">
 											<img id="ContentsLike" class="ContentsLike" src="/watflix/resources/media/icons/RedHeart.png" width=30px height=30px>

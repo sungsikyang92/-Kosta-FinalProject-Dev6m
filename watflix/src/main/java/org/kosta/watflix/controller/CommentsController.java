@@ -14,6 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -30,7 +31,9 @@ public class CommentsController {
 	@RequestMapping("getCommentsList.do")
 	public String getCommentsList(String pageNo, Model model) {
 		model.addAttribute("commentsList", commentsService.sCommentsGetList(pageNo));
-		return "comments/commentsList";
+		// 전체게시물조회 메인화면과 각 게시판에서 페이징과 버튼을 사용하지 않기 위해 사용한다.
+		model.addAttribute("forNotUsePagingAndBtn", false);
+		return "admin/adminCommentsList.tiles";
 	}	
 	
 	@RequestMapping("getCommentsListByContentsNo.do")
@@ -101,15 +104,21 @@ public class CommentsController {
 	}
 	// 체크박스로 삭제
 	@PostMapping("commentsDeleteByCheckbox.do")
-	public String commentsDelete(int[] deleteCheckbox, String[] deleteContentsNo, String pageNo, RedirectAttributes redirectAttributes) {
+	public String commentsDeleteByCheckbox(int[] deleteCheckbox, String[] deleteContentsNo, String pageNo, RedirectAttributes redirectAttributes) {
 		for(int i = 0; i < deleteCheckbox.length; i++) {
 			commentsService.sCommentsDelete(deleteCheckbox[i]);
 			// 평균 별점을 입력하기 위해 contents의 총 comments 수를 조회한다.
 			float totalCommentsCount = commentsService.sCommentsGetTotalPostCountByContentNo(deleteContentsNo[i]);
 			// 평균 별점을 입력하기 위해 contents의 별점 총합을 조회한다.
 			float sumCommentsStars = commentsService.sSumCommentsStars(deleteContentsNo[i]);
+			float avgStars;
+			if(totalCommentsCount == 0 && sumCommentsStars == 0) {
+				avgStars = 0;
+			} else {
+				avgStars = sumCommentsStars/totalCommentsCount;
+			}
 			// 평균 별점을 입력한다.
-			contentsService.sUpdateAvgStar(sumCommentsStars/totalCommentsCount, deleteContentsNo[i]);
+			contentsService.sUpdateAvgStar(avgStars, deleteContentsNo[i]);
 		}
 		redirectAttributes.addAttribute("pageNo", pageNo);
 		return "redirect:allPostForAdmin.do";

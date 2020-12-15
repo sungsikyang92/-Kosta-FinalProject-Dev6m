@@ -8,6 +8,7 @@ import org.kosta.watflix.model.vo.MemberVO;
 import org.kosta.watflix.model.vo.ReportListVO;
 import org.kosta.watflix.model.vo.ReportTypeVO;
 import org.kosta.watflix.model.vo.ReportVO;
+import org.kosta.watflix.model.vo.ReviewListVO;
 import org.kosta.watflix.model.vo.ReviewVO;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -84,36 +85,16 @@ public class ReportController {
 	// ResponseBody는 비동기 통신에 필요한 어노테이션이다.
 	@RequestMapping("myReportBoard.do")
 	@ResponseBody
-	public ReportListVO myReportReviewBoard(String reportPageNo, String reportType) {
+	public ReportListVO myReportReviewBoard(String reportPageNo, boolean reportType) {
 		System.out.println("myReportBoard.do 실행");
 		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String id = mvo.getId();
-		// 레포트의 타입이 NULL 일 경우 1(리뷰)로 초기화한다.
-		if(reportType == null) {
-			reportType = "1";
-		}
-		// 레포트의 타입을 구분해준다 1은 리뷰 2는 평점
-		if(reportType == "1") {
-			System.out.println(reportType);
-			System.out.println(reportService.sGetMyReportReviewList(id, reportPageNo));
-			System.out.println("reviewReport 호출");
-			return reportService.sGetMyReportReviewList(id, reportPageNo);
-		} else {
-			System.out.println(reportType);
-			System.out.println(reportService.sGetMyReportCommentsList(id, reportPageNo));
-			System.out.println("commentsReport 호출");
+		if(reportType) {
 			return reportService.sGetMyReportCommentsList(id, reportPageNo);
+		} else {
+			return reportService.sGetMyReportReviewList(id, reportPageNo);
 		}
 	}
-	
-	// 내 신고 리스트(평점)
-	//@RequestMapping("myReportCommentsBoard.do")
-	//@ResponseBody
-	//public ReportListVO myReportCommentsBoard(String pageNo) {
-	//	MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-	//	String id = mvo.getId();
-	//	
-	//}
 	
 	// 마이페이지로 이동(임시)
 	@RequestMapping("testMyPageBoard.do")

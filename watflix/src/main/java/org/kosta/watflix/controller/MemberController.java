@@ -5,7 +5,9 @@ import javax.annotation.Resource;
 import org.kosta.watflix.model.service.CommentsService;
 import org.kosta.watflix.model.service.MemberService;
 import org.kosta.watflix.model.service.ReviewService;
+import org.kosta.watflix.model.vo.CommentsListVO;
 import org.kosta.watflix.model.vo.MemberVO;
+import org.kosta.watflix.model.vo.ReviewListVO;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -21,6 +23,8 @@ public class MemberController {
 	MemberService memberService;
 	@Resource
 	ReviewService reviewService;
+	@Resource
+	CommentsService commentsService;
 	
 	@RequestMapping("loginForm.do")
 	public String loginForm() {
@@ -128,9 +132,27 @@ public class MemberController {
 	// 내 게시물 리스트
 	@RequestMapping("myPostList.do")
 	public String MyPostList(Model model) {
+		System.out.println("myPostList.do 실행");
 		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		System.out.println(commentsService.sGetMyCommentsList(mvo.getId()));
+		model.addAttribute("commentsListVO", commentsService.sGetMyCommentsList(mvo.getId()));
 		model.addAttribute("reviewListVO",reviewService.sGetMyReviewList(mvo.getId()));
 		return "my_post_list.tiles";
+	}	
+	
+	// 내 리뷰 리스트 Ajax
+	@RequestMapping("myReviewList.do")
+	@ResponseBody
+	public ReviewListVO myReviewList(String pageNo) {
+		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return reviewService.sGetMyReviewList(mvo.getId(), pageNo);
 	}
 	
+	// 내 Comments 리스트 Ajax
+	@RequestMapping("myCommentsList.do")
+	@ResponseBody
+	public CommentsListVO myCommentsList(String pageNo) {
+		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return commentsService.sGetMyCommentsList(mvo.getId(), pageNo);
+	}
 }
