@@ -66,6 +66,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	<select id="mSumCommentsStars" parameterType="string" resultType="int">
  		SELECT NVL(SUM(comments_stars), 0) FROM comments WHERE contents_no=#{contentsNo}
  	</select>
+ 	<!-- commentsNo에 대응하는 comments 게시물 조회 -->
+ 	<select id="mGetCommentsByCommentsNo" parameterType="int" resultMap="commentsBoardRM">
+ 		select comments_no, id, contents_no, comments, comments_stars, comments_posted_time
+ 		from comments where comments_no = #{value}
+ 	</select>
 </mapper>
 
 

@@ -167,5 +167,10 @@ public class JaeWooTestUnit {
 		System.out.println(contentsMapper.mGetSearchContents(contentsTitle));
 		System.out.println(contentsMapper.mGetSearchGenre(contentsTitle));
 		//*/
+		
+		/*/
+		// 평점 넘버에 대응하는 평점 조회
+		System.out.println(commentsMapper.mGetCommentsByCommentsNo(1));
+		//*/
 	}
 }

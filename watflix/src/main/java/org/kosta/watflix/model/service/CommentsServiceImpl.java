@@ -99,4 +99,10 @@ public class CommentsServiceImpl implements CommentsService {
 		return commentsMapper.mCheckWorteOrNot(userId, contentsNo);
 				
 	}
+
+	// commentsNo에 대응하는 comments 게시물 조회
+	@Override
+	public CommentsVO sGetCommentsByCommentsNo(int commentsNo) {
+		return commentsMapper.mGetCommentsByCommentsNo(commentsNo);
+	}
 }

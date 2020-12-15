@@ -484,6 +484,9 @@ from (select CONTENTS_TYPE, GENRE_CODE
 from CONTENTS where contents_title like '%인%') C, GENRE G
 where C.GENRE_CODE=G.GENRE_CODE
 select * from CONTENTS
+--
+select comments_no, id, contents_no, comments, comments_stars, comments_posted_time from comments where comments_no = 1
+select * from COmments
 
 
 

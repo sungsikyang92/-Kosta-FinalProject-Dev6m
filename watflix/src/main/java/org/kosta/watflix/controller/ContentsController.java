@@ -103,7 +103,7 @@ public class ContentsController {
 	
 	//컨텐츠 검색
 	@RequestMapping("contentsByTitle.do")
-	public String SearchcontentsTitle(Model model, String contentsTitle) {
+	public String contentsByTitle(Model model, String contentsTitle) {
 		model.addAttribute("contentsList",contentsService.sGetContentsSelectForTitle(contentsTitle));
 		model.addAttribute("genreList",contentsService.sGenreSelectForTitle(contentsTitle));
 		if(contentsTitle.length() < 2) {

@@ -30,5 +30,6 @@ public interface CommentsService {
 	CommentsListVO sMyCommentsGetList(String id, String pageNo);
 	// 해당 컨텐츠에 user의 아이디로 작성한 comments 유무 확인
 	int sCheckWorteOrNot(String userId, String contentsNo);
-
+	// commentsNo에 대응하는 comments 게시물 조회
+	CommentsVO sGetCommentsByCommentsNo(int commentsNo);
 }
