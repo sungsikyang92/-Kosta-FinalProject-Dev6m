@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import org.kosta.watflix.model.service.CommentsService;
 import org.kosta.watflix.model.service.ContentsService;
+import org.kosta.watflix.model.vo.CommentsListVO;
 import org.kosta.watflix.model.vo.CommentsVO;
 import org.kosta.watflix.model.vo.ContentsVO;
 import org.kosta.watflix.model.vo.MemberVO;
@@ -101,8 +102,31 @@ public class CommentsController {
 		contentsService.sUpdateAvgStar(avgStars, contentsNo);
 		redirectAttributes.addAttribute("contentsNo", contentsNo);
 		redirectAttributes.addAttribute("commentPageNo", pageNo);
-		return "redirect:contentsDetail.do";
-		
+		return "redirect:contentsDetail.do";		
+	}
+	// 삭제버튼으로 삭제(ajax방식 / my_comments_board.jsp)
+	@PostMapping("commentsDeleteAjax.do")
+	@ResponseBody
+	public CommentsListVO commentsDeleteAjax(int commentsNo, String contentsNo, String pageNo, RedirectAttributes redirectAttributes) {
+		commentsService.sCommentsDelete(commentsNo);
+		// 평균 별점을 입력하기 위해 contents의 총 comments 수를 조회한다.
+		int totalCommentsCount = commentsService.sCommentsGetTotalPostCountByContentNo(contentsNo);
+		// 평균 별점을 입력하기 위해 contents의 별점 총합을 조회한다.
+		float sumCommentsStars = commentsService.sSumCommentsStars(contentsNo);
+		// 평균 별점을 계산한다.
+		// totalCommentsCount와 sumCommentsStars가 모두 0일경우 NaN이 발생하므로 
+		// 둘다 0일 경우에는 avgStars를 0으로 초기화한다.
+		float avgStars;
+		if(totalCommentsCount == 0 && sumCommentsStars == 0) {
+			avgStars = 0;
+		} else {
+			avgStars = sumCommentsStars/totalCommentsCount;
+		}
+		// 평균 별점을 입력한다.
+		contentsService.sUpdateAvgStar(avgStars, contentsNo);
+		MemberVO memberVO = (MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String id = memberVO.getId();
+		return commentsService.sMyCommentsGetList(id, pageNo);		
 	}
 	
 	// 관리자 삭제버튼으로 삭제

@@ -105,27 +105,4 @@ public class CommentsServiceImpl implements CommentsService {
 	public CommentsVO sGetCommentsByCommentsNo(int commentsNo) {
 		return commentsMapper.mGetCommentsByCommentsNo(commentsNo);
 	}
-
-	// 내 comments 리스트
-		@Override
-		public CommentsListVO sGetMyCommentsList(String id) {
-			System.out.println("sGetMyCommentsList(id) 실행");
-			return sGetMyCommentsList(id, "1");
-		}
-		@Override
-		public CommentsListVO sGetMyCommentsList(String id, String pageNo) {
-			System.out.println("sGetMyCommentsList(id, pageNo) 실행");
-			int myCommentsTotalCount = commentsMapper.mGetMyTotalCommentsCount(id);
-			System.out.println("myCommentsTotalCount : "+myCommentsTotalCount);
-			PagingBean pagingBean = null;
-			if(pageNo == null) {
-				pagingBean = new PagingBean(myCommentsTotalCount);
-			}else {
-				pagingBean = new PagingBean(myCommentsTotalCount, Integer.parseInt(pageNo));
-			}
-			CommentsListVO commentsListVO = new CommentsListVO(commentsMapper.mCommentsGetMyList(id, pagingBean), pagingBean);
-			System.out.println("commentsListVO : " + commentsListVO);
-			return commentsListVO;
-		}
-
 }

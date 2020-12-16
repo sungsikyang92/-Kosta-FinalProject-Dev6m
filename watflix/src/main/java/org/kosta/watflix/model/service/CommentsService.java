@@ -3,8 +3,6 @@ package org.kosta.watflix.model.service;
 
 import org.kosta.watflix.model.vo.CommentsListVO;
 import org.kosta.watflix.model.vo.CommentsVO;
-import org.kosta.watflix.model.vo.GenreVO;
-import org.kosta.watflix.model.vo.ReviewListVO;
 
 public interface CommentsService {
 	// comments 갯수 조회
@@ -31,9 +29,6 @@ public interface CommentsService {
 	// 해당 컨텐츠에 user의 아이디로 작성한 comments 유무 확인
 	int sCheckWorteOrNot(String userId, String contentsNo);
 	// commentsNo에 대응하는 comments 게시물 조회
-	CommentsVO sGetCommentsByCommentsNo(int commentsNo);
-	// 아이디별 comments list
-	CommentsListVO sGetMyCommentsList(String id);
-	CommentsListVO sGetMyCommentsList(String id, String pageNo);
+	CommentsVO sGetCommentsByCommentsNo(int commentsNo);	
 
 }

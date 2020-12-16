@@ -144,8 +144,7 @@ public class MemberController {
 	public String MyPostList(Model model) {
 		System.out.println("myPostList.do 실행");
 		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		System.out.println(commentsService.sGetMyCommentsList(mvo.getId()));
-		model.addAttribute("commentsListVO", commentsService.sGetMyCommentsList(mvo.getId()));
+		model.addAttribute("commentsListVO", commentsService.sMyCommentsGetList(mvo.getId()));
 		model.addAttribute("reviewListVO",reviewService.sGetMyReviewList(mvo.getId()));
 		return "my_post_list.tiles";
 	}	
@@ -164,7 +163,7 @@ public class MemberController {
 	@ResponseBody
 	public CommentsListVO myCommentsList(String pageNo) {
 		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		return commentsService.sGetMyCommentsList(mvo.getId(), pageNo);
+		return commentsService.sMyCommentsGetList(mvo.getId(), pageNo);
 	}
 
 	//포인트사용내역 조회
