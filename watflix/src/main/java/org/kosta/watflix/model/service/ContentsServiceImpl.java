@@ -26,8 +26,8 @@ public class ContentsServiceImpl implements ContentsService {
 		public int sGetTotalContentsCount() {
 			return contentsMapper.mGetTotalContentsCount();
 		}
-	
-	//모든 컨텐츠 리스트
+
+		//모든 컨텐츠 리스트
 	@Override
 	public List<ContentsVO> sGetAllContentsList() {
 		return contentsMapper.mGetAllContentsList();
@@ -43,7 +43,12 @@ public class ContentsServiceImpl implements ContentsService {
 	public List<ContentsVO> sGetContentsAllForType(Map<String,String> map) {
 		return contentsMapper.mGetContentsAllForType(map);
 	}
-
+	//특정 타입의 컨텐츠 리스트 with Login
+	@Override
+	public List<ContentsVO> sGetContentsAllForTypeLogin(String id,Map<String,String> map) {
+		return contentsMapper.mGetContentsAllForTypeLogin(id,map);
+	}
+	 
 	//조회수 높은순
 	@Override
 	public List<ContentsVO> sContentsHighHits() {
@@ -65,7 +70,13 @@ public class ContentsServiceImpl implements ContentsService {
 	public List<ContentsVO> sContentsHighAvgStars() {
 		return contentsMapper.mContentsHighAvgStars();
 	}
-
+	
+	//평점 높은순 with Login
+	@Override
+	public List<ContentsVO> sContentsHighAvgStarsLogin(String id) {
+		return contentsMapper.mContentsHighAvgStarsLogin(id);
+	}
+	
 	//장르 출력 리스트
 	@Override
 	public List<GenreVO> sGetAllGenreList() {

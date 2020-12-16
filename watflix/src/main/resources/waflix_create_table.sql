@@ -307,6 +307,8 @@ INSERT INTO PRO_STATUS VALUES(1,'정상판매');
 INSERT INTO PRO_STATUS VALUES(2,'판매중지');
 
 /*Table drop*/
+DROP TABLE CONTENTS_LIKE;
+DROP TABLE REVIEW_LIKE;
 drop table apply;
 drop table party;
 drop table membership;
@@ -323,3 +325,4 @@ drop table contents cascade constraint;
 drop table genre;
 drop table member cascade constraint;
 drop table acc_status cascade constraint;
+
