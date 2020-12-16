@@ -3,6 +3,7 @@ package org.kosta.watflix.model.service;
 import javax.annotation.Resource;
 
 import org.kosta.watflix.model.mapper.QnAMapper;
+import org.kosta.watflix.model.vo.QnAAnswerVO;
 import org.kosta.watflix.model.vo.QnAListVO;
 import org.kosta.watflix.model.vo.QnATypeVO;
 import org.kosta.watflix.model.vo.QnAVO;
@@ -54,6 +55,11 @@ public class QnAServiceImpl implements QnAService {
 	@Override
 	public void sQnAWrite(QnAVO qnaVO) {
 		qnaMapper.mQnAWrite(qnaVO);
+		
+	}
+	// QnA 답변 작성
+	@Override
+	public void sQnAAnswerWrite(QnAAnswerVO qnaAnswerVO) {
 		
 	}
 

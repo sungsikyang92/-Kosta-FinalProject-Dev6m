@@ -12,15 +12,15 @@
    <div class="container-lg">
 <div id="qnaForm">
 <script type="text/javascript">
-   function qnaListBtn() {
-   location.href="${pageContext.request.contextPath}/qnaList.do";
-   }
-   function qnaAnswerWrite() {
-      alert("a");
-      var qnaAnswer=${"#qnaAnswerContents"}.value();
-      alert(qnaAnswer);
-   location.href="${pageContext.request.contextPath}/qnaAnswerWrite.do";
-   }
+	function qnaListBtn() {
+	location.href="${pageContext.request.contextPath}/qnaList.do";
+	}
+	//function qnaAnswerWrite() {
+	//	var qnaAnswer=$("#qnaAnswerContents").val();
+	//	var qnaNo = ${requestScope.qvo.qnaNo};
+		
+	//location.href="${pageContext.request.contextPath}/qnaAnswerWrite.do";
+	}
 </script>
 <hr>
 <hr>
@@ -55,9 +55,13 @@
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
 <!-- 관리자만 답변입력 가능 -->
+<form action="${pageContext.request.contextPath }/qnaAnswerWrite.do" method="post" >
+<sec:csrfInput/>
 관리자 답변 <textarea cols="100" rows="3" name="qnaContents" id="qnaAnswerContents"
 required="required" placeholder="답변내용을 입력하세요"></textarea>
-<button class="btn" onclick="qnaAnswerWrite()">답변작성</button>
+<input type="hidden" name="qnaNo" value="${requestScope.qvo.qnaNo}">
+<input type="submit" class="btn" value="답변작성">
+</form>
 <button class="btn" form="qnaDelete" type="submit" id="qna-delete-btn" >삭제</button>
 </sec:authorize>
 <button class="btn" id="qnaListBtn" onclick="qnaListBtn()">내 문의 목록 보기</button>
