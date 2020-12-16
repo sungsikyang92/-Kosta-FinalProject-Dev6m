@@ -28,10 +28,10 @@
 				reportTbody += "<td>"+reportListVO.list[i].reportTypeVO.reportTypeInfo+"</td>";
 				// comments, review 글을 분리한다.
 				if(reportListVO.list[i].reviewVO != null){
-					reportTbody += "<td>"+reportListVO.list[i].reviewVO.reviewNo+"</td>";
+					reportTbody += "<td><a href='#' onclick='reportReviewPopup("+reportListVO.list[i].reviewVO.reviewNo+");return false;'>"+reportListVO.list[i].reviewVO.reviewNo+"</a></td>";
 					reportTbody += "<td>"+reportListVO.list[i].reviewVO.memberVO.id+"</td>";
 				} else {
-					reportTbody += "<td>"+reportListVO.list[i].commentsVO.commentsNo+"</td>";
+					reportTbody += "<td><a href='#' onclick='reportCommentsPopup("+reportListVO.list[i].commentsVO.commentsNo+");return false;'>"+reportListVO.list[i].commentsVO.commentsNo+"</a></td>";
 					reportTbody += "<td>"+reportListVO.list[i].commentsVO.memberVO.id+"</td>";
 				}
 				reportTbody += "<td>"+reportListVO.list[i].reportPostedTime+"</td>";
@@ -40,24 +40,14 @@
 					reportTbody += "<form action='deleteReport.do' method='post' onsubmit='return deleteCheck()'>"
 					<!-- CSRF 방지 토큰,  Cross-site request forgery(사이트간 요청 위조)를 방지  -->
 						reportTbody += '<sec:csrfInput/>';
-						reportTbody += "<input type='hidden' name='reportNo' value='${rvo.reportNo}'>";
-						reportTbody += "<input type='hidden' name='commentsNo' value='${rvo.commentsVO.commentsNo}'>";
-						reportTbody += "<input type='submit' value='deleteReport'>";
+						reportTbody += "<input type='hidden' name='reportNo' value='"+reportListVO.list[i].reportNo+"'>";			
+						//reportTbody += "<input type='hidden' name='commentsNo' value='"+reportListVO.list[i].commentsVO.commentsNo+"'>";
+						reportTbody += "<input type='submit' value='신고글 삭제'>";
 					reportTbody += "</form>"
 				reportTbody += "</td>"
 			reportTbody += "</tr>";
 			reportTbody += "<tr>";
-			reportTbody += "<td colspan='6'><pre>${rvo.reportContents }</pre></td>";
-			<!-- 신고된 평점 삭제 -->
-			<!-- CommentsController 참고 후 수정 -->
-			reportTbody += "<td>";
-			reportTbody += "<form action='' method='post'>";
-			<!-- CSRF 방지 토큰,  Cross-site request forgery(사이트간 요청 위조)를 방지  -->
-			reportTbody += '<sec:csrfInput/>';
-				reportTbody += "<input type='hidden' name='' value='${rvo.commentsVO.commentsNo}'>";
-				reportTbody += "<input type='submit' value='deleteComments'>";
-			reportTbody += "</form>";
-			reportTbody += "</td>";
+			reportTbody += "<td colspan='7'><pre>"+reportListVO.list[i].reportContents+"</pre></td>";
 			reportTbody += "</tr>";
 		}
 		$("#reportTbody").html(reportTbody);
@@ -86,6 +76,19 @@
 		}
 		$("#reportPaging").html(reportPaging);
 	}
+	// 관리자 신고게시물 디테일 팝업
+	function reportCommentsPopup(commentsNo){
+		// popup
+		var path = "${pageContext.request.contextPath}/commentsByCommentsNo.do?commentsNo="+commentsNo;
+		window.open(path, "commentsByComments","width=1000, height=230, top=150, left=200");
+		
+	}
+	function reportReviewPopup(reviewNo){
+		// popup
+		var path = "${pageContext.request.contextPath}/reviewByReviewNo.do?reviewNo="+reviewNo;
+		window.open(path, "commentsByComments","width=1000, height=420, top=150, left=200");
+		
+	}
 </script>
 <div class="tableMargin" id="commentsList">
 	<div class="container-lg boardClassMain" style="margin-top: 100px">
@@ -111,7 +114,8 @@
 					<td>${rvo.reportNo}</td>
 					<td>${rvo.memberVO.id}</td>
 					<td>${rvo.reportTypeVO.reportTypeInfo}</td>
-					<td>${rvo.commentsVO.commentsNo}</td>
+					<td>
+						<a href="#" onclick="reportCommentsPopup(${rvo.commentsVO.commentsNo});return false;">${rvo.commentsVO.commentsNo}</a></td>
 					<td>${rvo.commentsVO.memberVO.id}</td>
 					<td>${rvo.reportPostedTime}</td>
 					<td>
@@ -121,23 +125,13 @@
 							<sec:csrfInput/>
 							<input type="hidden" name="reportNo" value="${rvo.reportNo}">
 							<input type="hidden" name="commentsNo" value="${rvo.commentsVO.commentsNo}">
-							<input type="submit" value="deleteReport">
+							<input type="submit" value="신고글 삭제">
 						</form>
 					</td>
 				</tr>
 				<tr>
-					<td colspan="6">
+					<td colspan="7">
 						<pre>${rvo.reportContents}</pre>
-					</td>
-					<td>
-						<!-- 신고된 평점 삭제 -->
-						<!-- CommentsController 참고 후 수정 -->
-						<form action="" method="post">
-							<!-- CSRF 방지 토큰,  Cross-site request forgery(사이트간 요청 위조)를 방지  -->
-							<sec:csrfInput/>
-							<input type="hidden" name="" value="${rvo.commentsVO.commentsNo}">
-							<input type="submit" value="deleteComments">
-						</form>
 					</td>
 				</tr>
 			</c:forEach>

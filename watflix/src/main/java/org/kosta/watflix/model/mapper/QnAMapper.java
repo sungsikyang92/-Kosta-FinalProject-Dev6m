@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.kosta.watflix.model.service.PagingBean;
+import org.kosta.watflix.model.vo.QnAAnswerVO;
 import org.kosta.watflix.model.vo.QnATypeVO;
 import org.kosta.watflix.model.vo.QnAVO;
 
@@ -19,5 +20,6 @@ public interface QnAMapper {
 	void mQnADelete(int qnaNo);
 	// QnA 갯수 불러오기
 	int mGetTotalQnACount();
-	
+	// QnA 답변 작성
+	void mQnAAnswerWrite(QnAAnswerVO qnaAnswerVO);
 }

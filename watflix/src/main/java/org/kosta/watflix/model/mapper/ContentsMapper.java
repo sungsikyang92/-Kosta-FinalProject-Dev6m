@@ -19,11 +19,12 @@ public interface ContentsMapper {
 	List<ContentsVO> mGetAllContentsList();
 	List<ContentsVO> mGetContentsAllForTypeAndGenre(Map<String,String> map);
 	List<ContentsVO> mGetContentsAllForType(Map<String,String> map);
+	List<ContentsVO> mGetContentsAllForTypeLogin(@Param("id")String id,@Param("map")Map<String,String> map);
 	List<ContentsVO> mContentsHighHits();
 	List<ContentsVO> mContentsHighCommentsCount();
 	List<ContentsVO> mContentsHighHitsLogin(String id);
 	List<ContentsVO> mContentsHighAvgStars();
-	List<ContentsVO> mContentsHighAvgStarsLogin();
+	List<ContentsVO> mContentsHighAvgStarsLogin(String id);
 	List<GenreVO> mGetAllGenreList();
 	List<GenreVO> mGetGenreSelectForType(String contentsType);
 	List<ContentsVO> mGetContentsSelectForType(String contentsType);
@@ -41,7 +42,3 @@ public interface ContentsMapper {
 	List<GenreVO> mGenreSelectForTitle(String contentsTitle);
 	List<ContentsVO> mGetContentsSelectForTitle(String contentsTitle);
 }
-
-
-
-

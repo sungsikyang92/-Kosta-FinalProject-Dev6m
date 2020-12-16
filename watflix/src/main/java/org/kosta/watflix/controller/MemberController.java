@@ -33,7 +33,6 @@ public class MemberController {
 	
 	@Resource
 	ReviewService reviewService;
-	
 	@Resource
 	CommentsService commentsService;
 	
@@ -152,8 +151,7 @@ public class MemberController {
 	public String MyPostList(Model model) {
 		System.out.println("myPostList.do 실행");
 		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		System.out.println(commentsService.sGetMyCommentsList(mvo.getId()));
-		model.addAttribute("commentsListVO", commentsService.sGetMyCommentsList(mvo.getId()));
+		model.addAttribute("commentsListVO", commentsService.sMyCommentsGetList(mvo.getId()));
 		model.addAttribute("reviewListVO",reviewService.sGetMyReviewList(mvo.getId()));
 		return "my_post_list.tiles";
 	}	
@@ -174,7 +172,7 @@ public class MemberController {
 	@ResponseBody
 	public CommentsListVO myCommentsList(String pageNo) {
 		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		return commentsService.sGetMyCommentsList(mvo.getId(), pageNo);
+		return commentsService.sMyCommentsGetList(mvo.getId(), pageNo);
 	}
 
 	//포인트사용내역 조회
@@ -193,7 +191,6 @@ public class MemberController {
 		}
 		
 		List<PointHistoryVO> list = pointHistoryService.sMemberPointHistoryCheck(mvo.getId(),pagingBean);
-		System.out.println(list);
 		model.addAttribute("pointHistoryListVO",new PointHistoryListVO(list,pagingBean));
 		return "member/pointHistoryCheck.tiles";
 	}
@@ -230,7 +227,7 @@ public class MemberController {
 		model.addAttribute("productOrderListVO",polvo);
 		return "member/productOrderList.tiles";
 	}
-	
+		
 	//구매내역 상세조회
 	@Secured("ROLE_MEMBER")
 	@RequestMapping("productOrderDetail.do")
@@ -239,5 +236,4 @@ public class MemberController {
 		model.addAttribute("productOrderDetail",productOrderService.sProductOrderDetail(mvo.getId(),productOrderVO.getOrderNo()));
 		return "member/productOrderDetail.tiles";
 	}
-	
 }

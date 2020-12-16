@@ -30,6 +30,13 @@
 		function deleteCheck(){
 			return confirm("삭제하시겠습니까?");
 		}
+		
+		function reportPopup(reviewNo){
+			// popup
+			var path = "${pageContext.request.contextPath}/reviewByReviewNo.do?reviewNo="+reviewNo;
+			window.open(path, "commentsByComments","width=1000, height=420, top=150, left=200");
+			
+		}
 	</script>
 	<table class="table table-hover">
 		<thead>
@@ -73,13 +80,7 @@
 					<td>
 						<!-- 신고된 평점 삭제 -->
 						<!-- ReviewController 참고 후 수정 -->
-						<form action="" method="post">
-							<!-- CSRF 방지 토큰,  Cross-site request forgery(사이트간 요청 위조)를 방지  -->
-							<sec:csrfInput/>
-							<input type="hidden" name="" value="${rvo.reviewVO.reviewNo}">
-							<input type="hidden" name="commentsNo" value="${rvo.commentsVO.commentsNo}">
-							<input type="submit" value="deleteComments">
-						</form>
+						<a href="#" onclick="reportPopup(${rvo.reviewVO.reviewNo});return false;">삭제</a>
 					</td>
 				</tr>
 			</c:forEach>

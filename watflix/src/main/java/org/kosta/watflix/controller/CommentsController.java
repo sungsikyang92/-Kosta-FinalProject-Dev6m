@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 
 import org.kosta.watflix.model.service.CommentsService;
 import org.kosta.watflix.model.service.ContentsService;
+import org.kosta.watflix.model.vo.CommentsListVO;
 import org.kosta.watflix.model.vo.CommentsVO;
 import org.kosta.watflix.model.vo.ContentsVO;
 import org.kosta.watflix.model.vo.MemberVO;
@@ -27,6 +28,7 @@ public class CommentsController {
 	CommentsService commentsService;
 	@Resource
 	ContentsService contentsService;
+		
 	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("getCommentsList.do")
@@ -62,11 +64,18 @@ public class CommentsController {
 	@PostMapping("commentsWrite.do")
 	public String commentsWrite(CommentsVO commentsVO, String contentsNo, String pageNo, RedirectAttributes redirectAttributes) {
 		MemberVO memberVO = (MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		// 시큐리티세션에 저장되어있는 기존의 포인트를 memberVO에 가져와 리뷰작성포인트(10점)을 더하여 memberVO에 저장한다.
+		memberVO.setPoint(memberVO.getPoint()+10);
+		// 추가된 점수가 저장되어있는 memberVO를 신규 글 제목과 내용이 저장되어있는 commentsVO에 더한다.
 		commentsVO.setMemberVO(memberVO);
+		// 매게변수로 전달된 contentNo를 commentsVO에 더한다.
 		ContentsVO contentsVO = new ContentsVO();
 		contentsVO.setContentsNo(contentsNo);
 		commentsVO.setContentsVO(contentsVO);
+		// 위의 정보들을 가지고 있는 commentsVO를 service단으로 전달한다.
 		commentsService.sCommentsWrite(commentsVO);
+		
+		
 		// 평균 별점을 입력하기 위해 contents의 총 comments 수를 조회한다.
 		float totalCommentsCount = commentsService.sCommentsGetTotalPostCountByContentNo(contentsNo);
 		// 평균 별점을 입력하기 위해 contents의 별점 총합을 조회한다.
@@ -101,10 +110,34 @@ public class CommentsController {
 		contentsService.sUpdateAvgStar(avgStars, contentsNo);
 		redirectAttributes.addAttribute("contentsNo", contentsNo);
 		redirectAttributes.addAttribute("commentPageNo", pageNo);
-		return "redirect:contentsDetail.do";
+		return "redirect:contentsDetail.do";		
+	}
+	// 삭제버튼으로 삭제(ajax방식 / my_comments_board.jsp)
+	@PostMapping("commentsDeleteAjax.do")
+	@ResponseBody
+	public CommentsListVO commentsDeleteAjax(int commentsNo, String contentsNo, String pageNo, RedirectAttributes redirectAttributes) {
+		commentsService.sCommentsDelete(commentsNo);
+		// 평균 별점을 입력하기 위해 contents의 총 comments 수를 조회한다.
+		int totalCommentsCount = commentsService.sCommentsGetTotalPostCountByContentNo(contentsNo);
+		// 평균 별점을 입력하기 위해 contents의 별점 총합을 조회한다.
+		float sumCommentsStars = commentsService.sSumCommentsStars(contentsNo);
+		// 평균 별점을 계산한다.
+		// totalCommentsCount와 sumCommentsStars가 모두 0일경우 NaN이 발생하므로 
+		// 둘다 0일 경우에는 avgStars를 0으로 초기화한다.
+		float avgStars;
+		if(totalCommentsCount == 0 && sumCommentsStars == 0) {
+			avgStars = 0;
+		} else {
+			avgStars = sumCommentsStars/totalCommentsCount;
+		}
+		// 평균 별점을 입력한다.
+		contentsService.sUpdateAvgStar(avgStars, contentsNo);
+		MemberVO memberVO = (MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String id = memberVO.getId();
+		return commentsService.sMyCommentsGetList(id, pageNo);		
 	}
 	
-	// 삭제버튼으로 삭제
+	// 관리자 삭제버튼으로 삭제
 	@PostMapping("adminCommentsDelete.do")
 	public String adminCommentsDelete(String[] commentsDelete, String contentsNo, String pageNo, RedirectAttributes redirectAttributes) {
 		for(int i = 0; i < commentsDelete.length; i++) {
@@ -131,8 +164,8 @@ public class CommentsController {
 	}
 	
 	// 체크박스로 삭제
-	@PostMapping("commentsDeleteByCheckbox.do")
-	public String commentsDeleteByCheckbox(int[] deleteCheckbox, String[] deleteContentsNo, String pageNo, RedirectAttributes redirectAttributes) {
+	@PostMapping("commentsDeleteByCheckboxAdmin.do")
+	public String commentsDeleteByCheckboxAdmin(int[] deleteCheckbox, String[] deleteContentsNo, String pageNo, RedirectAttributes redirectAttributes) {
 		for(int i = 0; i < deleteCheckbox.length; i++) {
 			commentsService.sCommentsDelete(deleteCheckbox[i]);
 			// 평균 별점을 입력하기 위해 contents의 총 comments 수를 조회한다.
@@ -149,13 +182,12 @@ public class CommentsController {
 			contentsService.sUpdateAvgStar(avgStars, deleteContentsNo[i]);
 		}
 		redirectAttributes.addAttribute("pageNo", pageNo);
-		return "redirect:allPostForAdmin.do";
+		return "redirect:getCommentsList.do";
 	}
 	
-	// 평점 정보 popup창 띄우기
-	//@RequestMapping("commentsByCommentsNo.do")
-	//public ModelAndView commentsByCommentsNo(int commentsNo) {
-	//	System.out.println("하하");
-	//	return new ModelAndView("report/comentsByCommentsNo", "commentsListByContentsNo", commentsService.sGetCommentsByCommentsNo(commentsNo));
-	//}
+	// 평점 정보 popup창 띄우기(관리자,회원)
+	@RequestMapping("commentsByCommentsNo.do")
+	public ModelAndView commentsByCommentsNo(int commentsNo) {
+		return new ModelAndView("report/comentsByCommentsNo", "commentsVOContentsNo", commentsService.sGetCommentsByCommentsNo(commentsNo));
+	}
 }

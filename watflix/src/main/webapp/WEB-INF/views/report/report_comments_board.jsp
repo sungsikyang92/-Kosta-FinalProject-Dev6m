@@ -32,9 +32,9 @@
 		}
 		
 		function reportPopup(commentsNo){
-			// 신고에 필요한 데이터 전송
+			// popup
 			var path = "${pageContext.request.contextPath}/commentsByCommentsNo.do?commentsNo="+commentsNo;
-			window.open(path, "commentsByComments","width=465, height=180, top=150, left=200");
+			window.open(path, "commentsByComments","width=1000, height=230, top=150, left=200");
 			
 		}
 	</script>

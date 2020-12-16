@@ -27,11 +27,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 사용자에 따른 포인트 사용내역 리스트 출력 -->
 	<select id="mMemberPointHistoryCheck" resultMap="pointHistoryRM">
 		SELECT P.POINT_HISTORY_NO,P.ID,P.REVIEW_NO,(select REVIEW_TITLE from REVIEW where P.REVIEW_no=REVIEW_no) AS REVIEW_TITLE,
-		P.COMMENTS_NO,P.POINT,P.POINT_HISTORY_CONTENTS,P.CURRENT_TIME,P.ORDER_NO,
-		(select COMMENTS from COMMENTS where P.COMMENTS_no=COMMENTS_no) as COMMENTS
-		FROM (SELECT ROW_NUMBER() OVER(ORDER BY POINT_HISTORY_NO DESC) AS RNUM,
-		POINT_HISTORY_NO,ID,REVIEW_NO,COMMENTS_NO,ORDER_NO,
-		POINT,POINT_HISTORY_CONTENTS,CURRENT_TIME FROM POINT_HISTORY WHERE ID=#{id}) P where
+      P.COMMENTS_NO,P.POINT,P.POINT_HISTORY_CONTENTS,P.CURRENT_TIME,P.ORDER_NO,
+      (select COMMENTS from COMMENTS where P.COMMENTS_no=COMMENTS_no) as COMMENTS
+      FROM (SELECT ROW_NUMBER() OVER(ORDER BY POINT_HISTORY_NO DESC) AS RNUM,
+      POINT_HISTORY_NO,ID,REVIEW_NO,COMMENTS_NO,ORDER_NO,
+      POINT,POINT_HISTORY_CONTENTS,CURRENT_TIME FROM POINT_HISTORY WHERE ID=#{id}) P where
 		RNUM BETWEEN #{pagingBean.startRowNumber} AND #{pagingBean.endRowNumber}
 	</select>
 	
@@ -41,7 +41,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  			SELECT POINT_HISTORY_SEQ.NEXTVAL FROM DUAL
  		</selectKey>
  		INSERT INTO POINT_HISTORY(POINT_HISTORY_NO,ID,REVIEW_NO,POINT,POINT_HISTORY_CONTENTS)
- 		VALUES(#{pointHistoryNo},#{memberVO.id},#{reviewNo},15,'리뷰작성으로 포인트 적립')
+ 		VALUES(#{pointHistoryNo},#{id},#{reviewNo},15,'리뷰작성으로 포인트 적립')
  	</insert>
  	
  	<!-- 평점글쓰기로 인한 포인트추가내역(10 포인트) -->
@@ -50,7 +50,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  			SELECT POINT_HISTORY_SEQ.NEXTVAL FROM DUAL
  		</selectKey>
  		INSERT INTO POINT_HISTORY(POINT_HISTORY_NO,ID,COMMENTS_NO,POINT,POINT_HISTORY_CONTENTS)
- 		VALUES(#{pointHistoryNo},#{id},#{commentsNO},10,'평점작성으로 포인트 적립')
+ 		VALUES(#{pointHistoryNo},#{id},#{commentsNo},10,'평점작성으로 포인트 적립')
  	</insert>
  	
  	<!-- 주문으로 인한 포인트감소내역 -->
@@ -61,14 +61,5 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		INSERT INTO POINT_HISTORY(POINT_HISTORY_NO,ID,ORDER_NO ,POINT,POINT_HISTORY_CONTENTS)
  		VALUES(#{pointHistoryNo},#{productOrderVO.memberVO.id},#{productOrderVO.orderNo},-#{point},'포인트마켓사용')
  	</insert>
- 	
- 	
 </mapper>
-
-
-
-
-
-
-
 

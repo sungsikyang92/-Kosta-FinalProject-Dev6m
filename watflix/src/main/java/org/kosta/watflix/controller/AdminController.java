@@ -201,12 +201,13 @@ public class AdminController {
 	   model.addAttribute("forNotUsePagingAndBtn", true);
 	   return "allPostForAdmin.tiles";	   
    }
-	// 내 신고 리스트(리뷰)
+	// 신고 리스트( 관리자페이지 )
 	// ResponseBody는 비동기 통신에 필요한 어노테이션이다.
 	@RequestMapping("reportBoardAdmin.do")
 	@ResponseBody
 	public ReportListVO reportBoardAdmin(String reportPageNo, boolean reportType) {
 		System.out.println("reportBoardAdmin.do 실행");
+		System.out.println(reportType);
 		if(reportType) {
 			return reportService.sGetReportCommentsList(reportPageNo);
 		} else {

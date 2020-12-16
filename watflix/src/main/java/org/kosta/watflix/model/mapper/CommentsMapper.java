@@ -6,20 +6,15 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.kosta.watflix.model.service.PagingBean;
 import org.kosta.watflix.model.vo.CommentsVO;
-import org.kosta.watflix.model.vo.ReviewVO;
 @Mapper
 public interface CommentsMapper {
 	
 	int mCommentsGetTotalPostCount();
 	
-	int mGetMyTotalCommentsCount(String id);
-
 	int mCommentsGetTotalPostCountByContentNo(String contentsNo);
 	
 	List<CommentsVO> mCommentsGetAllList(PagingBean pagingBean);
-	// 아이디별 comments list
-	List<CommentsVO> mCommentsGetMyList(@Param("id") String id, @Param("pagingBean") PagingBean pagingBean);
-
+	
 	List<CommentsVO> mCommentsGetListByContentsNo (@Param("pagingBean") PagingBean pagingBean, @Param("contentsNo") String contentsNo);
 	
 	void mCommentsWrite(CommentsVO commentsVO);
