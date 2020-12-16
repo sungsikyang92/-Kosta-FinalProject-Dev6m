@@ -8,11 +8,14 @@ import org.kosta.watflix.model.service.CommentsService;
 import org.kosta.watflix.model.service.MemberService;
 import org.kosta.watflix.model.service.PagingBean;
 import org.kosta.watflix.model.service.PointHistoryService;
+import org.kosta.watflix.model.service.ProductOrderService;
 import org.kosta.watflix.model.service.ReviewService;
 import org.kosta.watflix.model.vo.CommentsListVO;
 import org.kosta.watflix.model.vo.MemberVO;
 import org.kosta.watflix.model.vo.PointHistoryListVO;
 import org.kosta.watflix.model.vo.PointHistoryVO;
+import org.kosta.watflix.model.vo.ProductOrderListVO;
+import org.kosta.watflix.model.vo.ProductOrderVO;
 import org.kosta.watflix.model.vo.ReviewListVO;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -30,11 +33,15 @@ public class MemberController {
 	
 	@Resource
 	ReviewService reviewService;
+	
 	@Resource
 	CommentsService commentsService;
 	
 	@Resource
 	PointHistoryService pointHistoryService;
+	
+	@Resource
+	ProductOrderService productOrderService;
 	
 	@RequestMapping("loginForm.do")
 	public String loginForm() {
@@ -140,6 +147,7 @@ public class MemberController {
 	/*이용약관동의 end*/
 	
 	// 내 게시물 리스트
+	@Secured("ROLE_MEMBER")
 	@RequestMapping("myPostList.do")
 	public String MyPostList(Model model) {
 		System.out.println("myPostList.do 실행");
@@ -151,6 +159,7 @@ public class MemberController {
 	}	
 	
 	// 내 리뷰 리스트 Ajax
+	@Secured("ROLE_MEMBER")
 	@RequestMapping("myReviewList.do")
 	@ResponseBody
 	public ReviewListVO myReviewList(String pageNo) {
@@ -160,6 +169,7 @@ public class MemberController {
 	
 
 	// 내 Comments 리스트 Ajax
+	@Secured("ROLE_MEMBER")
 	@RequestMapping("myCommentsList.do")
 	@ResponseBody
 	public CommentsListVO myCommentsList(String pageNo) {
@@ -168,6 +178,7 @@ public class MemberController {
 	}
 
 	//포인트사용내역 조회
+	@Secured("ROLE_MEMBER")
 	@RequestMapping("memberPointHistoryCheck.do")
 	public String memberPointHistoryCheck(Model model,String pageNo) {
 		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -182,6 +193,7 @@ public class MemberController {
 		}
 		
 		List<PointHistoryVO> list = pointHistoryService.sMemberPointHistoryCheck(mvo.getId(),pagingBean);
+		System.out.println(list);
 		model.addAttribute("pointHistoryListVO",new PointHistoryListVO(list,pagingBean));
 		return "member/pointHistoryCheck.tiles";
 	}
@@ -197,4 +209,35 @@ public class MemberController {
 		mvo.setPoint(smvo.getPoint());
 		return mvo;
 	}
+	
+	//구매내역조회
+	@Secured("ROLE_MEMBER")
+	@RequestMapping("memberProductOrderList.do")
+	public String memberProductOrderList(String pageNo,Model model) {
+		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		//구매내역 총건수
+		int productOrderCount = productOrderService.sProductOrderCount(mvo.getId());
+		PagingBean pagingBean;
+		
+		if(pageNo==null) {
+			pagingBean = new PagingBean(productOrderCount);
+		}
+		else {
+			pagingBean = new PagingBean(productOrderCount, Integer.parseInt(pageNo));
+		}
+		List<ProductOrderVO> list = productOrderService.sProductOrderList(pagingBean,mvo.getId());
+		ProductOrderListVO polvo = new ProductOrderListVO(list, pagingBean);
+		model.addAttribute("productOrderListVO",polvo);
+		return "member/productOrderList.tiles";
+	}
+	
+	//구매내역 상세조회
+	@Secured("ROLE_MEMBER")
+	@RequestMapping("productOrderDetail.do")
+	public String productOrderDetail(ProductOrderVO productOrderVO,Model model) {
+		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		model.addAttribute("productOrderDetail",productOrderService.sProductOrderDetail(mvo.getId(),productOrderVO.getOrderNo()));
+		return "member/productOrderDetail.tiles";
+	}
+	
 }

@@ -249,7 +249,41 @@ $(document).ready(function(){
 		}//else문 종료
 	})// sort
 	
+	//평점높은 컨텐츠 탭 클릭시
+	$("#highHits-tab").click(function(){
+		sliderContents("#highHits");
+	})
+	//평점높은 컨텐츠 탭 클릭시
+	$("#highAgeStar-tab").click(function(){
+		//sliderContents("#highAgeStar");
+	})
+	//평점높은 컨텐츠 탭 클릭시
+	$("#highCommentsCount-tab").click(function(){
+		sliderContents("#highCommentsCount");
+	})
+	
+	
 })//ready
+function sliderContents(tabId){
+	var viewport = $(tabId).children(".carousel").children(".flickity-viewport");
+	viewport.attr("style", "height: 281.333px; touch-action: pan-y;");
+	var slider = viewport.children(".flickity-slider");
+	slider.attr("style","left: 0px; transform: translateX(0%);");
+	for(var index=0;index<5;index++){
+		slider.find(".carousel-cell").eq(index).attr("style","position: absolute; left:"+(20*index)+"%;");
+		slider.find(".carousel-cell").eq(index).removeAttr("aria-hidden");
+		slider.find(".carousel-cell").eq(index).addClass("is-selected");
+	}
+	for(var index=5;index<10;index++){
+		if(index==9){
+			slider.find(".carousel-cell").eq(index).attr("style","position: absolute; left:-20%;");
+		}
+		else{
+			slider.find(".carousel-cell").eq(index).attr("style","position: absolute; left:"+(20*index)+"%;");
+		}
+	}
+}
+	
 	
 //컨텐츠 출력
 function denote(contentsList){
@@ -368,19 +402,19 @@ var percent = 0;
     <div class="container-lg margin-top margin-bottom">
         <!-- Tabs nav - OPEN -->
         <nav class="nav nav-fill nav-pills" id="pills-tab" role="tablist">
-            <a class="nav-item nav-link active" id="trend-tab" data-toggle="pill" href="#highHits" role="tab" aria-controls="trend-tab" aria-selected="true">
+            <a class="nav-item nav-link active" id="highHits-tab" data-toggle="pill" href="#highHits" role="tab" aria-controls="trend-tab" aria-selected="true">
                 <div class="icon-nav">
                     <img src="${pageContext.request.contextPath}/resources/media/icons/trend.png" width="15" alt="" class="margin-right-sm">
                     인기컨텐츠
                 </div>
             </a>
-            <a class="nav-item nav-link" id="popular-tab" data-toggle="pill" href="#highAgeStar" role="tab" aria-controls="popular-tab" aria-selected="false">
+            <a class="nav-item nav-link" id="highAgeStar-tab" data-toggle="pill" href="#highAgeStar" role="tab" aria-controls="popular-tab" aria-selected="false">
                 <div class="icon-nav">
                     <img src="${pageContext.request.contextPath}/resources/media/icons/fire.png" width="15" alt="" class="margin-right-sm">
                    	평점높은 컨텐츠
                 </div>
             </a>
-            <a class="nav-item nav-link" id="manyCommentsTab" data-toggle="pill" href="#highCommentsCount" role="tab" aria-controls="new-tab" aria-selected="false">
+            <a class="nav-item nav-link" id="highCommentsCount-tab" data-toggle="pill" href="#highCommentsCount" role="tab" aria-controls="new-tab" aria-selected="false">
                 <div class="icon-nav">
                     <img src="${pageContext.request.contextPath}/resources/media/icons/clock.png" width="15" alt="" class="margin-right-sm">
                     최다등록평점
