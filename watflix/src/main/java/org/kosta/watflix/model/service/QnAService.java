@@ -1,5 +1,6 @@
 package org.kosta.watflix.model.service;
 
+import org.kosta.watflix.model.vo.QnAAnswerVO;
 import org.kosta.watflix.model.vo.QnAListVO;
 import org.kosta.watflix.model.vo.QnAVO;
 
@@ -17,5 +18,12 @@ public interface QnAService {
 	QnAListVO sGetQnAList();
 	// QnA 삭제(관리자만 삭제 가능)
 	void sQnADelete(int qnaNo);
-
+	// QnA 답변 작성
+	void sQnAAnswerWrite(QnAAnswerVO qnaAnswerVO);
 }
+
+
+
+
+
+

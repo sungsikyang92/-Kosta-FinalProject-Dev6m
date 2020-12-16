@@ -12,6 +12,7 @@ import org.kosta.watflix.model.service.QnAService;
 import org.kosta.watflix.model.vo.FaqListVO;
 import org.kosta.watflix.model.vo.FaqVO;
 import org.kosta.watflix.model.vo.MemberVO;
+import org.kosta.watflix.model.vo.QnAAnswerVO;
 import org.kosta.watflix.model.vo.QnAListVO;
 import org.kosta.watflix.model.vo.QnAVO;
 import org.springframework.test.context.ContextConfiguration;
@@ -98,6 +99,7 @@ public class YuriTestJUnit{
 	@Test
 	public void test(){
 	// QnA 작성 - ok
+	/*
 	QnAVO qnaVO = new QnAVO(); 
 	MemberVO memberVO = new MemberVO();
 	
@@ -130,11 +132,26 @@ public class YuriTestJUnit{
 	System.out.println(totalQnACount);
 	*/
 	// QnA 리스트 불러오기 -  ok
+	/*
 	String pageNo = null;
 	QnAListVO qvo = qnaService.sGetQnAList();
 	System.out.println(qnaService.sGetTotalQnACount());
 	for(QnAVO qnaVO1:qvo.getQnaList())
 		System.out.println(qnaVO1);
+		*/
+	// QnA 답변 작성
+	QnAAnswerVO qnaAnswerVO = new QnAAnswerVO();
+	MemberVO memberVO = new MemberVO();
+	memberVO.setId("yuki");
+	memberVO.setPassword("1");
+	memberVO.setName("유리");
+	memberVO.setEmail("gmail");
+	qnaAnswerVO.setMemberVO(memberVO);
+	
+	qnaAnswerVO.setAnswerContents("답변입니다.");
+	qnaService.sQnAAnswerWrite(qnaAnswerVO);
+	System.out.println(qnaAnswerVO);
+	
 	}
 }
 

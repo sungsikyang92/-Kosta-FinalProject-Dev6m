@@ -39,6 +39,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="qnaTypeVO.qType" column="QNA_TYPE" />
 		<result property="qnaTypeVO.qnaTypeNo" column="QNA_TYPE_NO" />
 	</resultMap> 
+	<!-- QnAAnswer 작성 -->
+	<insert id="mQnAAnswerWrite" parameterType="qnaAnswerVO">
+	<selectKey keyProperty="qnaAnswerNo" resultType="int" order="BEFORE"> 
+		select qna_answer_seq.nextval from dual
+	</selectKey>
+	insert into QNA_ANSWER(QNA_ANSWER_NO,ID,QNA_ANSWER_CONTENTS,QNA_NO)
+	values(#{answerNo},#{memberVO.id},#{answerContents},#{qnaNo})
+	</insert>
  </mapper>
  
  
