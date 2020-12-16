@@ -4,11 +4,13 @@ import javax.annotation.Resource;
 
 import org.kosta.watflix.model.service.QnAService;
 import org.kosta.watflix.model.vo.MemberVO;
+import org.kosta.watflix.model.vo.QnAAnswerVO;
 import org.kosta.watflix.model.vo.QnATypeVO;
 import org.kosta.watflix.model.vo.QnAVO;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -56,13 +58,15 @@ public class QnAController {
 		System.out.println(qnaService.sQnADetail(qnaNo));
 		return new ModelAndView("qna/qna_detail.tiles","qvo",qnaService.sQnADetail(qnaNo));
 	}
-	// qna 문의유형 선택
-	/*
-	@RequestMapping("selectQnAType.do")
-	public String selectQnAType(Model model) {
-		return "selectQnAType";
+	// qna 답변 작성
+	@PostMapping("qnaAnswerWrite.do")
+	public String qnaAnswerWrite(QnAAnswerVO qnaAnswerVO,int qnaNo,RedirectAttributes re) {
+		MemberVO memberVO = (MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		qnaAnswerVO.setMemberVO(memberVO);
+		qnaService.sQnAAnswerWrite(qnaAnswerVO);
+		re.addAttribute("qnaNo",qnaNo);
+		return "redirect:qnaDetail.do";
 	}
-	*/
 }
 
 

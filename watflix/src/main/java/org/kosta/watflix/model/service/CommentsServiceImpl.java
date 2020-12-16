@@ -5,7 +5,6 @@ import javax.annotation.Resource;
 import org.kosta.watflix.model.mapper.CommentsMapper;
 import org.kosta.watflix.model.vo.CommentsListVO;
 import org.kosta.watflix.model.vo.CommentsVO;
-import org.kosta.watflix.model.vo.ReviewListVO;
 import org.springframework.stereotype.Service;
 
 @Service

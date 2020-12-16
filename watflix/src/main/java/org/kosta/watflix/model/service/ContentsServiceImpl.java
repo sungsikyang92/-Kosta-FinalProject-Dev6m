@@ -26,17 +26,11 @@ public class ContentsServiceImpl implements ContentsService {
 		public int sGetTotalContentsCount() {
 			return contentsMapper.mGetTotalContentsCount();
 		}
-	
-	//모든 컨텐츠 리스트
+
+		//모든 컨텐츠 리스트
 	@Override
 	public List<ContentsVO> sGetAllContentsList() {
 		return contentsMapper.mGetAllContentsList();
-	}
-	
-	//특정 타입의 컨텐츠 총 개수
-	@Override
-	public int sGetTotalContentsCountForType(String contentsType) {
-		return contentsMapper.mGetTotalContentsCountForType(contentsType);
 	}
 	
 	//장르&타입의 컨텐츠 리스트
@@ -54,7 +48,7 @@ public class ContentsServiceImpl implements ContentsService {
 	public List<ContentsVO> sGetContentsAllForTypeLogin(String id,Map<String,String> map) {
 		return contentsMapper.mGetContentsAllForTypeLogin(id,map);
 	}
-
+	 
 	//조회수 높은순
 	@Override
 	public List<ContentsVO> sContentsHighHits() {
@@ -82,7 +76,7 @@ public class ContentsServiceImpl implements ContentsService {
 	public List<ContentsVO> sContentsHighAvgStarsLogin(String id) {
 		return contentsMapper.mContentsHighAvgStarsLogin(id);
 	}
-
+	
 	//장르 출력 리스트
 	@Override
 	public List<GenreVO> sGetAllGenreList() {
@@ -124,6 +118,34 @@ public class ContentsServiceImpl implements ContentsService {
 	@Override
 	public void sUpdateAvgStar(double avgStars, String contentsNo) {
 		contentsMapper.mUpdateAvgStars(avgStars, contentsNo);
+	}
+
+	//최다평점순
+	@Override
+	public List<ContentsVO> sContentsHighCommentsCount() {
+		return contentsMapper.mContentsHighCommentsCount();
+	}
+
+	//출시일이 최신순인 컨텐츠 리스트
+	@Override
+	public List<ContentsVO> sGetAllContentsListSortByNew(Map<String, String> map) {
+		return contentsMapper.mGetAllContentsListSortByNew(map);
+	}
+	//출시일이 오래된순인 컨텐츠 리스트
+	@Override
+	public List<ContentsVO> sGetAllContentsListSortByOld(Map<String, String> map) {
+		return contentsMapper.mGetAllContentsListSortByOld(map);
+	}
+
+	//특정 장르에서 출시일이 최신순인 컨텐츠 리스트
+	@Override
+	public List<ContentsVO> sGetAllContentsForGenreListSortByNew(Map<String, String> map) {
+		return contentsMapper.mGetAllContentsForGenreListSortByNew(map);
+	}
+	//특정 장르에서 출시일이 오래된순인 컨텐츠 리스트
+	@Override
+	public List<ContentsVO> sGetAllContentsForGenreListSortByOld(Map<String, String> map) {
+		return contentsMapper.mGetAllContentsForGenreListSortByOld(map);
 	}
 
 	//검색된 컨텐츠 장르 출력

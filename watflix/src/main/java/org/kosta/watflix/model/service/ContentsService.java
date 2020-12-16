@@ -11,7 +11,6 @@ public interface ContentsService {
 
 	List<ContentsVO> sGetAllContentsList();
 	int sGetTotalContentsCount();
-	int sGetTotalContentsCountForType(String contentsType);
 	List<ContentsVO> sGetContentsAllForTypeAndGenre(Map<String,String> map);
 	List<ContentsVO> sGetContentsAllForType(Map<String,String> map);
 	List<ContentsVO> sGetContentsAllForTypeLogin(String id,Map<String,String> map);
@@ -20,6 +19,7 @@ public interface ContentsService {
 	List<ContentsVO> sContentsHighHitsLogin(String id);
 	List<ContentsVO> sContentsHighAvgStars();
 	List<ContentsVO> sContentsHighAvgStarsLogin(String id);
+	List<ContentsVO> sContentsHighCommentsCount();
 	List<GenreVO> sGetAllGenreList();
 	List<GenreVO> sGetGenreSelectForType(String contentsType);
 	List<ContentsVO> sGetContentsSelectForType(String contentsType);
@@ -30,6 +30,10 @@ public interface ContentsService {
 	//컨텐츠추천여부검사를위한 서비스
 	//각 content에 contents_avg_stars 넣기
 	void sUpdateAvgStar(double avgStars, String contentsNo);
+	List<ContentsVO> sGetAllContentsListSortByNew(Map<String,String> map);
+	List<ContentsVO> sGetAllContentsListSortByOld(Map<String,String> map);
+	List<ContentsVO> sGetAllContentsForGenreListSortByNew(Map<String, String> map);
+	List<ContentsVO> sGetAllContentsForGenreListSortByOld(Map<String, String> map);
 	//컨텐츠 검색
 	List<GenreVO> sGenreSelectForTitle(String contentsTitle);
 	List<ContentsVO> sGetContentsSelectForTitle(String contentsTitle);

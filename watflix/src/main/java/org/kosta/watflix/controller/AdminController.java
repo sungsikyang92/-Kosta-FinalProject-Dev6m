@@ -52,7 +52,7 @@ public class AdminController {
    @RequestMapping("contentsUpdateAdmin.do")
    public String updateContents() {
 	  double count;
-      String[] genreArr= {"1568","2638104","7424","783"};
+      String[] genreArr= {"1568","2638104","7424","783","26009","11177","83","83059"};
       //크롤링할 웹페이지 주소
       String stemplateURL = "https://www.netflix.com/kr/browse/genre/";
       String btemplateURL = "https://www.netflix.com/kr/title/";   //게시물 상세보기 관련 URL
@@ -80,14 +80,20 @@ public class AdminController {
                String genreCode=genreArr[i];
                bw.write("장르명: "+genreName+" 장르코드: "+genreCode);
                bw.newLine();
-               //장르 DB에 저장하기
-               adminService.genreRegister(genreCode,genreName);
-               bw.write(genreName+" 장르 저장완료");
-               bw.newLine();
-               System.out.println(genreName+" 장르 저장완료");
-              
+               //장르 DB에 없으면 저장하기
+               if(adminService.findByGenreCode(genreCode)==0) {
+            	   adminService.genreRegister(genreCode,genreName);
+                   bw.write(genreName+" 장르 저장완료");
+                   bw.newLine();
+                   System.out.println(genreName+" 장르 저장완료");
+               }
+               else {
+            	   System.out.println("장르 건너뛰기");
+            	   continue;
+               }
+
                sElems = sDoc.select("img.nm-collections-title-img");
-               for(int a=0;a<50;a++) {
+               for(int a=0;a<80;a++) {
             	   Element sElem = sElems.get(a);
                   path="C:\\kosta203\\FinalProject\\-Kosta-FinalProject-Dev6m\\watflix\\src\\main\\webapp\\resources\\contents\\"; //사진을 저장할 물리적인 장소
                    //이미지
@@ -110,6 +116,9 @@ public class AdminController {
                         //해당 컨텐츠의 상세보기로 접근//
                         bDoc = Jsoup.connect(bThumbnailURL).get();
                         bElems = bDoc.select("div.title-info-synopsis");
+                        //상영시간
+                        bElems = bDoc.select(".item-runtime>.duration");
+                        String runningTime = bElems.text();
                         //줄거리
                         String summary = bElems.text();
                         bElems = bDoc.select("div.title-info-metadata-wrapper>.item-genre");
@@ -117,7 +126,7 @@ public class AdminController {
                         String type = bElems.text();
                         //타입에 TV 또는 영화가 없는상황
                         if((!type.contains("TV"))&&(!type.contains("영화"))) {
-                        	if(i==1) {
+                        	if(runningTime.contains("시즌")) {
                         		type="TV "+type;
                         	}
                         	else {
@@ -127,12 +136,13 @@ public class AdminController {
                         //개봉일
                         bElems = bDoc.select("span.item-year");
                         String date = bElems.text();
-                        //상영시간
-                        bElems = bDoc.select(".item-runtime>.duration");
-                        String runningTime = bElems.text();
+                       
                         //출연배우
                         bElems = bDoc.select(".item-starring>.title-data-info-item-list");
                         String actor = bElems.text();
+                        if(actor==null) {
+                        	actor="";
+                        }
                         //관람등급
                         bElems = bDoc.select(".maturity-number");
                         String age = bElems.text();

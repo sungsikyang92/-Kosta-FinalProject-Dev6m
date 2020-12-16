@@ -951,7 +951,7 @@ a, a:hover {
 	bottom:0px;
 	width:92%;
 }
-.productListDiv .productListTd{
+.productListTd{
 	border-top-width:0px;
 }
 .productListDiv img{
@@ -994,4 +994,8 @@ a, a:hover {
     width:100%;
     height:100px; 
     margin:100px 0; 
+}
+
+.middleBox{
+	margin: 40px 30px;
 }

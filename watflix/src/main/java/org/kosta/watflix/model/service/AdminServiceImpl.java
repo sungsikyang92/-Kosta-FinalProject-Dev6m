@@ -30,7 +30,7 @@ public class AdminServiceImpl implements AdminService {
 	}
 	
 	@Override
-	public GenreVO findByGenreCode(String genreCode) {
+	public int findByGenreCode(String genreCode) {
 		return cm.mFindGenreByCode(genreCode);
 	}
 	
@@ -122,6 +122,4 @@ public class AdminServiceImpl implements AdminService {
 			}
 		}
 	}
-
-	
 }

@@ -15,6 +15,12 @@
 	function qnaListBtn() {
 	location.href="${pageContext.request.contextPath}/qnaList.do";
 	}
+	//function qnaAnswerWrite() {
+	//	var qnaAnswer=$("#qnaAnswerContents").val();
+	//	var qnaNo = ${requestScope.qvo.qnaNo};
+		
+	//location.href="${pageContext.request.contextPath}/qnaAnswerWrite.do";
+	}
 </script>
 <hr>
 <hr>
@@ -44,12 +50,21 @@
 	</tbody>
 
 </table>
-<div class="qnaBtn">
-<sec:authorize access="hasRole('ROLE_ADMIN')">
-<button form="qnaDelete" type="submit" id="qna-delete-btn" >삭제</button>
-</sec:authorize>
-<button id="qnaListBtn" onclick="qnaListBtn()">내 문의 목록 보기</button>
+<div class="">
+<!-- 관리자 답변내용  -->
 
+<sec:authorize access="hasRole('ROLE_ADMIN')">
+<!-- 관리자만 답변입력 가능 -->
+<form action="${pageContext.request.contextPath }/qnaAnswerWrite.do" method="post" >
+<sec:csrfInput/>
+관리자 답변 <textarea cols="100" rows="3" name="qnaContents" id="qnaAnswerContents"
+required="required" placeholder="답변내용을 입력하세요"></textarea>
+<input type="hidden" name="qnaNo" value="${requestScope.qvo.qnaNo}">
+<input type="submit" class="btn" value="답변작성">
+</form>
+<button class="btn" form="qnaDelete" type="submit" id="qna-delete-btn" >삭제</button>
+</sec:authorize>
+<button class="btn" id="qnaListBtn" onclick="qnaListBtn()">내 문의 목록 보기</button>
 <br><br>
 </div>
 <form action="qnaDelete.do" id="qnaDelete" method="post">
