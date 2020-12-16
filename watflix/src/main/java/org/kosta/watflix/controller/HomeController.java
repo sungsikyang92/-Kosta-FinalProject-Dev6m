@@ -68,8 +68,13 @@ public class HomeController {
 		
 //			model.addAttribute("sContentsHighHitsLogin",contentsService.sContentsHighHitsLogin());
 		//평점 높은 컨텐츠 출력(1~10위)
-		model.addAttribute("contentsHighAvgStars",contentsService.sContentsHighAvgStars());
-		
+		if(!(auth instanceof AnonymousAuthenticationToken)) {
+			memberVO=(MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			model.addAttribute("contentsHighAvgStars",contentsService.sContentsHighAvgStarsLogin(memberVO.getId()));
+		}else {
+			memberVO.setId("guest");//비로그인상태
+			model.addAttribute("contentsHighAvgStars",contentsService.sContentsHighAvgStars());
+		}
 		//영화 타입의 장르를 검색
 		model.addAttribute("movieGenreList",contentsService.sGetGenreSelectForType("영화"));
 		
@@ -78,7 +83,13 @@ public class HomeController {
 		map.put("startNumber", Integer.toString(0));
 		map.put("endNumber", Integer.toString(10));
 		map.put("contentsType", "영화");
-		model.addAttribute("contentListForType",contentsService.sGetContentsAllForType(map));
+		if(!(auth instanceof AnonymousAuthenticationToken)) {
+			memberVO=(MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			model.addAttribute("contentListForType",contentsService.sGetContentsAllForTypeLogin(memberVO.getId(),map));
+		}else {
+			memberVO.setId("guest");//비로그인상태
+			model.addAttribute("contentListForType",contentsService.sGetContentsAllForType(map));
+		}
 		
 		return "home.tiles";
 	}

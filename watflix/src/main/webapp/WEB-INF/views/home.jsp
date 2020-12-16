@@ -422,7 +422,8 @@
             <div class="margin-top-under-sm tab-pane fade" id="popular" role="tabpanel" aria-labelledby="popular-tab">
                  <!-- Carousel - OPEN -->
                 <div class="carousel" data-flickity='{ "groupCells": true, "cellAlign": "center", "pageDots": false, "wrapAround": true, "draggable": false }' style="height: 280px;padding-top: 15px;">
-					<!--컨텐츠 리스트 출력 For문 START  -->
+					<!--로그인 전 컨텐츠 리스트 출력 For문 START  -->
+					<sec:authorize access="!isAuthenticated()">
                   	<c:forEach items="${requestScope.contentsHighAvgStars}" var="contentsVO">
                   	<div class="carousel-cell">
                   			<!-- 컨텐츠 작은 썸네일 -->
@@ -440,9 +441,15 @@
                                 </a>
                             </div>
                             <div class="col-3 text-left no-padding">
-                                <a href="">
-                                    <img src="${pageContext.request.contextPath}/resources/media/icons/heart.png" width="10" alt="">
-                                </a>
+                                   <!-- 좋아요 영역 시작 -->
+	                                <span>
+										<a href="${pageContext.request.contextPath}/loginForm.do">
+												<img id="NeedLogin" class="NeedLogin" src="/watflix/resources/media/icons/HeartLine.png" width=30px height=30px>
+										</a>
+											<span id="ContentsLikeCount">${contentsVO.contentsLikes}</span>
+											<input type="hidden" value="${contentsVO.contentsNo}">
+									</span>
+								 <!-- 좋아요 영역 끝 -->
                             </div>
                             <div class="col-3 text-right no-padding rating">
                                 <img src="${pageContext.request.contextPath}/resources/media/icons/star.png" width="10" alt="" style="padding-bottom: 3px">
@@ -459,7 +466,59 @@
                         </div>
                     </div>
                   	</c:forEach>
-					<!--컨텐츠 리스트 출력 For문 END  -->
+                  	</sec:authorize>
+					<!--로그인 전 컨텐츠 리스트 출력 For문 END  -->
+					<!--로그인 후 컨텐츠 리스트 출력 For문 START  -->
+					 <sec:authorize access="isAuthenticated()">
+                  	<c:forEach items="${requestScope.contentsHighAvgStars}" var="contentsVO">
+                  	<div class="carousel-cell">
+                  			<!-- 컨텐츠 작은 썸네일 -->
+                        	<img class="carousel-cell-image" src="${pageContext.request.contextPath}/${contentsVO.contentsSmallThumbnail}" />
+                        	<!-- 컨텐츠 제목 -->
+                        	<h5 class="text-center">${contentsVO.contentsTitle}</h5>
+                        	
+                        	<div class="row">
+                            <div class="col-3 text-left no-padding">
+                                ${contentsVO.contentsDate}
+                            </div>
+                            <div class="col-3 text-center no-padding">
+                                <a href="">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/eye.png" width="10" alt="">
+                                </a>
+                            </div>
+                            <div class="col-3 text-left no-padding">
+                                  <!-- 좋아요 영역 시작 -->
+	                                <span>
+										<c:choose>
+											<c:when test="${contentsVO.contentsLikeStatus == 1}">
+												<img id="ContentsLike" class="ContentsLike" src="/watflix/resources/media/icons/RedHeart.png" width=30px height=30px>
+											</c:when>
+											<c:otherwise>
+												<img id="ContentsLike" class="ContentsLike" src="/watflix/resources/media/icons/HeartLine.png" width=30px height=30px>
+											</c:otherwise>
+										</c:choose>
+											<span id="ContentsLikeCount">${contentsVO.contentsLikes}</span>
+											<input type="hidden" value="${contentsVO.contentsNo}">
+									</span>
+								 <!-- 좋아요 영역 끝 -->
+                            </div>
+                            <div class="col-3 text-right no-padding rating">
+                                <img src="${pageContext.request.contextPath}/resources/media/icons/star.png" width="10" alt="" style="padding-bottom: 3px">
+                                ${contentsVO.contentsAvgStars}
+                            </div>
+                        </div>
+                        <div class="overlay">
+                            <div class="text">
+                                <a href="#" class="btn btn-primary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                    <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="10" alt="">
+                                    상세보기
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                  	</c:forEach>
+                  	</sec:authorize>
+					<!--로그인 후 컨텐츠 리스트 출력 For문 END  -->
                     
                 </div>
                 <!-- Carousel - CLOSE -->
@@ -543,7 +602,8 @@
                 <div id="grid-movies" style="margin-top:50px;">
                      <c:forEach var="index" begin="1" end="${fn:length(requestScope.contentListForType)/5+1}">
        				 	<div class="card-deck">
-	                   	 <!-- 컨텐츠 리스트 행 Layout - OPEN -->
+	                   	 <!-- 로그인 전 컨텐츠 리스트 행 Layout - OPEN -->
+	                   	 <sec:authorize access="!isAuthenticated()">
 	                   	 <c:forEach items="${requestScope.contentListForType}" var="contentsVO" begin="${(index-1)*5}" end="${index*5-1}">
 			                        <div class="card carousel-cell">
 			                            <img class="card-img-top" src="${pageContext.request.contextPath}/${contentsVO.contentsSmallThumbnail}" />
@@ -558,9 +618,14 @@
 			                                    </a>
 			                                </div>
 			                                <div class="col-3 text-left no-padding">
-			                                    <a href="">
-			                                        <img src="${pageContext.request.contextPath}/resources/media/icons/heart.png" width="10" alt="좋아요">
-			                                    </a>
+			                                       <!-- 좋아요 영역 시작 -->
+						                                <span>
+															<a href="${pageContext.request.contextPath}/loginForm.do">
+																	<img id="NeedLogin" class="NeedLogin" src="/watflix/resources/media/icons/HeartLine.png" width=30px height=30px alt="좋아요">
+															</a>
+																<input type="hidden" value="${contentsVO.contentsNo}">
+														</span>
+													<!-- 좋아요 영역 끝 -->
 			                                </div>
 			                                <div class="col-3 text-right no-padding rating">
 			                                    <img src="${pageContext.request.contextPath}/resources/media/icons/star.png" width="10" alt="" class="padding-bottom-sm">
@@ -577,7 +642,55 @@
 			                            </div>
 			                        </div>
 						</c:forEach>
-                    <!-- 컨텐츠 리스트 행 CLOSE -->
+						</sec:authorize>
+                    <!-- 로그인 전 컨텐츠 리스트 행 CLOSE -->
+	                   	 <!-- 로그인 후 컨텐츠 리스트 행 Layout - OPEN -->
+	                   	  <sec:authorize access="isAuthenticated()">
+	                   	 <c:forEach items="${requestScope.contentListForType}" var="contentsVO" begin="${(index-1)*5}" end="${index*5-1}">
+			                        <div class="card carousel-cell">
+			                            <img class="card-img-top" src="${pageContext.request.contextPath}/${contentsVO.contentsSmallThumbnail}" />
+			                            <h5 class="card-title text-center" style="font-size:13px;"> ${contentsVO.contentsTitle}</h5>
+			                            <div class="row">
+			                                <div class="col-3 text-left no-padding">
+			                                     ${contentsVO.contentsDate}
+			                                </div>
+			                                <div class="col-3 text-center no-padding">
+			                                    <a href="">
+			                                        <img src="${pageContext.request.contextPath}/resources/media/icons/eye.png" width="10" alt="상세보기">
+			                                    </a>
+			                                </div>
+			                                <div class="col-3 text-left no-padding">
+                                                 <!-- 좋아요 영역 시작 -->
+					                                <span>
+														<c:choose>
+															<c:when test="${contentsVO.contentsLikeStatus == 1}">
+																<img id="ContentsLike" class="ContentsLike" src="/watflix/resources/media/icons/RedHeart.png" width=30px height=30px>
+															</c:when>
+															<c:otherwise>
+																<img id="ContentsLike" class="ContentsLike" src="/watflix/resources/media/icons/HeartLine.png" width=30px height=30px>
+															</c:otherwise>
+														</c:choose>
+															<input type="hidden" value="${contentsVO.contentsNo}">
+													</span>
+												 <!-- 좋아요 영역 끝 -->
+			                                </div>
+			                                <div class="col-3 text-right no-padding rating">
+			                                    <img src="${pageContext.request.contextPath}/resources/media/icons/star.png" width="10" alt="" class="padding-bottom-sm">
+			                                    ${contentsVO.contentsAvgStars}
+			                                </div>
+			                            </div>
+			                            <div class="overlay">
+			                                <div class="text">
+			                                    <a href="${pageContext.request.contextPath}/contentsDetail.do?contentsNo=${contentsVO.contentsNo}" class="btn btn-primary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+			                                        <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="10" alt="">
+			                                        상세보기
+			                                    </a>
+			                                </div>
+			                            </div>
+			                        </div>
+						</c:forEach>
+                    </sec:authorize>
+                    <!-- 로그인 후 컨텐츠 리스트 행 CLOSE -->
                     </div>
                     </c:forEach>
                 </div>

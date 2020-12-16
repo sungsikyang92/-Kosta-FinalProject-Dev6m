@@ -14,10 +14,12 @@ public interface ContentsService {
 	int sGetTotalContentsCountForType(String contentsType);
 	List<ContentsVO> sGetContentsAllForTypeAndGenre(Map<String,String> map);
 	List<ContentsVO> sGetContentsAllForType(Map<String,String> map);
+	List<ContentsVO> sGetContentsAllForTypeLogin(String id,Map<String,String> map);
 	ContentsVO sFindContentsByNo(String contentsNo);
 	List<ContentsVO> sContentsHighHits();
 	List<ContentsVO> sContentsHighHitsLogin(String id);
 	List<ContentsVO> sContentsHighAvgStars();
+	List<ContentsVO> sContentsHighAvgStarsLogin(String id);
 	List<GenreVO> sGetAllGenreList();
 	List<GenreVO> sGetGenreSelectForType(String contentsType);
 	List<ContentsVO> sGetContentsSelectForType(String contentsType);
