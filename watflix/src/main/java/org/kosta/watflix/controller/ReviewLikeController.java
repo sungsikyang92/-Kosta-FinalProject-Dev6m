@@ -21,8 +21,7 @@ public class ReviewLikeController {
 	@RequestMapping("reviewLikeExist.do")
 	@ResponseBody
 	public int reviewLikeExist(int reviewNo) {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		MemberVO memberVO = (MemberVO)principal;
+		MemberVO memberVO = (MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		ReviewLikeVO reviewLikeVO = new ReviewLikeVO();
 		ReviewVO reviewVO = new ReviewVO();
 		reviewVO.setReviewNo(reviewNo);

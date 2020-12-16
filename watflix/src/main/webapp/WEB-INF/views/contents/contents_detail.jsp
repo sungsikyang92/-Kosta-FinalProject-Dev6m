@@ -26,8 +26,8 @@
                             </a>
                     </div>
                      <div class="margin-top-under-sm">
-                        <a href="#"  role="button" aria-pressed="true">
-                            예고편 감상하기
+                        <a href="https://www.netflix.com/kr/title/${contentsVO.contentsNo }"  role="button" aria-pressed="true">
+                            시청하기
                         </a>
                     </div>
                 </div>

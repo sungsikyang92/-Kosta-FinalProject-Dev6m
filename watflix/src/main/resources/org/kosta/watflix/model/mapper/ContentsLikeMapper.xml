@@ -10,14 +10,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	<!-- 컨텐츠좋아요 유무 여부 -->
 	<select id="mContentsLikeExist" parameterType="contentsLikeVO" resultType="int">
-		SELECT count(*) FROM CONTENTS_LIKE WHERE REVIEW_NO = #{contentsVO.contentsNo} AND ID = #{memberVO.id}
+		SELECT COUNT(*) FROM CONTENTS_LIKE WHERE CONTENTS_NO = #{contentsVO.contentsNo} AND ID = #{memberVO.id}
 	</select>
 	<!-- 컨텐츠좋아요 제거 -->
 	<delete id="mContentsLikeRemove" parameterType="contentsLikeVO">
 		DELETE FROM CONTENTS_LIKE WHERE CONTENTS_NO = #{contentsVO.contentsNo} AND ID = #{memberVO.id}
 	</delete>
-	<!-- 컨텐츠좋아요 개수 -->
+	<!-- 컨텐츠좋아요 total개수 -->
 	<select id="mGetContentsLikeCount" resultType="int">
 		SELECT COUNT(*) FROM CONTENTS_LIKE
 	</select>
+	 	
+ 	<select id="mIsLike" parameterType="hashmap" resultType="int">
+ 		select count(*) from CONTENTS_LIKE WHERE ID=#{id} and CONTENTS_NO = #{contentsNo}
+ 	</select>
+ 	
 </mapper>

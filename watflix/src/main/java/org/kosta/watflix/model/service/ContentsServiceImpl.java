@@ -1,6 +1,7 @@
 package org.kosta.watflix.model.service;
 
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,7 +9,6 @@ import javax.annotation.Resource;
 
 import org.kosta.watflix.model.mapper.ContentsMapper;
 import org.kosta.watflix.model.mapper.ReviewMapper;
-import org.kosta.watflix.model.vo.ProductCategoryListVO;
 import org.kosta.watflix.model.vo.ContentsVO;
 import org.kosta.watflix.model.vo.GenreVO;
 import org.springframework.stereotype.Service;
@@ -33,12 +33,6 @@ public class ContentsServiceImpl implements ContentsService {
 		return contentsMapper.mGetAllContentsList();
 	}
 	
-	//특정 타입의 컨텐츠 총 개수
-	@Override
-	public int sGetTotalContentsCountForType(String contentsType) {
-		return contentsMapper.mGetTotalContentsCountForType(contentsType);
-	}
-	
 	//장르&타입의 컨텐츠 리스트
 	@Override
 	public List<ContentsVO> sGetContentsAllForTypeAndGenre(Map<String,String> map) {
@@ -55,7 +49,17 @@ public class ContentsServiceImpl implements ContentsService {
 	public List<ContentsVO> sContentsHighHits() {
 		return contentsMapper.mContentsHighHits();
 	}
-
+	
+	//조회수 높은순 with Login
+	@Override
+	public List<ContentsVO> sContentsHighHitsLogin(String id) {
+//		HashMap<String, Object>map = new HashMap<String, Object>();
+//		map.put("id", id);
+//		map.put("contentsNo", contentsNo);
+//		return contentsMapper.mContentsHighHitsLogin(map);
+		return contentsMapper.mContentsHighHitsLogin(id);
+	}
+	
 	//평점 높은순
 	@Override
 	public List<ContentsVO> sContentsHighAvgStars() {
@@ -87,22 +91,62 @@ public class ContentsServiceImpl implements ContentsService {
 		return contentsMapper.mGetGenreSelectForType(contentsType);
 	}
 
-	//리뷰추천수증가
+	//컨텐츠추천수증가
 	@Override
-	public void sContentsLikesUpdate(String reviewNo) {
-		contentsMapper.mContentsLikeUpdate(reviewNo);
+	public void sContentsLikesUpdate(String contentsNo) {
+		contentsMapper.mContentsLikeUpdate(contentsNo);
 	}
 
-	//리뷰추천수감소
+	//컨텐츠추천수감소
 	@Override
-	public void sContentsLikeRevmoew(String reviewNo) {
-		contentsMapper.mContentsLikeRemove(reviewNo);
+	public void sContentsLikeRevmoew(String contentsNo) {
+		contentsMapper.mContentsLikeRemove(contentsNo);
 	}
 	
 	//각 content에 contents_avg_stars 넣기
 	@Override
 	public void sUpdateAvgStar(double avgStars, String contentsNo) {
 		contentsMapper.mUpdateAvgStars(avgStars, contentsNo);
+	}
+
+	//최다평점순
+	@Override
+	public List<ContentsVO> sContentsHighCommentsCount() {
+		return contentsMapper.mContentsHighCommentsCount();
+	}
+
+	//출시일이 최신순인 컨텐츠 리스트
+	@Override
+	public List<ContentsVO> sGetAllContentsListSortByNew(Map<String, String> map) {
+		return contentsMapper.mGetAllContentsListSortByNew(map);
+	}
+	//출시일이 오래된순인 컨텐츠 리스트
+	@Override
+	public List<ContentsVO> sGetAllContentsListSortByOld(Map<String, String> map) {
+		return contentsMapper.mGetAllContentsListSortByOld(map);
+	}
+
+	//특정 장르에서 출시일이 최신순인 컨텐츠 리스트
+	@Override
+	public List<ContentsVO> sGetAllContentsForGenreListSortByNew(Map<String, String> map) {
+		return contentsMapper.mGetAllContentsForGenreListSortByNew(map);
+	}
+	//특정 장르에서 출시일이 오래된순인 컨텐츠 리스트
+	@Override
+	public List<ContentsVO> sGetAllContentsForGenreListSortByOld(Map<String, String> map) {
+		return contentsMapper.mGetAllContentsForGenreListSortByOld(map);
+	}
+
+	//검색된 컨텐츠 장르 출력
+	@Override
+	public List<GenreVO> sGenreSelectForTitle(String contentsTitle) {
+		return contentsMapper.mGenreSelectForTitle(contentsTitle);
+	}
+
+	//컨텐츠 검색
+	@Override
+	public List<ContentsVO> sGetContentsSelectForTitle(String contentsTitle) {
+		return contentsMapper.mGetContentsSelectForTitle(contentsTitle);
 	}
 	
 }

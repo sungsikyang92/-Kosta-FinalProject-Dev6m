@@ -24,5 +24,9 @@ public interface ProductService {
 	void sProductBuy(ProductVO productVO, MemberVO memberVO,ProductOrderVO productOrderVO);
 
 	int sGetProductStock(int productNo);
+
+	int sProductStatusNormalGetTotalCount();
+
+	List<ProductVO> sGetProductStatusNormalList(PagingBean pagingBean);
 	
 }

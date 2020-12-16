@@ -42,7 +42,7 @@
 					<!-- 재고확인란 END -->
 					<!--수정버튼 START -->
 					<div style="width:30%; margin:80px 0.5%;float:left;">		
-						<button form="productUpdateForm" class="btn-primary" type="submit">수정</button>
+						<button form="productUpdateForm" class="btn-danger" type="submit">수정</button>
 						<form action="${pageContext.request.contextPath}/productUpdateForm.do" id="productUpdateForm">
 							<input type="hidden" name="productNo" value="${productVO.productNo}">
 						</form>

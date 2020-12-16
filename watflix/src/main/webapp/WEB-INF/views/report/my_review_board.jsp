@@ -22,20 +22,10 @@
 					//table의 tbody
 					for (var i = 0; i < data.reviewList.length; i++){
 						reviewTbody += "<tr>";
-							reviewTbody += "<th>";
-								reviewTbody += "<a href=\"${pageContext.request.contextPath}/reviewDetailNoHits.do?reviewNo="+data.reviewList[i].reviewNo+"\">";
-									reviewTbody += data.reviewList[i].reviewTitle;
-								reviewTbody += "</a>";
-							reviewTbody += "</th>";
-							reviewTbody += "<th>";
-								reviewTbody += data.reviewList[i].reviewPostedTime;
-							reviewTbody += "</th>";
-							reviewTbody += "<th>";
-								reviewTbody += data.reviewList[i].reviewLikes;
-							reviewTbody += "</th>";
-							reviewTbody += "<th>";
-								reviewTbody += data.reviewList[i].reviewHits;
-							reviewTbody += "</th>";
+							reviewTbody += "<th><a href=\"${pageContext.request.contextPath}/reviewDetailNoHits.do?reviewNo="+data.reviewList[i].reviewNo+"\">"+ data.reviewList[i].reviewTitle + "</a></th>";
+							reviewTbody += "<th>"+ data.reviewList[i].reviewPostedTime + "</th>";
+							reviewTbody += "<th>"+ data.reviewList[i].reviewLikes +"</th>";
+							reviewTbody += "<th>"+ data.reviewList[i].reviewHits +"</th>";
 						reviewTbody += "</tr>";
 					}
 					$("#reviewTbody").html(reviewTbody);
@@ -45,38 +35,21 @@
 					var endPageGroup = data.pagingBean.endPageOfPageGroup;
 					// 왼쪽 페이징 화살표
 					if (data.pagingBean.previousPageGroup){
-						reportTfoot += "<li>";
-							reportTfoot += "<a href=\"#\" onclick=\"reviewPaging("+ (startPageGroup -1) +");return false;\">";
-								reportTfoot += "&laquo;";
-							reportTfoot += "</a>";
-						reportTfoot += "</li>";
+						reportTfoot += "<li><a href=\"#\" onclick=\"reviewPaging("+ (startPageGroup -1) +");return false;\">&laquo;</a></li>";
 					}
 					// 페이징 번호
 					for (var reviewPageNo = startPageGroup; reviewPageNo < endPageGroup + 1; reviewPageNo++){
 						if(data.pagingBean.nowPage != reviewPageNo){
-							reportTfoot += "<li>";
-								reportTfoot += "<a href=\"#\" onclick=\"reviewPaging("+ reviewPageNo +");return false;\">";
-									reportTfoot += reviewPageNo;
-								reportTfoot += "</a>";
-							reportTfoot += "</li>";
+							reportTfoot += "<li><a href=\"#\" onclick=\"reviewPaging("+ reviewPageNo +");return false;\">"+ reviewPageNo +"</a></li>";
 						}else{
-							reportTfoot += "<li>";
-								reportTfoot += "<a href=\"#\" onclick=\"return false\">";
-									reportTfoot += reviewPageNo;
-								reportTfoot += "</a>";
-							reportTfoot += "</li>";
+							reportTfoot += "<li><a href=\"#\" onclick=\"return false\">"+ reviewPageNo +"</a></li>";
 						}
 					}
 					// 오른쪽 화살표 페이징
 					if(data.pagingBean.nextPageGroup){
-						reportTfoot += "<li>";
-							reportTfoot += "<a href=\"#\" onclick=\"reviewPaging("+ (endPageGroup + 1) +");return false\">";
-								reportTfoot += "&raquo;";
-							reportTfoot += "</a>";
-						reportTfoot += "</li>";
+						reportTfoot += "<li><a href=\"#\" onclick=\"reviewPaging("+ (endPageGroup + 1) +");return false\">&raquo;</a></li>";
 					}
 					$("#reviewPaging").html(reportTfoot);
-					
 				}
 			})
 		}

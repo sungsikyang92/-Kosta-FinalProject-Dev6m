@@ -95,7 +95,8 @@ public class ProductController {
 	@RequestMapping("productMarket.do")
 	public String productMarket(Model model,String pageNo) {
 		PagingBean pagingBean = null;
-		int totalProductCount = productService.sProductGetTotalCount();
+		//정상판매인 상품의 수
+		int totalProductCount = productService.sProductStatusNormalGetTotalCount();
 		
 		if(pageNo==null) {
 			pagingBean = new PagingBean(totalProductCount, 12, 4);
@@ -103,7 +104,7 @@ public class ProductController {
 		else {
 			pagingBean = new PagingBean(totalProductCount, 12,4,Integer.parseInt(pageNo));
 		}
-		List<ProductVO> pvolist = productService.sGetProductList(pagingBean);
+		List<ProductVO> pvolist = productService.sGetProductStatusNormalList(pagingBean);
 		model.addAttribute("productListVO",new ProductListVO(pvolist, pagingBean));
 		return "product/productMarket.tiles";
 	}
@@ -117,15 +118,18 @@ public class ProductController {
 	
 	//상품 수정하기(redirect는 결과페이지에서 진행함)
 	@PostMapping("productUpdate.do")
-	public String productUpdate(ProductVO productVO,ProductCategoryVO productCategoryVO, Model model,ProductCategoryVO pcvo, MultipartHttpServletRequest request) {
+	public String productUpdate(ProductVO productVO,ProductCategoryVO productCategoryVO, Model model,MultipartHttpServletRequest request) {
 		//기존에 이미지 저장된 디렉토리
 		String beforeProductPic = productVO.getProductPic();
-		//이미지 저장 Start
-		uploadPath=request.getSession().getServletContext().getRealPath("/resources/product/"+productVO.getProductName()+"/");
-		//이미지 저장된 디렉토리 반환
-		String productPic = saveImg(productVO,uploadPath);
-		//이미지 저장 End
-		productVO.setProductPic(productPic);
+		if(!productVO.getProductPicFile().isEmpty()) {
+			//이미지 저장 Start
+			uploadPath=request.getSession().getServletContext().getRealPath("/resources/product/"+productVO.getProductName()+"/");
+			//이미지 저장된 디렉토리 반환
+			String productPic = saveImg(productVO,uploadPath);
+			//이미지 저장 End
+			productVO.setProductPic(productPic);
+			System.out.println("상품의 새로운 이미지가 저장됨");
+		}
 		productVO.setProductCategoryVO(productCategoryVO);
 		//실제DB에 상품정보 update
 		productService.sProductUpdate(productVO);
@@ -223,7 +227,7 @@ public class ProductController {
 		
 		if(serverFile.exists()||localFile.exists()) {
 	    		if(serverFile.delete()||localFile.delete()){
-	    			System.out.println("파일삭제 성공");
+	    			System.out.println("서버에서 파일삭제 "+serverFile.exists()+" 로컬에서 파일삭제 "+localFile.exists());
 	    		}else{
 	    			System.out.println("파일삭제 실패");
 	    		}

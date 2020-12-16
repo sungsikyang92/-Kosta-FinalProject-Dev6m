@@ -30,6 +30,13 @@
 		function deleteCheck(){
 			return confirm("삭제하시겠습니까?");
 		}
+		
+		function reportPopup(commentsNo){
+			// popup
+			var path = "${pageContext.request.contextPath}/commentsByCommentsNo.do?commentsNo="+commentsNo;
+			window.open(path, "commentsByComments","width=1000, height=230, top=150, left=200");
+			
+		}
 	</script>
 	<table class="table table-hover">
 		<thead>
@@ -67,19 +74,12 @@
 						</form>
 					</td>
 				</tr>
-				<tr hidden="False">
+				<tr>
 					<td colspan="6">
 						<pre>${rvo.reportContents }</pre>
 					</td>
 					<td>
-						<!-- 신고된 평점 삭제 -->
-						<!-- CommentsController 참고 후 수정 -->
-						<form action="" method="post">
-							<!-- CSRF 방지 토큰,  Cross-site request forgery(사이트간 요청 위조)를 방지  -->
-							<sec:csrfInput/>
-							<input type="hidden" name="" value="${rvo.commentsVO.commentsNo}">
-							<input type="submit" value="deleteComments">
-						</form>
+						<a href="#" onclick="reportPopup(${rvo.commentsVO.commentsNo});return false;">삭제</a>
 					</td>
 				</tr>
 			</c:forEach>

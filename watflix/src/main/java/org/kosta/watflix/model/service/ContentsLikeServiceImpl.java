@@ -1,5 +1,7 @@
 package org.kosta.watflix.model.service;
 
+import java.util.HashMap;
+
 import javax.annotation.Resource;
 
 import org.kosta.watflix.model.mapper.ContentsLikeMapper;
@@ -33,6 +35,7 @@ public class ContentsLikeServiceImpl implements ContentsLikeService {
 	public int sGetContentsLikeCount() {
 		return contentsLikeMapper.mGetContentsLikeCount();
 	}
+	//로그인시 컨튼체 좋아요 유무 체크
 	@Override
 	public int sGetCLikeExist(String contentsNo, String id) {
 		ContentsLikeVO contentsLikeVO = new ContentsLikeVO();
@@ -43,6 +46,13 @@ public class ContentsLikeServiceImpl implements ContentsLikeService {
 		contentsLikeVO.setMemberVO(memberVO);
 		contentsLikeVO.setContentsVO(contentsVO);
 		return contentsLikeMapper.mContentsLikeExist(contentsLikeVO);
+	}
+	@Override
+	public int sIsLike(String id,String contNO) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("id", id);
+		map.put("contentsNo", contNO);
+		return contentsLikeMapper.mIsLike(map);
 	}
 	
 	

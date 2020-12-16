@@ -46,9 +46,6 @@ $(document).ready(function(){
 	  		</c:forEach>
 	  	</tr>
 	  </c:forEach>
-	  
-	  	
-	  
 	  </table>
 		<div class="boardBottomDiv">
 			<div class="pagingInfo" id="pagingLocation">

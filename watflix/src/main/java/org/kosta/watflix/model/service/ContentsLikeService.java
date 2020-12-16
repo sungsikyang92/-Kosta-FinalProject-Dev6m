@@ -1,6 +1,7 @@
 package org.kosta.watflix.model.service;
 
 import org.kosta.watflix.model.vo.ContentsLikeVO;
+import org.kosta.watflix.model.vo.MemberVO;
 
 public interface ContentsLikeService {
 	//컨텐츠좋아요 여부
@@ -9,4 +10,5 @@ public interface ContentsLikeService {
 	int sGetContentsLikeCount();
 	//컨텐츠좋아요 유무체크용
 	int sGetCLikeExist(String contentsNo, String id);
+	int sIsLike(String id, String contNO);
 }

@@ -24,6 +24,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		SELECT COUNT(*) FROM PRODUCT
  	</select>
  	
+ 	<!-- 정상상품 총개수  -->
+ 	<select id="mProductStatusNormalGetTotalCount" resultType="int">
+ 		SELECT COUNT(*) FROM PRODUCT where PRO_STATUS_NO=1
+ 	</select>
+ 	
  	<!-- 상품조회 -->
  	<select id="mProductDetail" resultMap="productRM" parameterType="int">
 	 	<include refid="selectProduct"></include>
@@ -33,6 +38,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	<!-- 상품리스트 조회 -->
  	<select id="mGetProductList" resultMap="productRM" parameterType="pagingBean">
  		<include refid="selectProduct"></include>
+	  AND rnum BETWEEN #{startRowNumber} AND #{endRowNumber}
+ 	</select>
+ 	
+ 	<!-- 정상상품리스트 조회 -->
+ 	<select id="mGetProductStatusNormalList" resultMap="productRM" parameterType="pagingBean">
+ 		select P.PRODUCT_NO,P.PRODUCT_NAME,P.PRODUCT_POINT,P.PRODUCT_DETAIL,P.PRODUCT_CATEGORY_NO,C.PRODUCT_CATEGORY_NAME,P.PRODUCT_PIC,P.PRODUCT_BRAND,P.PRODUCT_STOCK,P.PRO_STATUS_NO,S.PRO_STATUS_INFO
+	 	FROM (SELECT row_number() over(order by PRODUCT_NO) as rnum,PRODUCT_NO,PRODUCT_NAME,PRODUCT_POINT,PRODUCT_DETAIL,
+	 	PRODUCT_CATEGORY_NO,PRODUCT_PIC,PRODUCT_BRAND,PRODUCT_STOCK,PRO_STATUS_NO FROM PRODUCT WHERE PRO_STATUS_NO=1) P, PRODUCT_CATEGORY C, PRO_STATUS S
+	 	WHERE P.PRODUCT_CATEGORY_NO=C.PRODUCT_CATEGORY_NO AND P.PRO_STATUS_NO=S.PRO_STATUS_NO
 	  AND rnum BETWEEN #{startRowNumber} AND #{endRowNumber}
  	</select>
  	

@@ -9,11 +9,14 @@ import javax.annotation.Resource;
 
 import org.kosta.watflix.model.service.ContentsLikeService;
 import org.kosta.watflix.model.service.ContentsService;
+import org.kosta.watflix.model.service.PagingBean;
 import org.kosta.watflix.model.service.ReviewLikeService;
 import org.kosta.watflix.model.service.ReviewService;
 import org.kosta.watflix.model.vo.ContentsLikeVO;
 import org.kosta.watflix.model.vo.ContentsVO;
 import org.kosta.watflix.model.vo.MemberVO;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,9 +43,37 @@ public class HomeController {
 		//랜덤함수(홈화면에서 상위 슬라이드에 랜덤으로 컨텐츠를 보여주기 위함)
 		int random = new Random().nextInt(contentsList.size()-5);
 		model.addAttribute("randomIndex",random);
-		//조회수 높은 컨텐츠 출력(1~10위)
-		model.addAttribute("contentsHighHits",contentsService.sContentsHighHits());
 		
+		
+		//평점높은 컨텐츠
+		model.addAttribute("highAgeStar",contentsService.sContentsHighAvgStars());
+		
+		//최다등록평점 컨텐츠
+		model.addAttribute("highCommentsCount",contentsService.sContentsHighCommentsCount());
+		
+		//좋아요 유지를 위한 로그인 여부 체크
+		MemberVO memberVO = new MemberVO();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if(!(auth instanceof AnonymousAuthenticationToken)) {
+			// 로그인 상태 System.out.println("로그인");
+			memberVO=(MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//			int result=-1;
+//			String contNO="";
+//			List<ContentsVO> list = contentsService.sGetAllContentsList();
+//			for(int i=0 ; i< list.size() ; i++) {
+//				contNO = list.get(i).getContentsNo();
+//				result = contentsLikeService.sIsLike(memberVO.getId() , contNO);
+//				list.get(i).setContentsLikeStatus(result);
+//			}
+//			model.addAttribute("contentsHighHits",list);	
+			model.addAttribute("highHits",contentsService.sContentsHighHitsLogin(memberVO.getId()));
+		}else {
+			memberVO.setId("guest");//비로그인상태
+			model.addAttribute("highHits",contentsService.sContentsHighHits());	
+		}
+		
+		
+//			model.addAttribute("sContentsHighHitsLogin",contentsService.sContentsHighHitsLogin());
 		//평점 높은 컨텐츠 출력(1~10위)
 		model.addAttribute("contentsHighAvgStars",contentsService.sContentsHighAvgStars());
 		
@@ -55,19 +86,6 @@ public class HomeController {
 		map.put("endNumber", Integer.toString(10));
 		map.put("contentsType", "영화");
 		model.addAttribute("contentListForType",contentsService.sGetContentsAllForType(map));
-		
-		//컨텐츠 좋아요를 이미 눌렀었는지 검사
-	/*	ContentsLikeVO contentsLikeVO = new ContentsLikeVO();
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		MemberVO memberVO = (MemberVO)principal;
-		memberVO.getId();
-		ContentsVO contentsVO = contentsService.sFindContentsByNo(contentsNo);
-		contentsLikeVO.setContentsVO(contentsVO);
-		contentsLikeVO.setMemberVO(memberVO);
-		String contentsLikeChecking = contentsLikeService.sContentsLikeExist(contentsLikeVO);	
-		model.addAttribute("contentsVO",contentsVO);
-		model.addAttribute("contentsLikeChecking",contentsLikeChecking);
-		*/
 		
 		return "home.tiles";
 	}

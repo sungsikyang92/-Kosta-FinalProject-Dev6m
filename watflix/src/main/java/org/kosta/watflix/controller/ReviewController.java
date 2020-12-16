@@ -31,6 +31,8 @@ public class ReviewController {
 	@RequestMapping("reviewList.do")
 	public String getReviewList(String pageNo, Model model) {
 		model.addAttribute("reviewList",reviewService.sGetReviewList(pageNo));
+		// 전체게시물조회 메인화면과 각 게시판에서 페이징과 버튼을 사용하지 않기 위해 사용한다.
+		model.addAttribute("forNotUsePagingAndBtn", false);
 		return "admin/adminReviewList.tiles";
 	}
 	//컨텐츠별 리뷰리스트
@@ -77,8 +79,7 @@ public class ReviewController {
 	@Secured("ROLE_MEMBER")
 	@RequestMapping("reviewDetailNoHits.do")
 	public String reviewDetailNoHits(int reviewNo,Model model) {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		MemberVO memberVO = (MemberVO)principal;
+		MemberVO memberVO = (MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		ReviewVO reviewVO = reviewService.sGetReviewDetailNoHits(memberVO.getId(),reviewNo);
 		model.addAttribute("rdvo",reviewVO);
 		return "review/reviewDetail.tiles";
@@ -99,8 +100,7 @@ public class ReviewController {
 	@Secured("ROLE_MEMBER")
 	@RequestMapping("reviewUpdateForm.do")
 	public ModelAndView reviewUpdateForm(int reviewNo) {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		MemberVO memberVO = (MemberVO)principal;
+		MemberVO memberVO = (MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		return new ModelAndView("review/reviewUpdateForm.tiles","ru",reviewService.sGetReviewDetailNoHits(memberVO.getId(),reviewNo));
 	}
 	
@@ -117,22 +117,26 @@ public class ReviewController {
 	@PostMapping("reviewDelete.do")
 	public String reviewDelete(int reviewNo) {
 		//변수에 컨텐츠넘버 담기
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		MemberVO memberVO = (MemberVO)principal;
+		MemberVO memberVO = (MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String contentsNoforDelete=reviewService.sGetReviewDetailNoHits(memberVO.getId(),reviewNo).getContentsVO().getContentsNo();
 		reviewService.sReviewDelete(reviewNo);
 		//"redirect:contentsDetail.do? 컨텐츠넘버주기
 		return "redirect:contentsDetail.do?contentsNo="+contentsNoforDelete;
 	}
 	
-	// 내 리뷰 리스트 Ajax
-	@RequestMapping("myReviewList.do")
-	@ResponseBody
-	public ReviewListVO myReviewList(String pageNo) {
-		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		return reviewService.sGetMyReviewList(mvo.getId(), pageNo);
+	//관리자 리뷰 삭제
+	@PostMapping("adminReviewDelete.do")
+	public String adminReviewDelete(int reviewNo) {
+		reviewService.sReviewDelete(reviewNo);
+		return "report/report_ok";
 	}
 	
+	//관리자 리뷰 상세보기 popup 창 띄우기
+	@RequestMapping("reviewByReviewNo.do")
+	public ModelAndView reviewByReviewNo(int reviewNo) {
+		MemberVO memberVO = (MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return new ModelAndView("report/reviewByReviewNo","rdvo",reviewService.sGetReviewDetailNoHits(memberVO.getId(),reviewNo));
+	}
 }
 
 
