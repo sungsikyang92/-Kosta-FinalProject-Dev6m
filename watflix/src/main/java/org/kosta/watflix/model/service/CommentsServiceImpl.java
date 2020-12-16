@@ -3,14 +3,21 @@ package org.kosta.watflix.model.service;
 import javax.annotation.Resource;
 
 import org.kosta.watflix.model.mapper.CommentsMapper;
+import org.kosta.watflix.model.mapper.MemberMapper;
+import org.kosta.watflix.model.mapper.PointHistoryMapper;
 import org.kosta.watflix.model.vo.CommentsListVO;
 import org.kosta.watflix.model.vo.CommentsVO;
+import org.kosta.watflix.model.vo.MemberVO;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CommentsServiceImpl implements CommentsService {
 	@Resource
 	CommentsMapper commentsMapper;
+	@Resource
+	MemberMapper memberMapper;
+	@Resource
+	PointHistoryMapper pointHistoryMapper;
 	
 	@Override
 	public int sCommentsGetTotalPostCount() {
@@ -21,13 +28,7 @@ public class CommentsServiceImpl implements CommentsService {
 	public int sCommentsGetTotalPostCountByContentNo(String contentsNo) {
 		return commentsMapper.mCommentsGetTotalPostCountByContentNo(contentsNo);
 	}
-	
-	//@Override
-	//public CommentsListVO sCommentsGetList() {
-	//	System.out.println("sCommentsGetList() 실행");
-	//	return sCommentsGetList("1");
-	//}
-	
+			
 	@Override
 	public CommentsListVO sCommentsGetList(String pageNo) {
 		int totalPostCount = commentsMapper.mCommentsGetTotalPostCount();
@@ -63,7 +64,14 @@ public class CommentsServiceImpl implements CommentsService {
 
 	@Override
 	public void sCommentsWrite(CommentsVO commentsVO) {
-		commentsMapper.mCommentsWrite(commentsVO);		
+		// 컨트롤러에서 전달받은 commentsVo의 신규 글을 db에 저장한다.
+		commentsMapper.mCommentsWrite(commentsVO);
+		// 포인트 증가 관련
+		// 컨트롤러에서 전달받은 memberVO의 point(신규 평점 작성으로 증가한 point)를 member테이블의 point에 저장한다. 
+		memberMapper.mMemberPointUpdate(commentsVO.getMemberVO());
+		// 컨트롤러에서 전달받은 commentsNo와 id로 history에 넣는다.
+		pointHistoryMapper.mPointHistoryAddWithComments(commentsVO.getCommentsNo(), commentsVO.getMemberVO().getId());
+		// 평균 별점 관련
 	}
 	// contents 별 comments_star 총합 조회
 	@Override

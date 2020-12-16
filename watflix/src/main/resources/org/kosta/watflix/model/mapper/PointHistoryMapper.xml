@@ -49,7 +49,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  			SELECT POINT_HISTORY_SEQ.NEXTVAL FROM DUAL
  		</selectKey>
  		INSERT INTO POINT_HISTORY(POINT_HISTORY_NO,ID,COMMENTS_NO,POINT,POINT_HISTORY_CONTENTS)
- 		VALUES(#{pointHistoryNo},#{id},#{commentsNO},10,'평점작성으로 포인트 적립')
+ 		VALUES(#{pointHistoryNo},#{id},#{commentsNo},10,'평점작성으로 포인트 적립')
  	</insert>
  	
  	<!-- 주문으로 인한 포인트감소내역 -->

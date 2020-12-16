@@ -28,6 +28,7 @@ public class CommentsController {
 	CommentsService commentsService;
 	@Resource
 	ContentsService contentsService;
+		
 	
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("getCommentsList.do")
@@ -63,11 +64,18 @@ public class CommentsController {
 	@PostMapping("commentsWrite.do")
 	public String commentsWrite(CommentsVO commentsVO, String contentsNo, String pageNo, RedirectAttributes redirectAttributes) {
 		MemberVO memberVO = (MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		// 시큐리티세션에 저장되어있는 기존의 포인트를 memberVO에 가져와 리뷰작성포인트(10점)을 더하여 memberVO에 저장한다.
+		memberVO.setPoint(memberVO.getPoint()+10);
+		// 추가된 점수가 저장되어있는 memberVO를 신규 글 제목과 내용이 저장되어있는 commentsVO에 더한다.
 		commentsVO.setMemberVO(memberVO);
+		// 매게변수로 전달된 contentNo를 commentsVO에 더한다.
 		ContentsVO contentsVO = new ContentsVO();
 		contentsVO.setContentsNo(contentsNo);
 		commentsVO.setContentsVO(contentsVO);
+		// 위의 정보들을 가지고 있는 commentsVO를 service단으로 전달한다.
 		commentsService.sCommentsWrite(commentsVO);
+		
+		
 		// 평균 별점을 입력하기 위해 contents의 총 comments 수를 조회한다.
 		float totalCommentsCount = commentsService.sCommentsGetTotalPostCountByContentNo(contentsNo);
 		// 평균 별점을 입력하기 위해 contents의 별점 총합을 조회한다.
