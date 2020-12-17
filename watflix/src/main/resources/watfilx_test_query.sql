@@ -496,6 +496,7 @@ alter table report add CONSTRAINT REPORT_COMMENTS_NO_FK FOREIGN KEY(COMMENTS_NO)
 
 
 
+
 select * from grade where id='java'
 insert into grade values ( 'ROLE_MEMBER' , 'java');
 insert into grade values ( 'ROLE_MEMBER' , 'spring');
