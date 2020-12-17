@@ -98,7 +98,7 @@
 		</c:forEach>
 	</table>
 	<button type="button" id="openCommentsWriteFormButton" style="width: 80px; float:right;">평점쓰기</button>
-	<div class="boardBottomDiv" style="width: 1000px;"> 
+	<div class="boardBottomDiv" style="width: 50%;"> 
 	<div class="pagingInfo" id="pagingLocation">
 		<c:set var="pagingBean" value="${requestScope.commentsListByContentsNo.pagingBean}"/>
 		<ul class="pagination">

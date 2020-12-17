@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <script src="//code.jquery.com/jquery.min.js"></script> 
 <head>
 <meta charset="UTF-8">
-<title>파티모집 글쓰는곳</title>
+<title>파티모집 글쓰는곳</title> -->
 
 <style type="text/css">
 #partyWriteForm{
@@ -15,12 +15,12 @@ height: 75%;
 width: 75%;
 }
 </style>
-</head>
+<!-- </head> -->
 <script type="text/javascript">
 $(document).ready(function () {
 	$('#membershipType').change(function () {
 		var selectType=$(this).val();
-		alert(selectType);
+		//alert(selectType);
 		 $.ajax({
 			type : "get",
 			url : "${pageContext.request.contextPath}/select1.do",
@@ -43,8 +43,10 @@ $(document).ready(function () {
 })
 
 </script>
-<body>
+<!-- <body> -->
 
+<div class="tableMargin" id="commentsList">
+<div class="container-lg boardClassMain">
 <!-- <div id="partyWriteForm"> -->
 <form action="${pageContext.request.contextPath}/partywrite.do" method="post">
 <sec:csrfInput/><!-- csrf 토큰 -->
@@ -72,7 +74,7 @@ $(document).ready(function () {
 제목:<input type="text" name=partyTitle required="required">
 <input type="submit" value="등록">
 </form>
-
-
-</body>
-</html>
+</div>
+</div>
+<!-- </body>
+</html> -->

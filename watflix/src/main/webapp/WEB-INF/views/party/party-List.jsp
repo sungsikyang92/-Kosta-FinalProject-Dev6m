@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -13,7 +13,7 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<title>Insert title here</title>
+<title>Insert title here</title> -->
 <script type="text/javascript">
 	$(document).ready(function() {
 		$(".partyUpdate").submit(function() {
@@ -66,27 +66,29 @@
 		})
 	})
 </script>
-</head>
-<body>
-<div style="position: fixed; z-index: -99; width: 100%; height: 100%">
-
+<!-- </head>
+<body> -->
+<div class="tableMargin" id="commentsList">
+<div class="container-lg boardClassMain">
 <!-- 뒷백경 동영상-->
+<!-- <div style="position: fixed; z-index: -99; width: 100%; height: 100%">
 <iframe frameborder="0" height="100%" width="100%" 
 src="https://www.youtube.com/embed/Ck-h9YGKyOc?mute=1&loop=1&autoplay=1&rel=0&controls=0&showinfo=0" allow="autoplay; encrypted-media" allowfullscreen>
 </iframe>
-
-</div>
-		<table class="table table-hover" style="bgcolor:white;  filter:alpha(opacity=80);      width: 100%;
+</div> -->
+		<!-- <table class="table table-hover" style="bgcolor:white;  filter:alpha(opacity=80);      width: 100%;
     border-top: 1px solid #444444;
-    border-collapse: collapse;      ">
+    border-collapse: collapse;      "> -->
+    <table class="table table-hover table-bordered" style="border-radius: 1.5px;">
 			<tr>
-				<th>번호</th>
+				<th style="width: 5%; padding-right: 3px; padding-left: 3px;">번호</th>
 				<th>제목</th>
 				<th>이용권종류</th>
-				<th>모집 인원</th>
+				<th style="width: 8%; padding-right: 3px; padding-left: 3px;">모집 인원</th>
 				<th>모집 상태</th>
 				<th>작성자</th>
 				<th>등록일</th>
+				<th colspan='2'></th>
 				<!-- <th>지원여부</th> -->
 			</tr>
 			<tbody>
@@ -172,41 +174,43 @@ src="https://www.youtube.com/embed/Ck-h9YGKyOc?mute=1&loop=1&autoplay=1&rel=0&co
 		</table>
 		
 		<sec:authorize access="isAuthenticated()"> 
-		<button type="button" class="writepartyBtn btn-outline-primary"
+		<button type="button" class="writepartyBtn btn-outline-primary" style="width: 200px; float:right;"
 			onclick="location.href='${pageContext.request.contextPath}/partyWriteForm.do'">파티모집하러가기</button>
 		</sec:authorize>	
 		<!--로그인한 경우 end  -->
 			
 		<%-- 페이징빈 처리 영역 --%>
-		
+		<div class="boardBottomDiv" style="width: 50%;">
 		<div class="pagingInfo">
 			<%-- 코드를 줄이기 위해 pb 변수에 pagingBean을 담는다. --%>
 			<c:set var="pb" value="${requestScope.PLVO.pagingBean}"></c:set>
 			<ul class="pagination">
 				<c:if test="${pb.previousPageGroup}">
-					<li><a class="btn btn-outline-primary"
+					<li class="page-item"><a class="btn btn-outline-primary"
 						href="${pageContext.request.contextPath}/partyList.do?pageNo=${pb.startPageOfPageGroup-1}">&laquo;</a></li>
 				</c:if>
 				<c:forEach var="i" begin="${pb.startPageOfPageGroup}"
 					end="${pb.endPageOfPageGroup}">
 					<c:choose>
 						<c:when test="${pb.nowPage!=i}">
-							<li><a
+							<li class="page-item"><a
 								href="${pageContext.request.contextPath}/partyList.do?pageNo=${i}">${i}</a></li>
 						</c:when>
 						<c:otherwise>
 							<li class="active"><a href="#">${i}</a></li>
 						</c:otherwise>
-					</c:choose>&nbsp;
+					</c:choose>
 				</c:forEach>
 				<c:if test="${pb.nextPageGroup}">
-					<li><a class="btn btn-outline-primary"
+					<li class="page-item"><a class="btn btn-outline-primary"
 						href="${pageContext.request.contextPath}/partyList.do?pageNo=${pb.endPageOfPageGroup+1}">&raquo;</a></li>
 				</c:if>
 			</ul>
 		</div>
-	
-</body>
-</html>
+		</div>
+</div>
+</div>	
+<!-- </body>
+</html> -->
 
 

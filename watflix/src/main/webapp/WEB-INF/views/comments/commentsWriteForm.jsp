@@ -15,13 +15,22 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("#commentsWriteButton").click(function(){
-			window.opener.name = "parentPage";
-			document.commentsWriteForm.target = "parentPage";
-			document.commentsWriteForm.action = "${pageContext.request.contextPath}/commentsWrite.do";
-			document.commentsWriteForm.submit();
-			self.close();
+			if($("#commentsStars").val() == ""){
+				alert("별점을 입력해주세요.");
+				return false;
+			} else if( $("#commentsContents").val() == ""){
+				alert("내용을 입력해주세요.");
+				return false;
+			} 
+			else {
+				window.opener.name = "parentPage";
+				document.commentsWriteForm.target = "parentPage";
+				document.commentsWriteForm.action = "${pageContext.request.contextPath}/commentsWrite.do";
+				document.commentsWriteForm.submit();
+				self.close();
+			}
 		})
-		$("#commentsCencleButton").click(function(){
+		$("#commentsCancelButton").click(function(){
 			self.close();
 		})
 		//var hoverEvent = true;
@@ -109,7 +118,7 @@
 					<img id="starR${i}" class="starRight" src="${pageContext.request.contextPath}/resources/media/icons/star-gray-right.png">
 				</c:forEach>
 				</span>
-				<input type="hidden" id="commentsStars" name="commentsStars" value="" required="required">
+				<input type="hidden" id="commentsStars" name="commentsStars" value="">
 				<span id="displayPoint">0</span>	
 				</div>					
 			</td>
@@ -117,14 +126,14 @@
 		<tr>
 			<td>
 				<textarea cols="60" rows="10" id="commentsContents"
-				name="comments" placeholder="한줄평을 남겨주세요" required="required" style="margin-top: 30px; width: 100%"></textarea>
+				name="comments" placeholder="한줄평을 남겨주세요" style="margin-top: 30px; width: 100%"></textarea>
 				<div id="countContentsWord"style="float: right;">(0/30)</div>
 			</td>
 		</tr>
 		<tr>
 			<td>
 				<div style="text-align: center;">
-				<input type="button" id="commentsCencleButton" value="취소">
+				<input type="button" id="commentsCancelButton" value="취소">
 				<input type="hidden" name="contentsNo" value="${requestScope.contentsVO.contentsNo}">
 				<input type="button" id="commentsWriteButton" value="작성">
 				</div>
