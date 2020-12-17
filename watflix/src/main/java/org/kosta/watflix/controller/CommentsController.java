@@ -115,7 +115,7 @@ public class CommentsController {
 	// 삭제버튼으로 삭제(ajax방식 / my_comments_board.jsp)
 	@PostMapping("commentsDeleteAjax.do")
 	@ResponseBody
-	public CommentsListVO commentsDeleteAjax(int commentsNo, String contentsNo, String pageNo, RedirectAttributes redirectAttributes) {
+	public CommentsListVO commentsDeleteAjax(int commentsNo, String contentsNo, String pageNo) {
 		commentsService.sCommentsDelete(commentsNo);
 		// 평균 별점을 입력하기 위해 contents의 총 comments 수를 조회한다.
 		int totalCommentsCount = commentsService.sCommentsGetTotalPostCountByContentNo(contentsNo);
