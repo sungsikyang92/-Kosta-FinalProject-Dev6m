@@ -120,11 +120,8 @@ public class ReviewServiceImpl implements ReviewService {
 	
 	// 내 리뷰 리스트
 	@Override
-	public ReviewListVO sGetMyReviewList(String id) {
-		return sGetMyReviewList(id, "1");
-	}
-	@Override
 	public ReviewListVO sGetMyReviewList(String id, String pageNo) {
+		System.out.println(reviewMapper.mGetMyTotalReviewCount(id));
 		int myReviewTotalCount = reviewMapper.mGetMyTotalReviewCount(id);
 		PagingBean pagingBean = null;
 		if(pageNo == null) {

@@ -43,7 +43,7 @@
 				<td><input type="text" name="reviewTitle" id="reviewTitle"  class="boardTitle" required="required" maxlength="30" placeholder="리뷰의 제목을 입력해주세요!"></td>
 			</tr>
 			<tr>
-				<td>내용</td>
+				<td class="boardCt">내용</td>
 				<td>
 					<textarea name="reviewContents" id="reviewContents" required="required" class="boardTextarea" name="reviewContents" placeholder="리뷰의 내용을 입력해주세요!"></textarea>
 				</td>

@@ -137,6 +137,7 @@
 						  	<ul class="mypageList">
 						  		<li><a href="${pageContext.request.contextPath}/memberUpdateForm.do">- 회원정보수정</a></li>
 						  		<li><a href="${pageContext.request.contextPath}/memberPointHistoryCheck.do">- 포인트조회</a></li>
+						  		<li><a href="${pageContext.request.contextPath}/memberProductOrderList.do">- 구매내역조회</a></li>
 						  		<!-- 임시로 경로 설정 -->
 						  		<li><a href="${pageContext.request.contextPath}/myPostList.do">- 내 게시물 조회</a></li>
 						  		<li><a href="${pageContext.request.contextPath}/qnaList.do">- 1:1문의</a></li>
@@ -177,4 +178,3 @@
     </nav>
     <!-- Navbar - CLOSE -->
      
-    

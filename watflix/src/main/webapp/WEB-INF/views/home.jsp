@@ -187,7 +187,7 @@ $(document).ready(function(){
             success: function(data){
                if(data == "0"){
                   me.parent().children("#ContentsLike").attr("src","/watflix/resources/media/icons/RedHeart.png");
-              	me.parent().children("#ContentsLikeCount").text(num+1);
+               me.parent().children("#ContentsLikeCount").text(num+1);
             }else{
                me.parent().children("#ContentsLike").attr("src","/watflix/resources/media/icons/HeartLine.png");
                me.parent().children("#ContentsLikeCount").text(num-1);
@@ -248,9 +248,39 @@ $(document).ready(function(){
          }
       }//else문 종료
    })// sort
-   
+   //평점높은 컨텐츠 탭 클릭시
+	$("#highHits-tab").click(function(){
+		sliderContents("#highHits");
+	})
+	//평점높은 컨텐츠 탭 클릭시
+	$("#highAgeStar-tab").click(function(){
+		//sliderContents("#highAgeStar");
+	})
+	//평점높은 컨텐츠 탭 클릭시
+	$("#highCommentsCount-tab").click(function(){
+		sliderContents("#highCommentsCount");
+	})
 })//ready
-   
+//탭클릭시 컨텐츠 클릭
+function sliderContents(tabId){
+	var viewport = $(tabId).children(".carousel").children(".flickity-viewport");
+	viewport.attr("style", "height: 281.333px; touch-action: pan-y;");
+	var slider = viewport.children(".flickity-slider");
+	slider.attr("style","left: 0px; transform: translateX(0%);");
+	for(var index=0;index<5;index++){
+		slider.find(".carousel-cell").eq(index).attr("style","position: absolute; left:"+(20*index)+"%;");
+		slider.find(".carousel-cell").eq(index).removeAttr("aria-hidden");
+		slider.find(".carousel-cell").eq(index).addClass("is-selected");
+	}
+	for(var index=5;index<10;index++){
+		if(index==9){
+			slider.find(".carousel-cell").eq(index).attr("style","position: absolute; left:-20%;");
+		}
+		else{
+			slider.find(".carousel-cell").eq(index).attr("style","position: absolute; left:"+(20*index)+"%;");
+		}
+	}
+}
 //컨텐츠 출력
 function denote(contentsList){
      if(contentsList.length==0){
@@ -496,43 +526,42 @@ var percent = 0;
             <div class="margin-top-under-sm tab-pane fade" id="highAgeStar" role="tabpanel" aria-labelledby="popular-tab">
                 <!-- Carousel - OPEN -->
                 <div class="carousel" data-flickity='{ "groupCells": true, "cellAlign": "center", "pageDots": false, "wrapAround": true, "draggable": false }' style="height: 280px; padding-top: 15px;" tabindex="0" >
-                  <!--로그인 전 컨텐츠 리스트 출력 For문 START  -->
-               <sec:authorize access="!isAuthenticated()">
-                     <c:forEach items="${requestScope.contentsHighAvgStars}" var="contentsVO">
+               <!--컨텐츠 리스트 출력 For문 START  -->
+                     <c:forEach items="${requestScope.highAgeStar}" var="contentsVO">
                      <div class="carousel-cell">
                            <!-- 컨텐츠 작은 썸네일 -->
                            <img class="carousel-cell-image" src="${pageContext.request.contextPath}/${contentsVO.contentsSmallThumbnail}" />
                            <!-- 컨텐츠 제목 -->
-                           <h5 class="text-center">${contentsVO.contentsTitle}</h5>
+                           <h5 class="text-center" style="font-size:13px;">${contentsVO.contentsTitle}</h5>
                            
                            <div class="row">
-                            <div class="col-3 text-left no-padding">
+                            <div class="col-4 text-left no-padding">
                                 ${contentsVO.contentsDate}
                             </div>
-                            <div class="col-3 text-center no-padding">
-                                <a href="">
-                                    <img src="${pageContext.request.contextPath}/resources/media/icons/eye.png" width="10" alt="">
-                                </a>
-                            </div>
-                            <div class="col-3 text-left no-padding">
-                                   <!-- 좋아요 영역 시작 -->
-                                   <span>
-                              <a href="${pageContext.request.contextPath}/loginForm.do">
-                                    <img id="NeedLogin" class="NeedLogin" src="/watflix/resources/media/icons/HeartLine.png" width=30px height=30px>
-                              </a>
-                                 <span id="ContentsLikeCount">${contentsVO.contentsLikes}</span>
-                                 <input type="hidden" value="${contentsVO.contentsNo}">
-                           </span>
+                            <div class="col-4 text-center no-padding">
+                               <!-- 좋아요 영역 시작 -->
+                                <span>
+                           <c:choose>
+                              <c:when test="${contentsVO.contentsLikeStatus == 1}">
+                                 <img id="ContentsLike" class="ContentsLike" src="/watflix/resources/media/icons/RedHeart.png" width=30px height=30px>
+                              </c:when>
+                              <c:otherwise>
+                                 <img id="ContentsLike" class="ContentsLike" src="/watflix/resources/media/icons/HeartLine.png" width=30px height=30px>
+                              </c:otherwise>
+                           </c:choose>
+                           Likes <span id="ContentsLikeCount">${contentsVO.contentsLikes}</span>
+                              <input type="hidden" value="${contentsVO.contentsNo}">
+                        </span>
                          <!-- 좋아요 영역 끝 -->
                             </div>
-                            <div class="col-3 text-right no-padding rating">
+                            <div class="col-4 text-right no-padding rating">
                                 <img src="${pageContext.request.contextPath}/resources/media/icons/star.png" width="10" alt="" style="padding-bottom: 3px">
                                 ${contentsVO.contentsAvgStars}
                             </div>
                         </div>
                         <div class="overlay">
                             <div class="text">
-                                <a href="#" class="btn btn-primary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
+                                <a href="${pageContext.request.contextPath}/contentsDetail.do?contentsNo=${contentsVO.contentsNo}" class="btn btn-primary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
                                     <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="10" alt="">
                                     상세보기
                                 </a>
@@ -540,59 +569,7 @@ var percent = 0;
                         </div>
                     </div>
                      </c:forEach>
-                     </sec:authorize>
-               <!--로그인 전 컨텐츠 리스트 출력 For문 END  -->
-               <!--로그인 후 컨텐츠 리스트 출력 For문 START  -->
-                <sec:authorize access="isAuthenticated()">
-                     <c:forEach items="${requestScope.contentsHighAvgStars}" var="contentsVO">
-                     <div class="carousel-cell">
-                           <!-- 컨텐츠 작은 썸네일 -->
-                           <img class="carousel-cell-image" src="${pageContext.request.contextPath}/${contentsVO.contentsSmallThumbnail}" />
-                           <!-- 컨텐츠 제목 -->
-                           <h5 class="text-center">${contentsVO.contentsTitle}</h5>
-                           
-                           <div class="row">
-                            <div class="col-3 text-left no-padding">
-                                ${contentsVO.contentsDate}
-                            </div>
-                            <div class="col-3 text-center no-padding">
-                                <a href="">
-                                    <img src="${pageContext.request.contextPath}/resources/media/icons/eye.png" width="10" alt="">
-                                </a>
-                            </div>
-                            <div class="col-3 text-left no-padding">
-                                  <!-- 좋아요 영역 시작 -->
-                                   <span>
-                              <c:choose>
-                                 <c:when test="${contentsVO.contentsLikeStatus == 1}">
-                                    <img id="ContentsLike" class="ContentsLike" src="/watflix/resources/media/icons/RedHeart.png" width=30px height=30px>
-                                 </c:when>
-                                 <c:otherwise>
-                                    <img id="ContentsLike" class="ContentsLike" src="/watflix/resources/media/icons/HeartLine.png" width=30px height=30px>
-                                 </c:otherwise>
-                              </c:choose>
-                                 <span id="ContentsLikeCount">${contentsVO.contentsLikes}</span>
-                                 <input type="hidden" value="${contentsVO.contentsNo}">
-                           </span>
-                         <!-- 좋아요 영역 끝 -->
-                            </div>
-                            <div class="col-3 text-right no-padding rating">
-                                <img src="${pageContext.request.contextPath}/resources/media/icons/star.png" width="10" alt="" style="padding-bottom: 3px">
-                                ${contentsVO.contentsAvgStars}
-                            </div>
-                        </div>
-                        <div class="overlay">
-                            <div class="text">
-                                <a href="#" class="btn btn-primary btn-sm margin-top-under-sm" role="button" aria-pressed="true">
-                                    <img src="${pageContext.request.contextPath}/resources/media/icons/play.png" width="10" alt="">
-                                    상세보기
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                     </c:forEach>
-                     </sec:authorize>
-               <!--로그인 후 컨텐츠 리스트 출력 For문 END  -->
+               <!--컨텐츠 리스트 출력 For문 END  -->
                 </div>
                 <!-- Carousel - CLOSE -->
             </div>

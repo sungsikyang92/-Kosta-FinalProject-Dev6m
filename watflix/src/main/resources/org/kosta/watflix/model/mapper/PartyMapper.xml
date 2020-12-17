@@ -36,13 +36,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		to_char(p.PARTY_POSTED_TIME,'yyyy-mm-dd') as PARTY_POSTED_TIME, p.PARTY_STATUS 
 		From PARTY p, member m, MEMBERSHIP ms
 		WHERE p.id=m.id and p.membership_no = ms.membership_no and party_no=#{value} 
-		<!--  select ms.membership_name, ms.MEMBERSHIP_NO , ms.CONCURRENT_USERS,
-   		p.PARTY_NO, m.ID, p.PARTY_TITLE, p.PARTY_HEADCOUNT, p.PARTY_APPLYCOUNT,
-  		to_char(p.PARTY_POSTED_TIME,'yyyy-mm-dd') as PARTY_POSTED_TIME, p.PARTY_STATUS,
-  		CASE WHEN a.party_no = p.party_no THEN '지원' ELSE '미지원' END AS applys
-  		From PARTY p, member m, MEMBERSHIP ms, (select * from apply where id=#{memberVO.id}) a
-  
- 		WHERE p.id=m.id and p.membership_no = ms.membership_no and party_no = #{partyNo} -->
  	</select>
  	
  	<!-- 게시글 리스트 가져오기 -->
@@ -56,20 +49,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
        
        WHERE rnum BETWEEN #{startRowNumber} AND #{endRowNumber} and p.membership_no = ms.membership_no
     </select>
-
- 		
- 	<!-- 	
- 		SELECT p.PARTY_NO, p.id, p.PARTY_TITLE, ms.membership_name, p.PARTY_STATUS,
- 		p.PARTY_HEADCOUNT,p.PARTY_APPLYCOUNT,to_char(p.PARTY_POSTED_TIME,'yyyy-mm-dd') as PARTY_POSTED_TIME,
- 		CASE WHEN a.party_no = p.party_no THEN 'Y' ELSE 'N' END AS isApply
- 		
- 		From(SELECT row_number() over (order by PARTY_NO desc) as rnum,PARTY_NO,ID,PARTY_TITLE,membership_no,PARTY_STATUS,
- 		PARTY_HEADCOUNT,PARTY_APPLYCOUNT,PARTY_POSTED_TIME FROM PARTY) p ,
- 		
- 		MEMBERSHIP ms , (select * from apply where id=#{loginid}) a
- 		WHERE rnum BETWEEN #{pagingbean.startRowNumber} AND #{pagingbean.endRowNumber} and p.membership_no = ms.membership_no and party_no = #{partyNo}
- 	 -->	
- 	
  	
  	<!-- 파티게시판 게시글 수정
  		 이용권종류, 모집인원 변경 -->
@@ -124,13 +103,3 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	
  	
 </mapper>
-
-
-
-
-
-
-
-
-
-

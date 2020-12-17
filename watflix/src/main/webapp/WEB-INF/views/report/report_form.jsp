@@ -33,7 +33,7 @@
 	<form action="reportRegister.do" method="post">
 		<!-- CSRF 방지 토큰,  Cross-site request forgery(사이트간 요청 위조)를 방지  -->
 		<sec:csrfInput/>
-		<table class="table table-hover">
+		<table class="table table-hover table-bordered" style="border-radius: 1.5px; width: 100%">
 			<thead>
 				<tr>
 					<!-- 리뷰, 평점 신고글 판단 -->
@@ -68,7 +68,7 @@
 			<tbody>
 				<tr>
 					<td colspan="3">
-						<textarea id="writeCheck" name="reportContents" style="resize:none" rows="7" cols="45" required="required" placeholder="신고 사유를 작성해주세요."></textarea>
+						<textarea id="writeCheck" name="reportContents" style="resize:none; width: 100%" rows="7" required="required" placeholder="신고 사유를 작성해주세요."></textarea>
 					</td>
 				</tr>
 			</tbody>

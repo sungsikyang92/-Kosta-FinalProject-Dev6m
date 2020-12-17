@@ -61,8 +61,5 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		INSERT INTO POINT_HISTORY(POINT_HISTORY_NO,ID,ORDER_NO ,POINT,POINT_HISTORY_CONTENTS)
  		VALUES(#{pointHistoryNo},#{productOrderVO.memberVO.id},#{productOrderVO.orderNo},-#{point},'포인트마켓사용')
  	</insert>
- 	
- 	
 </mapper>
-
 
