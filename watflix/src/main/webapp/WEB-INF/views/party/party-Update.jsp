@@ -63,10 +63,10 @@ $(document).ready(function () {
 <c:forEach items="${requestScope.lmsvo}" var="lmsvo">
 <c:choose>
 	<c:when test="${pvo.membershipVO.membershipNo == lmsvo.membershipNo }">
-		<option value="${lmsvo.membershipNo}"selected>${pvo.membershipVO.membershipName}=${lmsvo.membershipNo}</option>
+		<option value="${lmsvo.membershipNo}"selected>${pvo.membershipVO.membershipName}</option>
 	</c:when>
 	<c:otherwise>
-		<option value="${lmsvo.membershipNo}">${lmsvo.membershipName} = ${lmsvo.membershipNo}</option>
+		<option value="${lmsvo.membershipNo}">${lmsvo.membershipName}</option>
 	</c:otherwise>
 </c:choose>
 </c:forEach>
