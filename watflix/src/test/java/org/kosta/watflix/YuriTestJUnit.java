@@ -148,7 +148,7 @@ public class YuriTestJUnit{
 	memberVO.setEmail("gmail");
 	qnaAnswerVO.setMemberVO(memberVO);
 	
-	qnaAnswerVO.setAnswerContents("답변입니다.");
+	qnaAnswerVO.setQnaAnswerContents("답변입니다.");
 	qnaService.sQnAAnswerWrite(qnaAnswerVO);
 	System.out.println(qnaAnswerVO);
 	

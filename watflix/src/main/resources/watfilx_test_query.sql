@@ -1170,7 +1170,12 @@ SELECT P.POINT_HISTORY_NO,P.ID,P.REVIEW_NO,(select REVIEW_TITLE from REVIEW wher
       POINT,POINT_HISTORY_CONTENTS,CURRENT_TIME FROM POINT_HISTORY WHERE ID='java') P where
       RNUM BETWEEN #{pagingBean.startRowNumber} AND #{pagingBean.endRowNumber}
 
-
-
 select * from genre
+
+SELECT qna_answer_no, qna_answer_contents, qna_answer_posted_time, qna_no, id
+		FROM qna_answer WHERE qna_no=1
+		
+		SELECT rnum, qna_answer_no, qna_answer_contents, qna_answer_posted_time, qna_no, id
+		FROM(SELECT ROW_NUMBER() OVER(ORDER BY qna_answer_no DESC) AS rnum, qna_answer_no, qna_answer_contents, qna_answer_posted_time, qna_no, id FROM qna_answer WHERE qna_no=1)
+		WHERE rnum BETWEEN 1 AND 5
 
