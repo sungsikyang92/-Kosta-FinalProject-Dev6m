@@ -3,9 +3,9 @@ package org.kosta.watflix.model.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.kosta.watflix.model.service.PagingBean;
 import org.kosta.watflix.model.vo.QnAAnswerVO;
-import org.kosta.watflix.model.vo.QnATypeVO;
 import org.kosta.watflix.model.vo.QnAVO;
 
 @Mapper
@@ -22,4 +22,8 @@ public interface QnAMapper {
 	int mGetTotalQnACount();
 	// QnA 답변 작성
 	void mQnAAnswerWrite(QnAAnswerVO qnaAnswerVO);
+	// 각 QnA 별 QnAAnswer 수 조회
+	int mQnAAnswerCountByQnANo(int qnaNo);
+	// 각 QnA 별 QnAAnswer 조회
+	List<QnAAnswerVO> mQnAAnswerByQnANo(@Param("qnaNo")int qnaNo, @Param("pagingBean")PagingBean pagingBean);
 }
