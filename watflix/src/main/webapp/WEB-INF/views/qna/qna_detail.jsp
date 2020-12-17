@@ -13,13 +13,7 @@
 <div id="qnaForm">
 <script type="text/javascript">
 	function qnaListBtn() {
-	location.href="${pageContext.request.contextPath}/qnaList.do";
-	}
-	//function qnaAnswerWrite() {
-	//	var qnaAnswer=$("#qnaAnswerContents").val();
-	//	var qnaNo = ${requestScope.qvo.qnaNo};
-		
-	//location.href="${pageContext.request.contextPath}/qnaAnswerWrite.do";
+		location.href="${pageContext.request.contextPath}/qnaList.do";
 	}
 </script>
 <hr>

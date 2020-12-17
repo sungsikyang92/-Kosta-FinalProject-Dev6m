@@ -2,16 +2,9 @@
     pageEncoding="UTF-8"%>
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
  <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
- <%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
-
-<title>FAQ Detail Page</title>
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/css/style.css">
-	<div class="container-lg">
-<div id="faqForm">
 <script type="text/javascript">
 function updateBtn() {
-	// alert("업뎃버튼을 눌렀츄");
+	
 	location.href="${pageContext.request.contextPath}/faqUpdateForm.do?faqNo="+${requestScope.fvo.faqNo};
 }
 	function faqListBtn(){
@@ -21,33 +14,24 @@ function updateBtn() {
 	location.href="${pageContext.request.contextPath}/qnaWriteForm.do";
 	}
 </script>
-<hr>
-<hr>
-<hr>
-<table class="table table-hover">
-	<thead>
+<div class="tableMargin" id="commentsList">
+<div class="container-lg boardClassMain">
+<!-- <div id="faqForm"> -->
+<table class="table table-hover table-bordered" style="border-radius: 1.5px;">
 		<tr>
-			<th class="faqNo">NO</th>
-			<th class="faqHits">조회수</th>
-			<th class="faqTitle"></th>
-			<th class="faqWriter"></th>
-			<th class="faqPostedTime"></th>
-			<th class="faqDetail"></th>
+			<td>제목</td>
+			<td colspan="7">${requestScope.fvo.faqTitle}</td>
 		</tr>
-	</thead>
-	<tbody>	
-			<tr>
-				<td>${requestScope.fvo.faqNo}</td>
-				<td>${requestScope.fvo.faqHits}</td>
-				<td>${requestScope.fvo.faqTitle}</td>
-				<td>${requestScope.fvo.memberVO.id}</td>
-				<td>${requestScope.fvo.faqPostedTime}</td>
-			</tr>
-			<tr>
-			<td colspan="4"><div style="margin:0 auto;" ><pre style="white-space:pre-wrap;" ><br><br>${requestScope.fvo.faqContents}</pre></div></td>
-			</tr>
-	</tbody>
-
+		<tr>
+			<td>내용</td>
+			<td colspan="7"><div style="margin:0 auto;" ><pre style="white-space:pre-wrap;" >${requestScope.fvo.faqContents}</pre></div></td>
+		</tr>
+		<tr>
+			<td>NO</td><td>${requestScope.fvo.faqNo}</td>
+			<td>조회수</td><td>${requestScope.fvo.faqHits}</td>
+			<td>작성자</td><td>${requestScope.fvo.memberVO.id}</td>
+			<td>작성시간</td><td>${requestScope.fvo.faqPostedTime}</td>
+		</tr>	
 </table>
 <div class="faqBtn">
 <sec:authorize access="hasRole('ROLE_ADMIN')">
@@ -62,8 +46,10 @@ function updateBtn() {
 <sec:csrfInput/>
 <input type="hidden" name="faqNo" value="${requestScope.fvo.faqNo}">
 </form>
+<!-- </div> -->
 </div>
 </div>
+
 
 
 
