@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<div class="tableMargin" id="commentsList">
+<div class="tableMargin" id="reviewList">
 	<div class="container-lg boardClassMain">
 	  <h4 style="display: inline-flex;">리뷰</h4> 
 	  <c:choose>
@@ -41,12 +41,12 @@
 						<c:set var="rpbc" value="${requestScope.reviewListByContentsNo.pagingBean}"/>
 						<ul class="pagination">
 							<c:if test="${rpbc.previousPageGroup}">		<!-- 이전 페이지으로 넘어갈 만큼 충분한 게시글이있으면 '<<' 페이지 넘기기 버튼이 생성된다. -->
-							<li><a href="${pageContext.request.contextPath}/contentsDetail.do?pageNo=${rpbc.startPageOfPageGroup-1}&contentsNo=${requestScope.contentsNo}">&laquo;</a></li>	<!-- $laquo는 페이징에 나타나는'<<'왼쪽페이지 버튼이다. -->
+							<li><a href="${pageContext.request.contextPath}/contentsDetail.do?reviewPageNo=${rpbc.startPageOfPageGroup-1}&contentsNo=${requestScope.contentsNo}">&laquo;</a></li>	<!-- $laquo는 페이징에 나타나는'<<'왼쪽페이지 버튼이다. -->
 							</c:if>
 							<c:forEach var="i" begin="${rpbc.startPageOfPageGroup}" end="${rpbc.endPageOfPageGroup}">
 								<c:choose>
 									<c:when test="${rpbc.nowPage != i}">
-										<li><a href="${pageContext.request.contextPath}/contentsDetail.do?pageNo=${i}&contentsNo=${requestScope.contentsNo}">${i}</a></li>
+										<li><a href="${pageContext.request.contextPath}/contentsDetail.do?reviewPageNo=${i}&contentsNo=${requestScope.contentsNo}">${i}</a></li>
 									</c:when>
 									<c:otherwise>
 										<li class="active"><a href="#">${i}</a></li>
@@ -54,7 +54,7 @@
 								</c:choose>
 							</c:forEach>
 							<c:if test="${rpbc.nextPageGroup}">			<!-- 다음 페이지로 넘어갈 만큼 충분한 게시글이 있으면 '>>' 페이지 넘기기 버튼이 생성된다. -->
-								<li><a href="${pageContext.request.contextPath}/contentsDetail.do?pageNo=${rpbc.endPageOfPageGroup+1}&contentsNo=${requestScope.contentsNo}">&raquo;</a></li>
+								<li><a href="${pageContext.request.contextPath}/contentsDetail.do?reviewPageNo=${rpbc.endPageOfPageGroup+1}&contentsNo=${requestScope.contentsNo}">&raquo;</a></li>
 							</c:if>
 						</ul>
 					</div>

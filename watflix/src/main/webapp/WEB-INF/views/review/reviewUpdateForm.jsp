@@ -33,13 +33,9 @@
 			</tr>
 			<tr>
 				<td colspan="2" class="btnArea">
-					<button type="button" class="btn btn-default boardDetailBtn" onclick="location.href='${pageContext.request.contextPath}/contentsDetail.do?contentsNo=${reviewDetail.contentsVO.contentsNo}'">목록</button>
-					<button form="reviewDelete" class="btn btn-default boardDetailBtn" type="submit">삭제</button>
+					<button type="button" class="btn btn-default boardDetailBtn" onclick="location.href='${pageContext.request.contextPath}/contentsDetail.do?contentsNo=${requestScope.ru.contentsVO.contentsNo}'">목록</button>
+					<button type="reset" class="btn btn-default boardDetailBtn" type="submit">초기화</button>
 					<button form="reviewUpdateForm" class="btn btn-default boardDetailBtn" type="submit">수정</button>
-					<form action="reviewDelete.do" id="reviewDelete" method="post">
-					<sec:csrfInput/>
-					<input type="hidden" name="reviewNo" value="${reviewDetail.reviewNo}">
-					</form>
 					<form action="reviewUpdateForm.do" id="reviewUpdateForm" method="post">
 					<sec:csrfInput/>
 					<input type="hidden" name="reviewNo" value="${reviewDetail.reviewNo}">
