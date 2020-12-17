@@ -441,7 +441,7 @@ FROM REPORT where id='java') r, review rv, report_type rt where r.REVIEW_NO=rv.R
 where re_num between 1 and 5
 order by report_no desc;
 -- 권한
-insert into grade values('ROLE_ADMIN', 'java')
+insert into grade values('ROLE_ADMIN', 'admin')
 -- 내 리뷰 게시물 가져오기
 SELECT REVIEW_NO,ID,CONTENTS_NO,REVIEW_TITLE,REVIEW_CONTENTS,REVIEW_LIKES,REVIEW_POSTED_TIME
 FROM (SELECT ROW_NUMBER() OVER(ORDER BY review_no DESC) AS RNUM, REVIEW_NO, ID, CONTENTS_NO,
@@ -464,10 +464,12 @@ drop SEQUENCE REVIEW_SEQ;
 drop SEQUENCE NOTICE_SEQ;
 drop SEQUENCE REPORT_SEQ;
 drop SEQUENCE PRODUCT_SEQ;
-drop SEQUENCE PRODUCT_CATEGORY_SEQ;
 drop SEQUENCE PRODUCT_ORDER_SEQ;
-drop SEQUENCE PARTY_SEQ;
 drop SEQUENCE FAQ_SEQ;
+drop SEQUENCE QNA_SEQ;
+drop SEQUENCE QNA_ANSWER_SEQ;
+drop SEQUENCE PARTY_SEQ;
+drop SEQUENCE POINT_HISTORY_SEQ;
 -- 권한 추가
 insert into grade values ( 'ROLE_ADMIN' , 'java');
 -- 신고 당한 횟수 추가
@@ -502,6 +504,9 @@ values(REVIEW_SEQ.nextval, 'test', 80165295, 'test', '메크로');
 insert into member(id, password, name, sex, email)
 values('test3', '$2a$10$i2cyl1OhUeJ71PUTHozM9enjjiJ0rZVVjn/z7FVXnJA1pBi7gOUH2', 'test', '여성', 'spring@sprin.com');
 insert into grade values ( 'ROLE_MEMBER' , 'test3');
+--데이터 삭제
+delete from member
+select * from grade
 
 
 select * from grade where id='java'
@@ -986,9 +991,7 @@ select * from member
 	from contents where CONTENTS_TYPE LIKE '%'||'액션'||'%') C, 
 	GENRE G
 	where C.GENRE_CODE=G.GENRE_CODE AND rnum BETWEEN 1 AND 100
-<<<<<<< HEAD
-	
-=======
+
 
 SELECT (SELECT COUNT(*) FROM CONTENTS_LIKE WHERE CONTENTS_NO = #{contentsNo} AND ID = #{id}) as CONTENTS_LIKE_STATUS,C.CONTENTS_NO,C.CONTENTS_TITLE,C.CONTENTS_TYPE,
 G.GENRE_CODE,G.GENRE_NAME,C.CONTENTS_SUMMARY,C.CONTENTS_SMALL_THUMBNAIL,C.CONTENTS_BIG_THUMBNAIL,C.CONTENTS_AVG_STARS,C.CONTENTS_LIKES,C.CONTENTS_HITS,
@@ -1132,8 +1135,7 @@ from (select row_number() over(order by CONTENTS_LIKES DESC) as rnum,CONTENTS_NO
 CONTENTS_SUMMARY,CONTENTS_SMALL_THUMBNAIL,CONTENTS_BIG_THUMBNAIL,
 CONTENTS_AVG_STARS,CONTENTS_LIKES,CONTENTS_HITS,CONTENTS_DATE,CONTENTS_RUNNINGTIME,CONTENTS_ACTOR,CONTENTS_PRODUCER,CONTENTS_AGE from contents) C, GENRE G
 where C.GENRE_CODE=G.GENRE_CODE and rnum BETWEEN 1 AND 10
-<<<<<<< HEAD
->>>>>>> branch 'master' of https://github.com/Minikanko/-Kosta-FinalProject-Dev6m.git
+
 
 
 select point from member where id = 'java14'
@@ -1154,13 +1156,13 @@ SELECT P.POINT_HISTORY_NO,P.ID,P.REVIEW_NO,(select REVIEW_TITLE from REVIEW wher
       POINT_HISTORY_NO,ID,REVIEW_NO,COMMENTS_NO,ORDER_NO,
       POINT,POINT_HISTORY_CONTENTS,CURRENT_TIME FROM POINT_HISTORY WHERE ID='java') P where
       RNUM BETWEEN #{pagingBean.startRowNumber} AND #{pagingBean.endRowNumber}
-=======
+
 
 
 select * from genre
 
 
-=======
+
 	
 
 
@@ -1349,4 +1351,4 @@ SELECT P.POINT_HISTORY_NO,P.ID,P.REVIEW_NO,(select REVIEW_TITLE from REVIEW wher
 
 select * from genre
 
->>>>>>> branch 'master' of https://github.com/Minikanko/-Kosta-FinalProject-Dev6m.git
+
