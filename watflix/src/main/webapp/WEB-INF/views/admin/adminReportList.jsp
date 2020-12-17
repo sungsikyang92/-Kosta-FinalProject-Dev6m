@@ -90,7 +90,6 @@
 		
 	}
 </script>
-<div class="tableMargin" id="commentsList">
 	<div class="container-lg boardClassMain" style="margin-top: 100px">
 		<h4 style="display: inline-flex;">전체신고글</h4>
 		<a href="#" onclick="getReportList('1', true); return false;">평점</a>
@@ -166,7 +165,7 @@
 					</div>
 				</div>
 </div>	
-</div>
+
 
 
 

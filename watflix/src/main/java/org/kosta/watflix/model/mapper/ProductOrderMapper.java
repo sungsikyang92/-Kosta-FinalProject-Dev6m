@@ -17,4 +17,8 @@ public interface ProductOrderMapper {
 	int mProductOrderCount(String id);
 
 	ProductOrderVO mProductOrderDetail(@Param("id")String id, @Param("orderNo")int orderNo);
+
+	int mProductOrderCountForAll();
+
+	List<ProductOrderVO> mProductOrderForAllList(@Param("pagingBean")PagingBean pagingBean);
 }

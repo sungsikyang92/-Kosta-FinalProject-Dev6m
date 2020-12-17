@@ -3,6 +3,7 @@ package org.kosta.watflix.controller;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -12,12 +13,17 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.kosta.watflix.model.service.AdminService;
 import org.kosta.watflix.model.service.MemberService;
+import org.kosta.watflix.model.service.PagingBean;
+import org.kosta.watflix.model.service.ProductOrderService;
 import org.kosta.watflix.model.vo.CommentsListVO;
 import org.kosta.watflix.model.vo.MemberListVO;
 import org.kosta.watflix.model.vo.MemberVO;
+import org.kosta.watflix.model.vo.ProductOrderListVO;
+import org.kosta.watflix.model.vo.ProductOrderVO;
 import org.kosta.watflix.model.vo.ReportListVO;
 import org.kosta.watflix.model.vo.ReviewListVO;
 import org.kosta.watflix.model.service.CommentsService;
+import org.kosta.watflix.model.service.FaqService;
 import org.kosta.watflix.model.service.ReportService;
 import org.kosta.watflix.model.service.ReviewService;
 import org.springframework.security.access.annotation.Secured;
@@ -41,6 +47,10 @@ public class AdminController {
    CommentsService commentsService;
    @Resource
    ReportService reportService;
+   @Resource
+   ProductOrderService productOrderService;
+   @Resource
+   FaqService faqService;
    
    	@Secured("ROLE_ADMIN")
 	@RequestMapping("adminHome.do")
@@ -179,6 +189,7 @@ public class AdminController {
 	return "contents/contentsUpdateAdminComplete";
 	}   
    //관리자- 멤버관리 페이지
+   @Secured("ROLE_ADMIN")
    @RequestMapping("adminControlMember.do")
    public String adminControlMember(Model model, String pageNo) {
 	   MemberListVO memberListVO = memberService.sMemberAllList(pageNo);
@@ -186,6 +197,7 @@ public class AdminController {
 	   return "admin/adminControlMember.tiles";
    }
 // 관리자 전체 게시물 조회 페이지로 이동
+   @Secured("ROLE_ADMIN")
    @RequestMapping("allPostForAdmin.do")
    public String allPostForAdmin(Model model) {
 	   System.out.println("allPostForAdmin.do 실행");
@@ -203,6 +215,7 @@ public class AdminController {
    }
 	// 신고 리스트( 관리자페이지 )
 	// ResponseBody는 비동기 통신에 필요한 어노테이션이다.
+    @Secured("ROLE_ADMIN")
 	@RequestMapping("reportBoardAdmin.do")
 	@ResponseBody
 	public ReportListVO reportBoardAdmin(String reportPageNo, boolean reportType) {
@@ -216,7 +229,8 @@ public class AdminController {
 	}
    
    //계정 정지 or 정지해제
-   @RequestMapping("updateMemberStatus.do")
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("updateMemberStatus.do")
    public String updateMemberStatus(String id, int accstatus, String nowPage) {
 	  String pageNo = nowPage;
 	  if(pageNo == "") {
@@ -225,4 +239,32 @@ public class AdminController {
 	   memberService.sMemberStatusUpdate(id,accstatus);
 	   return "redirect:adminControlMember.do?pageNo="+pageNo;
    }
+   //모든고객의 구매내역 조회
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("adminProductOrderList.do")
+   public String adminProductOrderList(String pageNo,Model model) {
+	   MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		//모든 고객에 대한 구매내역 총건수
+		int productOrderCount = productOrderService.sProductOrderCountForAll();
+		PagingBean pagingBean;
+		
+		if(pageNo==null) {
+			pagingBean = new PagingBean(productOrderCount);
+		}
+		else {
+			pagingBean = new PagingBean(productOrderCount, Integer.parseInt(pageNo));
+		}
+		List<ProductOrderVO> list = productOrderService.sProductOrderForAllList(pagingBean);
+		ProductOrderListVO polvo = new ProductOrderListVO(list, pagingBean);
+		model.addAttribute("productOrderListVO",polvo);
+		return "admin/adminProductOrderList.tiles";
+   }
+   
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("adminFaqList.do")
+	public String adminFaqList(Model model,String pageNo) {
+		model.addAttribute("faqListVO",faqService.sGetFaqList(pageNo));
+		return "admin/adminFaqList.tiles";
+	}
+	
 }
