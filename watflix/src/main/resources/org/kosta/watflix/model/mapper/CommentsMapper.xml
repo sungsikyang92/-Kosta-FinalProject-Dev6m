@@ -17,10 +17,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		<include refid="selectTotalPostCount"/>
  		WHERE contents_no = #{value}
  	</select> 
- 	<!-- 내가 작성한 Comments 수 -->
-	<select id="mGetMyTotalCommentsCount" parameterType="string" resultType="int">
-		select count(*) from comments where id = #{value}
-	</select>	
  	<!-- CommentsVO와 has a 관계인 MemberVO와 ContentsVO를 담을수 있도록 resultMap 선언  -->
  	<resultMap type="commentsVO" id="commentsBoardRM">
  		<result property="memberVO.id" column="id"/>
@@ -32,14 +28,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT row_number() over(order by comments_no desc) as rnum, comments_no, id, contents_no, comments, comments_stars, comments_posted_time
 		FROM comments) WHERE rnum BETWEEN #{startRowNumber} AND #{endRowNumber}
  	</select>
- 	<!-- 내가 작성한 리뷰리스트 가져오기 -->
-	<select id="mCommentsGetMyList" resultMap="commentsBoardRM">
-		SELECT COMMENTS_NO,ID,CONTENTS_NO,COMMENTS,COMMENTS_STARS,COMMENTS_POSTED_TIME
-		FROM (SELECT ROW_NUMBER() OVER(ORDER BY COMMENTS_NO DESC) AS RNUM, COMMENTS_NO, ID, CONTENTS_NO,
-		COMMENTS, COMMENTS_STARS, TO_CHAR(COMMENTS_POSTED_TIME,'yyyy-mm-dd') as COMMENTS_POSTED_TIME
-		FROM COMMENTS where id=#{id})
-		WHERE RNUM BETWEEN #{pagingBean.startRowNumber} AND #{pagingBean.endRowNumber} ORDER BY comments_no desc	
-	</select> 
+ 	<!-- 내가 작성한 Comments 게시물 리스트 조회 -->
+ 	<select id="mMyCommentsGetAllList" resultMap="commentsBoardRM">
+ 		SELECT comments_no, id, contents_no, comments, comments_stars, comments_posted_time
+		FROM(SELECT row_number() over(order by comments_no desc) as rnum, comments_no, id, contents_no, comments, comments_stars, comments_posted_time
+		FROM comments where id = #{id})
+		WHERE rnum BETWEEN #{pagingBean.startRowNumber} AND #{pagingBean.endRowNumber}
+ 	</select>
  	<!-- 컨텐츠별 Comments 게시물 리스트 조회 -->	
  	<select id="mCommentsGetListByContentsNo" resultMap="commentsBoardRM">
 		SELECT S.COMMENTS_NO, M.ID, C.CONTENTS_NO, S.COMMENTS, S.COMMENTS_STARS, S.COMMENTS_POSTED_TIME 
@@ -51,13 +46,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	<select id="mMyCommentsGetTotalPostCount" parameterType="string" resultType="int">
  		select count(*) from review where id=#{value}
  	</select>
- 	<!-- 내가 작성한 Comments 게시물 리스트 조회 -->
- 	<select id="mMyCommentsGetAllList" resultMap="commentsBoardRM">
- 		SELECT comments_no, id, contents_no, comments, comments_stars, comments_posted_time
-		FROM(SELECT row_number() over(order by comments_no desc) as rnum, comments_no, id, contents_no, comments, comments_stars, comments_posted_time
-		FROM comments where id = #{id})
-		WHERE rnum BETWEEN #{pagingBean.startRowNumber} AND #{pagingBean.endRowNumber}
- 	</select>
+ 	
  	<!-- 해당 contents에 내가 쓴 comments 유무 확인 -->
  	<select id="mCheckWorteOrNot" parameterType="map" resultType="int">
  		SELECT COUNT(*) FROM comments WHERE id=#{userId} AND contents_no=#{contentsNo}

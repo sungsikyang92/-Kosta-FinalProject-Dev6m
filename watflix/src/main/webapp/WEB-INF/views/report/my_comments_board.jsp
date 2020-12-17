@@ -9,82 +9,74 @@ $(document).ready(function(){
 		$(this).html("<img src='${pageContext.request.contextPath}/resources/media/icons/star"+starPoint+".png' style='height: 25px'>");
 	})
 })
-function getMyCommentsByPaging(commnetsPageNo){
+function getMyCommentsByPaging(commentsPageNo){
 		$.ajax({
 			type: "get",
 			url: "${pageContext.request.contextPath}/myCommentsList.do",
 			dataType: "json",
-			data: 'pageNo='+commentsPageNo
+			data: 'pageNo='+ commentsPageNo,
 			success:function(commentsData){	
-				listByReportType(commentsData);	
-				reportPostPaging(rcommentsData);
+				listMyComments(commentsData);	
+				commentsPostPaging(commentsData);
 			}
 		});
 }
 function getCommentsAfterDelete(contentsNo, commentsNo, commentsPageNo){
 	$.ajax({
-		type: "get",
-		url: "${pageContext.request.contextPath}/commentsDelete.do",
+		type: "post",
+		url: "${pageContext.request.contextPath}/commentsDeleteAjax.do",
 		dataType: "json",
-		data:{
-			"contentsNo" : contentsNo
-			"commentsNo" : commentsNo
-			"commentsPageNo" : commentsPageNo
-		},
-		beforeSend : function (){
-			
-		},
+		data:
+			"contentsNo="+contentsNo+
+			"&commentsNo="+commentsNo+
+			"&pageNo="+commentsPageNo
+		,
+		beforeSend : function(xhr){   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+            xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+        },
 		success:function(commentsData){	
-			listByReportType(commentsData);	
-			reportPostPaging(commentsData);
+			listMyComments(commentsData);	
+			commentsPostPaging(commentsData);
 		}
 	});
 }
-function listByReportType(commentsListVO){
-			// 테이블에 집어넣을 문자열 데이터 변수
+// 리스트 바디 메소드
+function listMyComments(commentsListVO){
 			var commentsTbody = "";
-			//table의 tbody
 			for (var i = 0; i < commentsListVO.list.length; i++){
 						commentsTbody += "<tr>";
 							commentsTbody += "<td class='starPointImg' style='width: 15%''>"+commentsListVO.list[i].commentsStars+"</td>";
 							commentsTbody += "<td style='width: 5%'>"+ commentsListVO.list[i].commentsStars + "</td>";
 							commentsTbody += "<td>";
-							commentsTbody += data.list[i].comments + "<br>" + commentsListVO.list[i].memberVO.id +" "+ commentsListVO.list[i].commentsPostedTime;
+							commentsTbody += commentsListVO.list[i].comments + "<br>" + commentsListVO.list[i].memberVO.id +" "+ commentsListVO.list[i].commentsPostedTime;
 							/* 권한 부여하고자 하였으나 실패함 */
-							commentsTbody += "<form action='commentsDelete.do' method='post' onsubmit='return commentsDeleteConfirm()' style='display: inline-flex;'>";
-							commentsTbody += '<sec:csrfInput/>';
-							commentsTbody += "<input type='hidden' name='contentsNo' value='"+ commentsListVO.list[i].contentsNo +"'>";	
-							commentsTbody += "<input type='hidden' name='commentsDelete' value='"+ commentsListVO.list[i].commentsNo +"'>";	
-							commentsTbody += "<input type='hidden' name='pageNo' value='"+ commentsListVO.pagingBean.nowPage+"'>";	
-							commentsTbody += "<input type='submit' value='삭제'>";	
-							commentsTbody += "</form>";	
+							commentsTbody += "<button type='button' name='deleteButton' style='width: 56px; float: right;' onclick='getCommentsAfterDelete("+ commentsListVO.list[i].contentsNo +","+ commentsListVO.list[i].commentsNo +","+ commentsListVO.pagingBean.nowPage+")'>삭제</button>";
 							commentsTbody += "</td>";
 						commentsTbody += "</tr>";	
 					}
 					$("#commentsTbody").html(commentsTbody);
 				}
-			})
-}
-function reportPostPaging(commentsListVO){				
+//페이징 바디 메소드
+function commentsPostPaging(commentsListVO){				
 					// table 페이징
 					var commentsPaging ="";
-					var startPageGroup = data.pagingBean.startPageOfPageGroup;
-					var endPageGroup = data.pagingBean.endPageOfPageGroup;
+					var startPageGroup = commentsListVO.pagingBean.startPageOfPageGroup;
+					var endPageGroup = commentsListVO.pagingBean.endPageOfPageGroup;
 					// 왼쪽 페이징 화살표
-					if (data.pagingBean.previousPageGroup){
-						commentsPaging += "<li><a href='#' onclick='commentsPaging("+ (startPageGroup -1) +");return false;'>&laquo;</a></li>";
+					if (commentsListVO.pagingBean.previousPageGroup){
+						commentsPaging += "<li><a href='#' onclick='getMyCommentsByPaging("+ (startPageGroup -1) +");return false;'>&laquo;</a></li>";
 					}
 					// 페이징 번호
 					for (var commentsPageNo = startPageGroup; commentsPageNo < endPageGroup + 1; commentsPageNo++){
-						if(data.pagingBean.nowPage != commentsPageNo){
-							commentsPaging += "<li><a href='#' onclick='commentsPaging("+ commentsPageNo +");return false;'>"+ commentsPageNo +"</a></li>";
+						if(commentsListVO.pagingBean.nowPage != commentsPageNo){
+							commentsPaging += "<li><a href='#' onclick='getMyCommentsByPaging("+ commentsPageNo +");return false;'>"+ commentsPageNo +"</a></li>";
 						}else{
 							commentsPaging += "<li><a href='#' onclick='return false'>"+ commentsPageNo +"</a></li>";
 						}
 					}
 					// 오른쪽 화살표 페이징
-					if(data.pagingBean.nextPageGroup){
-						commentsPaging += "<li><a href='#' onclick='commentsPaging("+ (endPageGroup + 1) +");return false'>&raquo;</a></li>";
+					if(commentsListVO.pagingBean.nextPageGroup){
+						commentsPaging += "<li><a href='#' onclick='getMyCommentsByPaging("+ (endPageGroup + 1) +");return false'>&raquo;</a></li>";
 					}
 					$("#commentsPaging").html(commentsPaging);
 					// 코드가 중복됨 수정 필요함
@@ -110,17 +102,7 @@ function reportPostPaging(commentsListVO){
 					${commentsList.comments}<br>
 					${commentsList.memberVO.id }
 					${commentsList.commentsPostedTime}
-					<!-- 삭제버튼 (작성자와 관리자에게만 노출된다.) -->
-					<c:set var="writerId" value="${commentsList.memberVO.id }"/>
-					<c:if test="${writerId == userId}">
-					<form action="${pageContext.request.contextPath}/commentsDelete.do" method="post" onsubmit="return commentsDeleteConfirm()" style="display: inline-flex;">
-						<sec:csrfInput/>
-						<input type="hidden" name="contentsNo" value="${requestScope.contentsNo}">
-						<input type="hidden" name="commentsDelete" value="${commentsListByContentsNo.commentsNo}">
-						<input type="hidden" name="pageNo" value="${requestScope.commentsListByContentsNo.pagingBean.nowPage}">
-						<input type="submit" value="삭제">
-					</form>
-					</c:if>
+					<button type='button' name='deleteButton' style='width: 56px; float: right;' onclick='getCommentsAfterDelete(${commentsList.contentsVO.contentsNo},${commentsList.commentsNo},${requestScope.commentsListVO.pagingBean.nowPage})'>삭제</button>
 				</td>			
 	      </tr>
 	      </c:forEach>
@@ -131,12 +113,12 @@ function reportPostPaging(commentsListVO){
 				<c:set var="pagingBean" value="${requestScope.commentsListVO.pagingBean}"/>
 				<ul class="pagination" id = "commentsPaging">
 					<c:if test="${pagingBean.previousPageGroup}">
-						<li class="page-item"><a href="#" onclick="commentsPaging(${pagingBean.startPageOfPageGroup-1}); return false">&laquo;</a></li>
+						<li class="page-item"><a href="#" onclick="getMyCommentsByPaging(${pagingBean.startPageOfPageGroup-1}); return false">&laquo;</a></li>
 					</c:if>
 					<c:forEach var="i" begin="${pagingBean.startPageOfPageGroup}" end="${pagingBean.endPageOfPageGroup}">
 						<c:choose>
 							<c:when test="${pagingBean.nowPage != i}">
-								<li><a href="#" onclick="commentsPaging(${i}); return false">${i}</a></li>
+								<li><a href="#" onclick="getMyCommentsByPaging(${i}); return false;">${i}</a></li>
 							</c:when>
 							<c:otherwise>
 								<li class="active"><a href="#" onclick="return false">${i}</a></li>
@@ -144,7 +126,7 @@ function reportPostPaging(commentsListVO){
 						</c:choose>
 					</c:forEach>
 					<c:if test="${pagingBean.nextPageGroup}">			<!-- 다음 페이지로 넘어갈 만큼 충분한 게시글이 있으면 '>>' 페이지 넘기기 버튼이 생성된다. -->
-						<li><a href="#" onclick="commentsPaging(${pagingBean.endPageOfPageGroup+1}); return false">&raquo;</a></li>
+						<li><a href="#" onclick="getMyCommentsByPaging(${pagingBean.endPageOfPageGroup+1}); return false">&raquo;</a></li>
 					</c:if>
 				</ul>
 			</div>

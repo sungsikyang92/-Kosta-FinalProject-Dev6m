@@ -5,14 +5,15 @@ import java.util.HashMap;
 
 import javax.annotation.Resource;
 
+import org.kosta.watflix.model.mapper.MemberMapper;
+import org.kosta.watflix.model.mapper.PointHistoryMapper;
 import org.kosta.watflix.model.mapper.ReviewLikeMapper;
 import org.kosta.watflix.model.mapper.ReviewMapper;
 import org.kosta.watflix.model.vo.MemberVO;
-import org.kosta.watflix.model.vo.ReviewLikeVO;
 import org.kosta.watflix.model.vo.ReviewListVO;
 import org.kosta.watflix.model.vo.ReviewVO;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ReviewServiceImpl implements ReviewService {
@@ -20,6 +21,10 @@ public class ReviewServiceImpl implements ReviewService {
 	ReviewMapper reviewMapper;
 	@Resource
 	ReviewLikeMapper reviewLikeMapper;
+	@Resource
+	MemberMapper memberMapper;
+	@Resource
+	PointHistoryMapper pointHistoryMapper;
 	
 	//리뷰리스트불러오기 pageNo 없는 ver
 	//@Override
@@ -62,9 +67,13 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 	
 	//리뷰작성
+	@Transactional
 	@Override
 	public void sReviewWrite(ReviewVO reviewVO) {
 		reviewMapper.mReviewWrite(reviewVO);
+		memberMapper.mMemberPointUpdate(reviewVO.getMemberVO());
+		pointHistoryMapper.mPointHistoryAddWithReview(reviewVO.getReviewNo(), reviewVO.getMemberVO().getId());
+		System.out.println("히스토리에넣음");
 	}
 	
 	//리뷰업데이트

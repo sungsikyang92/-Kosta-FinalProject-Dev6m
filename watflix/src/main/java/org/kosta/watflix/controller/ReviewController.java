@@ -1,22 +1,21 @@
 package org.kosta.watflix.controller;
 
-import java.util.HashMap;
-
 import javax.annotation.Resource;
 
+import org.kosta.watflix.model.service.MemberService;
+import org.kosta.watflix.model.service.PointHistoryService;
 import org.kosta.watflix.model.service.ReviewLikeService;
 import org.kosta.watflix.model.service.ReviewService;
 import org.kosta.watflix.model.vo.ContentsVO;
 import org.kosta.watflix.model.vo.MemberVO;
-import org.kosta.watflix.model.vo.ReviewListVO;
 import org.kosta.watflix.model.vo.ReviewVO;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -26,6 +25,10 @@ public class ReviewController {
 	private ReviewService reviewService;
 	@Resource
 	ReviewLikeService reviewLikeService;
+	@Resource
+	PointHistoryService pointHistoryService;
+	@Resource
+	MemberService memberService;
 	//콘텐츠리뷰리스트
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("reviewList.do")
@@ -55,20 +58,16 @@ public class ReviewController {
 	
 	//리뷰 작성 submit(세션 추가 해야 합니다.)
 	@Secured("ROLE_MEMBER")
+	@Transactional
 	@PostMapping("reviewWrite.do")
 	public String reviewWrite(ReviewVO reviewVO, ContentsVO contentsVO ,RedirectAttributes ra) {
-	//System.out.println(contentsVO.getContentsNo()); //컨텐츠넘버 불러오는지 확인을위한것
-	
-		//아래의 1번 문장은 시큐리티를 통해서 세션을 가져와서 MemberVO값을 가져온다.
-	//1.SecurityContextHolder.getContext().getAuthentication().getPrincipal() : (MemberVO)다운캐스팅 USERVO .
-	Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-	MemberVO memberVO = (MemberVO)principal;
-	//System.out.println(memberVO.getId());		// MemberVO에서 Id 잘 불러오는지 확인을 위한것
-	//2.reviewVo.setMemberVO(다운캐스팅한거넣으라고?);
+	MemberVO memberVO = (MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	int point = memberVO.getPoint();
+	memberVO.setPoint(point+15);
 		reviewVO.setMemberVO(memberVO);
 		reviewVO.setContentsVO(contentsVO);
 		reviewService.sReviewWrite(reviewVO);
-	ra.addAttribute("reviewNo",reviewVO.getReviewNo());
+		ra.addAttribute("reviewNo",reviewVO.getReviewNo());
 	reviewService.sGetReviewDetailNoHits(memberVO.getId(),reviewVO.getReviewNo());
 	return "redirect:reviewDetailNoHits.do";
 	}
