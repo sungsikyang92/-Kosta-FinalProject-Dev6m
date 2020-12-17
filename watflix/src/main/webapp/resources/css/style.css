@@ -1012,6 +1012,10 @@ a, a:hover {
 	width:5%;
 	text-align: center;
 }
+.starIdDt{
+	font-size: 8px;
+	text-align: center;
+}
 .cmtIdDt{
 	text-align: right;
 }
@@ -1041,10 +1045,32 @@ a, a:hover {
 	text-align: center;
 }
 .td_date{
+	font-size: 8px;
+	text-align: center;
 }
 .td_likes{
 	text-align: center;
 }
 .td_hits{
+	text-align: center;
+}
+.reviewPostedTime{
+	text-align: right;
+}
+.rvdThNo2{
+	width: 7%;
+	text-align: center;
+}
+.rvdLikes{
+	width: 8%;
+	text-align: center;
+}
+.rvdTitle{
+	width: 80%;
+}
+.rvdContents{
+	width: 10%;
+}
+.rvdReport{
 	text-align: center;
 }

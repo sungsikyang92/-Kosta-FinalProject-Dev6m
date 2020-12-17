@@ -49,9 +49,9 @@
   <table class="table table-bordered" style="border-radius: 1.5px;">
 	<c:set var="reviewDetail" value="${requestScope.rdvo}"></c:set>
 		<tr>
-			<th>${reviewDetail.reviewTitle}</th>
-			<th>조회${reviewDetail.reviewHits}</th>
-			<th>
+			<th class="rvdTitle">${reviewDetail.reviewTitle}</th>
+			<th class="rvdThNo2">조회${reviewDetail.reviewHits}</th>
+			<th class="rvdLikes">
 				<a href="#">
 				<c:choose>
 					<c:when test="${reviewDetail.reviewLikeStatus == 1}">
@@ -63,18 +63,15 @@
 				</c:choose>
 				
 				</a>
-				Likes <span id="LikesCount">${reviewDetail.reviewLikes}</span>	
-			</th>
-			<th><a href="#" onclick="reportPopup(${reviewDetail.reviewNo},'${reviewDetail.memberVO.id}');return false;">신고</a></th>
+				<br>
+				Likes <span id="LikesCount">${reviewDetail.reviewLikes}</span></th>
+			<th class="rvdReport"><a href="#" onclick="reportPopup(${reviewDetail.reviewNo},'${reviewDetail.memberVO.id}');return false;"><img width="12px" src='${pageContext.request.contextPath}/resources/media/icons/report.png'></a></th>
 		</tr>
 		<tr>
-			<td class="contentsTitle">${requestScope.contentsTitle}리뷰</td>
-			<th colspan="2" class="MemberId">${reviewDetail.memberVO.id}의 모든리뷰보기(모든리뷰보기만드냐?)</th>
-			<th class="reviewPostedTime">${reviewDetail.reviewPostedTime}</th>
+			<th class="reviewPostedTime" colspan="6">${reviewDetail.reviewPostedTime}</th>
 		</tr>
 		<tr class="boardDetailTr">
-			<td>내용</td>
-			<td colspan="3" class="reviewContents"><pre style="white-space:pre-wrap;">${reviewDetail.reviewContents}</pre></td>
+			<td colspan="4" class="reviewContents"><pre style="white-space:pre-wrap;">${reviewDetail.reviewContents}</pre></td>
 		</tr>
 		<tr>			<!-- 임시로 align="center"줘서 중앙배열 시켜놓음 CSS로 해야함 -->
 			<td colspan="4" class="btnArea">
