@@ -3,6 +3,7 @@ package org.kosta.watflix.controller;
 import javax.annotation.Resource;
 
 import org.kosta.watflix.model.service.ReportService;
+import org.kosta.watflix.model.vo.CommentsListVO;
 import org.kosta.watflix.model.vo.CommentsVO;
 import org.kosta.watflix.model.vo.MemberVO;
 import org.kosta.watflix.model.vo.ReportListVO;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class ReportController {
@@ -80,6 +82,21 @@ public class ReportController {
 			return "redirect:reportReviewBoard.do";
 		}
 	}
+	
+	// 삭제버튼으로 삭제(ajax방식 / adminReportList.jsp)
+		@PostMapping("reportDeleteAjax.do")
+		@ResponseBody
+		public ReportListVO reportDeleteAjax(int reportNo, String pageNo, boolean reportType) {
+			reportService.sReportDelete(reportNo);
+			// reportType(true: comments / false: review)
+			if(reportType) {
+			System.out.println(reportType);
+			return reportService.sGetReportCommentsList(pageNo);
+			} else {
+				System.out.println(reportType);
+			return reportService.sGetReportReviewList(pageNo);
+			}
+		}
 	
 	// 내 신고 리스트(리뷰)
 	// ResponseBody는 비동기 통신에 필요한 어노테이션이다.

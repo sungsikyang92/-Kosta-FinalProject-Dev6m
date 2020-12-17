@@ -86,11 +86,8 @@ public class CommentsServiceImpl implements CommentsService {
 
 	// 내가 작성한 Comments 게시물 리스트
 	@Override
-	public CommentsListVO sMyCommentsGetList(String id) {
-		return sMyCommentsGetList(id, "1");
-	}
-	@Override
 	public CommentsListVO sMyCommentsGetList(String id, String pageNo) {
+		System.out.println(commentsMapper.mMyCommentsGetTotalPostCount(id));
 		int myCommentsTotalCount = commentsMapper.mMyCommentsGetTotalPostCount(id);
 		PagingBean pagingBean = null;
 		if(pageNo == null) {

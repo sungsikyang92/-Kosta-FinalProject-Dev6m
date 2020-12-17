@@ -79,7 +79,6 @@
 		<tr>			<!-- 임시로 align="center"줘서 중앙배열 시켜놓음 CSS로 해야함 -->
 			<td colspan="4" class="btnArea">
 				<button type="button" class="btn btn-default boardDetailBtn" onclick="location.href='${pageContext.request.contextPath}/contentsDetail.do?contentsNo=${reviewDetail.contentsVO.contentsNo}'">목록</button>
-				<button form="reviewDelete" class="btn btn-default boardDetailBtn" type="submit">삭제</button>
 				<button form="reviewUpdateForm" class="btn btn-default boardDetailBtn" type="submit">수정</button>
 				<form action="reviewDelete.do" id="reviewDelete" method="post">
 				<sec:csrfInput/>

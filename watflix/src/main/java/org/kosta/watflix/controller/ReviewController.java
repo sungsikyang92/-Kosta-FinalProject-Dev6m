@@ -119,7 +119,7 @@ public class ReviewController {
 		MemberVO memberVO = (MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String contentsNoforDelete=reviewService.sGetReviewDetailNoHits(memberVO.getId(),reviewNo).getContentsVO().getContentsNo();
 		reviewService.sReviewDelete(reviewNo);
-		//"redirect:contentsDetail.do? 컨텐츠넘버주기
+		System.out.println(reviewNo);
 		return "redirect:contentsDetail.do?contentsNo="+contentsNoforDelete;
 	}
 	

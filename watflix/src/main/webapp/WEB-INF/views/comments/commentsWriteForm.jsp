@@ -18,7 +18,7 @@
 			if($("#commentsStars").val() == ""){
 				alert("별점을 입력해주세요.");
 				return false;
-			} else if( $("#commentsContents").val() == ""){
+			} else if($("#commentsContents").val().trim() == ""){
 				alert("내용을 입력해주세요.");
 				return false;
 			} 

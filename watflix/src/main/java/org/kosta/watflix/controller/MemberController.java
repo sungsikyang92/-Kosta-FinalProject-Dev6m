@@ -148,11 +148,11 @@ public class MemberController {
 	// 내 게시물 리스트
 	@Secured("ROLE_MEMBER")
 	@RequestMapping("myPostList.do")
-	public String MyPostList(Model model) {
+	public String MyPostList(Model model, String pageNo) {
 		System.out.println("myPostList.do 실행");
 		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		model.addAttribute("commentsListVO", commentsService.sMyCommentsGetList(mvo.getId()));
-		model.addAttribute("reviewListVO",reviewService.sGetMyReviewList(mvo.getId()));
+		model.addAttribute("commentsListVO", commentsService.sMyCommentsGetList(mvo.getId(), pageNo));
+		model.addAttribute("reviewListVO",reviewService.sGetMyReviewList(mvo.getId(), pageNo));
 		return "my_post_list.tiles";
 	}	
 	
