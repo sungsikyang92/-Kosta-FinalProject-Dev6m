@@ -1166,4 +1166,35 @@ SELECT P.POINT_HISTORY_NO,P.ID,P.REVIEW_NO,(select REVIEW_TITLE from REVIEW wher
 
 
 select * from genre
+select * from all_tables where owner = 'WATFLIX';
+select * from member;
+select * from acc_status;
+select * from contents;
+select * from review;
+select * from review_like;
+select * from contents_like;
+select * from 
+select * from 
+select * from 
+select * from 
+select * from 
+select * from 
 
+select c.ea, C.CONTENTS_NO,C.CONTENTS_TITLE,C.CONTENTS_TYPE,G.GENRE_CODE,G.GENRE_NAME,
+C.CONTENTS_SUMMARY,C.CONTENTS_SMALL_THUMBNAIL,C.CONTENTS_BIG_THUMBNAIL,C.CONTENTS_AVG_STARS,
+C.CONTENTS_LIKES,C.CONTENTS_HITS,
+		CONTENTS_DATE,CONTENTS_RUNNINGTIME,CONTENTS_ACTOR,CONTENTS_PRODUCER,CONTENTS_AGE
+		from (select row_number() over(order by ea DESC) as rnum,c.ea,
+		C.CONTENTS_NO,C.CONTENTS_TITLE,C.CONTENTS_TYPE,C.GENRE_CODE,
+		C.CONTENTS_SUMMARY,C.CONTENTS_SMALL_THUMBNAIL,C.CONTENTS_BIG_THUMBNAIL,
+		C.CONTENTS_AVG_STARS,C.CONTENTS_LIKES,C.CONTENTS_HITS,
+		C.CONTENTS_DATE,C.CONTENTS_RUNNINGTIME,C.CONTENTS_ACTOR,
+		C.CONTENTS_PRODUCER,C.CONTENTS_AGE from 
+		(select distinct (select count(*) from comments where contents_no=c.contents_no) 
+		as ea,C.CONTENTS_NO,C.CONTENTS_TITLE,C.CONTENTS_TYPE,C.GENRE_CODE,C.CONTENTS_SUMMARY,C.CONTENTS_SMALL_THUMBNAIL,
+		C.CONTENTS_BIG_THUMBNAIL,C.CONTENTS_AVG_STARS,C.CONTENTS_LIKES,C.CONTENTS_HITS,
+		C.CONTENTS_DATE,C.CONTENTS_RUNNINGTIME,C.CONTENTS_ACTOR,C.CONTENTS_PRODUCER,
+		C.CONTENTS_AGE from contents c) C)
+		C, GENRE G
+		where C.GENRE_CODE=G.GENRE_CODE and rnum BETWEEN 1 AND 10 
+		select * from comments
