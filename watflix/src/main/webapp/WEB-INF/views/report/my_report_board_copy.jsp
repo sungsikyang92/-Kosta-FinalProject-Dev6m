@@ -24,17 +24,16 @@
 				reportTbody += "<th>"+reportListVO.list[i].reportTypeVO.reportTypeInfo+"</th>";
 				// comments, review 글을 분리한다.
 				if(reportListVO.list[i].reviewVO != null){
-					reportTbody += "<th>"+reportListVO.list[i].reviewVO.reviewNo+"</th>";
 					reportTbody += "<th>"+reportListVO.list[i].reviewVO.memberVO.id+"</th>";
 				} else {
-					reportTbody += "<th>"+reportListVO.list[i].commentsVO.commentsNo+"</th>";
 					reportTbody += "<th>"+reportListVO.list[i].commentsVO.memberVO.id+"</th>";
 				}
 				reportTbody += "<th>"+reportListVO.list[i].reportPostedTime+"</th>";
 				if(reportListVO.list[i].reviewVO != null){
-					reportTbody += "<th><a href=\"${pageContext.request.contextPath}/reviewDetailNoHits.do?reviewNo="+ reportListVO.list[i].reviewVO.reviewNo +"\">게시물로 이동</a></th>";
+					reportTbody += "<th><button type='button' onclick='reportReviewPopup("+reportListVO.list[i].reviewVO.reviewNo+");return false;'>리뷰 자세히보기</button></th>";
 				} else {
-					reportTbody += "<th><a href=\"${pageContext.request.contextPath}/reviewDetailNoHits.do?commentsNo="+ reportListVO.list[i].commentsVO.commentsNo +"\">게시물로 이동</a></th>";
+					reportTbody += "<th><button type='button' onclick='reportCommentsPopup("+reportListVO.list[i].commentsVO.commentsNo+");return false;'>평점 자세히보기</button></th>";
+					
 				}
 			reportTbody += "</tr>";
 			reportTbody += "<tr>";
@@ -67,6 +66,19 @@
 		}
 		$("#reportPaging").html(reportPaging);
 	}
+	// 관리자 신고게시물 디테일 팝업
+	function reportCommentsPopup(commentsNo){
+		// popup
+		var path = "${pageContext.request.contextPath}/commentsByCommentsNo.do?commentsNo="+commentsNo;
+		window.open(path, "commentsByComments","width=1000, height=230, top=150, left=200");
+		
+	}
+	function reportReviewPopup(reviewNo){
+		// popup
+		var path = "${pageContext.request.contextPath}/reviewByReviewNo.do?reviewNo="+reviewNo;
+		window.open(path, "commentsByComments","width=1000, height=420, top=150, left=200");
+		
+	}
 </script>
 <div class="tableMargin" id="commentsList">
 	<div class="container-lg boardClassMain" style="margin-top: 100px">
@@ -78,7 +90,6 @@
 		<thead>
 			<tr>
 				<th>신고 유형</th>
-				<th>게시물 번호</th>
 				<th>게시물 작성자 ID</th>
 				<th>신고 날짜</th>
 				<th></th>

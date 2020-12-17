@@ -492,9 +492,16 @@ alter table report drop CONSTRAINT REPORT_REVIEW_NO_FK;
 alter table report drop CONSTRAINT REPORT_COMMENTS_NO_FK;
 alter table report add CONSTRAINT REPORT_REVIEW_NO_FK FOREIGN KEY (REVIEW_NO) REFERENCES REVIEW(REVIEW_NO) on delete cascade;
 alter table report add CONSTRAINT REPORT_COMMENTS_NO_FK FOREIGN KEY(COMMENTS_NO) REFERENCES COMMENTS(COMMENTS_NO) on delete cascade;
-
-
-
+--qa 테스트용
+insert into member(id, password, name, sex, email)
+values('test', '1', 'test', '여성', 'spring@spring.com');
+insert into comments(comments_no, id, contents_no, comments)
+values(COMMENTS_SEQ.nextval, 'test', 80165295,'매크로');
+insert into review(review_no, id, contents_no, review_title, review_contents)
+values(REVIEW_SEQ.nextval, 'test', 80165295, 'test', '메크로');
+insert into member(id, password, name, sex, email)
+values('test3', '$2a$10$i2cyl1OhUeJ71PUTHozM9enjjiJ0rZVVjn/z7FVXnJA1pBi7gOUH2', 'test', '여성', 'spring@sprin.com');
+insert into grade values ( 'ROLE_MEMBER' , 'test3');
 
 
 select * from grade where id='java'

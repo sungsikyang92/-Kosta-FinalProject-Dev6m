@@ -3,10 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <script type="text/javascript">
-	// 웹페이지 로딩 후 바로 실행 됨
-	$(document).ready(function() {
-		//getReportList("1", true);
-	});
 	function getReportList(reportPageNo, reportType){
 		$.ajax({
 			type: "get",
@@ -14,37 +10,50 @@
 			dataType: "json",
 			data: 'reportPageNo='+reportPageNo+'&reportType='+reportType,
 			success:function(reportData){	
-				listByReportType(reportData);	
+				listByReportType(reportData, reportType);	
 				reportPostPaging(reportData, reportType);
 			}
 		});
 	}
-	function listByReportType(reportListVO){
+	function getReportAfterDelete(reportNo, pageNo, reportType){
+		$.ajax({
+			type: "post",
+			url: "${pageContext.request.contextPath}/reportDeleteAjax.do",
+			dataType: "json",
+			data:
+				"reportNo="+reportNo+
+				"&pageNo="+pageNo+
+				"&reportType="+reportType
+			,
+			beforeSend : function(xhr){   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+	            xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+	        },
+			success:function(reportData){	
+				listByReportType(reportData, reportType);	
+				reportPostPaging(reportData, reportType);
+			}
+		});
+	}
+	function listByReportType(reportListVO, reportType){
 		var reportTbody = "";
 		for (var i=0; i < reportListVO.list.length; i++){
 			reportTbody += "<tr>";
 				reportTbody += "<td>"+reportListVO.list[i].reportNo+"</td>";
 				reportTbody += "<td>"+reportListVO.list[i].memberVO.id+"</td>";
 				reportTbody += "<td>"+reportListVO.list[i].reportTypeVO.reportTypeInfo+"</td>";
+				reportTbody += "<td>"+reportListVO.list[i].reportPostedTime+"</td>";
 				// comments, review 글을 분리한다.
 				if(reportListVO.list[i].reviewVO != null){
-					reportTbody += "<td><a href='#' onclick='reportReviewPopup("+reportListVO.list[i].reviewVO.reviewNo+");return false;'>"+reportListVO.list[i].reviewVO.reviewNo+"</a></td>";
 					reportTbody += "<td>"+reportListVO.list[i].reviewVO.memberVO.id+"</td>";
+					reportTbody +="<td><button type='button' onclick='reportReviewPopup("+reportListVO.list[i].reviewVO.reviewNo+");return false;'>리뷰 자세히보기</button></td>";
 				} else {
-					reportTbody += "<td><a href='#' onclick='reportCommentsPopup("+reportListVO.list[i].commentsVO.commentsNo+");return false;'>"+reportListVO.list[i].commentsVO.commentsNo+"</a></td>";
 					reportTbody += "<td>"+reportListVO.list[i].commentsVO.memberVO.id+"</td>";
+					reportTbody +="<td><button type='button' onclick='reportCommentsPopup("+reportListVO.list[i].commentsVO.commentsNo+");return false;'>평점 자세히보기</button></td>";
 				}
-				reportTbody += "<td>"+reportListVO.list[i].reportPostedTime+"</td>";
-				reportTbody += "<td>"
+				reportTbody += "<td>";
 					<!-- 신고글 삭제 -->
-					reportTbody += "<form action='deleteReport.do' method='post' onsubmit='return deleteCheck()'>"
-					<!-- CSRF 방지 토큰,  Cross-site request forgery(사이트간 요청 위조)를 방지  -->
-						reportTbody += '<sec:csrfInput/>';
-						reportTbody += "<input type='hidden' name='reportNo' value='"+reportListVO.list[i].reportNo+"'>";			
-						//reportTbody += "<input type='hidden' name='commentsNo' value='"+reportListVO.list[i].commentsVO.commentsNo+"'>";
-						reportTbody += "<input type='submit' value='신고글 삭제'>";
-					reportTbody += "</form>"
-				reportTbody += "</td>"
+				reportTbody += "<button type='button' name='deleteButton' style='width: 56px; float: right;' onclick='getReportAfterDelete("+reportListVO.list[i].reportNo+","+reportListVO.pagingBean.nowPage+","+reportType+")'>신고 삭제</button>";
+				reportTbody += "</td>";
 			reportTbody += "</tr>";
 			reportTbody += "<tr>";
 			reportTbody += "<td colspan='7'><pre>"+reportListVO.list[i].reportContents+"</pre></td>";
@@ -101,10 +110,9 @@
 				<th>No</th>
 				<th>신고자ID</th>
 				<th>신고 유형</th>
-				<th>신고된 평점No</th>
-				<th>평점 작성자ID</th>
 				<th>신고 날짜</th>
-				<th>비고</th>
+				<th>작성자ID</th>
+				<th colspan="2"></th>				
 			</tr>
 		</thead>
 		<!-- 신고 리스트(평점) -->
@@ -114,19 +122,14 @@
 					<td>${rvo.reportNo}</td>
 					<td>${rvo.memberVO.id}</td>
 					<td>${rvo.reportTypeVO.reportTypeInfo}</td>
-					<td>
-						<a href="#" onclick="reportCommentsPopup(${rvo.commentsVO.commentsNo});return false;">${rvo.commentsVO.commentsNo}</a></td>
-					<td>${rvo.commentsVO.memberVO.id}</td>
 					<td>${rvo.reportPostedTime}</td>
+					<td>${rvo.commentsVO.memberVO.id}</td>
+					<td>
+						<button type="button" onclick="reportCommentsPopup(${rvo.commentsVO.commentsNo});return false;">평점 자세히보기</button>
+					</td>
 					<td>
 						<!-- 신고글 삭제 -->
-						<form action="deleteReport.do" method="post" onsubmit="return deleteCheck()">
-							<!-- CSRF 방지 토큰,  Cross-site request forgery(사이트간 요청 위조)를 방지  -->
-							<sec:csrfInput/>
-							<input type="hidden" name="reportNo" value="${rvo.reportNo}">
-							<input type="hidden" name="commentsNo" value="${rvo.commentsVO.commentsNo}">
-							<input type="submit" value="신고글 삭제">
-						</form>
+						<button type='button' name='deleteButton' style='width: 56px; float: right;' onclick='getReportAfterDelete(${rvo.reportNo}, ${requestScope.reportCommentsList.pagingBean.nowPage}, true)'>신고 삭제</button>
 					</td>
 				</tr>
 				<tr>
