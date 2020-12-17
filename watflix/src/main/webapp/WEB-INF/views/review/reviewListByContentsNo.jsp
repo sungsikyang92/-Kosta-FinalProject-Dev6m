@@ -14,22 +14,22 @@
 	  		 <table class="table table-hover table-bordered" style="border-radius: 1.5px;">
 			    <thead>
 			      <tr>
-					<th>제목</th>
-					<th>작성자</th>
-					<th>작성일</th>
-					<th>추천</th>
-					<th>조회</th>
+					<th class="th_title">제목</th>
+					<th class="th_author">작성자</th>
+					<th class="th_date">작성일</th>
+					<th class="th_likes">추천</th>
+					<th class="th_hits">조회</th>
 			      </tr>
 			    </thead>
 			    <tbody>
 					<c:forEach var="rvoc" items="${requestScope.reviewListByContentsNo.reviewList}">
 						<tr>
 							<!-- 리뷰제목 불러오기 -->
-							<td><a href="${pageContext.request.contextPath}/reviewDetail.do?reviewNo=${rvoc.reviewNo}">${rvoc.reviewTitle}</a></td>
-							<td>${rvoc.memberVO.id}</td>					<!-- 리뷰작성자 불러오기 -->
-							<td>${rvoc.reviewPostedTime}</td>				<!-- 리뷰작성일 불러오기 -->
-							<td>${rvoc.reviewLikes}</td>					<!-- 리뷰추천수 불러오기 -->
-							<td>${rvoc.reviewHits}</td>						<!-- 리뷰조회수 불러오기 -->
+							<td class="td_title"><a href="${pageContext.request.contextPath}/reviewDetail.do?reviewNo=${rvoc.reviewNo}">${rvoc.reviewTitle}</a></td>
+							<td class="td_author">${rvoc.memberVO.id}</td>					<!-- 리뷰작성자 불러오기 -->
+							<td class="td_date">${rvoc.reviewPostedTime}</td>				<!-- 리뷰작성일 불러오기 -->
+							<td class="td_likes">${rvoc.reviewLikes}</td>					<!-- 리뷰추천수 불러오기 -->
+							<td class="td_hits">${rvoc.reviewHits}</td>						<!-- 리뷰조회수 불러오기 -->
 						</tr>	
 					</c:forEach>
 				</tbody>

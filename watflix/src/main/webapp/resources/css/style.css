@@ -1012,3 +1012,39 @@ a, a:hover {
 	width:5%;
 	text-align: center;
 }
+.cmtIdDt{
+	text-align: right;
+}
+.th_title{
+	text-align: left;
+	width:66%;
+}
+.th_author{
+	text-align: center;
+	width:10%;
+}
+.th_date{
+	text-align: center;
+	width:10%;
+}
+.th_likes{
+	width:7%;
+	text-align: center;
+}
+.th_hits{
+	width:7%;
+	text-align: center;
+}
+.td_title{
+}
+.td_author{
+	text-align: center;
+}
+.td_date{
+}
+.td_likes{
+	text-align: center;
+}
+.td_hits{
+	text-align: center;
+}

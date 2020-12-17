@@ -76,7 +76,7 @@
 			<td class="starPointImg">${commentsListByContentsNo.commentsStars}</td>
 			<td class="startPointNum">${commentsListByContentsNo.commentsStars}</td>
 			<td>
-				${commentsListByContentsNo.comments}<br>
+				${commentsListByContentsNo.comments}<hr>
 				${commentsListByContentsNo.memberVO.id }
 				${commentsListByContentsNo.commentsPostedTime}
 				<!-- 신고에 필요한 데이터를 script에 전달 -->
@@ -93,7 +93,6 @@
 				</form>
 				</c:if> -->
 			</td>
-		
 		</tr>
 		</c:forEach>
 	</table>
