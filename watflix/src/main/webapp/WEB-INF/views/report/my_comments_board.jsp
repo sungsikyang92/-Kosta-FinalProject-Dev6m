@@ -108,6 +108,7 @@ function commentsPostPaging(commentsListVO){
 	      </c:forEach>
 	    <!-- </tbody> -->
 	  </table>
+	  ${requestScope.commentsListVO.pagingBean.startPageOfPageGroup}....${requestScope.commentsListVO.pagingBean.endPageOfPageGroup}
 	  	<div class="boardBottomDiv" style="width: 50%">
 			<div class="pagingInfo" id="pagingLocation">
 				<c:set var="pagingBean" value="${requestScope.commentsListVO.pagingBean}"/>

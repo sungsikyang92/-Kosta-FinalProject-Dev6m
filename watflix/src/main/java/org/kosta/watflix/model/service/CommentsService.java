@@ -24,7 +24,6 @@ public interface CommentsService {
 	// comments 삭제
 	void sCommentsDelete(int commentsNo);
 	//내가 작성한 Comments 게시물 리스트
-	CommentsListVO sMyCommentsGetList(String id);
 	CommentsListVO sMyCommentsGetList(String id, String pageNo);
 	// 해당 컨텐츠에 user의 아이디로 작성한 comments 유무 확인
 	int sCheckWorteOrNot(String userId, String contentsNo);

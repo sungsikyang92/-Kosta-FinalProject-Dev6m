@@ -46,6 +46,7 @@ public class CommentsController {
 		return "c_commentsList_reviewList.tiles";
 	}
 	
+	@Secured("ROLE_MEMBER")
 	@RequestMapping("commentsWriteForm.do")
 	public String commentsWriteForm(String contentsNo, Model model) {
 		model.addAttribute("contentsVO", contentsService.sFindContentsByNo(contentsNo));
@@ -61,6 +62,7 @@ public class CommentsController {
 		return commentsService.sCheckWorteOrNot(userId, contentsNo);
 	}
 	
+	@Secured("ROLE_MEMBER")
 	@PostMapping("commentsWrite.do")
 	public String commentsWrite(CommentsVO commentsVO, String contentsNo, String pageNo, RedirectAttributes redirectAttributes) {
 		MemberVO memberVO = (MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -87,7 +89,7 @@ public class CommentsController {
 		return "redirect:contentsDetail.do";
 			
 	}
-	// 삭제버튼으로 삭제
+	/* 삭제버튼으로 삭제
 	@PostMapping("commentsDelete.do")
 	public String commentsDelete(String[] commentsDelete, String contentsNo, String pageNo, RedirectAttributes redirectAttributes) {
 		for(int i = 0; i < commentsDelete.length; i++) {
@@ -112,6 +114,7 @@ public class CommentsController {
 		redirectAttributes.addAttribute("commentPageNo", pageNo);
 		return "redirect:contentsDetail.do";		
 	}
+	*/
 	// 삭제버튼으로 삭제(ajax방식 / my_comments_board.jsp)
 	@PostMapping("commentsDeleteAjax.do")
 	@ResponseBody

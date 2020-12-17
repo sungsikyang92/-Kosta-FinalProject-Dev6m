@@ -9,7 +9,8 @@
 			url: "${pageContext.request.contextPath}/reportBoardAdmin.do",
 			dataType: "json",
 			data: 'reportPageNo='+reportPageNo+'&reportType='+reportType,
-			success:function(reportData){	
+			success:function(reportData){
+				alert(reportType);
 				listByReportType(reportData, reportType);	
 				reportPostPaging(reportData, reportType);
 			}
@@ -145,7 +146,7 @@
 		<div class="pagingInfo" id="pagingLocation">
 			<!-- pagingBean을 pb변수로 지정 -->
 			<c:set var="pb" value="${requestScope.reportCommentsList.pagingBean }"></c:set>
-				<ul class="pagination">
+				<ul class="pagination" id="reportPaging">
 					<!-- 조건이 맞으면 왼쪽 화살표 -->
 					<c:if test="${pb.previousPageGroup}">
 						<li><a href="#" onclick="getReportList(${pb.startPageOfPageGroup-1}, 1); return false">&laquo;</a></li>
