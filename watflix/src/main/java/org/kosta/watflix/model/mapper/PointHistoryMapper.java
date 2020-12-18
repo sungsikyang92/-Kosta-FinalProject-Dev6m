@@ -12,9 +12,9 @@ import org.kosta.watflix.model.vo.ProductOrderVO;
 public interface PointHistoryMapper {
 	
 	//리뷰글쓰기로 인한 포인트추가내역(15 포인트)
-	void mPointHistoryAddWithReview(@Param("reviewNo")int reviewNo, @Param("id")String id);
+	void mPointHistoryAddWithReview(@Param("reviewNo")int reviewNo, @Param("id")String id,@Param("contentsNo")String contentsNo);
 	//평점글쓰기로 인한 포인트추가내역(10 포인트)
-	void mPointHistoryAddWithComments(@Param("commentsNo")int commentsNo, @Param("id")String id);
+	void mPointHistoryAddWithComments(@Param("commentsNo")int commentsNo, @Param("id")String id,@Param("contentsNo")String contentsNo);
 	//주문으로 인한 포인트감소내역
 	void mPointHistoryAddWithOrder(@Param("productOrderVO")ProductOrderVO productOrderVO, @Param("point")int point);
 	//포인트사용내역 개수

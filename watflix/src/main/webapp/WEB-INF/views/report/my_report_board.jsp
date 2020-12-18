@@ -80,8 +80,8 @@
 		
 	}
 </script>
-<div class="tableMargin" id="commentsList">
-	<div class="container-lg boardClassMain" style="margin-top: 100px">
+<div class="tableMargin">
+	<div class="container-lg boardClassMain">
 	<h4 style="display: inline-flex;">나의 신고글</h4>
 	<a href="#" onclick="getReportList('1', true); return false;">평점</a>
 	<a href="#" onclick="getReportList('1', false); return false;">리뷰</a>

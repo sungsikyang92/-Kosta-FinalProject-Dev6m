@@ -37,7 +37,7 @@ function denote(member){
 	<nav class="nav nav-fill nav-pills" id="explore-tabs" role="tablist">
            <a class="nav-item nav-link active" id="pointHistoryCheck" data-toggle="pill" href="#" aria-selected="true">
                <div class="icon-nav">
-                   포인트사용내역
+                   포인트 내역
                </div>
            </a>
            <a class="nav-item nav-link" id="pointCheck" data-toggle="pill" href="#" aria-selected="false">
@@ -47,7 +47,7 @@ function denote(member){
            </a>
        </nav>
   <div class="middleBox">       
-  <table class="table table-hover table-bordered" style="border-radius: 1.5px;">
+  <table class="table table-hover table-bordered table-pointCheck" style="border-radius: 1.5px;">
     <thead>
       <tr>
 		<th>사용자명</th>
@@ -64,13 +64,8 @@ function denote(member){
 		<c:forEach var="phVO" items="${requestScope.pointHistoryListVO.pointHistoryList}">
 			<tr>
 				<td>${phVO.id}</td>
-				<!--리뷰로 인해 받은 포인트인지, 평점으로 인해 받은 포인트인지에 따른 컨텐츠명 출력  -->
-				<c:choose>
-					<c:when test=""></c:when>
-					<c:otherwise></c:otherwise>
-				
-				</c:choose>					
-				<td>${phVO.id}</td>					
+				<!--컨텐츠명 출력  -->				
+				<td><a href="${pageContext.request.contextPath}/contentsDetail.do?contentsNo=${phVO.contentsVO.contentsNo}">${phVO.contentsVO.contentsTitle}</a></td>					
 				<td><a href="${pageContext.request.contextPath}/reviewDetail.do?reviewNo=${phVO.reviewVO.reviewNo}">${phVO.reviewVO.reviewTitle}</a></td>				
 				<td>${phVO.commentsVO.comments}</td>					
 				<td><a href="${pageContext.request.contextPath}/">${phVO.productOrderVO.orderNo}</a></td>						
