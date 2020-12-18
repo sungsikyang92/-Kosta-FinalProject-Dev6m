@@ -3,14 +3,6 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <script>
 	$(document).ready(function(){
-		// 수정 확인 메소드
-		$('#noticeUpdateForm').submit(function(){
-			return confirm("수정하시겠습니까?");
-		})
-		// 삭제 확인 메소드
-		$('#noticeDeleteForm').submit(function(){
-			return confirm("삭제하시겠습니까?");
-		})
 		// 공지글 목록으로 돌아가는 메소드
 		$("#backToNoticeList").click(function(){
 			if(confirm("리스트로 이동하시겠습니까?")){
@@ -45,18 +37,6 @@
 		<tr>
 			<td colspan="8" class="btnArea">
 				<button type="button" class="btn-list btn btn-default boardDetailBtn" id="backToNoticeList">목록</button>
-				<button form="noticeUpdateForm" class="btn btn-default boardDetailBtn">수정</button>
-				<form action="noticeUpdateForm.do" id="noticeUpdateForm" method="post">
-					<sec:csrfInput />
-					<input type="hidden" name="pageNo" value="${requestScope.pageNo}">
-					<input type="hidden" name="noticeNo" value="${requestScope.noticeDetail.noticeNo}">
-				</form>
-				<button form="noticeDeleteForm" class="btn btn-default boardDetailBtn" type="submit">삭제</button>
-				<form action="noticeDelete.do" id="noticeDeleteForm" method="post">
-					<sec:csrfInput />
-					<input type="hidden" name="pageNo" value="${requestScope.pageNo}">
-					<input type="hidden" name="noticeNo" value="${requestScope.noticeDetail.noticeNo}">
-				</form>
 			</td>
 		</tr>
 		</sec:authorize>

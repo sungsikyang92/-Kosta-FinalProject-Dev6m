@@ -34,17 +34,6 @@
 <div class="tableMargin">
 <div class="container boardClassMain">
 	<h4 style="display: inline-flex;">공지사항</h4>
-	<!-- 공지사항 게시글 작성 폼으로 이동하는 버튼, ROLE_ADMIN 권한을 가진 관리자에게만 노출한다. -->
-	<sec:authorize access="hasRole('ROLE_ADMIN')">
-	<!-- 자바스크립트 메소드를 호출한다. -->
-	<button type="button" id="noticeWriteButton" style="width: 66px; float: right;">글쓰기</button>
-	</sec:authorize>
-	<!-- 체크박스로 게시물들을 일괄 삭제하는 폼 자바스크립트를 거쳐 컨트롤러로 이동한다. -->
-	<form action="${pageContext.request.contextPath}/noticeDeleteByCheckbox.do"
-	id="deleteNoticeByCheckboxForm" method="post">
-	<!-- 체크박스 삭제 후 해당 페이지가 유지되도록 페이지 번호를 컨트롤러로 보낸다. -->
-	<input type="hidden" name="pageNo" value="${requestScope.noticeList.pagingBean.nowPage}">
-	<sec:csrfInput/>
 	<table class="table table-hover table-bordered" style="border-radius: 1.5px;">
 		<tr>
 			<td>번호</td>
@@ -52,10 +41,6 @@
 			<td>아이디</td>
 			<td>작성일자</td>
 			<td>조회수</td>
-			<!-- 게시물을 일괄 삭제하는데 사용하는 체크박스 전체를 체크하거나 체크 해제하는 체크박스, 관리자에게만 노출된다. -->
-			<sec:authorize access="hasRole('ROLE_ADMIN')">
-			<td><input type="checkbox" id="checkAll"></td>
-			</sec:authorize>
 		</tr>
 		<c:forEach items="${requestScope.noticeList.list}" var="noticeList">
 		<tr>
@@ -69,18 +54,9 @@
 			<td>${noticeList.memberVO.id}</td>
 			<td>${noticeList.noticePostedTime}</td>
 			<td>${noticeList.noticeHits}</td>
-			<!-- 게시물 목록에서 게시물을 삭제할 때 사용하는 체크박스, 관리자에게만 노출된다. -->
-			<sec:authorize access="hasRole('ROLE_ADMIN')">
-			<td><input type="checkbox" value="${noticeList.noticeNo}" name="deleteCheckbox"></td>
-			</sec:authorize>
 		</tr>
 		</c:forEach>
 	</table>
-	</form>
-	<!-- 게시물 목록에서 게시물을 삭제할 때 사용하는 버튼, 관리자에게만 노출된다. -->
-	<sec:authorize access="hasRole('ROLE_ADMIN')">
-		<button type="submit" form="deleteNoticeByCheckboxForm" style="width: 66px; float: right;">삭제</button>
-	</sec:authorize>
 <div class="boardBottomDiv" style="width: 50%">
 <div class="pagingInfo" id="pagingLocation">
 	<c:set var="pagingBean" value="${requestScope.noticeList.pagingBean}"></c:set>
