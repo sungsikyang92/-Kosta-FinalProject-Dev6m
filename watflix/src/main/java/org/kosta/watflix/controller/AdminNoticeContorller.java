@@ -96,7 +96,7 @@ public class AdminNoticeContorller {
 	public String noticeUpdateForm(int noticeNo, String pageNo, Model model) {
 		model.addAttribute("noticeUpdateForm", noticeService.sNoticeGetDetailNoHits(noticeNo));
 		model.addAttribute("pageNo", pageNo);
-		return "admin/AdminNoticeUpdateForm.tiles";
+		return "admin/adminNoticeUpdateForm.tiles";
 	}
 	// 공지 업데이트
 	@Secured("ROLE_ADMIN")
@@ -107,7 +107,7 @@ public class AdminNoticeContorller {
 		noticeService.sNoticeUpdate(noticeVO);
 		redirectAttributes.addAttribute("noticeNo", noticeNo);
 		redirectAttributes.addAttribute("pageNo", pageNo);
-		return "redirect:noticeDetailNoHits.do";
+		return "redirect:noticeDetailNoHitsAdmin.do";
 	}
 	// 공지 삭제
 	@Secured("ROLE_ADMIN")
@@ -115,7 +115,7 @@ public class AdminNoticeContorller {
 	public String noticeDelete(int noticeNo, String pageNo, RedirectAttributes redirectAttributes) {
 		noticeService.sNoticeDelete(noticeNo);
 		redirectAttributes.addAttribute("pageNo", pageNo);
-		return "redirect:getNoticeList.do";
+		return "redirect:getNoticeListAdmin.do";
 	}
 	// 공지 삭제 체크박스
 	@Secured("ROLE_ADMIN")
