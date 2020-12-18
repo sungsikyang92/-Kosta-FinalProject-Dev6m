@@ -5,7 +5,15 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("#reviewUpdateForm").submit(function(){
-			return confirm("리뷰를 수정 하시겠습니까?");
+			if($("#updateTitle").val().trim() == ""){
+				alert("리뷰 제목 공란으로는 등록이 불가능합니다!");
+				return false;
+			}else if($("#updateContents").val().trim() == ""){
+				alert("리뷰 내용 공란으로는 등록이 불가능합니다!")
+				return false;
+			}else{
+				return confirm("리뷰를 수정 하시겠습니까?");	
+			}
 		});	//confirm reviewUpdate function
 		$("#backToReviewDetail").click(function(){
 			if(confirm("이전페이지로 이동하시겠습니까?")){
@@ -23,12 +31,12 @@
 	  	<table class="table table-bordered" style="border-radius: 1.5px;">
 			<tr>
 				<td class="boardTd">제목</td>
-				<td><input type="text" name="reviewTitle" class="boardTitle" value="${requestScope.ru.reviewTitle}" required="required"></td>
+				<td><input type="text" name="reviewTitle" id="updateTitle" class="boardTitle" value="${requestScope.ru.reviewTitle}" required="required"></td>
 			</tr>
 			<tr>
-				<td>내용</td>
+				<td class="boardCt">내용</td>
 				<td>
-					<textarea name="reviewContents" required="required" class="boardTextarea">${requestScope.ru.reviewContents}</textarea>
+					<textarea name="reviewContents" required="required" id="updateContents" class="boardTextarea">${requestScope.ru.reviewContents}</textarea>
 				</td>
 			</tr>
 			<tr>
