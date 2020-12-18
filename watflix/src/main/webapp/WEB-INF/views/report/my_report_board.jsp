@@ -1,232 +1,107 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>마이페이지(임시)</title>
-<!-- 테스트 중인 css 나중에 지울것 -->
-  <style type="text/css">
-	.table-hover{
-		background: white;
-		/* table 중앙 정렬 */
-		margin:auto;
-		width: 45%;
-		text-align: center;
+<script type="text/javascript">
+	// 웹페이지 로딩 후 바로 실행 됨
+	$(document).ready(function() {
+		getReportList("1", true);
+	});
+	function getReportList(reportPageNo, reportType){
+		$.ajax({
+			type: "get",
+			url: "${pageContext.request.contextPath}/myReportBoard.do",
+			dataType: "json",
+			data: 'reportPageNo='+reportPageNo+'&reportType='+reportType,
+			success:function(reportData){	
+				listByReportType(reportData);	
+				reportPostPaging(reportData, reportType);
+			}
+		});
 	}
-	a{
-		color: black;
+	function listByReportType(reportListVO){
+		var reportTbody = "";
+		for (var i=0; i < reportListVO.list.length; i++){
+			reportTbody += "<tr>";
+				reportTbody += "<th>"+reportListVO.list[i].reportTypeVO.reportTypeInfo+"</th>";
+				// comments, review 글을 분리한다.
+				if(reportListVO.list[i].reviewVO != null){
+					reportTbody += "<th>"+reportListVO.list[i].reviewVO.memberVO.id+"</th>";
+				} else {
+					reportTbody += "<th>"+reportListVO.list[i].commentsVO.memberVO.id+"</th>";
+				}
+				reportTbody += "<th>"+reportListVO.list[i].reportPostedTime+"</th>";
+				if(reportListVO.list[i].reviewVO != null){
+					reportTbody += "<th><button type='button' onclick='reportReviewPopup("+reportListVO.list[i].reviewVO.reviewNo+");return false;'>리뷰 자세히보기</button></th>";
+				} else {
+					reportTbody += "<th><button type='button' onclick='reportCommentsPopup("+reportListVO.list[i].commentsVO.commentsNo+");return false;'>평점 자세히보기</button></th>";
+					
+				}
+			reportTbody += "</tr>";
+			reportTbody += "<tr>";
+				reportTbody += "<td colspan=\"5\"><pre>"+reportListVO.list[i].reportContents+"</pre></td>";
+			reportTbody += "</tr>";
+		}
+		$("#reportTbody").html(reportTbody);
 	}
-  </style>
-</head>
-<body>
-	<br>
-	<br>
-	<br>
-	<!-- jquery 사용에 필요함 -->
-	<script src="//code.jquery.com/jquery.min.js"></script>
-	<script type="text/javascript">
-		// 웹페이지 로딩 후 바로 실행 됨
-		$(document).ready(function() {
-			// 테이블에 집어넣을 문자열 데이터 변수
-			var reportThead = "";
-			var reportTbody = "";
-			var reportTfoot = "";
-			$.ajax({
-				type: "get",
-				url: "${pageContext.request.contextPath}/myReportReviewBoard.do",
-				success:function(data){	
-					//table의 thead
-					reportThead += "<th><a class=\"reportReview active\" href=\"#\" onclick=\"reportReviewPaging(1);return false\">리뷰</a></th>";
-					reportThead += "<th><a class=\"reportComments\" href=\"#\" onclick=\"reportCommentsPaging(1);return false\">평점</a></th>";
-					
-					$("#reportThead").html(reportThead);
-					// table의 tbody
-					for (var i=0; i < data.list.length; i++){
-						reportTbody += "<tr>";
-							reportTbody += "<th>"+data.list[i].reviewVO.reviewNo+"</th>";
-							reportTbody += "<th>"+data.list[i].reportTypeVO.reportTypeInfo+"</th>";
-							reportTbody += "<th>"+data.list[i].reviewVO.memberVO.id+"</th>";
-							reportTbody += "<th>"+data.list[i].reportPostedTime+"</th>";
-							reportTbody += "<th>"+data.list[i].reportPostedTime+"</th>";
-							reportTbody += "<th><a href=\"${pageContext.request.contextPath}/reviewDetailNoHits.do?reviewNo="+ data.list[i].reviewVO.reviewNo +"\">게시물로 이동</a></th>";
-						reportTbody += "</tr>";
-						reportTbody += "<tr>";
-							reportTbody += "<td colspan=\"5\"><pre>"+data.list[i].reportContents+"</pre></td>";
-						reportTbody += "</tr>";
-					}
-					$("#reportTbody").html(reportTbody);
-					// table의 tfoot( 페이징 )
-					var startPageGroup = data.pagingBean.startPageOfPageGroup;
-					var endPageGroup = data.pagingBean.endPageOfPageGroup;
-					// 페이징 번호
-					for (var reportPageNo = startPageGroup; reportPageNo < endPageGroup + 1; reportPageNo++){
-						if(data.pagingBean.nowPage != reportPageNo){
-							reportTfoot += "<li><a href=\"#\" onclick=\"reportReviewPaging("+ reportPageNo +");return false;\">"+reportPageNo+"</a></li>";
-						}else{
-							reportTfoot += "<li><a href=\"#\" onclick=\"return false\">"+reportPageNo+"</a></li>";
-						}
-					}
-					// 오른쪽 화살표 페이징
-					if(data.pagingBean.nextPageGroup){
-						reportTfoot += "<li><a href=\"#\" onclick=\"reportReviewPaging("+ (endPageGroup + 1) +");return false\">&raquo;</a></li>";
-					}
-					$("#reportTfoot").html(reportTfoot);					
-				}
-			})
-		})
+	
+	function reportPostPaging(reportListVO, reportType) {
+		// table의 tfoot( 페이징 )
+		var reportPaging = "";
+		var startPageGroup = reportListVO.pagingBean.startPageOfPageGroup;
+		var endPageGroup = reportListVO.pagingBean.endPageOfPageGroup;
+		// 왼쪽 페이징 화살표
+		if (reportListVO.pagingBean.previousPageGroup){
+			reportPaging += "<li><a href='#' onclick='getReportList("+ (startPageGroup -1) +","+ reportType +"); return false;'>&laquo;</a></li>";
+		}
+		// 페이징 번호
+		for (var reportPageNo = startPageGroup; reportPageNo <= endPageGroup; reportPageNo++){
+			if(reportListVO.pagingBean.nowPage != reportPageNo){
+				reportPaging += "<li><a href='#' onclick='getReportList("+ reportPageNo +","+ reportType +"); return false;'>"+ reportPageNo + "</a></li>";
+			}else{
+				reportPaging += "<li><a href='#' onclick='return false'>"+ reportPageNo + "</a></li>";				
+			}
+		}
+		// 오른쪽 화살표 페이징
+		if(reportListVO.pagingBean.nextPageGroup){
+			reportPaging += "<li><a href='#' onclick='getReportList("+ (endPageGroup + 1) +","+ reportType +"); return false;'>&raquo;</a></li>";
+		}
+		$("#reportPaging").html(reportPaging);
+	}
+	// 관리자 신고게시물 디테일 팝업
+	function reportCommentsPopup(commentsNo){
+		// popup
+		var path = "${pageContext.request.contextPath}/commentsByCommentsNo.do?commentsNo="+commentsNo;
+		window.open(path, "commentsByComments","width=1000, height=230, top=150, left=200");
 		
-		// 리뷰 페이징
-		function reportReviewPaging(reportPageNo){
-			alert($(this).val)
-			var reportTbody = "";
-			var reportTfoot = "";
-			$.ajax({
-				type: "get",
-				url: "${pageContext.request.contextPath}/myReportReviewBoard.do?pageNo="+reportPageNo,
-				// active
-				// url: "${pageContext.request.contextPath}/myReportCommentsBoard.do?pageNo="+reportPageNo,
-				success:function(data){
-					// table의 tbody
-					for (var i=0; i < data.list.length; i++){
-						reportTbody += "<tr>";
-							reportTbody += "<th>"+data.list[i].reviewVO.reviewNo+"</th>";
-							reportTbody += "<th>"+data.list[i].reportTypeVO.reportTypeInfo+"</th>";
-							reportTbody += "<th>"+data.list[i].reviewVO.memberVO.id+"</th>";
-							reportTbody += "<th>"+data.list[i].reportPostedTime+"</th>";
-							reportTbody += "<th><a href=\"${pageContext.request.contextPath}/reviewDetailNoHits.do?reviewNo="+ data.list[i].reviewVO.reviewNo +"\">게시물로 이동</a></th>";
-						reportTbody += "</tr>";
-						reportTbody += "<tr>";
-							reportTbody += "<td colspan=\"5\"><pre>"+data.list[i].reportContents+"</pre></td>";
-						reportTbody += "</tr>";
-					}
-					$("#reportTbody").html(reportTbody);
-					// table의 tfoot( 페이징 )
-					var startPageGroup = data.pagingBean.startPageOfPageGroup;
-					var endPageGroup = data.pagingBean.endPageOfPageGroup;
-					// 왼쪽 페이징 화살표
-					if (data.pagingBean.previousPageGroup){
-						reportTfoot += "<li><a href=\"#\" onclick=\"reportReviewPaging("+ (startPageGroup -1) +");return false;\">&laquo;</a></li>";
-					}
-					// 페이징 번호
-					for (var reportPageNo = startPageGroup; reportPageNo < endPageGroup + 1; reportPageNo++){
-						if(data.pagingBean.nowPage != reportPageNo){
-							reportTfoot += "<li><a href=\"#\" onclick=\"reportReviewPaging("+ reportPageNo +");return false;\">"+reportPageNo+"</a></li>";
-						}else{
-							reportTfoot += "<li><a href=\"#\" onclick=\"return false\">"+reportPageNo+"</a></li>";
-						}
-					}
-					// 오른쪽 화살표 페이징
-					if(data.pagingBean.nextPageGroup){
-						reportTfoot += "<li><a href=\"#\" onclick=\"reportReviewPaging("+ (endPageGroup + 1) +");return false\">&raquo;</a></li>";
-					}
-					$("#reportTfoot").html(reportTfoot);
-				}
-			})
-		};
+	}
+	function reportReviewPopup(reviewNo){
+		// popup
+		var path = "${pageContext.request.contextPath}/reviewByReviewNo.do?reviewNo="+reviewNo;
+		window.open(path, "commentsByComments","width=1000, height=420, top=150, left=200");
 		
-		// 평점 페이징
-		function reportCommentsPaging(reportPageNo){
-			var reportTbody = "";
-			var reportTfoot = "";
-			$.ajax({
-				type: "get",
-				url: "${pageContext.request.contextPath}/myReportCommentsBoard.do?pageNo="+reportPageNo,
-				success:function(data){
-					// table의 tbody
-					for (var i=0; i < data.list.length; i++){
-						reportTbody += "<tr>";
-							reportTbody += "<th>";
-								reportTbody += data.list[i].commentsVO.commentsNo;
-							reportTbody += "</th>";
-							reportTbody += "<th>";
-								reportTbody += data.list[i].reportTypeVO.reportTypeInfo;
-							reportTbody += "</th>";
-							reportTbody += "<th>";
-								reportTbody += data.list[i].commentsVO.memberVO.id;
-							reportTbody += "</th>";
-							reportTbody += "<th>";
-								reportTbody += data.list[i].reportPostedTime;
-							reportTbody += "</th>";
-							reportTbody += "<th>";
-								reportTbody += "해당 개시물로 이동"; // 링크 추가 예정
-							reportTbody += "</th>";
-						reportTbody += "</tr>";
-						reportTbody += "<tr>";
-							reportTbody += "<td colspan=\"5\">";
-								reportTbody += "<pre>";
-									reportTbody += data.list[i].reportContents;
-								reportTbody += "</pre>";
-							reportTbody += "</td>";
-						reportTbody += "</tr>";
-					}
-					$("#reportTbody").html(reportTbody);
-					
-					// table의 tfoot( 페이징 )
-					var startPageGroup = data.pagingBean.startPageOfPageGroup;
-					var endPageGroup = data.pagingBean.endPageOfPageGroup;
-					// 왼쪽 페이징 화살표
-					if (data.pagingBean.previousPageGroup){
-						reportTfoot += "<li>";
-							reportTfoot += "<a href=\"#\" onclick=\"reportCommentsPaging("+ (startPageGroup -1) +");return false;\">";
-								reportTfoot += "&laquo;";
-							reportTfoot += "</a>";
-						reportTfoot += "</li>";
-					}
-					// 페이징 번호
-					for (var reportPageNo = startPageGroup; reportPageNo < endPageGroup + 1; reportPageNo++){
-						if(data.pagingBean.nowPage != reportPageNo){
-							reportTfoot += "<li>";
-								reportTfoot += "<a href=\"#\" onclick=\"reportCommentsPaging("+ reportPageNo +");return false;\">";
-									reportTfoot += reportPageNo;
-								reportTfoot += "</a>";
-							reportTfoot += "</li>";
-						}else{
-							reportTfoot += "<li>";
-								reportTfoot += "<a href=\"#\" onclick=\"return false\">";
-									reportTfoot += reportPageNo;
-								reportTfoot += "</a>";
-							reportTfoot += "</li>";
-						}
-					}
-					// 오른쪽 화살표 페이징
-					if(data.pagingBean.nextPageGroup){
-						reportTfoot += "<li>";
-							reportTfoot += "<a href=\"#\" onclick=\"reportCommentsPaging("+ (endPageGroup + 1) +");return false\">";
-								reportTfoot += "&raquo;";
-							reportTfoot += "</a>";
-						reportTfoot += "</li>";
-					}
-					$("#reportTfoot").html(reportTfoot);
-				}
-			})
-		};
-	</script>
+	}
+</script>
+<div class="tableMargin" id="commentsList">
+	<div class="container-lg boardClassMain" style="margin-top: 100px">
+	<h4 style="display: inline-flex;">나의 신고글</h4>
+	<a href="#" onclick="getReportList('1', true); return false;">평점</a>
+	<a href="#" onclick="getReportList('1', false); return false;">리뷰</a>
 	<!-- ajax 페이징 게시판( My 신고리스트 ) -->
 	<table class="table table-hover" id="myReportList" >
 		<thead>
-			<tr id = "reportThead">
-			</tr>
 			<tr>
-				<th>No</th>
 				<th>신고 유형</th>
 				<th>게시물 작성자 ID</th>
 				<th>신고 날짜</th>
-				<th>비고</th>
+				<th></th>
 			</tr>
 		</thead>
 		<tbody id="reportTbody">
 		</tbody>
-		<tfoot>
-			<tr>
-				<td colspan="5">
-					<div class="tableTopMargin">
-						<ul id ="reportTfoot" class="pagination">
-						</ul>
-					</div>
-				</td>
-			</tr>
-		</tfoot>
-	</table>
-</body>
-</html>
+		</table>
+		<div class="boardBottomDiv" style="width: 1000px;">
+		<div class="pagingInfo" id="pagingLocation">
+			<ul id ="reportPaging" class="pagination"></ul>
+		</div>
+		</div>		
+</div>
+</div>

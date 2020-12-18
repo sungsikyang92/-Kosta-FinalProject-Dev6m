@@ -1,7 +1,5 @@
 package org.kosta.watflix.controller;
 
-import java.util.Locale;
-
 import javax.annotation.Resource;
 
 import org.kosta.watflix.model.service.CommentsService;
@@ -11,11 +9,12 @@ import org.kosta.watflix.model.vo.CommentsVO;
 import org.kosta.watflix.model.vo.ContentsVO;
 import org.kosta.watflix.model.vo.MemberVO;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -199,6 +198,8 @@ public class CommentsController {
 	@RequestMapping("userLoginCheck.do")
 	@ResponseBody
 	public boolean userLoginCheck() {
-		return (SecurityContextHolder.getContext().getAuthentication().getPrincipal() == null);
+		System.out.println(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+		// 로그인 상태이면 true를 반환하고 비로그인 상태이면 false를 반환한다.
+		return (SecurityContextHolder.getContext().getAuthentication().getPrincipal() != "anonymousUser");
 	}
 }
