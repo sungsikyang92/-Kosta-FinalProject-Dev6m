@@ -8,6 +8,7 @@
 			// comments가 있을 경우 alert을 호출한다.
 			// comments가 없을 경우 writeForm을 팝업으로 호출한다.
 			$("#openCommentsWriteFormButton").click(function(){
+				if(userLoginCheck()){
 				var contentsNo = "${requestScope.contentsNo}";
 				$.ajax({
 					url: "checkWorteOrNot.do",
@@ -32,14 +33,29 @@
 							alert("이미 작성하신 평점이 존재합니다. 한 컨텐츠에 하나의 평점만 작성하실 수 있습니다.");
 						}
 					}
-				})				
+				})
+				}else{
+					location.href="loginForm.do";
+				}
 			});
 			$(".starPointImg").each(function(){
 				var starPoint = $(this).html();
 				$(this).html("<img src='${pageContext.request.contextPath}/resources/media/icons/star"+starPoint+".png' style='height: 25px'>");
 			})
 		});	
-				
+		// 로그인 체크
+		function userLoginCheck(){
+			$.ajax({
+				url: "userLoginCheck.do",
+				type:"get",
+				beforeSend : function(xhr){   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+		            xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+		        },
+				success: function(result){
+					return result;
+				}
+			})
+		}
 		// 삭제 confirm 메서드
 		function commentsDeleteConfirm(){
 			return confirm('삭제하시겠습니까?');
@@ -66,7 +82,8 @@
 	</sec:authorize>
 	<c:choose>
 	<c:when test="${requestScope.commentsListByContentsNo.list[0] == null}">
-		<div>현재 해당 contents에는 평점이 존재하지 않습니다.</div>
+		<div>현재 해당 컨텐츠에는 평점이 존재하지 않습니다.</div>
+		<div>첫 번째 평점을 남겨주세요!</div>
 		<button type="button" id="openCommentsWriteFormButton" style="width: 80px; float:right;">평점쓰기</button>
 	</c:when>
 	<c:otherwise>
