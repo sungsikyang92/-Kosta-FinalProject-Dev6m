@@ -2,8 +2,31 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+ 
 
-
+<script type="text/javascript">
+	$(document).ready(function(){
+		//유저의 아이디로 작성한 review의 여부를 확인한다.
+		//리뷰가 있을 경우  alert를 호출한다.
+		//리뷰가 없을 경우 작성하기로 간다.
+		$("#checkReviewExist").click(function(){
+			var contentsNo = "${requestScope.contentsNo}";
+			$.ajax({
+				url: "checkReviewExist.do",
+				type: "GET",
+				dataType: "text",
+				data: 'contentsNo='+contentsNo,
+				success: function(data){
+					if(data != "0"){
+						alert("이미 작성하신 리뷰가 존재합니다.한 컨텐츠에 하나의 리뷰만 작성하실 수 있습니다.");
+					}else{
+						return "${pageContext.request.contextPath}/reviewWriteForm.do?contentsNo=${requestScope.contentsNo}";
+					}
+				}
+			});//ajax
+		});//click
+	});//ready
+</script>
 <div class="tableMargin" id="reviewList">
 	<div class="container-lg boardClassMain">
 	  <h4 style="display: inline-flex;">리뷰</h4> 
@@ -37,7 +60,7 @@
 					</c:forEach>
 				</tbody>
 			  </table>
-			  <button type="button" id="checkReviewExist" style="width:80px; float:right;" onclick="location.href = '${pageContext.request.contextPath}/reviewWriteForm.do?contentsNo=${requestScope.contentsNo}' ">리뷰쓰기</button>
+			  <button type="button" id="checkReviewExist" style="width:80px; float:right;">리뷰쓰기</button>
 				<!-- 페이징박스 시작 -->
 				<div class="boardBottomDiv">
 					<div class="pagingInfo" id="pagingLocation">
