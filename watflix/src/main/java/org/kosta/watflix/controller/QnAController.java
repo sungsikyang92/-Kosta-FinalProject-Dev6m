@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -55,21 +56,30 @@ public class QnAController {
 	
 	// qna 상세보기 
 	@RequestMapping("qnaDetail.do")
-	public ModelAndView qnaDeteail(int qnaNo) {
+	public String qnaDeteail(int qnaNo, Model model) {
 		System.out.println(qnaService.sQnADetail(qnaNo));
-		return new ModelAndView("qna/qna_detail.tiles","qvo",qnaService.sQnADetail(qnaNo));
+		model.addAttribute("qvo", qnaService.sQnADetail(qnaNo));
+		model.addAttribute("answerListVO", qnaService.sQnAAnswerByQnANo(qnaNo, null));
+		return "qna/qna_detail.tiles";
 	}
 	// qna 답변 작성
 	@PostMapping("qnaAnswerWrite.do")
-	@RequestMapping
-	public QnAAnswerListVO qnaAnswerWrite(QnAAnswerVO qnaAnswerVO,int qnaNo,String pageNo) {
+	public String qnaAnswerWrite(QnAAnswerVO qnaAnswerVO,int qnaNo, RedirectAttributes re) {
 		MemberVO memberVO = (MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		qnaAnswerVO.setMemberVO(memberVO);
 		QnAVO qnaVO = new QnAVO();
 		qnaVO.setQnaNo(qnaNo);
 		qnaAnswerVO.setQnaVO(qnaVO);
 		qnaService.sQnAAnswerWrite(qnaAnswerVO);
-		System.out.println(qnaService.sQnAAnswerByQnANo(qnaNo, pageNo));
+		re.addAttribute("qnaNo", qnaNo);
+		return "redirect:qnaAnswerList.do";
+		//System.out.println(qnaService.sQnAAnswerByQnANo(qnaNo, pageNo));
+		//return qnaService.sQnAAnswerByQnANo(qnaNo, pageNo);
+	}
+	// qna 답변 리스트
+	@ResponseBody
+	@RequestMapping("qnaAnswerList.do")
+	public QnAAnswerListVO qnaAnswerList(int qnaNo,String pageNo) {
 		return qnaService.sQnAAnswerByQnANo(qnaNo, pageNo);
 	}
 }
