@@ -53,6 +53,7 @@ public class CommentsController {
 		return "comments/commentsWriteForm";
 	}
 	// 해당 컨텐츠에 user의 아이디로 작성한 comments 유무 확인
+	@Secured("ROLE_MEMBER")
 	@RequestMapping("checkWorteOrNot.do")
 	@ResponseBody
 	public int checkWorteOrNot(String contentsNo) {
@@ -192,5 +193,12 @@ public class CommentsController {
 	@RequestMapping("commentsByCommentsNo.do")
 	public ModelAndView commentsByCommentsNo(int commentsNo) {
 		return new ModelAndView("report/comentsByCommentsNo", "commentsVOContentsNo", commentsService.sGetCommentsByCommentsNo(commentsNo));
+	}
+	
+	// 로그인 체크
+	@RequestMapping("userLoginCheck.do")
+	@ResponseBody
+	public boolean userLoginCheck() {
+		return (SecurityContextHolder.getContext().getAuthentication().getPrincipal() == null);
 	}
 }

@@ -10,7 +10,6 @@
 			dataType: "json",
 			data: 'reportPageNo='+reportPageNo+'&reportType='+reportType,
 			success:function(reportData){
-				alert(reportType);
 				listByReportType(reportData, reportType);	
 				reportPostPaging(reportData, reportType);
 			}

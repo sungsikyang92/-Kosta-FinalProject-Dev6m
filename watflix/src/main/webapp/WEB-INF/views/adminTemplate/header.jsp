@@ -68,7 +68,7 @@
                         </a>
                     </li>
                     <li class="nav-item navli">
-                        <a class="nav-link navbar-nav-item"  href="${pageContext.request.contextPath}/getNoticeList.do">
+                        <a class="nav-link navbar-nav-item"  href="${pageContext.request.contextPath}/getNoticeListAdmin.do">
                             공지사항
                         </a>
                     </li>
