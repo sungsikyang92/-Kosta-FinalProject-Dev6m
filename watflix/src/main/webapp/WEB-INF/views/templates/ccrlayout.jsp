@@ -45,9 +45,11 @@
 	<!-- Tiles main-contentsDetail 영역 -->
 	<tiles:insertAttribute name="main" />
 	<!-- Tiles main2-commentsListByContentsNO 영역 -->
+	<div class="layout-wrapper">
 	<tiles:insertAttribute name="main2" />
 	<!-- Tiles main3-reviewListByContentsNO 영역 -->
 	<tiles:insertAttribute name="main3" />
+	</div>
 	<!-- Tiles main 영역 -->
 	<tiles:insertAttribute name="footer" />
 
