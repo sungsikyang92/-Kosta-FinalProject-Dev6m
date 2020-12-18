@@ -5,7 +5,7 @@
 	<div class="container-lg boardClassMain">
 	  <h4 style="display: inline-flex;">리뷰</h4> 
 	  <c:choose>
-	  	<c:when test="${requestScope.reviewListByContentsNo.reviewList[0] == null}">
+	  	<c:when test="${requestScope.reviewListByContentsNo.reviewList[0] == null}"><br>
 	  		<span>현재 해당 컨텐츠에는 리뷰가 존재하지 않습니다.</span><br>
   			 <span>첫 번째 리뷰어가 되어보세요!</span>
 	  		<button type="button" style="width:80px; float:right;" onclick="location.href = '${pageContext.request.contextPath}/reviewWriteForm.do?contentsNo=${requestScope.contentsNo}' ">리뷰쓰기</button>
