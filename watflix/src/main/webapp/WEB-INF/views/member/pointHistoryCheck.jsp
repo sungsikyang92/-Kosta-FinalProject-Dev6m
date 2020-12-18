@@ -32,7 +32,7 @@ function denote(member){
 }
 
 </script>
-
+<div class="tableMargin">
 <div class="container boardClassMain">
 	<nav class="nav nav-fill nav-pills" id="explore-tabs" role="tablist">
            <a class="nav-item nav-link active" id="pointHistoryCheck" data-toggle="pill" href="#" aria-selected="true">
@@ -83,26 +83,27 @@ function denote(member){
   </table>
 		<div class="boardBottomDiv">
 			<div class="pagingInfo" id="pagingLocation">
-				<c:set var="rpbc" value="${requestScope.pointHistoryListVO.pagingBean}"/>
+				<c:set var="pagingBean" value="${requestScope.pointHistoryListVO.pagingBean}"/>
 				<ul class="pagination">
-					<c:if test="${rpbc.previousPageGroup}">		
-					<li><a href="${pageContext.request.contextPath}/contentsDetail.do?pageNo=${rpbc.startPageOfPageGroup-1}">&laquo;</a></li>	
+					<c:if test="${pagingBean.previousPageGroup}">		
+					<li><a href="${pageContext.request.contextPath}/memberPointHistoryCheck.do?pageNo=${pagingBean.startPageOfPageGroup-1}">&laquo;</a></li>	
 					</c:if>
-					<c:forEach var="i" begin="${rpbc.startPageOfPageGroup}" end="${rpbc.endPageOfPageGroup}">
+					<c:forEach var="i" begin="${pagingBean.startPageOfPageGroup}" end="${pagingBean.endPageOfPageGroup}">
 						<c:choose>
-							<c:when test="${rpbc.nowPage != i}">
-								<li><a href="${pageContext.request.contextPath}/contentsDetail.do?pageNo=${i}">${i}</a></li>
+							<c:when test="${pagingBean.nowPage != i}">
+								<li><a href="${pageContext.request.contextPath}/memberPointHistoryCheck.do?pageNo=${i}">${i}</a></li>
 							</c:when>
 							<c:otherwise>
 								<li class="active"><a href="#">${i}</a></li>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
-					<c:if test="${rpbc.nextPageGroup}">	
-						<li><a href="${pageContext.request.contextPath}/contentsDetail.do?pageNo=${rpbc.endPageOfPageGroup+1}">&raquo;</a></li>
+					<c:if test="${pagingBean.nextPageGroup}">	
+						<li><a href="${pageContext.request.contextPath}/memberPointHistoryCheck.do?pageNo=${pagingBean.endPageOfPageGroup+1}">&raquo;</a></li>
 					</c:if>
 				</ul>
 			</div>
 		</div>
 	</div>
+</div>
 </div>

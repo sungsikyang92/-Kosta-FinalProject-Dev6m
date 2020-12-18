@@ -38,7 +38,8 @@
 		})
 	})
 </script>
-<div class="container-lg margin-top margin-bottom boardClassMain">
+<div class="tableMargin">
+<div class="container-lg boardClassMain">
 		<form action="${pageContext.request.contextPath}/noticeWrite.do" method="post" id="noticeWriteForm">
 			<sec:csrfInput/>
 			<table class="table table-bordered" style="border-radius: 1.5px;">
@@ -66,5 +67,6 @@
 				</tr>
 			</table>
 		</form>
+	</div>
 	</div>
 </sec:authorize>

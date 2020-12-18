@@ -45,15 +45,6 @@
 			<td>내용</td>
 			<td colspan="3" class="reviewContents"><pre style="white-space:pre-wrap;">${reviewDetail.reviewContents}</pre></td>
 		</tr>
-		<tr>
-			<td colspan="4" class="btnArea">
-				<button form="reviewDelete" class="btn btn-default boardDetailBtn" type="submit">삭제</button>
-				<form action="adminReviewDelete.do" id="reviewDelete" method="post">
-				<sec:csrfInput/>
-				<input type="hidden" name="reviewNo" value="${reviewDetail.reviewNo}">
-				</form>
-			</td>
-		</tr>
   </table>
 </div>
 </body>

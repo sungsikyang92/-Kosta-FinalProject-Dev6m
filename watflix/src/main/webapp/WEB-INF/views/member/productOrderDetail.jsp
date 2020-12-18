@@ -6,6 +6,7 @@
 $(document).ready(function(){
 })//ready종료
 </script>
+<div class="tableMargin">
 <div class="container boardClassMain">
 <h2 align="left">주문상세내역</h2> 
 <h6>주문번호: ${productOrderDetail.orderNo}</h6>
@@ -44,4 +45,5 @@ $(document).ready(function(){
 	</tbody>
   </table>
 	</div>
+</div>
 </div>

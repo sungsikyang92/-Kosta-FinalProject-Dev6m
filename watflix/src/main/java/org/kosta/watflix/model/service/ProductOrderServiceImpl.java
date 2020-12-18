@@ -31,4 +31,15 @@ public class ProductOrderServiceImpl implements ProductOrderService {
 		return productOrderMapper.mProductOrderDetail(id,orderNo);
 	}
 
+	//모든 고객에 대한 주문내역건수
+	@Override
+	public int sProductOrderCountForAll() {
+		return productOrderMapper.mProductOrderCountForAll();
+	}
+	//모든 고객에 대한 주문내역 리스트 출력
+	@Override
+	public List<ProductOrderVO> sProductOrderForAllList(PagingBean pagingBean) {
+		return productOrderMapper.mProductOrderForAllList(pagingBean);
+	}
+
 }

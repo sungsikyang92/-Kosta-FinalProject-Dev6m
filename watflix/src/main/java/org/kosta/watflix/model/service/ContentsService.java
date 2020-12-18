@@ -13,13 +13,14 @@ public interface ContentsService {
 	int sGetTotalContentsCount();
 	List<ContentsVO> sGetContentsAllForTypeAndGenre(Map<String,String> map);
 	List<ContentsVO> sGetContentsAllForType(Map<String,String> map);
-	List<ContentsVO> sGetContentsAllForTypeLogin(String id,Map<String,String> map);
+	List<ContentsVO> sGetContentsAllForTypeLogin(Map<String,String> map,String id);
 	ContentsVO sFindContentsByNo(String contentsNo);
 	List<ContentsVO> sContentsHighHits();
 	List<ContentsVO> sContentsHighHitsLogin(String id);
 	List<ContentsVO> sContentsHighAvgStars();
 	List<ContentsVO> sContentsHighAvgStarsLogin(String id);
 	List<ContentsVO> sContentsHighCommentsCount();
+	List<ContentsVO> sContentsHighCommentsCountLogin(String id);
 	List<GenreVO> sGetAllGenreList();
 	List<GenreVO> sGetGenreSelectForType(String contentsType);
 	List<ContentsVO> sGetContentsSelectForType(String contentsType);
@@ -37,4 +38,9 @@ public interface ContentsService {
 	//컨텐츠 검색
 	List<GenreVO> sGenreSelectForTitle(String contentsTitle);
 	List<ContentsVO> sGetContentsSelectForTitle(String contentsTitle);
+	List<ContentsVO> sGetAllContentsListSortByNewLogin(Map<String, String> map, String id);
+	List<ContentsVO> sGetAllContentsListSortByOldLogin(Map<String, String> map, String id);
+	List<ContentsVO> sGetAllContentsForGenreListSortByNewLogin(Map<String, String> map, String id);
+	List<ContentsVO> sGetAllContentsForGenreListSortByOldLogin(Map<String, String> map, String id);
+	List<ContentsVO> sGetContentsAllForTypeAndGenreLogin(Map<String, String> map, String id);
 }

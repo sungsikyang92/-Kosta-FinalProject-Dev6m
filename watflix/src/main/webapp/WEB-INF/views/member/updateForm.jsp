@@ -77,9 +77,9 @@
 
 	}); //ready
 //회원 탈퇴
-function memberDelete(){
+function memberLeave(){
 	if(confirm("탈퇴하시겠습니까?")){
-		$("#memberDeleteForm").submit();
+		$("#memberLeaveForm").submit();
 	}
 	else
 		return;
@@ -303,11 +303,11 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 				<!--이용약관동의 입력 END  -->
 				</form>
 				<!-- 버튼 -->
-				<form action="${pageContext.request.contextPath}/memberDelete.do" id="memberDeleteForm">
+				<form action="${pageContext.request.contextPath}/memberLeave.do" id="memberLeaveForm">
 				</form>
 				<div class="row" style="margin: auto; width: 50%">
 				  <div>
-				  	<button class="btn login-button btn-submit btn-small" tabindex="0" onclick="memberDelete()" style="background-color: black">탈퇴신청</button>
+				  	<button class="btn login-button btn-submit btn-small" tabindex="0" onclick="memberLeave()" style="background-color: black">탈퇴신청</button>
 				  </div>
 				  <div>
 				  	<button class="btn login-button btn-submit btn-small" tabindex="0" onclick="submit()">수정완료</button>

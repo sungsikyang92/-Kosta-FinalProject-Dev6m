@@ -4,42 +4,59 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 	<script type="text/javascript">
 		$(document).ready(function(){
-			// 유저의 아이디로 작성한 comments의 여부를 확인한다.
-			// comments가 있을 경우 alert을 호출한다.
-			// comments가 없을 경우 writeForm을 팝업으로 호출한다.
 			$("#openCommentsWriteFormButton").click(function(){
-				var contentsNo = "${requestScope.contentsNo}";
 				$.ajax({
-					url: "checkWorteOrNot.do",
-					type: "GET",
-					dataType: "text",
-					data: 'contentsNo='+contentsNo,
+					url: "userLoginCheck.do",
+					type:"get",
+					beforeSend : function(xhr){   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+			            xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+			        },
 					success: function(result){
-						// 유저의 아이디로 작성한 comments가 없을 경우 0을 반환하므로 writeForm을 팝업으로 호출한다.
-						if(result == "0"){
-							var popupWidth = 500; // 팝업창 가로크기
-							var popupHeight = 600; // 팝업창 세로크기
-							
-							// window.screen.width로 현재 윈도우창의 가로크기를 가져온다.
-							// widdow.screen.height로 현재 윈도우창의 세로크기를 가져온다.
-							//아래 공식을 적용하여 팝업창을 현재 화면의 중간에 띄운다.
-							var popupX = (window.screen.width / 2) - (popupWidth / 2);
-							var popupY = (window.screen.height / 2) - (popupHeight / 2);
-											
-							window.open("${pageContext.request.contextPath}/commentsWriteForm.do?contentsNo=${requestScope.contentsNo}", "평점입력",
-									"width="+popupWidth+",height="+popupHeight+",left="+popupX+",top="+popupY);
-						} else { // 유저의 아이디로 작성한 comments가 있을 경우 0이외의 숫자를 반환한다. alert으로 새 comments를 작성할 수 없다고 안내한다.
-							alert("이미 작성하신 평점이 존재합니다. 한 컨텐츠에 하나의 평점만 작성하실 수 있습니다.");
+						if(result){
+							oneContentsOneComments();
+						} else {
+							location.href="loginForm.do";
 						}
 					}
-				})				
-			});
+				})
+			})
+								
 			$(".starPointImg").each(function(){
 				var starPoint = $(this).html();
 				$(this).html("<img src='${pageContext.request.contextPath}/resources/media/icons/star"+starPoint+".png' style='height: 25px'>");
 			})
 		});	
-				
+		// 유저의 아이디로 작성한 comments의 여부를 확인한다.
+		// comments가 있을 경우 alert을 호출한다.
+		// comments가 없을 경우 writeForm을 팝업으로 호출한다.
+		// 아이디당 하나의 컨텐츠에 하나의 comments만 작성하도록 하는 메서드
+		function oneContentsOneComments(){
+			var contentsNo = "${requestScope.contentsNo}";
+			$.ajax({
+				url: "checkWorteOrNot.do",
+				type: "GET",
+				dataType: "text",
+				data: 'contentsNo='+contentsNo,
+				success: function(result){
+					// 유저의 아이디로 작성한 comments가 없을 경우 0을 반환하므로 writeForm을 팝업으로 호출한다.
+					if(result == "0"){
+						var popupWidth = 500; // 팝업창 가로크기
+						var popupHeight = 600; // 팝업창 세로크기
+						
+						// window.screen.width로 현재 윈도우창의 가로크기를 가져온다.
+						// widdow.screen.height로 현재 윈도우창의 세로크기를 가져온다.
+						//아래 공식을 적용하여 팝업창을 현재 화면의 중간에 띄운다.
+						var popupX = (window.screen.width / 2) - (popupWidth / 2);
+						var popupY = (window.screen.height / 2) - (popupHeight / 2);
+										
+						window.open("${pageContext.request.contextPath}/commentsWriteForm.do?contentsNo=${requestScope.contentsNo}", "평점입력",
+								"width="+popupWidth+",height="+popupHeight+",left="+popupX+",top="+popupY);
+					} else { // 유저의 아이디로 작성한 comments가 있을 경우 0이외의 숫자를 반환한다. alert으로 새 comments를 작성할 수 없다고 안내한다.
+						alert("이미 작성하신 평점이 존재합니다. 한 컨텐츠에 하나의 평점만 작성하실 수 있습니다.");
+					}
+				}	
+			})
+		}
 		// 삭제 confirm 메서드
 		function commentsDeleteConfirm(){
 			return confirm('삭제하시겠습니까?');
@@ -66,7 +83,8 @@
 	</sec:authorize>
 	<c:choose>
 	<c:when test="${requestScope.commentsListByContentsNo.list[0] == null}">
-		<div>현재 해당 contents에는 평점이 존재하지 않습니다.</div>
+		<br><span>현재 해당 컨텐츠에는 평점이 존재하지 않습니다.</span><br>
+		<span>첫 번째 평점을 남겨주세요!</span>
 		<button type="button" id="openCommentsWriteFormButton" style="width: 80px; float:right;">평점쓰기</button>
 	</c:when>
 	<c:otherwise>

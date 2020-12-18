@@ -1,7 +1,6 @@
 package org.kosta.watflix.model.service;
 
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,12 +21,12 @@ public class ContentsServiceImpl implements ContentsService {
 	ReviewMapper reviewMapper;
 	
 	//컨텐츠 총 개수
-		@Override
-		public int sGetTotalContentsCount() {
-			return contentsMapper.mGetTotalContentsCount();
-		}
+	@Override
+	public int sGetTotalContentsCount() {
+		return contentsMapper.mGetTotalContentsCount();
+	}
 
-		//모든 컨텐츠 리스트
+	//모든 컨텐츠 리스트
 	@Override
 	public List<ContentsVO> sGetAllContentsList() {
 		return contentsMapper.mGetAllContentsList();
@@ -45,8 +44,8 @@ public class ContentsServiceImpl implements ContentsService {
 	}
 	//특정 타입의 컨텐츠 리스트 with Login
 	@Override
-	public List<ContentsVO> sGetContentsAllForTypeLogin(String id,Map<String,String> map) {
-		return contentsMapper.mGetContentsAllForTypeLogin(id,map);
+	public List<ContentsVO> sGetContentsAllForTypeLogin(Map<String,String> map,String id) {
+		return contentsMapper.mGetContentsAllForTypeLogin(map,id);
 	}
 	 
 	//조회수 높은순
@@ -58,10 +57,6 @@ public class ContentsServiceImpl implements ContentsService {
 	//조회수 높은순 with Login
 	@Override
 	public List<ContentsVO> sContentsHighHitsLogin(String id) {
-//		HashMap<String, Object>map = new HashMap<String, Object>();
-//		map.put("id", id);
-//		map.put("contentsNo", contentsNo);
-//		return contentsMapper.mContentsHighHitsLogin(map);
 		return contentsMapper.mContentsHighHitsLogin(id);
 	}
 	
@@ -158,6 +153,39 @@ public class ContentsServiceImpl implements ContentsService {
 	@Override
 	public List<ContentsVO> sGetContentsSelectForTitle(String contentsTitle) {
 		return contentsMapper.mGetContentsSelectForTitle(contentsTitle);
+	}
+
+	//출시일이 최신순인 컨텐츠 리스트 with login
+	@Override
+	public List<ContentsVO> sGetAllContentsListSortByNewLogin(Map<String, String> map, String id) {
+		return contentsMapper.mGetAllContentsListSortByNewLogin(map,id);
+	}
+
+	//출시일이 오래된순인 컨텐츠 리스트 with login
+	@Override
+	public List<ContentsVO> sGetAllContentsListSortByOldLogin(Map<String, String> map, String id) {
+		return contentsMapper.mGetAllContentsListSortByOldLogin(map,id);
+	}
+	//특정 장르에서 출시일이 최신순인 컨텐츠 리스트 with login
+	@Override
+	public List<ContentsVO> sGetAllContentsForGenreListSortByNewLogin(Map<String, String> map, String id) {
+		return contentsMapper.mGetAllContentsForGenreListSortByNewLogin(map,id);
+	}
+	//특정 장르에서 출시일이 오래된순인 컨텐츠 리스트 with login
+	@Override
+	public List<ContentsVO> sGetAllContentsForGenreListSortByOldLogin(Map<String, String> map, String id) {
+		return contentsMapper.mGetAllContentsForGenreListSortByOldLogin(map,id);
+	}
+	//장르&타입의 컨텐츠 리스트 with login
+	@Override
+	public List<ContentsVO> sGetContentsAllForTypeAndGenreLogin(Map<String, String> map, String id) {
+		return contentsMapper.mGetContentsAllForTypeAndGenreLogin(map,id);
+	}
+
+	//최다평점순 with Login
+	@Override
+	public List<ContentsVO> sContentsHighCommentsCountLogin(String id) {
+		return contentsMapper.mContentsHighCommentsCountLogin(id);
 	}
 	
 }
