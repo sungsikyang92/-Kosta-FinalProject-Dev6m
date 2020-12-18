@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+
+
 <div class="tableMargin" id="reviewList">
 	<div class="container-lg boardClassMain">
 	  <h4 style="display: inline-flex;">리뷰</h4> 
@@ -34,7 +37,7 @@
 					</c:forEach>
 				</tbody>
 			  </table>
-			  <button type="button" style="width:80px; float:right;" onclick="location.href = '${pageContext.request.contextPath}/reviewWriteForm.do?contentsNo=${requestScope.contentsNo}' ">리뷰쓰기</button>
+			  <button type="button" id="checkReviewExist" style="width:80px; float:right;" onclick="location.href = '${pageContext.request.contextPath}/reviewWriteForm.do?contentsNo=${requestScope.contentsNo}' ">리뷰쓰기</button>
 				<!-- 페이징박스 시작 -->
 				<div class="boardBottomDiv">
 					<div class="pagingInfo" id="pagingLocation">
