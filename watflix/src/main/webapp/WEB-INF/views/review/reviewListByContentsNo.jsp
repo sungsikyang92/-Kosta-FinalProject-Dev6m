@@ -3,7 +3,25 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
-
+<script type="text/javascript">
+	$(document).ready(function(){
+		//유저의 아이디로 작성한 review의 여부를 확인한다.
+		//리뷰가 있을 경우  alert를 호출한다.
+		//리뷰가 없을 경우 작성하기로 간다.
+		$("#checkReviewExist").click(function(){
+			var reviewNo = "${requestScope.reviewListByContentsNo.reviewList.reviewNo}";
+			$.ajax({
+				url: "checkReviewExist.do",
+				type: "GET",
+				dataType: "text",
+				data: "reviewNo="+reviewNo,
+				success: function(data){
+					
+				}
+			});//ajax
+		});//click
+	});//ready
+</script>
 <div class="tableMargin" id="reviewList">
 	<div class="container-lg boardClassMain">
 	  <h4 style="display: inline-flex;">리뷰</h4> 

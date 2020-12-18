@@ -133,5 +133,11 @@ public class ReviewServiceImpl implements ReviewService {
 		return reviewListVO;
 	}
 
+	//해당 컨텐츠에 접속한 유저의 아이디로 작성된 review가 있는지 확인
+	@Override
+	public int sCheckReviewExist(String id, String reviewNo) {
+		return reviewMapper.mCheckReviewExist(id, reviewNo);
+	}
+
 
 }

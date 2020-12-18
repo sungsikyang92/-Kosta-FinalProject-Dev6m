@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -135,6 +136,17 @@ public class ReviewController {
 	public ModelAndView reviewByReviewNo(int reviewNo) {
 		MemberVO memberVO = (MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		return new ModelAndView("report/reviewByReviewNo","rdvo",reviewService.sGetReviewDetailNoHits(memberVO.getId(),reviewNo));
+	}
+	
+	//해당 컨텐츠에 접속한 유저의 아이디로 작성된 review가 있는지 확인
+	@Secured("ROLE_MEMBER")
+	@RequestMapping("checkReviewExist.do")
+	@ResponseBody
+	public int checkReviewExist(String reviewNo) {
+		MemberVO memberVO = (MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String id = memberVO.getId();
+		//유저가 작성한 리뷰가 존재할 경우 0 이상의 값을 받는다.
+		return reviewService.sCheckReviewExist(id, reviewNo);
 	}
 }
 

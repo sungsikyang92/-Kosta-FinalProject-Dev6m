@@ -81,6 +81,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="mReviewLikesRemove">
 		UPDATE REVIEW SET REVIEW_LIKES=REVIEW_LIKES-1 WHERE REVIEW_NO=#{VALUE}
 	</update>
+	<!-- 해당 컨텐츠에 접속한 유저의 아이디로 작성된 review가 있는지 확인 -->
+	<select id="mCheckReviewExist">
+		SELECT COUNT(*) FROM REVIEW WHERE ID = #{id} AND REVIEW_NO = #{reviewNo}
+	</select>
 </mapper>
 
 
