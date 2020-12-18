@@ -7,6 +7,7 @@ import org.kosta.watflix.model.service.FaqService;
 import org.kosta.watflix.model.service.PagingBean;
 import org.kosta.watflix.model.vo.FaqVO;
 import org.kosta.watflix.model.vo.MemberVO;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,73 +23,71 @@ public class FaqController {
 	
 	// faq 리스트 출력
 	@RequestMapping("faqList.do")
-	public String list(Model model,String pageNo) {
-		if(pageNo==null) {
-			model.addAttribute("lvo",faqService.sGetFaqList());
-			
-		}else {
-			model.addAttribute("lvo",faqService.sGetFaqList(pageNo));
-		}
+	public String faqList(Model model,String pageNo) {
+		model.addAttribute("faqListVO",faqService.sGetFaqList(pageNo));
 		return "faq/faq_list.tiles";
-		
 	}
 	// faq 작성 폼 이동
+	@Secured("ROLE_ADMIN")
 	@RequestMapping("faqWriteForm.do")
 	public String faqWriteForm() {
-		return "faq/faq_write_form.tiles";
+		return "admin/adminFaqWriteForm.tiles";
 	}
 	// faq 작성
-	
+	@Secured("ROLE_ADMIN")
 	@PostMapping("faqWrite.do")
 	public String faqWrite(FaqVO faqVO,RedirectAttributes ra) {
-		/*
-		if(session.getAttribute("mvo")==null)  // 로그인 상태가 아니면
-			return "redirect:home.do";
-		MemberVO mvo=(MemberVO) session.getAttribute("mvo");
-		faqVO.setMemberVO(mvo);  // 작성자 아이디
-		*/	
-		// 아래의 1번 문장은 시큐리티를 통해서 세션을 가져와 MemberVO 값을 가져온다.
-		//1. SecurityContextHolder.getContext().getAuthentication().getPrincipal() : (MemberVO) 다운캐스팅 USERVO .
 		MemberVO memberVO = (MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		//System.out.println(memberVO.getId());
 		faqVO.setMemberVO(memberVO);
 		faqService.sFaqWrite(faqVO);
 		ra.addAttribute("faqNo",faqVO.getFaqNo());
-		return "redirect:faqDetail.do";
+		return "redirect:faqDetailNoHitsForAdmin.do";
 	}
 	
 	// faq 상세보기 (조회수 증가o)
+	@Secured("ROLE_MEMBER")
 	@RequestMapping("faqDetail.do")
-	public String faqDetail(int faqNo, RedirectAttributes re) {
+	public String faqDetail(int faqNo, RedirectAttributes ra) {
 		faqService.sFaqUpdateHits(faqNo);
-		re.addAttribute("faqNo", faqNo);
+		ra.addAttribute("faqNo", faqNo);
 		return "redirect:faqDetailNoHits.do";
 	}
 	
 	// faq 상세보기 (조회수 증가x) 
+	@Secured("ROLE_MEMBER")
 	@RequestMapping("faqDetailNoHits.do")
 	public ModelAndView faqDetailNohits(int faqNo) {
 		return new ModelAndView("faq/faq_detail.tiles","fvo",faqService.sFaqDetailNoHits(faqNo));
 	}
 	
+	// faq 상세보기 (조회수 증가x) 
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("faqDetailNoHitsForAdmin.do")
+	public ModelAndView faqDetailNoHitsForAdmin(int faqNo) {
+		return new ModelAndView("admin/adminFaqDetail.tiles","fvo",faqService.sFaqDetailNoHits(faqNo));
+	}
+	
 	// faq 삭제
+	@Secured("ROLE_ADMIN")
 	@PostMapping("faqDelete.do")
 	public String faqDelete(int faqNo) {
 		faqService.sFaqDelete(faqNo);
-		return "redirect:faqList.do";
+		return "redirect:adminFaqList.do";
 	}
 	//faq 수정 폼 이동
+	@Secured("ROLE_ADMIN")
 	@RequestMapping("faqUpdateForm.do")
 	public String faqUpdateForm(int faqNo, Model model) {
 		model.addAttribute("fvo",faqService.sFaqDetail(faqNo));
-	return "faq/faq_update_form.tiles";
+	return "admin/adminFaqUpdateForm.tiles";
 }
 	//faq 수정
+	@Secured("ROLE_ADMIN")
 	@PostMapping("faqUpdate.do")
-		public String faqUpdate(FaqVO faqVO, Model model) {
+		public String faqUpdate(FaqVO faqVO, RedirectAttributes ra ) {
 		// System.out.println();
 		faqService.sFaqUpdate(faqVO);
-		model.addAttribute("fvo",faqService.sFaqDetail(faqVO.getFaqNo()));
-		return "faq/faq_detail.tiles";
+		ra.addAttribute("faqNo", faqVO.getFaqNo());
+		return "redirect:faqDetailNoHitsForAdmin.do";
 	}
 }
