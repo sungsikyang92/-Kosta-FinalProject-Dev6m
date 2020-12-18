@@ -92,8 +92,8 @@
 		<c:forEach items="${requestScope.commentsListByContentsNo.list}" var="commentsListByContentsNo">
 		<tr>
 			<td class="starPointImg">${commentsListByContentsNo.commentsStars}</td>
-			<td class="startPointNum">${commentsListByContentsNo.commentsStars}</td>
-			<td>
+			<td class="starPointNum">${commentsListByContentsNo.commentsStars}</td>
+			<td class="starContents">
 				${commentsListByContentsNo.comments}
 			</td>
 			<td class="starIdDt">
