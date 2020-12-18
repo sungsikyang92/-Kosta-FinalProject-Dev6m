@@ -1,13 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<!-- <!DOCTYPE html>
-<html>
-<script src="//code.jquery.com/jquery.min.js"></script> 
-<head>
-<meta charset="UTF-8">
-<title>파티모집 글쓰는곳</title> -->
-
 <style type="text/css">
 #partyWriteForm{
 background-color: #99ccff;
@@ -15,12 +8,10 @@ height: 75%;
 width: 75%;
 }
 </style>
-<!-- </head> -->
 <script type="text/javascript">
 $(document).ready(function () {
 	$('#membershipType').change(function () {
 		var selectType=$(this).val();
-		//alert(selectType);
 		 $.ajax({
 			type : "get",
 			url : "${pageContext.request.contextPath}/select1.do",
@@ -37,17 +28,14 @@ $(document).ready(function () {
 		});//ajax 
 	})//첫번째 select 박스
 	$('#partyHeadCount').change(function () {
-		//alert($('#partyHeadCount').val());
 		
 	})// 두번째 select 박스
 })
 
 </script>
-<!-- <body> -->
 
 <div class="tableMargin" id="commentsList">
 <div class="container-lg boardClassMain">
-<!-- <div id="partyWriteForm"> -->
 <form action="${pageContext.request.contextPath}/partywrite.do" method="post">
 <sec:csrfInput/><!-- csrf 토큰 -->
 <br><br><br><br><br><br><br><br><br><br><br>
@@ -76,5 +64,3 @@ $(document).ready(function () {
 </form>
 </div>
 </div>
-<!-- </body>
-</html> -->

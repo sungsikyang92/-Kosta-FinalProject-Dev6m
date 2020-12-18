@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 
 import org.kosta.watflix.model.service.QnAService;
 import org.kosta.watflix.model.vo.MemberVO;
+import org.kosta.watflix.model.vo.QnAAnswerListVO;
 import org.kosta.watflix.model.vo.QnAAnswerVO;
 import org.kosta.watflix.model.vo.QnATypeVO;
 import org.kosta.watflix.model.vo.QnAVO;
@@ -60,12 +61,16 @@ public class QnAController {
 	}
 	// qna 답변 작성
 	@PostMapping("qnaAnswerWrite.do")
-	public String qnaAnswerWrite(QnAAnswerVO qnaAnswerVO,int qnaNo,RedirectAttributes re) {
+	@RequestMapping
+	public QnAAnswerListVO qnaAnswerWrite(QnAAnswerVO qnaAnswerVO,int qnaNo,String pageNo) {
 		MemberVO memberVO = (MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		qnaAnswerVO.setMemberVO(memberVO);
+		QnAVO qnaVO = new QnAVO();
+		qnaVO.setQnaNo(qnaNo);
+		qnaAnswerVO.setQnaVO(qnaVO);
 		qnaService.sQnAAnswerWrite(qnaAnswerVO);
-		re.addAttribute("qnaNo",qnaNo);
-		return "redirect:qnaDetail.do";
+		System.out.println(qnaService.sQnAAnswerByQnANo(qnaNo, pageNo));
+		return qnaService.sQnAAnswerByQnANo(qnaNo, pageNo);
 	}
 }
 

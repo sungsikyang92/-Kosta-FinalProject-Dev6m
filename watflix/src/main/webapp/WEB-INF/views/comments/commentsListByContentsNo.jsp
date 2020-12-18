@@ -74,15 +74,17 @@
 		<c:forEach items="${requestScope.commentsListByContentsNo.list}" var="commentsListByContentsNo">
 		<tr>
 			<td class="starPointImg">${commentsListByContentsNo.commentsStars}</td>
-			<td>${commentsListByContentsNo.commentsStars}</td>
+			<td class="startPointNum">${commentsListByContentsNo.commentsStars}</td>
 			<td>
-				${commentsListByContentsNo.comments}<br>
+				${commentsListByContentsNo.comments}
+			</td>
+			<td class="starIdDt">
 				${commentsListByContentsNo.memberVO.id }
 				${commentsListByContentsNo.commentsPostedTime}
-				<!-- 신고에 필요한 데이터를 script에 전달 -->
-				<a href="#" onclick="reportPopup(${commentsListByContentsNo.commentsNo},'${commentsListByContentsNo.memberVO.id }');return false;">신고</a>
+				<!-- 신고에 필요한 데이터를 script에 전달 --><br>
+				<a href="#" onclick="reportPopup(${commentsListByContentsNo.commentsNo},'${commentsListByContentsNo.memberVO.id }');return false;"><img width="12px" src='${pageContext.request.contextPath}/resources/media/icons/report.png'></a>
 				<!-- 삭제버튼 (작성자와 관리자에게만 노출된다.) -->
-				<c:set var="writerId" value="${commentsListByContentsNo.memberVO.id }"/>
+			<!-- 	<c:set var="writerId" value="${commentsListByContentsNo.memberVO.id }"/>
 				<c:if test="${writerId == userId || isAdmin == 'true'}">
 	 			<form action="${pageContext.request.contextPath}/commentsDelete.do" method="post" onsubmit="return commentsDeleteConfirm()" style="display: inline-flex;">
 					<sec:csrfInput/>
@@ -91,9 +93,8 @@
 					<input type="hidden" name="pageNo" value="${requestScope.commentsListByContentsNo.pagingBean.nowPage}">
 					<input type="submit" value="삭제">
 				</form>
-				</c:if>
+				</c:if> -->
 			</td>
-		
 		</tr>
 		</c:forEach>
 	</table>

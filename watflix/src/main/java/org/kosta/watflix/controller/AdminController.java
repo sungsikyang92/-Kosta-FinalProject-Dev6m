@@ -220,7 +220,6 @@ public class AdminController {
 	@ResponseBody
 	public ReportListVO reportBoardAdmin(String reportPageNo, boolean reportType) {
 		System.out.println("reportBoardAdmin.do 실행");
-		System.out.println(reportType);
 		if(reportType) {
 			return reportService.sGetReportCommentsList(reportPageNo);
 		} else {

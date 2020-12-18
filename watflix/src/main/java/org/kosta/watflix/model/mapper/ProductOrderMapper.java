@@ -1,3 +1,4 @@
+
 package org.kosta.watflix.model.mapper;
 
 import java.util.List;
@@ -21,4 +22,5 @@ public interface ProductOrderMapper {
 	int mProductOrderCountForAll();
 
 	List<ProductOrderVO> mProductOrderForAllList(@Param("pagingBean")PagingBean pagingBean);
+
 }
