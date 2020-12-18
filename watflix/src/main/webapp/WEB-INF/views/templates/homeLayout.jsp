@@ -21,7 +21,7 @@
 	href="${pageContext.request.contextPath}/resources/css/jquery-ui.css">
 <!-- Main CSS -->
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/css/style.css">
+	href="${pageContext.request.contextPath}/resources/css/homeStyle.css">
 <!-- jqeury -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -39,10 +39,8 @@
 	<!-- Tiles header 영역 -->
 	<tiles:insertAttribute name="header" />
 	
-	<div class="layout-wrapper">
 	<!-- Tiles main 영역 -->
 	<tiles:insertAttribute name="main" />	
-	</div>
 	<!-- Tiles main 영역 -->
 	<tiles:insertAttribute name="footer" />
 	
@@ -63,7 +61,7 @@
 		src="${pageContext.request.contextPath}/resources/js/flickity.min.js"
 		defer></script>
 	<!-- Main JS -->
-	<script src="${pageContext.request.contextPath}/resources/js/main.js"
+	<script src="${pageContext.request.contextPath}/resources/js/homeMain.js"
 		defer></script>
 
 </body>

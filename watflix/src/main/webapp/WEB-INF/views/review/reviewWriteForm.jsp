@@ -31,30 +31,31 @@
 		});
 	});//ready
 </script>
-
-<div class="container-lg margin-top margin-bottom boardClassMain">
-  <h2>리뷰 등록하기</h2>           
-	<form action="${pageContext.request.contextPath}/reviewWrite.do" method="post" id="reviewWriteForm">
-		<sec:csrfInput/>
-		<input type="hidden" name="contentsNo" value="${param.contentsNo}">
-	  	<table class="table table-bordered" style="border-radius: 1.5px;">
-			<tr>
-				<td class="boardTd">제목</td>
-				<td><input type="text" name="reviewTitle" id="reviewTitle"  class="boardTitle" required="required" maxlength="30" placeholder="리뷰의 제목을 입력해주세요!"></td>
-			</tr>
-			<tr>
-				<td class="boardCt">내용</td>
-				<td>
-					<textarea name="reviewContents" id="reviewContents" required="required" class="boardTextarea" name="reviewContents" placeholder="리뷰의 내용을 입력해주세요!"></textarea>
-				</td>
-			</tr>
-			<tr>			
-				<td colspan="2" class="btnArea">
-					<button type="button" class="btn-list btn btn-default boardDetailBtn" id="backToReviewList">목록</button>
-					<button type="reset" class="btn-reset btn btn-default boardDetailBtn">초기화</button>
-					<button type="submit" class="btn btn-default boardDetailBtn">등록</button>
-				</td>
-			</tr>
-	  	</table>
-	</form>
+<div class="tableMargin">
+	<div class="container-lg  boardClassMain">
+	  <h2>리뷰 등록하기</h2>           
+		<form action="${pageContext.request.contextPath}/reviewWrite.do" method="post" id="reviewWriteForm">
+			<sec:csrfInput/>
+			<input type="hidden" name="contentsNo" value="${param.contentsNo}">
+		  	<table class="table table-bordered" style="border-radius: 1.5px;">
+				<tr>
+					<td class="boardTd">제목</td>
+					<td><input type="text" name="reviewTitle" id="reviewTitle"  class="boardTitle" required="required" maxlength="30" placeholder="리뷰의 제목을 입력해주세요!"></td>
+				</tr>
+				<tr>
+					<td class="boardCt">내용</td>
+					<td>
+						<textarea name="reviewContents" id="reviewContents" required="required" class="boardTextarea" name="reviewContents" placeholder="리뷰의 내용을 입력해주세요!"></textarea>
+					</td>
+				</tr>
+				<tr>			
+					<td colspan="2" class="btnArea">
+						<button type="button" class="btn-list btn btn-default boardDetailBtn" id="backToReviewList">목록</button>
+						<button type="reset" class="btn-reset btn btn-default boardDetailBtn">초기화</button>
+						<button type="submit" class="btn btn-default boardDetailBtn">등록</button>
+					</td>
+				</tr>
+		  	</table>
+		</form>
+	</div>
 </div>

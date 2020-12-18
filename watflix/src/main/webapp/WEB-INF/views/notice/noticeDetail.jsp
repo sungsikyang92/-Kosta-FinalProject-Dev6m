@@ -19,7 +19,8 @@
 		})
 	})
 </script>
-<div class="container-lg margin-top margin-bottom boardClassMain">
+<div class="tableMargin">
+<div class="container-lg boardClassMain">
 	<table class="table table-bordered" style="border-radius: 1.5px;">
 		<tr>
 
@@ -60,4 +61,5 @@
 		</tr>
 		</sec:authorize>
 	</table>
+</div>
 </div>

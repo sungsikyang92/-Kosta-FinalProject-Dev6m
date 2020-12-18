@@ -11,6 +11,7 @@ import org.kosta.watflix.model.vo.MemberVO;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
+import org.springframework.security.authentication.LockedException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -70,7 +71,12 @@ public class MemberAuthenticationProvider implements AuthenticationProvider {
 			memberService.sMemberLoginFailUp(member.getId());
 			throw new BadCredentialsException("비밀번호가 일치하지 않습니다");
 		}
-			
+		
+		if(member.getAccStatusVO().getAccStatusNo()==2) {
+			//계정잠김
+			throw new LockedException("탈퇴한 회원은 로그인이 불가능 합니다.");
+		}
+		
 		// 사용자 권한 조회 ( 회원가입시 권한 부여 , 관리자는 시스템 상에서 권한 부여 )
 		List<Authority> list = memberService.sFindAuthorityById(id);
 		if (list.size() == 0) {

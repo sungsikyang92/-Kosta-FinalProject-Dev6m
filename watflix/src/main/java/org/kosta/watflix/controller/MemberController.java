@@ -25,6 +25,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import sun.management.snmp.jvmmib.EnumJvmMemoryGCVerboseLevel;
+
 @Controller
 public class MemberController {
 	
@@ -108,8 +110,6 @@ public class MemberController {
 	@PostMapping("memberUpdate.do")
 	public String memberUpdate(MemberVO memberVO) {
 		memberService.sMemberUpdate(memberVO);
-		//System.out.println(memberVO.getAddress());
-		//System.out.println(memberVO.getAgreement());
 		// 회원정보 수정위해 Spring Security 세션 회원정보를 반환받는다
 		MemberVO pvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		pvo.setPassword(memberVO.getPassword());
@@ -128,6 +128,16 @@ public class MemberController {
 	public String memberUpdateResult(MemberVO memberVO,Model model) {
 		model.addAttribute("id",memberVO.getId());
 		return "member/update_result";
+	}
+	
+	//회원정보 탈퇴
+	@Secured("ROLE_MEMBER")
+	@RequestMapping("memberLeave.do")
+	public String memberLeave(Model model) {
+		MemberVO memberVO = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		memberService.sMemberLeave(memberVO.getId());
+		model.addAttribute("id",memberVO.getId());
+		return "member/leave_result";
 	}
 	
 	/*이용약관동의 start*/
