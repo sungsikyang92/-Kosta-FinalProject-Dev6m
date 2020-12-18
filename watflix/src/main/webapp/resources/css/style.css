@@ -778,7 +778,10 @@ a, a:hover {
 	.pagingInfo li{
 		margin-right: 10px;
 	}
-	
+	.pagination{
+		padding-left: 520px;
+		text-align: center;
+	}
 /*페이징End*/
 
 /*테이블Start*/
@@ -890,6 +893,7 @@ a, a:hover {
 	width:80%;
 	margin:auto 0px;
 	position: relative;
+	text-align: center;
 }
 .boardDetailClassMain{
 	width:100%;

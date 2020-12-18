@@ -441,7 +441,7 @@ FROM REPORT where id='java') r, review rv, report_type rt where r.REVIEW_NO=rv.R
 where re_num between 1 and 5
 order by report_no desc;
 -- 권한
-insert into grade values('ROLE_ADMIN', 'java')
+insert into grade values('ROLE_ADMIN', 'admin')
 -- 내 리뷰 게시물 가져오기
 SELECT REVIEW_NO,ID,CONTENTS_NO,REVIEW_TITLE,REVIEW_CONTENTS,REVIEW_LIKES,REVIEW_POSTED_TIME
 FROM (SELECT ROW_NUMBER() OVER(ORDER BY review_no DESC) AS RNUM, REVIEW_NO, ID, CONTENTS_NO,
@@ -464,13 +464,15 @@ drop SEQUENCE REVIEW_SEQ;
 drop SEQUENCE NOTICE_SEQ;
 drop SEQUENCE REPORT_SEQ;
 drop SEQUENCE PRODUCT_SEQ;
-drop SEQUENCE PRODUCT_CATEGORY_SEQ;
 drop SEQUENCE PRODUCT_ORDER_SEQ;
-drop SEQUENCE PARTY_SEQ;
 drop SEQUENCE FAQ_SEQ;
+drop SEQUENCE QNA_SEQ;
+drop SEQUENCE QNA_ANSWER_SEQ;
+drop SEQUENCE PARTY_SEQ;
+drop SEQUENCE POINT_HISTORY_SEQ;
 -- 권한 추가
 insert into grade values ( 'ROLE_ADMIN' , 'java');
--- 신고 당한 횟수 추가
+-- 신고 당한 횟수 추가(MEMBER)
 ALTER TABLE MEMBER ADD REPORTCOUNT NUMBER DEFAULT 0;
 -- 검색 SQL
 select C.CONTENTS_NO,C.CONTENTS_TITLE,C.CONTENTS_TYPE,G.GENRE_CODE,G.GENRE_NAME,C.CONTENTS_SUMMARY,C.CONTENTS_SMALL_THUMBNAIL,C.CONTENTS_BIG_THUMBNAIL,
@@ -502,6 +504,13 @@ values(REVIEW_SEQ.nextval, 'test', 80165295, 'test', '메크로');
 insert into member(id, password, name, sex, email)
 values('test3', '$2a$10$i2cyl1OhUeJ71PUTHozM9enjjiJ0rZVVjn/z7FVXnJA1pBi7gOUH2', 'test', '여성', 'spring@sprin.com');
 insert into grade values ( 'ROLE_MEMBER' , 'test3');
+--데이터 삭제
+delete from member
+delete from comments
+select * from member
+select * from grade
+select * from contents
+UPDATE contents SET contents_avg_stars = 0
 
 
 select * from grade where id='java'
@@ -1345,10 +1354,12 @@ SELECT P.POINT_HISTORY_NO,P.ID,P.REVIEW_NO,(select REVIEW_TITLE from REVIEW wher
 select * from genre
 
 
+
 SELECT qna_answer_no, qna_answer_contents, qna_answer_posted_time, qna_no, id
 		FROM qna_answer WHERE qna_no=1
 		
 		SELECT rnum, qna_answer_no, qna_answer_contents, qna_answer_posted_time, qna_no, id
 		FROM(SELECT ROW_NUMBER() OVER(ORDER BY qna_answer_no DESC) AS rnum, qna_answer_no, qna_answer_contents, qna_answer_posted_time, qna_no, id FROM qna_answer WHERE qna_no=1)
 		WHERE rnum BETWEEN 1 AND 5
+
 
