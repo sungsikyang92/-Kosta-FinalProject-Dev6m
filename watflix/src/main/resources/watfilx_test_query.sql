@@ -472,7 +472,7 @@ drop SEQUENCE PARTY_SEQ;
 drop SEQUENCE POINT_HISTORY_SEQ;
 -- 권한 추가
 insert into grade values ( 'ROLE_ADMIN' , 'java');
--- 신고 당한 횟수 추가
+-- 신고 당한 횟수 추가(MEMBER)
 ALTER TABLE MEMBER ADD REPORTCOUNT NUMBER DEFAULT 0;
 -- 검색 SQL
 select C.CONTENTS_NO,C.CONTENTS_TITLE,C.CONTENTS_TYPE,G.GENRE_CODE,G.GENRE_NAME,C.CONTENTS_SUMMARY,C.CONTENTS_SMALL_THUMBNAIL,C.CONTENTS_BIG_THUMBNAIL,
@@ -506,7 +506,11 @@ values('test3', '$2a$10$i2cyl1OhUeJ71PUTHozM9enjjiJ0rZVVjn/z7FVXnJA1pBi7gOUH2', 
 insert into grade values ( 'ROLE_MEMBER' , 'test3');
 --데이터 삭제
 delete from member
+delete from comments
+select * from member
 select * from grade
+select * from contents
+UPDATE contents SET contents_avg_stars = 0
 
 
 select * from grade where id='java'
