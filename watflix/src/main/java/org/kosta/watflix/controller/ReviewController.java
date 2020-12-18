@@ -142,11 +142,11 @@ public class ReviewController {
 	@Secured("ROLE_MEMBER")
 	@RequestMapping("checkReviewExist.do")
 	@ResponseBody
-	public int checkReviewExist(String reviewNo) {
+	public int checkReviewExist(String contentsNo) {
 		MemberVO memberVO = (MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String id = memberVO.getId();
 		//유저가 작성한 리뷰가 존재할 경우 0 이상의 값을 받는다.
-		return reviewService.sCheckReviewExist(id, reviewNo);
+		return reviewService.sCheckReviewExist(id, contentsNo);
 	}
 }
 

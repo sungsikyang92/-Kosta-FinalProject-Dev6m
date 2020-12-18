@@ -135,8 +135,8 @@ public class ReviewServiceImpl implements ReviewService {
 
 	//해당 컨텐츠에 접속한 유저의 아이디로 작성된 review가 있는지 확인
 	@Override
-	public int sCheckReviewExist(String id, String reviewNo) {
-		return reviewMapper.mCheckReviewExist(id, reviewNo);
+	public int sCheckReviewExist(String id, String contentsNo) {
+		return reviewMapper.mCheckReviewExist(id, contentsNo);
 	}
 
 
