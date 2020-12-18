@@ -13,7 +13,7 @@
 		})
 	})
 </script>
- <div class="container-lg margin-top margin-bottom boardClassMain">     
+ <div class="container-lg boardClassMain">     
   <table class="tabled">
   	<tr>
   		<td colspan="2"><font size="0.9rm;"><a href="${pageContext.request.contextPath}/productList.do">왓플릭스 마켓홈</a> >${productVO.productCategoryVO.productCategoryName}</font></td>

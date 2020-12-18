@@ -8,4 +8,6 @@ public interface ProductOrderService {
 	int sProductOrderCount(String id);
 	List<ProductOrderVO> sProductOrderList(PagingBean pagingBean,String id);
 	ProductOrderVO sProductOrderDetail(String id, int orderNo);
+	int sProductOrderCountForAll();
+	List<ProductOrderVO> sProductOrderForAllList(PagingBean pagingBean);
 }

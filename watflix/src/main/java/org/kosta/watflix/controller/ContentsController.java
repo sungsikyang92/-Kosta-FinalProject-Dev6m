@@ -13,7 +13,11 @@ import org.kosta.watflix.model.service.ContentsService;
 import org.kosta.watflix.model.service.ReviewService;
 import org.kosta.watflix.model.vo.ContentsVO;
 import org.kosta.watflix.model.vo.GenreVO;
+import org.kosta.watflix.model.vo.MemberVO;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -68,21 +72,40 @@ public class ContentsController {
 	public List<ContentsVO> getContentsAllForTypeAndGenre(Model model,String pageNo,String contentsType,String genreCode,String sortType) {
 		Map<String, String> map = new HashMap<String, String>();
 		List<ContentsVO> list = new ArrayList<ContentsVO>();
+		MemberVO memberVO = new MemberVO();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		int startNumber = (5*(Integer.parseInt(pageNo)-1)+1);
 		int endNumber = (5*Integer.parseInt(pageNo));
 		map.put("startNumber", Integer.toString(startNumber));
 		map.put("endNumber", Integer.toString(endNumber));
 		map.put("contentsType", contentsType);
 		map.put("genreCode", genreCode);
-		if(sortType.equals("New")) {
-			list = contentsService.sGetAllContentsForGenreListSortByNew(map);
+		//로그인된 경우
+		if(!(auth instanceof AnonymousAuthenticationToken)) {
+			memberVO=(MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			if(sortType.equals("New")) {
+				list = contentsService.sGetAllContentsForGenreListSortByNewLogin(map,memberVO.getId());
+			}
+			else if(sortType.equals("Old")) {
+				list = contentsService.sGetAllContentsForGenreListSortByOldLogin(map,memberVO.getId());
+			}
+			else {
+				list = contentsService.sGetContentsAllForTypeAndGenreLogin(map,memberVO.getId());
+			}
 		}
-		else if(sortType.equals("Old")) {
-			list = contentsService.sGetAllContentsForGenreListSortByOld(map);
-		}
+		//비로그인인 경우
 		else {
-			list = contentsService.sGetContentsAllForTypeAndGenre(map);
+			if(sortType.equals("New")) {
+				list = contentsService.sGetAllContentsForGenreListSortByNew(map);
+			}
+			else if(sortType.equals("Old")) {
+				list = contentsService.sGetAllContentsForGenreListSortByOld(map);
+			}
+			else {
+				list = contentsService.sGetContentsAllForTypeAndGenre(map);
+			}
 		}
+		
 		
 		return list;
 	}
@@ -94,25 +117,40 @@ public class ContentsController {
 		
 		Map<String, String> map = new HashMap<String, String>();
 		List<ContentsVO> list = new ArrayList<ContentsVO>();
+		MemberVO memberVO = new MemberVO();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		int startNumber = (5*(Integer.parseInt(pageNo)-1)+1);
 		int endNumber = (5*Integer.parseInt(pageNo));
 		
 		map.put("startNumber", Integer.toString(startNumber));
 		map.put("endNumber", Integer.toString(endNumber));
 		map.put("contentsType", contentsType);
-		System.out.println(map);
-		System.out.println(sortType);
-		if(sortType.equals("New")) {
-			list = contentsService.sGetAllContentsListSortByNew(map);
-		}
-		else if(sortType.equals("Old")) {
-			list = contentsService.sGetAllContentsListSortByOld(map);
-		}
-		else {
-			list = contentsService.sGetContentsAllForType(map);
-		}
-		System.out.println(list);
 		
+		//로그인된 경우
+		if(!(auth instanceof AnonymousAuthenticationToken)) {
+			memberVO=(MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			if(sortType.equals("New")) {
+				list = contentsService.sGetAllContentsListSortByNewLogin(map,memberVO.getId());
+			}
+			else if(sortType.equals("Old")) {
+				list = contentsService.sGetAllContentsListSortByOldLogin(map,memberVO.getId());
+			}
+			else {
+				list = contentsService.sGetContentsAllForTypeLogin(map,memberVO.getId());
+			}
+		}
+		//비로그인인 경우
+		else {
+			if(sortType.equals("New")) {
+				list = contentsService.sGetAllContentsListSortByNew(map);
+			}
+			else if(sortType.equals("Old")) {
+				list = contentsService.sGetAllContentsListSortByOld(map);
+			}
+			else {
+				list = contentsService.sGetContentsAllForType(map);
+			}
+		}
 		return list;
 	}	
 	
@@ -133,5 +171,63 @@ public class ContentsController {
 			model.addAttribute("titleLength", contentsTitle);
 		}
 		return "contents/contentsByTitle.tiles";
+	}
+	
+	//인기컨텐츠
+	@RequestMapping("getContentsHighHitsList.do")
+	@ResponseBody
+	public List<ContentsVO> getContentsHighHitsList(){
+		List<ContentsVO> list = new ArrayList<ContentsVO>();
+		MemberVO memberVO = new MemberVO();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		//로그인된 경우
+		if(!(auth instanceof AnonymousAuthenticationToken)) {
+			memberVO=(MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			list = contentsService.sContentsHighHitsLogin(memberVO.getId());
+		}
+		//비로그인인 경우
+		else {
+			list = contentsService.sContentsHighHits();
+		}
+		return list;
+		
+	}
+	//평점높은컨텐츠
+	@RequestMapping("getContentsHighAvgStarsList.do")
+	@ResponseBody
+	public List<ContentsVO> getContentsHighAvgStarsList(){
+		List<ContentsVO> list = new ArrayList<ContentsVO>();
+		MemberVO memberVO = new MemberVO();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		//로그인된 경우
+		if(!(auth instanceof AnonymousAuthenticationToken)) {
+			memberVO=(MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			list = contentsService.sContentsHighAvgStarsLogin(memberVO.getId());
+		}
+		//비로그인인 경우
+		else {
+			list = contentsService.sContentsHighAvgStars();
+		}
+		return list;
+		
+	}
+	//최다등록평점컨텐츠
+	@RequestMapping("getContentsHighCommentsCountList.do")
+	@ResponseBody
+	public List<ContentsVO> getContentsHighCommentsCountList(){
+		List<ContentsVO> list = new ArrayList<ContentsVO>();
+		MemberVO memberVO = new MemberVO();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		//로그인된 경우
+		if(!(auth instanceof AnonymousAuthenticationToken)) {
+			memberVO=(MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			list = contentsService.sContentsHighCommentsCountLogin(memberVO.getId());
+		}
+		//비로그인인 경우
+		else {
+			list = contentsService.sContentsHighCommentsCount();
+		}
+		return list;
+		
 	}
 }

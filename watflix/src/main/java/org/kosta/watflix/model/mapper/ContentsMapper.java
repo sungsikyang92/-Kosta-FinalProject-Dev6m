@@ -19,9 +19,10 @@ public interface ContentsMapper {
 	List<ContentsVO> mGetAllContentsList();
 	List<ContentsVO> mGetContentsAllForTypeAndGenre(Map<String,String> map);
 	List<ContentsVO> mGetContentsAllForType(Map<String,String> map);
-	List<ContentsVO> mGetContentsAllForTypeLogin(@Param("id")String id,@Param("map")Map<String,String> map);
+	List<ContentsVO> mGetContentsAllForTypeLogin(@Param("map")Map<String,String> map,@Param("id")String id);
 	List<ContentsVO> mContentsHighHits();
 	List<ContentsVO> mContentsHighCommentsCount();
+	List<ContentsVO> mContentsHighCommentsCountLogin(String id);
 	List<ContentsVO> mContentsHighHitsLogin(String id);
 	List<ContentsVO> mContentsHighAvgStars();
 	List<ContentsVO> mContentsHighAvgStarsLogin(String id);
@@ -41,4 +42,9 @@ public interface ContentsMapper {
 	//컨텐츠 검색
 	List<GenreVO> mGenreSelectForTitle(String contentsTitle);
 	List<ContentsVO> mGetContentsSelectForTitle(String contentsTitle);
+	List<ContentsVO> mGetAllContentsListSortByNewLogin(@Param("map")Map<String, String> map, @Param("id")String id);
+	List<ContentsVO> mGetAllContentsListSortByOldLogin(@Param("map")Map<String, String> map, @Param("id")String id);
+	List<ContentsVO> mGetAllContentsForGenreListSortByNewLogin(@Param("map")Map<String, String> map, @Param("id")String id);
+	List<ContentsVO> mGetAllContentsForGenreListSortByOldLogin(@Param("map")Map<String, String> map, @Param("id")String id);
+	List<ContentsVO> mGetContentsAllForTypeAndGenreLogin(@Param("map")Map<String, String> map, @Param("id")String id);
 }
