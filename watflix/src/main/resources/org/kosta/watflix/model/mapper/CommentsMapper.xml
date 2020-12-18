@@ -31,7 +31,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	<!-- 내가 작성한 Comments 게시물 리스트 조회 -->
  	<select id="mMyCommentsGetAllList" resultMap="commentsBoardRM">
  		SELECT comments_no, id, contents_no, comments, comments_stars, comments_posted_time
-		FROM(SELECT row_number() over(order by comments_no desc) as rnum, comments_no, id, contents_no, comments, comments_stars, comments_posted_time
+		FROM(SELECT row_number() over(order by comments_no desc) as rnum, comments_no, id, contents_no, comments, comments_stars, TO_CHAR(comments_posted_time,'yyyy-mm-dd') as comments_posted_time 
 		FROM comments where id = #{id})
 		WHERE rnum BETWEEN #{pagingBean.startRowNumber} AND #{pagingBean.endRowNumber}
  	</select>
@@ -44,7 +44,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	</select>
  	<!-- 내가 작성한 Comments 게시물 전체 수 조회 -->
  	<select id="mMyCommentsGetTotalPostCount" parameterType="string" resultType="int">
- 		select count(*) from review where id=#{value}
+ 		select count(*) from comments where id=#{value}
  	</select>
  	
  	<!-- 해당 contents에 내가 쓴 comments 유무 확인 -->

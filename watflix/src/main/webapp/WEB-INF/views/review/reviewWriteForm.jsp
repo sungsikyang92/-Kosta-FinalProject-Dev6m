@@ -5,14 +5,22 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){	
-		$('#reviewTitle').keyup(function(){
-			if($(this).val().length>$(this).attr('maxlength')){
-				alert('제목 입력은 30자까지 가능합니다!');
-				$(this).val($(this).val().substr(0,$(this).attr('maxlength')));
+		$("#reviewTitle").keyup(function(){
+			if($(this).val().length>$(this).attr("maxlength")){
+				alert("제목 입력은 30자까지 가능합니다!");
+				$(this).val($(this).val().substr(0,$(this).attr("maxlength")));
 			}
 		});//keyup
 		$("#reviewWriteForm").submit(function(){
-			return confirm("리뷰를 등록 하시겠습니까?");
+			if($("#reviewTitle").val().trim() == ""){
+				alert("리뷰 제목 공란으로는 등록이 불가능합니다!");
+				return false;
+			}else if($("#reviewContents").val().trim() == ""){
+				alert("리뷰 내용 공란으로는 등록이 불가능합니다!")
+				return false;
+			}else{
+				return confirm("리뷰를 등록 하시겠습니까?");
+			}
 		});
 		$("#backToReviewList").click(function(){
 			if(confirm("리스트로 이동하시겠습니까?")){
@@ -35,9 +43,9 @@
 				<td><input type="text" name="reviewTitle" id="reviewTitle"  class="boardTitle" required="required" maxlength="30" placeholder="리뷰의 제목을 입력해주세요!"></td>
 			</tr>
 			<tr>
-				<td>내용</td>
+				<td class="boardCt">내용</td>
 				<td>
-					<textarea name="reviewContents" required="required" class="boardTextarea" name="reviewContents" placeholder="리뷰의 내용을 입력해주세요!"></textarea>
+					<textarea name="reviewContents" id="reviewContents" required="required" class="boardTextarea" name="reviewContents" placeholder="리뷰의 내용을 입력해주세요!"></textarea>
 				</td>
 			</tr>
 			<tr>			
