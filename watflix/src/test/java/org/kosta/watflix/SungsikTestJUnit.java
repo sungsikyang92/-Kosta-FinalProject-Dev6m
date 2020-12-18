@@ -7,8 +7,9 @@ import org.junit.runner.RunWith;
 import org.kosta.watflix.model.mapper.ReviewLikeMapper;
 import org.kosta.watflix.model.mapper.ReviewMapper;
 import org.kosta.watflix.model.service.ReviewService;
+import org.kosta.watflix.model.vo.ContentsVO;
+import org.kosta.watflix.model.vo.GenreVO;
 import org.kosta.watflix.model.vo.MemberVO;
-import org.kosta.watflix.model.vo.ReviewLikeVO;
 import org.kosta.watflix.model.vo.ReviewVO;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -67,7 +68,7 @@ public class SungsikTestJUnit {
 		reviewMapper.mReviewWrite(reviewVO2);
 		*/
 		//리뷰등록 테스트3
-	/*		for(int i = 0; i<40; i++) {
+			for(int i = 0; i<40; i++) {
 			ReviewVO reviewVO = new ReviewVO();
 			reviewVO.setReviewTitle("TestReview"+i);
 			reviewVO.setReviewContents("리뷰콘텐츠테스트"+i);
@@ -78,9 +79,9 @@ public class SungsikTestJUnit {
 			memberVO.setEmail("gmail");
 			reviewVO.setMemberVO(memberVO);
 			ContentsVO contentsVO = new ContentsVO();
-			contentsVO.setContentsNo("80204465");
-			contentsVO.setContentsTitle("프로젝트 파워");
-			contentsVO.setContentsType("액션 & 어드벤처");
+			contentsVO.setContentsNo("81171201");
+			contentsVO.setContentsTitle("블러드 샷");
+			contentsVO.setContentsType("SF & 판타지");
 			reviewVO.setContentsVO(contentsVO);
 			GenreVO genreVO=new GenreVO();
 			genreVO.setGenreCode("1568");
@@ -117,7 +118,7 @@ public class SungsikTestJUnit {
 			System.out.println(reviewMapper.mGetTotalReviewCount());	
 		}
 
-*/
+
 		/*
 
 		int reviewTotalCountByContentsNo = reviewMapper.mGetContentsReviewCount("70297757");

@@ -45,8 +45,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select qna_answer_seq.nextval from dual
 	</selectKey>
 	insert into QNA_ANSWER(QNA_ANSWER_NO,ID,QNA_ANSWER_CONTENTS,QNA_NO)
-	values(#{answerNo},#{memberVO.id},#{answerContents},#{qnaNo})
+	values(#{qnaAnswerNo},#{memberVO.id},#{qnaAnswerContents},#{qnaVO.qnaNo})
 	</insert>
+	
+	<!-- QnAAnswer용 resultMap -->
+	<resultMap type="qnAAnswerVO" id="qnAAnswerRM">
+		<result property="memberVO.id" column="id"/>
+		<result property="qnaVO.qnaNo" column="qna_no"/>
+	</resultMap>
+	
+	<!-- 각 QnA 별 QnAAnswer 수 조회  -->
+	<select id="mQnAAnswerCountByQnANo" parameterType="int" resultType="int">
+		SELECT COUNT(*) FROM qna_answer WHERE qna_no=#{qnaNo}
+	</select>
+	<!-- 각 QnA 별 QnAAnswer 조회 -->
+	<select id="mQnAAnswerByQnANo" resultMap="qnAAnswerRM">
+		SELECT qna_answer_no, qna_answer_contents, qna_answer_posted_time, qna_no, id
+		FROM(SELECT ROW_NUMBER() OVER(ORDER BY qna_answer_no DESC) AS rnum, qna_answer_no, qna_answer_contents, qna_answer_posted_time, qna_no, id FROM qna_answer WHERE qna_no=#{qnaNo})
+		WHERE rnum BETWEEN #{pagingBean.startRowNumber} AND #{pagingBean.endRowNumber}
+	</select>
  </mapper>
  
  

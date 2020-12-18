@@ -3,9 +3,9 @@ package org.kosta.watflix.model.service;
 import javax.annotation.Resource;
 
 import org.kosta.watflix.model.mapper.QnAMapper;
+import org.kosta.watflix.model.vo.QnAAnswerListVO;
 import org.kosta.watflix.model.vo.QnAAnswerVO;
 import org.kosta.watflix.model.vo.QnAListVO;
-import org.kosta.watflix.model.vo.QnATypeVO;
 import org.kosta.watflix.model.vo.QnAVO;
 import org.springframework.stereotype.Service;
 @Service
@@ -60,7 +60,23 @@ public class QnAServiceImpl implements QnAService {
 	// QnA 답변 작성
 	@Override
 	public void sQnAAnswerWrite(QnAAnswerVO qnaAnswerVO) {
-		
+		qnaMapper.mQnAAnswerWrite(qnaAnswerVO);
+	}
+	
+	// 각 QnA 별 QnAAnswer 조회
+	@Override
+	public QnAAnswerListVO sQnAAnswerByQnANo(int qnaNo, String pageNo) {
+		int totalAnswerCount = qnaMapper.mQnAAnswerCountByQnANo(qnaNo);
+		PagingBean pagingBean=null;
+		if(pageNo==null) {
+			pagingBean = new PagingBean(totalAnswerCount);
+		} else {
+			pagingBean = new PagingBean(totalAnswerCount, Integer.parseInt(pageNo));
+		}
+		System.out.println(qnaNo+","+pagingBean);
+		System.out.println(qnaMapper.mQnAAnswerByQnANo(qnaNo, pagingBean));
+		QnAAnswerListVO qnaAnswerListVO = new QnAAnswerListVO(qnaMapper.mQnAAnswerByQnANo(qnaNo, pagingBean), pagingBean);
+		return qnaAnswerListVO;
 	}
 
 

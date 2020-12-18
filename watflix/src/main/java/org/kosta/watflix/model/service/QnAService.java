@@ -1,5 +1,6 @@
 package org.kosta.watflix.model.service;
 
+import org.kosta.watflix.model.vo.QnAAnswerListVO;
 import org.kosta.watflix.model.vo.QnAAnswerVO;
 import org.kosta.watflix.model.vo.QnAListVO;
 import org.kosta.watflix.model.vo.QnAVO;
@@ -20,6 +21,8 @@ public interface QnAService {
 	void sQnADelete(int qnaNo);
 	// QnA 답변 작성
 	void sQnAAnswerWrite(QnAAnswerVO qnaAnswerVO);
+	// QnAAnswer 조회
+	QnAAnswerListVO sQnAAnswerByQnANo(int qnaNo, String pageNo);
 }
 
 
