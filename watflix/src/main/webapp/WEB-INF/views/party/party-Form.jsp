@@ -34,7 +34,7 @@ $(document).ready(function () {
 
 </script>
 
-<div class="tableMargin" id="commentsList">
+<div class="tableMargin">
 <div class="container-lg boardClassMain">
 <form action="${pageContext.request.contextPath}/partywrite.do" method="post">
 <sec:csrfInput/><!-- csrf 토큰 -->

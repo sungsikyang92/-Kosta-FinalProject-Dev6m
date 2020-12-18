@@ -32,7 +32,7 @@ function denote(member){
 }
 
 </script>
-
+<div class="tableMargin">
 <div class="container boardClassMain">
 	<nav class="nav nav-fill nav-pills" id="explore-tabs" role="tablist">
            <a class="nav-item nav-link active" id="pointHistoryCheck" data-toggle="pill" href="#" aria-selected="true">
@@ -105,4 +105,5 @@ function denote(member){
 			</div>
 		</div>
 	</div>
+</div>
 </div>

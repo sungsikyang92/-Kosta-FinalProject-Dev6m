@@ -6,6 +6,7 @@
 $(document).ready(function(){
 })//ready종료
 </script>
+<div class="tableMargin">
 <div class="container boardClassMain">
 <h2 align="center">주문내역</h2>  
   <div class="middleBox">       
@@ -57,4 +58,5 @@ $(document).ready(function(){
 			</div>
 		</div>
 	</div>
+</div>
 </div>

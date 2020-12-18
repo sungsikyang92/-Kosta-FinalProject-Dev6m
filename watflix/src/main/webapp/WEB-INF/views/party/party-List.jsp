@@ -60,7 +60,7 @@
 		})
 	})
 </script>
-<div class="tableMargin" id="commentsList">
+<div class="tableMargin">
 <div class="container-lg boardClassMain">
 <!-- 뒷백경 동영상-->
 <!-- <div style="position: fixed; z-index: -99; width: 100%; height: 100%">

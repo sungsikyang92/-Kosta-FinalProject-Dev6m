@@ -38,8 +38,11 @@
 <body>
 	<!-- Tiles header 영역 -->
 	<tiles:insertAttribute name="header" />
+	
+	<div class="layout-wrapper">
 	<!-- Tiles main 영역 -->
 	<tiles:insertAttribute name="main" />	
+	</div>
 	<!-- Tiles main 영역 -->
 	<tiles:insertAttribute name="footer" />
 	

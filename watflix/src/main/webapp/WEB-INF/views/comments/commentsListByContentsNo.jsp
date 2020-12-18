@@ -83,8 +83,8 @@
 	</sec:authorize>
 	<c:choose>
 	<c:when test="${requestScope.commentsListByContentsNo.list[0] == null}">
-		<div>현재 해당 컨텐츠에는 평점이 존재하지 않습니다.</div>
-		<div>첫 번째 평점을 남겨주세요!</div>
+		<br><span>현재 해당 컨텐츠에는 평점이 존재하지 않습니다.</span><br>
+		<span>첫 번째 평점을 남겨주세요!</span>
 		<button type="button" id="openCommentsWriteFormButton" style="width: 80px; float:right;">평점쓰기</button>
 	</c:when>
 	<c:otherwise>
