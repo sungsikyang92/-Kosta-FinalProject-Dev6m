@@ -23,7 +23,8 @@
 		});	//backToReviewDetail function
 	});	//ready
 </script>
-<div class="container-lg margin-top margin-bottom boardClassMain">
+<div class="tableMargin">
+<div class="container-lg boardClassMain">
   <h2>리뷰 수정하기</h2>           
 	<form action="${pageContext.request.contextPath}/reviewUpdate.do" method="post" id="reviewUpdateForm">
 		<sec:csrfInput/>
@@ -52,4 +53,5 @@
 			</tr>
 	  	</table>
 	</form>
+</div>
 </div>

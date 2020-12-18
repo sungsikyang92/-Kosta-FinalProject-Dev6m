@@ -25,18 +25,6 @@ public class ReportController {
 	@Resource
 	private ReportService reportService;
 	
-	// 신고 게시판(리뷰)
-	@RequestMapping("reportReviewBoard.do")
-	public ModelAndView reportReviewBoard(String pageNo) {
-		return new ModelAndView("report/report_review_board.tiles","reportReviewList",reportService.sGetReportReviewList(pageNo));
-	}
-	
-	// 신고 게시판(평점)
-	@RequestMapping("reportCommentsBoard.do")
-	public ModelAndView reportCommentsBoard(String pageNo) {
-		return new ModelAndView("report/report_comments_board.tiles","reportCommentsList",reportService.sGetReportCommentsList(pageNo));
-	}
-	
 	// 신고 from(리뷰, 평점)으로 이동
 	@RequestMapping("reportForm.do")
 	public ModelAndView reportReviewForm() {

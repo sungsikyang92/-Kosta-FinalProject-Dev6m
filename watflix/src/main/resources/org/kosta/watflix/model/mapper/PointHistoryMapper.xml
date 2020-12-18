@@ -9,12 +9,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="reviewVO.reviewTitle" column="review_title"/>
 		<result property="reviewVO.reviewNo" column="review_no"/>
 		<result property="reviewVO.contentsVO.contentsTitle" column="contents_title"/>
-		<result property="reviewVO.contentsVO.contentsNo" column="contents_no"/>
 		<!-- 평점정보담기  -->
 		<result property="commentsVO.commentsNo" column="comments_no"/>
 		<result property="commentsVO.comments" column="comments"/>
 		<result property="commentsVO.contentsVO.contentsTitle" column="contents_title"/>
-		<result property="commentsVO.contentsVO.contentsNo" column="contents_no"/>
+		<!-- 컨텐츠 정보담기  -->
+		<result property="contentsVO.contentsNo" column="contents_no"/>
+		<result property="contentsVO.contentsTitle" column="contents_title"/>
 		<!-- 주문내역 -->
 		<result property="productOrderVO.orderNo" column="order_no"/>		
 	</resultMap>
@@ -27,8 +28,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 사용자에 따른 포인트 사용내역 리스트 출력 -->
 	<select id="mMemberPointHistoryCheck" resultMap="pointHistoryRM">
 		SELECT P.POINT_HISTORY_NO,P.ID,P.REVIEW_NO,(select REVIEW_TITLE from REVIEW where P.REVIEW_no=REVIEW_no) AS REVIEW_TITLE,
-      P.COMMENTS_NO,P.POINT,P.POINT_HISTORY_CONTENTS,P.CURRENT_TIME,P.ORDER_NO,
-      (select COMMENTS from COMMENTS where P.COMMENTS_no=COMMENTS_no) as COMMENTS
+      P.COMMENTS_NO,(select COMMENTS from COMMENTS where P.COMMENTS_no=COMMENTS_no) as COMMENTS,
+       NVL2((select C.CONTENTS_NO from REVIEW R,CONTENTS C where P.REVIEW_no=R.REVIEW_NO and C.CONTENTS_NO=R.CONTENTS_NO),
+      (select C.CONTENTS_NO from REVIEW R,CONTENTS C where P.REVIEW_no=R.REVIEW_NO and C.CONTENTS_NO=R.CONTENTS_NO), 
+      (select C.CONTENTS_NO from COMMENTS M,CONTENTS C where P.COMMENTS_no=M.COMMENTS_NO and C.CONTENTS_NO=M.CONTENTS_NO)) AS CONTENTS_NO,
+      NVL2((select C.CONTENTS_TITLE from REVIEW R,CONTENTS C where P.REVIEW_no=R.REVIEW_NO and C.CONTENTS_NO=R.CONTENTS_NO),
+       (select C.CONTENTS_TITLE from REVIEW R,CONTENTS C where P.REVIEW_no=R.REVIEW_NO and C.CONTENTS_NO=R.CONTENTS_NO),
+       (select C.CONTENTS_TITLE from COMMENTS M,CONTENTS C where P.COMMENTS_no=M.COMMENTS_NO and C.CONTENTS_NO=M.CONTENTS_NO)) AS CONTENTS_TITLE,
+      P.POINT,P.POINT_HISTORY_CONTENTS,P.CURRENT_TIME,P.ORDER_NO
       FROM (SELECT ROW_NUMBER() OVER(ORDER BY POINT_HISTORY_NO DESC) AS RNUM,
       POINT_HISTORY_NO,ID,REVIEW_NO,COMMENTS_NO,ORDER_NO,
       POINT,POINT_HISTORY_CONTENTS,CURRENT_TIME FROM POINT_HISTORY WHERE ID=#{id}) P where
@@ -40,8 +47,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		<selectKey keyProperty="pointHistoryNo" resultType="int" order="BEFORE">
  			SELECT POINT_HISTORY_SEQ.NEXTVAL FROM DUAL
  		</selectKey>
- 		INSERT INTO POINT_HISTORY(POINT_HISTORY_NO,ID,REVIEW_NO,POINT,POINT_HISTORY_CONTENTS)
- 		VALUES(#{pointHistoryNo},#{id},#{reviewNo},15,'리뷰작성으로 포인트 적립')
+ 		INSERT INTO POINT_HISTORY(POINT_HISTORY_NO,ID,REVIEW_NO,CONTENTS_NO,POINT,POINT_HISTORY_CONTENTS)
+ 		VALUES(#{pointHistoryNo},#{id},#{reviewNo},#{contentsNo},15,'리뷰작성으로 포인트 적립')
  	</insert>
  	
  	<!-- 평점글쓰기로 인한 포인트추가내역(10 포인트) -->
@@ -49,8 +56,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		<selectKey keyProperty="pointHistoryNo" resultType="int" order="BEFORE">
  			SELECT POINT_HISTORY_SEQ.NEXTVAL FROM DUAL
  		</selectKey>
- 		INSERT INTO POINT_HISTORY(POINT_HISTORY_NO,ID,COMMENTS_NO,POINT,POINT_HISTORY_CONTENTS)
- 		VALUES(#{pointHistoryNo},#{id},#{commentsNo},10,'평점작성으로 포인트 적립')
+ 		INSERT INTO POINT_HISTORY(POINT_HISTORY_NO,ID,COMMENTS_NO,CONTENTS_NO,POINT,POINT_HISTORY_CONTENTS)
+ 		VALUES(#{pointHistoryNo},#{id},#{commentsNo},#{contentsNo},10,'평점작성으로 포인트 적립')
  	</insert>
  	
  	<!-- 주문으로 인한 포인트감소내역 -->

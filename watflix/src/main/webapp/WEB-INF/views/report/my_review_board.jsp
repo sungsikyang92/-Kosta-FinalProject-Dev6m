@@ -1,59 +1,52 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-	<!-- ajax 페이징 -->
-	<script src="//code.jquery.com/jquery.min.js"></script>
-	<script type="text/javascript">
-		function reviewPaging(reviewPageNo){
-			// 테이블에 집어넣을 문자열 데이터 변수
-			var reviewTbody = "";
-			var reportTfoot ="";
-			$.ajax({
-				type: "get",
-				url: "${pageContext.request.contextPath}/myReviewList.do?pageNo="+reviewPageNo,
-				success:function(data){
-					//table의 tbody
-					for (var i = 0; i < data.reviewList.length; i++){
-						reviewTbody += "<tr>";
-							reviewTbody += "<th><a href=\"${pageContext.request.contextPath}/reviewDetailNoHits.do?reviewNo="+data.reviewList[i].reviewNo+"\">"+ data.reviewList[i].reviewTitle + "</a></th>";
-							reviewTbody += "<th>"+ data.reviewList[i].reviewPostedTime + "</th>";
-							reviewTbody += "<th>"+ data.reviewList[i].reviewLikes +"</th>";
-							reviewTbody += "<th>"+ data.reviewList[i].reviewHits +"</th>";
-						reviewTbody += "</tr>";
-					}
-					$("#reviewTbody").html(reviewTbody);
-					
-					// table 페이징
-					var startPageGroup = data.pagingBean.startPageOfPageGroup;
-					var endPageGroup = data.pagingBean.endPageOfPageGroup;
-					// 왼쪽 페이징 화살표
-					if (data.pagingBean.previousPageGroup){
-						reportTfoot += "<li><a href=\"#\" onclick=\"reviewPaging("+ (startPageGroup -1) +");return false;\">&laquo;</a></li>";
-					}
-					// 페이징 번호
-					for (var reviewPageNo = startPageGroup; reviewPageNo < endPageGroup + 1; reviewPageNo++){
-						if(data.pagingBean.nowPage != reviewPageNo){
-							reportTfoot += "<li><a href=\"#\" onclick=\"reviewPaging("+ reviewPageNo +");return false;\">"+ reviewPageNo +"</a></li>";
-						}else{
-							reportTfoot += "<li><a href=\"#\" onclick=\"return false\">"+ reviewPageNo +"</a></li>";
-						}
-					}
-					// 오른쪽 화살표 페이징
-					if(data.pagingBean.nextPageGroup){
-						reportTfoot += "<li><a href=\"#\" onclick=\"reviewPaging("+ (endPageGroup + 1) +");return false\">&raquo;</a></li>";
-					}
-					$("#reviewPaging").html(reportTfoot);
+<!-- ajax 페이징 -->
+<script type="text/javascript">
+	function reviewPaging(reviewPageNo){
+		// 테이블에 집어넣을 문자열 데이터 변수
+		var reviewTbody = "";
+		var reportTfoot ="";
+		$.ajax({
+			type: "get",
+			url: "${pageContext.request.contextPath}/myReviewList.do?pageNo="+reviewPageNo,
+			success:function(data){
+				//table의 tbody
+				for (var i = 0; i < data.reviewList.length; i++){
+					reviewTbody += "<tr>";
+						reviewTbody += "<th><a href=\"${pageContext.request.contextPath}/reviewDetailNoHits.do?reviewNo="+data.reviewList[i].reviewNo+"\">"+ data.reviewList[i].reviewTitle + "</a></th>";
+						reviewTbody += "<th>"+ data.reviewList[i].reviewPostedTime + "</th>";
+						reviewTbody += "<th>"+ data.reviewList[i].reviewLikes +"</th>";
+						reviewTbody += "<th>"+ data.reviewList[i].reviewHits +"</th>";
+					reviewTbody += "</tr>";
 				}
-			})
-		}
-	</script>
+				$("#reviewTbody").html(reviewTbody);
+				
+				// table 페이징
+				var startPageGroup = data.pagingBean.startPageOfPageGroup;
+				var endPageGroup = data.pagingBean.endPageOfPageGroup;
+				// 왼쪽 페이징 화살표
+				if (data.pagingBean.previousPageGroup){
+					reportTfoot += "<li><a href=\"#\" onclick=\"reviewPaging("+ (startPageGroup -1) +");return false;\">&laquo;</a></li>";
+				}
+				// 페이징 번호
+				for (var reviewPageNo = startPageGroup; reviewPageNo < endPageGroup + 1; reviewPageNo++){
+					if(data.pagingBean.nowPage != reviewPageNo){
+						reportTfoot += "<li><a href=\"#\" onclick=\"reviewPaging("+ reviewPageNo +");return false;\">"+ reviewPageNo +"</a></li>";
+					}else{
+						reportTfoot += "<li><a href=\"#\" onclick=\"return false\">"+ reviewPageNo +"</a></li>";
+					}
+				}
+				// 오른쪽 화살표 페이징
+				if(data.pagingBean.nextPageGroup){
+					reportTfoot += "<li><a href=\"#\" onclick=\"reviewPaging("+ (endPageGroup + 1) +");return false\">&raquo;</a></li>";
+				}
+				$("#reviewPaging").html(reportTfoot);
+			}
+		})
+	}
+</script>
+<div class="tableMargin">
 	<div class="container boardClassMain">
 	  <h2>리뷰리스트</h2>           
 	  <table class="table table-hover table-bordered" style="border-radius: 1.5px;">
@@ -98,5 +91,4 @@
 			</div>
 		</div>
 	</div>
-</body>
-</html>
+</div>

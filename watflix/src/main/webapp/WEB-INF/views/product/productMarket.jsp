@@ -15,7 +15,8 @@ $(document).ready(function(){
 	})
 })
 </script>
-<div class="container-lg margin-top margin-bottom boardClassMain">
+<div class="tableMargin">
+<div class="container-lg boardClassMain">
 	<div class="productListDiv">
  	 <h2 align="center">상품 리스트</h2>  
 	  <table class="table" style="border: none;" >
@@ -71,4 +72,5 @@ $(document).ready(function(){
 			</div>
 		</div>
 	</div>
+</div>
 </div>

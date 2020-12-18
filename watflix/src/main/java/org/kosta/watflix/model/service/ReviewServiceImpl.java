@@ -72,7 +72,7 @@ public class ReviewServiceImpl implements ReviewService {
 	public void sReviewWrite(ReviewVO reviewVO) {
 		reviewMapper.mReviewWrite(reviewVO);
 		memberMapper.mMemberPointUpdate(reviewVO.getMemberVO());
-		pointHistoryMapper.mPointHistoryAddWithReview(reviewVO.getReviewNo(), reviewVO.getMemberVO().getId());
+		pointHistoryMapper.mPointHistoryAddWithReview(reviewVO.getReviewNo(), reviewVO.getMemberVO().getId(),reviewVO.getContentsVO().getContentsNo());
 		System.out.println("히스토리에넣음");
 	}
 	

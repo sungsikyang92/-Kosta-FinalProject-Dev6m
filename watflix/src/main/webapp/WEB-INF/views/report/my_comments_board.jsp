@@ -86,8 +86,8 @@ function commentsPostPaging(commentsListVO){
 					})
 				}
 	</script>
-	<div class="tableMargin" id="commentsList">
-	<div class="container-lg boardClassMain" style="margin-top: 100px">
+	<div class="tableMargin">
+	<div class="container-lg boardClassMain">
 	  <h2>평점리스트</h2>           
 	  <table class="table table-hover table-bordered" id="commentsTbody" style="border-radius: 1.5px;">
 	<sec:authorize access="hasRole('ROLE_MEMBER')">

@@ -70,7 +70,7 @@ public class CommentsServiceImpl implements CommentsService {
 		// 컨트롤러에서 전달받은 memberVO의 point(신규 평점 작성으로 증가한 point)를 member테이블의 point에 저장한다. 
 		memberMapper.mMemberPointUpdate(commentsVO.getMemberVO());
 		// 컨트롤러에서 전달받은 commentsNo와 id로 history에 넣는다.
-		pointHistoryMapper.mPointHistoryAddWithComments(commentsVO.getCommentsNo(), commentsVO.getMemberVO().getId());
+		pointHistoryMapper.mPointHistoryAddWithComments(commentsVO.getCommentsNo(), commentsVO.getMemberVO().getId(),commentsVO.getContentsVO().getContentsNo());
 		// 평균 별점 관련
 	}
 	// contents 별 comments_star 총합 조회
