@@ -1,5 +1,6 @@
 package org.kosta.watflix;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -21,8 +22,10 @@ import org.kosta.watflix.model.service.QnAService;
 import org.kosta.watflix.model.service.ReportService;
 import org.kosta.watflix.model.service.ReviewLikeService;
 import org.kosta.watflix.model.service.ReviewService;
+import org.kosta.watflix.model.vo.CommentsVO;
 import org.kosta.watflix.model.vo.ContentsVO;
 import org.kosta.watflix.model.vo.MemberVO;
+import org.kosta.watflix.model.vo.ReviewVO;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -30,7 +33,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(locations= {"file:src/main/webapp/WEB-INF/spring-model.xml","file:src/main/webapp/WEB-INF/spring-security.xml"})
 public class InputTestJUnit {
 	@Resource
-	private CommentsService commetsService;
+	private CommentsService commentsService;
 	@Resource
 	private ContentsLikeService contentsLlikeService;
 	@Resource
@@ -64,8 +67,7 @@ public class InputTestJUnit {
 	public void inputData() {
 		MemberVO memberVO = new MemberVO();
 		memberVO.setAgreement("");
-		//*/
-		// 관리자 계정 (관리자 권한은 sql 쿼리 직접 입력
+		//*/관리자 계정 
 		memberVO.setId("admin");
 		memberVO.setPassword("admin");
 		memberVO.setName("admin");
@@ -74,32 +76,89 @@ public class InputTestJUnit {
 		memberVO.setSex("남성");
 		memberVO.setEmail("admin@admin.com");
 		memberVO.setAddress("경기 성남시 분당구 대왕판교로 670");
-		//memberService.sMemberAdminRegister(memberVO);
+		memberService.sMemberAdminRegister(memberVO);
 		//*/
-		//*/
-		//계정 생성
+				
+		
+		//*/ 여러 개정 생성, 평점&리뷰 작성
+		// 회원 생성 정보
 		String id="java";
-		String Tel="010";
-		String birth="2020-12-";
-		//*/
+		ArrayList<String> sex = new ArrayList<String>();
+		sex.add("남성");
+		sex.add("여성");
+		ArrayList<String> address = new ArrayList<String>();
+		address.add("경기도");
+		address.add("강원도");
+		address.add("서울");
+		address.add("부산");
+		address.add("북한");
+		int createCount = 10; //생성할 회원 수
 		
-		
-		
-		
-		
-		/*
-		 * 더미데이터 넣을 때 사용
-		 * for(int i = 0; i<7 ; i++) { System.out.println(i % 3); }
-		 */
-		
-		/*/
-		// 전체 컨텐츠 리스트
+		// 컨텐츠 정보
 		List<ContentsVO> contentsList= contentsService.sGetAllContentsList();
-		for (int i=0; i < contentsList.size(); i++) {
-			System.out.println(contentsList.get(0).getContentsNo());
-		}
-		//*/
+		String contentsNo;
 		
+		// 평점 글 작성 정보
+		CommentsVO commentsVO = new CommentsVO();
+		ContentsVO contentsVO = new ContentsVO();
+		ArrayList<String> comments = new ArrayList<String>();
+		comments.add("재미 있어요.");
+		comments.add("볼만 합니다.");
+		comments.add("들렸다 가요~~~.");
+		comments.add("이제 마지막이 다가오고 있습니다. 모두 힘내세요!");
+		
+		// 리뷰 글 작성 정보
+		ReviewVO reviewVO = new ReviewVO();
+		ArrayList<String> reviewContents = new ArrayList<String>();
+		reviewContents.add("재미 있어요.");
+		reviewContents.add("볼만 합니다.");
+		reviewContents.add("들렸다 가요~~~.");
+		reviewContents.add("이제 마지막이 다가오고 있습니다. 모두 힘내세요!");
+		ArrayList<String> reviewTitle = new ArrayList<String>();
+		reviewTitle.add("추천합니다.");
+		reviewTitle.add("리뷰는 내 글이 가장 깔끔!");
+		reviewTitle.add("에 대해 객관적으로 작성함.");
+				
+		// 회원 생성후  평점,리뷰 작성 반복
+		for (int user=0; user < createCount; user++) {
+			// 회원 생성
+			memberVO.setId(id+user);
+			memberVO.setPassword("123");
+			memberVO.setName(id+user);
+			memberVO.setTel("010"+user);
+			memberVO.setBirth("2020-"+(user%12+1)+"-"+(user%28+1));
+			memberVO.setSex(sex.get(user%sex.size()));
+			memberVO.setEmail(id+user+"@"+id+user+".com");
+			memberVO.setAddress(address.get(user%address.size()));
+			memberService.sMemberRegister(memberVO);
+			
+			for (int i=0; i < contentsList.size(); i++) {
+				contentsNo =contentsList.get(i).getContentsNo();
+				
+				// 평점 작성
+				memberVO.setPoint(memberVO.getPoint()+10);
+				commentsVO.setMemberVO(memberVO);
+				commentsVO.setComments(comments.get((i+user) % comments.size()));
+				commentsVO.setCommentsStars((i+user) % 10 + 1);
+				contentsVO.setContentsNo(contentsNo);
+				commentsVO.setContentsVO(contentsVO);
+				//평점 작성
+				commentsService.sCommentsWrite(commentsVO);
+				// 평균 별점을 입력한다.
+				contentsService.sUpdateAvgStar((float)commentsService.sSumCommentsStars(contentsNo)/(float)commentsService.sCommentsGetTotalPostCountByContentNo(contentsNo), contentsNo);
+				
+				// 리뷰 작성
+				memberVO.setPoint(memberVO.getPoint()+15);
+				reviewVO.setMemberVO(memberVO);
+				reviewVO.setReviewContents(reviewContents.get((i+user)%reviewContents.size()));
+				reviewVO.setReviewTitle(reviewTitle.get((i+user)%reviewTitle.size()));
+				contentsVO.setContentsNo(contentsNo);
+				reviewVO.setContentsVO(contentsVO);
+				//리뷰 작성
+				reviewService.sReviewWrite(reviewVO);
+			}
+		}
+		//*/		
 		
 	}
 }

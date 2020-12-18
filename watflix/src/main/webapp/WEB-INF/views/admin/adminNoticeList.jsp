@@ -8,7 +8,7 @@
 		// 공지사항 게시글 작성 폼으로 이동하는 메소드
 		//작성폼에서 목록으로 돌아올 경우 원래 보던 페이지로 돌아오도록 페이지 번호를 넘긴다.
 		$("#noticeWriteButton").click(function(){
-			location.href="noticeWriteForm.do?pageNo=${requestScope.noticeList.pagingBean.nowPage}";
+			location.href="noticeWriteFormAdmin.do?pageNo=${requestScope.noticeList.pagingBean.nowPage}";
 		})
 		// 게시물 전체 선택 (삭제) checkAll아이디를 가지고 있는 체크박스가 선택되어있으면 다른 체크박스도 선택 상태로
 		// 체크되어있지 않으면 다른 체크박스도 비 선택 상태로 만든다.
@@ -62,7 +62,7 @@
 			<td>
 				<!-- 공지사항 자세히 보기 링크 페이지 넘버를 함께 넘겨 목록으로 돌아가거나
 				삭제 후 해당 게시물이 위치하던 페이지로 돌아갈 수 있도록 한다.-->
-				<a href="${pageContext.request.contextPath}/noticeDetail.do?noticeNo=${noticeList.noticeNo}
+				<a href="${pageContext.request.contextPath}/noticeDetailAdmin.do?noticeNo=${noticeList.noticeNo}
 				&pageNo=${requestScope.noticeList.pagingBean.nowPage}">${noticeList.noticeTitle}</a>
 			</td>
 			<td>${noticeList.memberVO.id}</td>
@@ -85,12 +85,12 @@
 	<c:set var="pagingBean" value="${requestScope.noticeList.pagingBean}"></c:set>
 		<ul class="pagination">
 		<c:if test="${pagingBean.previousPageGroup}">
-		<li><a href="${pageContext.request.contextPath}/getNoticeList.do?pageNo=${pagingBean.startPageOfPageGroup-1}">&laquo;</a></li>
+		<li><a href="${pageContext.request.contextPath}/getNoticeListAdmin.do?pageNo=${pagingBean.startPageOfPageGroup-1}">&laquo;</a></li>
 		</c:if>
 		<c:forEach var="i" begin="${pagingBean.startPageOfPageGroup}" end="${pagingBean.endPageOfPageGroup}">
 			<c:choose>
 				<c:when test="${pagingBean.nowPage!=i}">
-					<li><a href="${pageContext.request.contextPath}/getNoticeList.do?pageNo=${i}">${i}</a></li>
+					<li><a href="${pageContext.request.contextPath}/getNoticeListAdmin.do?pageNo=${i}">${i}</a></li>
 				</c:when>
 				<c:otherwise>
 					<li class="active"><a href="#">${i}</a></li>
@@ -98,7 +98,7 @@
 			</c:choose>
 		</c:forEach>
 		<c:if test="${pagingBean.nextPageGroup}">
-			<li><a href="${pageContext.request.contextPath}/getNoticeList.do?pageNo=${pagingBean.endPageOfPageGroup+1}">&raquo;</a></li>
+			<li><a href="${pageContext.request.contextPath}/getNoticeListAdmin.do?pageNo=${pagingBean.endPageOfPageGroup+1}">&raquo;</a></li>
 		</c:if>
 	</ul>
 </div><!-- pagingInfo -->

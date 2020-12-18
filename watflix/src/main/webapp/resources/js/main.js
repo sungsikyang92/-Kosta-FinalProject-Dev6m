@@ -61,3 +61,4 @@ $(document).ready(function() {
     $('.ui-slider-handle:eq(1)').append('<span class="price-range-max value">' + $('#slider').slider('values', 1 ) + '</span>');
 
 });
+
