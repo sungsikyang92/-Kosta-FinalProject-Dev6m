@@ -258,3 +258,38 @@ a, a:hover {
 .boardTitleFaQ{
 	width:100%;
 }
+.th_titleFaQ{
+	text-align: left;
+	width:66%;
+}
+.th_authorFaQ{
+	text-align: center;
+	width:10%;
+}
+.th_dateFaQ{
+	text-align: center;
+	width:10%;
+}
+.th_likesFaQ{
+	width:7%;
+	text-align: center;
+}
+.th_hitsFaQ{
+	width:7%;
+	text-align: center;
+}
+.td_titleFaQ{
+}
+.td_authorFaQ{
+	text-align: center;
+}
+.td_dateFaQ{
+	font-size: 8px;
+	text-align: center;
+}
+.td_likesFaQ{
+	text-align: center;
+}
+.td_hitsFaQ{
+	text-align: center;
+}

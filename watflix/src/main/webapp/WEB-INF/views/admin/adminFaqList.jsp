@@ -8,19 +8,19 @@
 		<table class="table table-hover table-bordered" style="border-radius: 1.5px;">
 			<thead>
 				<tr>
-					<th>제목</th>
-					<th>조회수</th>
-					<th>공지시간</th>
-					<th>작성자</th>
+					<th class="th_titleFaQ">제목</th>
+					<th class="th_hitsFaQ">조회수</th>
+					<th class="th_dateFaQ">공지시간</th>
+					<th class="th_authorFaQ">작성자</th>
 				</tr>
 			</thead>
 			<tbody>
 			<c:forEach var="fvo" items="${requestScope.faqListVO.faqList}">
 				<tr>
-					<td><a href="${pageContext.request.contextPath}/faqDetailNoHitsForAdmin.do?faqNo=${fvo.faqNo}">${fvo.faqTitle}</a></td>
-					<td>${fvo.faqHits}</td>
-					<td>${fvo.faqPostedTime}</td>
-					<td>${fvo.memberVO.id}</td>
+					<td class="td_titleFaQ"><a href="${pageContext.request.contextPath}/faqDetailNoHitsForAdmin.do?faqNo=${fvo.faqNo}">${fvo.faqTitle}</a></td>
+					<td class="td_hitsFaQ">${fvo.faqHits}</td>
+					<td class="td_dateFaQ">${fvo.faqPostedTime}</td>
+					<td class="th_authorFaQ">${fvo.memberVO.id}</td>
 				</tr>
 			</c:forEach>
 			</tbody>
