@@ -11,37 +11,37 @@
 <title>QnA List</title>
 </head>
 <body>
-<form >
-<div class="container-lg">
-<hr>
-<hr>
+<div class="tableMargin">
+<div class="container-lg boardClassMainQnA">
 	<h2>QnA 1:1문의</h2>
+<form>
 <table class="table table-hover">
 	<thead>
 		<tr>
 			<th class="qnaNo">NO</th>
-			<th class="qnaTitle"></th>
-			<th class="qnaWriter"></th>
-			<th class="qnaPostedTime"></th>
+			<th class="qnaTitle">제목</th>
+			<th class="qnaWriter">작성자</th>
+			<th class="qnaPostedTime">작성일</th>
 		</tr>
 	</thead>
 	<tbody>
 		<c:forEach var="qvo" items="${requestScope.lvo.qnaList}">
 			<tr>
 				<td>${qvo.qnaNo}</td>
-				<td><a href="${pageContext.request.contextPath}/qnaDetail.do?qnaNo=${qvo.qnaNo}">${qvo.qnaTitle}</a></td>
+				<td><a href="${pageContext.request.contextPath}/qnaDetail.do?qnaNo=${qvo.qnaNo}" style="color:black">${qvo.qnaTitle}</a></td>
 				<td>${qvo.memberVO.id}</td>
 				<td>${qvo.qnaPostedTime}</td>
 			</tr>
 		</c:forEach>
 	</tbody>
 </table>
-</div>
+
 <div class="qnaWriteBtn">
 <a href="${pageContext.request.contextPath}/qnaWriteForm.do"><input type="button" value="1:1문의 작성" ></a>
 </div>
 </form>
-
+</div>
+</div>
 <div class="pagingInfo">
 	<%-- 코드를 줄이기 위해 pb 변수에 pagingBean을 담는다. --%>
 	<c:set var="pb" value="${requestScope.lvo.pagingBean}"></c:set>

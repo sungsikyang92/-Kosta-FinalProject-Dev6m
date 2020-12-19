@@ -78,13 +78,14 @@ public class InputTestJUnit {
 		memberVO.setSex("남성");
 		memberVO.setEmail("admin@admin.com");
 		memberVO.setAddress("경기 성남시 분당구 대왕판교로 670");
+		memberVO.setAgreement("동의");
 		memberService.sMemberAdminRegister(memberVO);
 		//*/
 				
 		
 		//*/ 여러 개정 생성, 평점&리뷰 작성
 		// 회원 생성 정보
-		String id="java";
+		String id="Fuze";
 		ArrayList<String> sex = new ArrayList<String>();
 		sex.add("남성");
 		sex.add("여성");
@@ -137,7 +138,7 @@ public class InputTestJUnit {
 		int reportCount = 0;
 		
 		// 회원 생성후  평점,리뷰 작성 반복 진행
-		for (int user=0; user < createCount; user++) {
+		for (int user=0; user < 100; user++) {
 			// 회원 생성
 			memberVO.setId(id+user);
 			memberVO.setPassword("123");
