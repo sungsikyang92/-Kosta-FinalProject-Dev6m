@@ -30,7 +30,9 @@
 </table>
 </form>
 <div class="faqWriteBtn">
+<sec:authorize access="hasRole('ROLE_ADMIN')">
 <a href="${pageContext.request.contextPath}/faqWriteForm.do"><input type="button" value="FAQ 작성" ></a>
+</sec:authorize>
 </div>
 
 <div class="boardBottomDiv" style="width: 50%;"> 
