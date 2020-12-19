@@ -12,10 +12,10 @@
 			}
 		});//keyup
 		$("#faqWriteForm").submit(function(){
-			return confirm("리뷰를 등록 하시겠습니까?");
+			return confirm("FAQ를 등록 하시겠습니까?");
 		});
 		$("#backToFaqList").click(function(){
-			if(confirm("리스트로 이동하시겠습니까?")){
+			if(confirm("FAQ 목록으로 이동하시겠습니까?")){
 			return location.href='${pageContext.request.contextPath}/adminFaqList.do'
 			}else{
 				return;
