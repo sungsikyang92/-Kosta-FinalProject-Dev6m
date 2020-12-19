@@ -25,7 +25,7 @@
 		})
 	}
 	function writeAndGetAnswer(){
-		alert($("#answerContents").val());
+		alert("답변을 작성하시겠습니까?");
 		var answerContents = $("#answerContents").val();
 		var qnaNo = ${requestScope.qvo.qnaNo};
 		
@@ -138,10 +138,10 @@
 <%-- <input type="hidden" name="qnaNo" value="${requestScope.qvo.qnaNo}">
 <input type="submit" class="btn" value="답변작성">
 </form> --%>
-<button type="button" onclick="writeAndGetAnswer()">답변작성</button>
-<button class="btn" form="qnaDelete" type="submit" id="qna-delete-btn" >삭제</button>
+<button  class="btn-listFaQ btnFaQ boardDetailBtnFaQ" type="button" onclick="writeAndGetAnswer()">답변작성</button>
+<button class="btn-listFaQ btnFaQ boardDetailBtnFaQ" form="qnaDelete" type="submit" id="qna-delete-btn" >삭제</button>
 </sec:authorize>
-<button class="btn" id="qnaListBtn" onclick="qnaListBtn()">내 문의 목록 보기</button>
+<button class="btn-listFaQ btnFaQ boardDetailBtnFaQ" id="qnaListBtn" onclick="qnaListBtn()">내 문의 목록 보기</button>
 <br><br>
 </div>
 <!-- qna 삭제? -->
