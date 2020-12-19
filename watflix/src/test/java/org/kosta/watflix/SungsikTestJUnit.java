@@ -6,11 +6,23 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kosta.watflix.model.mapper.ReviewLikeMapper;
 import org.kosta.watflix.model.mapper.ReviewMapper;
+import org.kosta.watflix.model.service.CommentsService;
+import org.kosta.watflix.model.service.ContentsLikeService;
+import org.kosta.watflix.model.service.ContentsService;
+import org.kosta.watflix.model.service.FaqService;
+import org.kosta.watflix.model.service.MemberService;
+import org.kosta.watflix.model.service.NoticeService;
+import org.kosta.watflix.model.service.PartyService;
+import org.kosta.watflix.model.service.PointHistoryService;
+import org.kosta.watflix.model.service.ProductCategoryService;
+import org.kosta.watflix.model.service.ProductOrderService;
+import org.kosta.watflix.model.service.ProductService;
+import org.kosta.watflix.model.service.QnAService;
+import org.kosta.watflix.model.service.ReportService;
+import org.kosta.watflix.model.service.ReviewLikeService;
 import org.kosta.watflix.model.service.ReviewService;
-import org.kosta.watflix.model.vo.ContentsVO;
-import org.kosta.watflix.model.vo.GenreVO;
+import org.kosta.watflix.model.vo.CommentsVO;
 import org.kosta.watflix.model.vo.MemberVO;
-import org.kosta.watflix.model.vo.ReviewVO;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -18,11 +30,35 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(locations={"file:src/main/webapp/WEB-INF/spring-model.xml","file:src/main/webapp/WEB-INF/spring-security.xml"})
 public class SungsikTestJUnit {
 	@Resource
+	private CommentsService commentsService;
+	@Resource
+	private ContentsLikeService contentsLlikeService;
+	@Resource
+	private ContentsService contentsService;
+	@Resource
+	private FaqService faqService;
+	@Resource
+	private MemberService memberService;
+	@Resource
+	private NoticeService noticeService;
+	@Resource
+	private PartyService partyService;
+	@Resource
+	private PointHistoryService pointHitstoryService;
+	@Resource
+	private ProductCategoryService productCategoryService;
+	@Resource
+	private ProductService productService;
+	@Resource
+	private ProductOrderService productOrderService;
+	@Resource
+	private QnAService qnAService;
+	@Resource
+	private ReportService reportService;
+	@Resource
+	private ReviewLikeService reviewLikeService;
+	@Resource
 	private ReviewService reviewService;
-	@Resource
-	private ReviewMapper reviewMapper;
-	@Resource
-	private ReviewLikeMapper reviewLikeMapper;
 	
 	@Test
 	public void reviewUnitTest() {
@@ -68,7 +104,7 @@ public class SungsikTestJUnit {
 		reviewMapper.mReviewWrite(reviewVO2);
 		*/
 		//리뷰등록 테스트3
-			for(int i = 0; i<200; i++) {
+/*		for(int i = 0; i<200; i++) {
 //			ReviewVO reviewVO = new ReviewVO();
 //			reviewVO.setReviewTitle("TestReview"+i);
 //			reviewVO.setReviewContents("리뷰콘텐츠테스트"+i);
@@ -90,7 +126,7 @@ public class SungsikTestJUnit {
 //			contentsVO.setContentsSmallThumbnail("resources\\contents\\80204465\\S_프로젝트 파워.jpg");
 //			contentsVO.setContentsBigThumbnail("resources\\contents\\80204465\\B_프로젝트 파워.jpg ");
 //			reviewMapper.mReviewWrite(reviewVO);
-			
+		
 			ReviewVO reviewVO2 = new ReviewVO();
 			reviewVO2.setReviewTitle("TestReview"+i);
 			reviewVO2.setReviewContents("리뷰콘텐츠테스트"+i);
@@ -116,7 +152,7 @@ public class SungsikTestJUnit {
 			System.out.println("리뷰 table에 insert한다 뭐를? " + reviewVO2);
 			System.out.println(reviewMapper.mGetTotalReviewCount());	
 		}
-
+*/
 
 		/*
 
@@ -181,7 +217,19 @@ public class SungsikTestJUnit {
 		//리뷰좋아요 삭제 후
 		System.out.println(reviewLikeMapper.mReviewLikeExist(rvo));
 		*/
-		
+		for(int i = 0; i<200; i++) {
+			MemberVO memberVO = new MemberVO();
+			memberVO.setId("tiamo"+i);
+			memberVO.setPassword("123");
+			memberVO.setName("Dev6M");
+			memberVO.setTel("01065433948");
+			memberVO.setBirth("2020-1-1");
+			memberVO.setSex("남자");
+			memberVO.setEmail("tiamo"+i+"@gmail.com");
+			memberVO.setAddress(i+"우리집");
+			memberVO.setAgreement("동의");
+			memberService.sMemberRegister(memberVO);
+		}
 	}
 }
 	

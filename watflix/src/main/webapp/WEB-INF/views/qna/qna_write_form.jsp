@@ -12,36 +12,44 @@
 <title>1:1문의 작성</title>
 </head>
 <body>
+<div class="tableMargin">
+<div class="container-lg boardClassMain">
 	<div class="row">
 		<div class="col-lg-12">
-			<hr>
-			<hr>
 			<form action="${pageContext.request.contextPath}/qnaWrite.do"
 				method="post" id="qna_write">
 				<sec:csrfInput />
 				<!--  post 방식일 때 form안에 꼭 들어가 있어야 하는 토큰 -->
-				문의유형<select name="qnaTypeNo" id="QnAType">
-					<option value="1">포인트</option>
-					<option value="2">회원문의</option>
-				</select>
-				<table>
-					<tr>
-						<!-- name 의 "faqTitle"은 FaqVO에 있는 변수명  -->
-						<th>제목 <input type="text" name="qnaTitle"
-							placeholder="문의글 제목을 입력하세요" required="required">
-						</th>
-					</tr>
-					<tr>
-						<td><textarea cols="90" rows="15" name="qnaContents"
-								required="required" placeholder="문의내용을 입력하세요"></textarea></td>
-					</tr>
-				</table>
+				<h2>문의하기</h2><hr>
+				<table class="table table-bordered" style="border-radius: 1.5px;">
+				<tr>
+				<td class="QnACategory">유형</td>
+				<td>
+					<select name="qnaTypeNo" id="QnAType">
+						<option value="1">포인트</option>
+						<option value="2">회원문의</option>
+					</select>
+				</td>
+				</tr>
+				<tr>
+					<td class="boardTd">제목</td>
+					<td><input type="text" name="qnaTitle" id="qnaTitle"  class="boardTitle" required="required" maxlength="30" placeholder="문의글 제목을 입력해주세요!"></td>
+				</tr>
+				<tr>
+					<td class="boardCt">내용</td>
+					<td>
+						<textarea name="qnaContents" id="qnaContents" required="required" class="boardTextarea" placeholder="문의내용을 입력해주세요!"></textarea>
+					</td>
+				</tr>
+		  	</table>
 				<div class="btnArea">
-					<button type="submit" class="btn">확인</button>
-					<button type="reset" class="btn">취소</button>
+					<button type="submit" class="btn btn-default boardDetailBtn">확인</button>
+					<button type="reset" class="btn btn-default boardDetailBtn">취소</button>
 				</div>
 			</form>
 		</div>
+	</div>
+	</div>
 	</div>
 	<script type="text/javascript">
 		$(document).ready(function() {

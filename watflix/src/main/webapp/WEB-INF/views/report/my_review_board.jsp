@@ -15,9 +15,9 @@
 				for (var i = 0; i < data.reviewList.length; i++){
 					reviewTbody += "<tr>";
 						reviewTbody += "<th><a href=\"${pageContext.request.contextPath}/reviewDetailNoHits.do?reviewNo="+data.reviewList[i].reviewNo+"\">"+ data.reviewList[i].reviewTitle + "</a></th>";
-						reviewTbody += "<th>"+ data.reviewList[i].reviewPostedTime + "</th>";
-						reviewTbody += "<th>"+ data.reviewList[i].reviewLikes +"</th>";
-						reviewTbody += "<th>"+ data.reviewList[i].reviewHits +"</th>";
+						reviewTbody += "<th class="myReviewDateTd">"+ data.reviewList[i].reviewPostedTime + "</th>";
+						reviewTbody += "<th class="myReviewLikesTd">"+ data.reviewList[i].reviewLikes +"</th>";
+						reviewTbody += "<th class="myReviewHitsTd">"+ data.reviewList[i].reviewHits +"</th>";
 					reviewTbody += "</tr>";
 				}
 				$("#reviewTbody").html(reviewTbody);
@@ -52,10 +52,10 @@
 	  <table class="table table-hover table-bordered" style="border-radius: 1.5px;">
 	    <thead>
 	      <tr>
-			<th>제목</th>
-			<th>작성일</th>
-			<th>추천</th>
-			<th>조회</th>
+			<th class="myReviewTitle">제목</th>
+			<th class="myReviewDate">작성일</th>
+			<th class="myReviewLikes">추천</th>
+			<th class="myReviewHits">조회</th>
 	      </tr>
 	    </thead>
 	    <tbody id="reviewTbody">
@@ -63,9 +63,9 @@
 				<tr>
 					<!-- 리뷰제목 불러오기 -->
 					<td><a href="${pageContext.request.contextPath}/reviewDetail.do?reviewNo=${rvoc.reviewNo}">${rvoc.reviewTitle}</a></td>
-					<td>${rvoc.reviewPostedTime}</td>				<!-- 리뷰작성일 불러오기 -->
-					<td>${rvoc.reviewLikes}</td>					<!-- 리뷰추천수 불러오기 -->
-					<td>${rvoc.reviewHits}</td>						<!-- 리뷰조회수 불러오기 -->
+					<td class="myReviewDateTd">${rvoc.reviewPostedTime}</td>				<!-- 리뷰작성일 불러오기 -->
+					<td class="myReviewLikesTd">${rvoc.reviewLikes}</td>					<!-- 리뷰추천수 불러오기 -->
+					<td class="myReviewHitsTd">${rvoc.reviewHits}</td>						<!-- 리뷰조회수 불러오기 -->
 				</tr>	
 			</c:forEach>
 		</tbody>

@@ -45,7 +45,7 @@
 				<tr>
 					<td class="boardCt">내용</td>
 					<td>
-						<textarea name="reviewContents" id="reviewContents" required="required" class="boardTextarea" name="reviewContents" placeholder="리뷰의 내용을 입력해주세요!"></textarea>
+						<textarea name="reviewContents" id="reviewContents" required="required" class="boardTextarea" placeholder="리뷰의 내용을 입력해주세요!"></textarea>
 					</td>
 				</tr>
 				<tr>			
