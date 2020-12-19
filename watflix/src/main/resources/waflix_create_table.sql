@@ -329,4 +329,9 @@ drop table contents cascade constraint;
 drop table genre;
 drop table member cascade constraint;
 drop table acc_status cascade constraint;
-
+drop table product_category;
+drop table point_history;
+drop table pro_status;
+drop table qna;
+drop table qna_answer;
+drop table qna_type;

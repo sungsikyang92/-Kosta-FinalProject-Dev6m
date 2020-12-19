@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!-- 공지사항 게시판 목록 jsp -->
+<sec:authorize access="hasRole('ROLE_ADMIN')">
 <script>
 	$(document).ready(function(){
 		// 공지사항 게시글 작성 폼으로 이동하는 메소드
@@ -31,13 +32,11 @@
 		})
 	})
 </script>
+<div class="tableMargin">
 <div class="container boardClassMain">
 	<h4 style="display: inline-flex;">공지사항</h4>
-	<!-- 공지사항 게시글 작성 폼으로 이동하는 버튼, ROLE_ADMIN 권한을 가진 관리자에게만 노출한다. -->
-	<sec:authorize access="hasRole('ROLE_ADMIN')">
 	<!-- 자바스크립트 메소드를 호출한다. -->
 	<button type="button" id="noticeWriteButton" style="width: 66px; float: right;">글쓰기</button>
-	</sec:authorize>
 	<!-- 체크박스로 게시물들을 일괄 삭제하는 폼 자바스크립트를 거쳐 컨트롤러로 이동한다. -->
 	<form action="${pageContext.request.contextPath}/noticeDeleteByCheckbox.do"
 	id="deleteNoticeByCheckboxForm" method="post">
@@ -51,10 +50,8 @@
 			<td>아이디</td>
 			<td>작성일자</td>
 			<td>조회수</td>
-			<!-- 게시물을 일괄 삭제하는데 사용하는 체크박스 전체를 체크하거나 체크 해제하는 체크박스, 관리자에게만 노출된다. -->
-			<sec:authorize access="hasRole('ROLE_ADMIN')">
+			<!-- 게시물을 일괄 삭제하는데 사용하는 체크박스 전체를 체크하거나 체크 해제하는 체크박스 -->
 			<td><input type="checkbox" id="checkAll"></td>
-			</sec:authorize>
 		</tr>
 		<c:forEach items="${requestScope.noticeList.list}" var="noticeList">
 		<tr>
@@ -62,7 +59,7 @@
 			<td>
 				<!-- 공지사항 자세히 보기 링크 페이지 넘버를 함께 넘겨 목록으로 돌아가거나
 				삭제 후 해당 게시물이 위치하던 페이지로 돌아갈 수 있도록 한다.-->
-				<a href="${pageContext.request.contextPath}/noticeDetailAdmin.do?noticeNo=${noticeList.noticeNo}
+				<a href="${pageContext.request.contextPath}/noticeDetailNoHitsAdmin.do?noticeNo=${noticeList.noticeNo}
 				&pageNo=${requestScope.noticeList.pagingBean.nowPage}">${noticeList.noticeTitle}</a>
 			</td>
 			<td>${noticeList.memberVO.id}</td>
@@ -104,3 +101,5 @@
 </div><!-- pagingInfo -->
 </div><!-- boardBottomDiv -->
 </div><!-- container boardClassMain -->
+</div>
+</sec:authorize>

@@ -29,7 +29,7 @@
 	<form action="${pageContext.request.contextPath}/faqWrite.do" method="post" id="faqWriteForm">
 		<sec:csrfInput/>
 		<input type="hidden" name="contentsNo" value="${param.contentsNo}">
-	  	<table class="table table-bordered" style="border-radius: 1.5px;">
+		<table class="table table-bordered" style="border-radius: 1.5px;">
 			<tr>
 				<td class="boardTd">제목</td>
 				<td><input type="text" name="faqTitle" id="faqTitle"  class="boardTitle" required="required" maxlength="30" placeholder="FAQ의 제목을 입력해주세요!"></td>
