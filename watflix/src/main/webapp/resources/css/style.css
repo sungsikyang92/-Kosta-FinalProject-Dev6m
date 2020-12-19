@@ -1297,3 +1297,7 @@ li {
 	width: 10%;
 	text-align: center;
 }
+.qnaAnswerBtn{
+	width: 50px;
+	float: right;
+}
