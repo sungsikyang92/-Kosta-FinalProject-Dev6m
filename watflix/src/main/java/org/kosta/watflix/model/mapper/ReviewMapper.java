@@ -39,6 +39,8 @@ public interface ReviewMapper {
 	List<ReviewVO> mGetMyReviewList(@Param("id")String id, @Param("pagingBean")PagingBean pagingBean);
 	//내 총리뷰 수
 	int mGetMyTotalReviewCount(String id);
+	//해당 컨텐츠에 접속한 유저의 아이디로 작성된 review가 있는지 확인
+	int mCheckReviewExist(@Param("id")String id, @Param("contentsNo")String contentsNo);
 }
 
 

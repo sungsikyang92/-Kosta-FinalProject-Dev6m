@@ -72,7 +72,7 @@ public class ReviewServiceImpl implements ReviewService {
 	public void sReviewWrite(ReviewVO reviewVO) {
 		reviewMapper.mReviewWrite(reviewVO);
 		memberMapper.mMemberPointUpdate(reviewVO.getMemberVO());
-		pointHistoryMapper.mPointHistoryAddWithReview(reviewVO.getReviewNo(), reviewVO.getMemberVO().getId());
+		pointHistoryMapper.mPointHistoryAddWithReview(reviewVO.getReviewNo(), reviewVO.getMemberVO().getId(),reviewVO.getContentsVO().getContentsNo());
 		System.out.println("히스토리에넣음");
 	}
 	
@@ -131,6 +131,12 @@ public class ReviewServiceImpl implements ReviewService {
 		}
 		ReviewListVO reviewListVO = new ReviewListVO(reviewMapper.mGetMyReviewList(id, pagingBean), pagingBean);
 		return reviewListVO;
+	}
+
+	//해당 컨텐츠에 접속한 유저의 아이디로 작성된 review가 있는지 확인
+	@Override
+	public int sCheckReviewExist(String id, String contentsNo) {
+		return reviewMapper.mCheckReviewExist(id, contentsNo);
 	}
 
 

@@ -6,9 +6,9 @@
 <html>
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+
 <!-- title -->
-<title><tiles:insertAttribute name="title" ignore="true" /></title>
+<title><tiles:insertAttribute name="title" ignore="true"/></title>
 
 <!-- Bootstrap 4.4.1 -->
 <link rel="stylesheet" type="text/css"
@@ -21,11 +21,10 @@
 	href="${pageContext.request.contextPath}/resources/css/jquery-ui.css">
 <!-- Main CSS -->
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/css/style.css">
+	href="${pageContext.request.contextPath}/resources/css/homeStyle.css">
 <!-- jqeury -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
 
 <!-- FAVICONS -->
 <link rel="shortcut icon" type="image/x-icon"
@@ -34,33 +33,21 @@
 	href="${pageContext.request.contextPath}/resources/media/favicon/favicon-16x16.png">
 <link rel="shortcut icon" sizes="32x32"
 	href="${pageContext.request.contextPath}/resources/media/favicon/favicon-32x32.png">
-
-
 </head>
 
 <body>
-   
 	<!-- Tiles header 영역 -->
 	<tiles:insertAttribute name="header" />
-	<!-- Tiles main-contentsDetail 영역 -->
-	<tiles:insertAttribute name="main" />
-	<!-- Tiles main2-commentsListByContentsNO 영역 -->
-	<div class="layout-wrapper">
-	<tiles:insertAttribute name="main2" />
-	<!-- Tiles main3-reviewListByContentsNO 영역 -->
-	<tiles:insertAttribute name="main3" />
-	</div>
+	
+	<!-- Tiles main 영역 -->
+	<tiles:insertAttribute name="main" />	
 	<!-- Tiles main 영역 -->
 	<tiles:insertAttribute name="footer" />
-
-
 	
 	<script
 		src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 	<!-- JQuery UI -->
-	<script
-		src="${pageContext.request.contextPath}/resources/js/jquery-ui.min.js"
-		defer></script>
+	<script src="${pageContext.request.contextPath}/resources/js/jquery-ui.min.js" defer></script>
 	<!-- Pooper JS -->
 	<script
 		src="${pageContext.request.contextPath}/resources/js/popper.min.js"
@@ -74,7 +61,7 @@
 		src="${pageContext.request.contextPath}/resources/js/flickity.min.js"
 		defer></script>
 	<!-- Main JS -->
-	<script src="${pageContext.request.contextPath}/resources/js/main.js"
+	<script src="${pageContext.request.contextPath}/resources/js/homeMain.js"
 		defer></script>
 
 </body>

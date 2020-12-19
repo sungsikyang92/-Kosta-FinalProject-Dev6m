@@ -34,17 +34,19 @@ $(document).ready(function () {
 
 </script>
 
-<div class="tableMargin" id="commentsList">
+<div class="tableMargin">
 <div class="container-lg boardClassMain">
 <form action="${pageContext.request.contextPath}/partywrite.do" method="post">
 <sec:csrfInput/><!-- csrf 토큰 -->
-<br><br><br><br><br><br><br><br><br><br><br>
-<table border="1">
- <caption>파티 글 쓰는곳</caption>
-<tr>
-<td>이용권 종류를 선택해주세요:</td>
+ <h2>파티원 모집 등록하기</h2>  
+ <table class="table table-bordered" style="border-radius: 1.5px;">
+ <tr>
+	<td class="boardTd">제목</td>
+	<td><input type="text" name=partyTitle required="required" class="boardTitle" maxlength="30"  placeholder="제목을 입력해주세요!"></td>
 </tr>
-</table>
+ </table>
+제목:
+이용권 종류를 선택해주세요:
 
 <!-- 이용권 셀렉박스 -->
 <select name="membershipVO.membershipNo" id="membershipType" required >
@@ -59,7 +61,7 @@ $(document).ready(function () {
 <option>모집할 인원을 선택해주세요</option>
 </select>
 <br>
-제목:<input type="text" name=partyTitle required="required">
+
 <input type="submit" value="등록">
 </form>
 </div>

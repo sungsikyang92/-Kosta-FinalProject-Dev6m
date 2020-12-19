@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
-<div class="container-lg" style="margin-top: 90px">
+<div class="tableMargin">
+<div class="container-lg boardClassMain">
 		<sec:authorize access="hasRole('ROLE_ADMIN')">
 		<form method="post"
 		 action="${pageContext.request.contextPath}/noticeUpdate.do">
@@ -33,4 +34,5 @@
 		</table>
 		</form>
 		</sec:authorize>
+</div>
 </div>

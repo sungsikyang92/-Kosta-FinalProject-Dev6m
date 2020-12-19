@@ -9,7 +9,7 @@ $(document).ready(function() {
         if($(window).scrollTop() >= 50) {
             $('#navbar').css('background-color', '#141414');
         } else {
-            $('#navbar').css('background-color', '#141414');
+            $('#navbar').css('background-color', 'transparent');
         }
     }
 

@@ -14,7 +14,7 @@
 		// 공지글 목록으로 돌아가는 메소드
 		$("#backToNoticeList").click(function(){
 			if(confirm("리스트로 이동하시겠습니까?")){
-				return location.href="${pageContext.request.contextPath}/getNoticeList.do?pageNo=${requestScope.pageNo}";
+				return location.href="${pageContext.request.contextPath}/getNoticeListAdmin.do?pageNo=${requestScope.pageNo}";
 			}
 		})
 	})

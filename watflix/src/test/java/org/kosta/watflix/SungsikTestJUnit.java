@@ -68,36 +68,36 @@ public class SungsikTestJUnit {
 		reviewMapper.mReviewWrite(reviewVO2);
 		*/
 		//리뷰등록 테스트3
-			for(int i = 0; i<40; i++) {
-			ReviewVO reviewVO = new ReviewVO();
-			reviewVO.setReviewTitle("TestReview"+i);
-			reviewVO.setReviewContents("리뷰콘텐츠테스트"+i);
-			MemberVO memberVO = new MemberVO();
-			memberVO.setId("java");
-			memberVO.setPassword("$2a$10");
-			memberVO.setName("앵앵앵");
-			memberVO.setEmail("gmail");
-			reviewVO.setMemberVO(memberVO);
-			ContentsVO contentsVO = new ContentsVO();
-			contentsVO.setContentsNo("81171201");
-			contentsVO.setContentsTitle("블러드 샷");
-			contentsVO.setContentsType("SF & 판타지");
-			reviewVO.setContentsVO(contentsVO);
-			GenreVO genreVO=new GenreVO();
-			genreVO.setGenreCode("1568");
-			contentsVO.setGenreVO(genreVO);
-			contentsVO.setContentsSummary("소령이라 불리는 남자, 10대 소녀, 경찰. 이들이 뉴올리언스에서 얽힌다. 5분간 초능력을 발휘할 수 있는 약. 도시 전체를 혼돈에 빠트린 파워의 출처를 뒤쫓으면서.");
-			contentsVO.setContentsSmallThumbnail("resources\\contents\\80204465\\S_프로젝트 파워.jpg");
-			contentsVO.setContentsBigThumbnail("resources\\contents\\80204465\\B_프로젝트 파워.jpg ");
-			reviewMapper.mReviewWrite(reviewVO);
+			for(int i = 0; i<200; i++) {
+//			ReviewVO reviewVO = new ReviewVO();
+//			reviewVO.setReviewTitle("TestReview"+i);
+//			reviewVO.setReviewContents("리뷰콘텐츠테스트"+i);
+//			MemberVO memberVO = new MemberVO();
+//			memberVO.setId("java");
+//			memberVO.setPassword("$2a$10");
+//			memberVO.setName("앵앵앵");
+//			memberVO.setEmail("gmail");
+//			reviewVO.setMemberVO(memberVO);
+//			ContentsVO contentsVO = new ContentsVO();
+//			contentsVO.setContentsNo("81171201");
+//			contentsVO.setContentsTitle("블러드 샷");
+//			contentsVO.setContentsType("SF & 판타지");
+//			reviewVO.setContentsVO(contentsVO);
+//			GenreVO genreVO=new GenreVO();
+//			genreVO.setGenreCode("1568");
+//			contentsVO.setGenreVO(genreVO);
+//			contentsVO.setContentsSummary("소령이라 불리는 남자, 10대 소녀, 경찰. 이들이 뉴올리언스에서 얽힌다. 5분간 초능력을 발휘할 수 있는 약. 도시 전체를 혼돈에 빠트린 파워의 출처를 뒤쫓으면서.");
+//			contentsVO.setContentsSmallThumbnail("resources\\contents\\80204465\\S_프로젝트 파워.jpg");
+//			contentsVO.setContentsBigThumbnail("resources\\contents\\80204465\\B_프로젝트 파워.jpg ");
+//			reviewMapper.mReviewWrite(reviewVO);
 			
 			ReviewVO reviewVO2 = new ReviewVO();
 			reviewVO2.setReviewTitle("TestReview"+i);
 			reviewVO2.setReviewContents("리뷰콘텐츠테스트"+i);
 			MemberVO memberVO2 = new MemberVO();
 			memberVO2.setId("java");
-			memberVO2.setPassword("$2a$10");
-			memberVO2.setName("앵앵앵");
+			memberVO2.setPassword("$$2a$10$i2cyl1OhUeJ71PUTHozM9enjjiJ0rZVVjn/z7FVXnJA1pBi7gOUH2");
+			memberVO2.setName("강상훈");
 			memberVO2.setEmail("gmail");
 			reviewVO2.setMemberVO(memberVO2);
 			ContentsVO contentsVO2 = new ContentsVO();
@@ -107,13 +107,12 @@ public class SungsikTestJUnit {
 			reviewVO2.setContentsVO(contentsVO2);
 			GenreVO genreVO2=new GenreVO();
 			genreVO2.setGenreCode("1568");
-			contentsVO2.setGenreVO(genreVO);
+			contentsVO2.setGenreVO(genreVO2);
 			contentsVO2.setContentsSummary("특수 부대원 레이, 아내와 휴가를 보내던 중 납치당해 아내와 함께 살해당한다. 그리고 죽음에서 부활한다. 최첨단 프로젝트 아래 놀라운 복원력과 힘을 장착한 슈퍼히어로가 되어서. 그때 떠오른 기억. 아내를 죽인 자를 찾아야 한다!");
 			contentsVO2.setContentsSmallThumbnail("resources\\contents\\81171201\\S_블러드 샷.jpg");
 			contentsVO2.setContentsBigThumbnail("resources\\contents\\81171201\\B_블러드 샷.jpg");
 			reviewMapper.mReviewWrite(reviewVO2);
 			
-			System.out.println("review table에 insert한다 뭐를? " + reviewVO);
 			System.out.println("리뷰 table에 insert한다 뭐를? " + reviewVO2);
 			System.out.println(reviewMapper.mGetTotalReviewCount());	
 		}

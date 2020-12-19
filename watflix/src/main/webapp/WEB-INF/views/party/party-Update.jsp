@@ -2,11 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
 <script type="text/javascript">
 $(document).ready(function () {
 	$('#membershipType').change(function () {
@@ -43,9 +38,7 @@ $(document).ready(function () {
 })
 
 </script>
-</head>
-<body>
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
 
 
 <form action="${pageContext.request.contextPath}/partyUpdate.do" method="post">
@@ -92,5 +85,3 @@ $(document).ready(function () {
 <input type="submit" value="등록" id="submit">
 <input type="button" id="goback" value="취소" >
 </form>
-</body>
-</html>

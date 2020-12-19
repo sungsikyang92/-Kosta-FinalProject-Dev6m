@@ -43,8 +43,8 @@
 		window.open(path, "reportReview","width=465, height=180, top=150, left=200");
 	}
 </script>
-
-<div class="container-lg margin-top margin-bottom boardClassMain">
+<div class="tableMargin">
+<div class="container-lg boardClassMain">
   <h2>리뷰상세보기</h2>           
   <table class="table table-bordered" style="border-radius: 1.5px;">
 	<c:set var="reviewDetail" value="${requestScope.rdvo}"></c:set>
@@ -88,4 +88,5 @@
 			</td>
 		</tr>
   </table>
+</div>
 </div>

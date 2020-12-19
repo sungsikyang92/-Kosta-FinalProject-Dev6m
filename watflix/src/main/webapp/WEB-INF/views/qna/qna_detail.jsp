@@ -12,22 +12,53 @@
    <div class="container-lg">
 <div id="qnaForm">
 <script type="text/javascript">
+	function answerPaging(qnaNo, pageNo){
+		$.ajax({
+			type: "get",
+			url: "${pageContext.request.contextPath}/qnaAnswerList.do",
+			dataType: "json",
+			data: 'qnaNo='+qnaNo+
+				  'pageNo='+pageNo,				 
+			success:function(result){
+				qnaAnswerList(result);
+			}
+		})
+	}
 	function writeAndGetAnswer(){
 		alert($("#answerContents").val());
 		var answerContents = $("#answerContents").val();
+		var qnaNo = ${requestScope.qvo.qnaNo};
+		
 		$.ajax({
 			type: "post",
 			url: "${pageContext.request.contextPath}/qnaAnswerWrite.do",
 			dataType: "json",
-			data: 'qnaAnswerContents='+answerContents+'&qnaNo='+${requestScope.qvo.qnaNo},
+			data: 'qnaAnswerContents='+answerContents+
+				  '&qnaNo='+qnaNo,				 
 			beforeSend : function(xhr){   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
 	            xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
 	        },
 			success:function(answerData){
-				alert(answerData.qnaAnswerList[0].qnaAnswerNo);
+				qnaAnswerList(answerData);
+				$("#answerContents").val("");
 			}
 		})
 	}
+	function qnaAnswerList(qnaAnswerListVO){
+		var answerBody = "";
+		for (var i=0; i < qnaAnswerListVO.qnaAnswerList.length; i++){
+			answerBody += "<table><tr>";
+			answerBody += "<td>"+i+1+"</td>";
+			answerBody += "<td>"+qnaAnswerListVO.qnaAnswerList[i].memberVO.id+"</td>";
+			answerBody += "<td>"+qnaAnswerListVO.qnaAnswerList[i].qnaAnswerContents+"</td>";
+			answerBody += "<td>"+qnaAnswerListVO.qnaAnswerList[i].qnaAnswerPostedTime+"</td>";
+			answerBody += "<td><button type='button' onclick='return false;'>삭제</button></td>";			
+			answerBody += "<td><button type='button' onclick='return false;'>수정</button></td>";			
+			answerBody +="</tr></table>";
+		}
+		$("#adminAnswer").html(answerBody);		
+	}
+
 	function qnaListBtn() {
 		location.href="${pageContext.request.contextPath}/qnaList.do";
 	}
@@ -61,8 +92,43 @@
 
 </table>
 <!-- 관리자 답변내용  -->
-<div id="adminAnswer">
-</div>
+<table id="adminAnswer">
+	<c:forEach items="${requestScope.answerListVO.qnaAnswerList}" var="qnaAnswerList" varStatus="index">
+	<tr>
+		<td>${index.count}</td>
+		<td>${qnaAnswerList.memberVO.id}</td>
+		<td>${qnaAnswerList.qnaAnswerContents}</td>
+		<td>${qnaAnswerList.qnaAnswerPostedTime}</td>
+		<td><button type='button' onclick='return false;'>수정</button></td>
+		<td><button type='button' onclick='return false;'>삭제</button></td>	
+	</tr>
+	</c:forEach>
+</table>
+<!-- 답변페이징 -->
+<div class="boardBottomDiv" style="width: 50%">
+		<div class="pagingInfo" id="pagingLocation">
+			<c:set var="pagingBean" value="${requestScope.answerListVO.pagingBean}"/>
+			<ul class="pagination">
+				<c:if test="${pagingBean.previousPageGroup}">
+					<li><a href="#" onclick="answerPaging(${pagingBean.startPageOfPageGroup-1},${requestScope.qvo.qnaNo})">&laquo;</a></li>
+				</c:if>
+				<c:forEach var="i" begin="${pagingBean.startPageOfPageGroup}" end="${pagingBean.endPageOfPageGroup}">
+					<c:choose>
+						<c:when test="${pagingBean.nowPage!=i}">
+							<li><a href="#" onclick="answerPaging(${i},${requestScope.qvo.qnaNo})">${i}</a></li>
+						</c:when>
+						<c:otherwise>
+							<li class="active"><a href="#">${i}</a></li>
+						</c:otherwise>
+					</c:choose>
+					&nbsp;
+				</c:forEach>
+					<c:if test="${pagingBean.nextPageGroup}">
+						<li><a href="#" onclick="answerPaging(${pagingBean.endPageOfPageGroup+1},${requestScope.qvo.qnaNo})">&raquo;</a></li>
+					</c:if>
+			</ul>
+		</div>
+		</div>
 
 <sec:authorize access="hasRole('ROLE_ADMIN')">
 <!-- 관리자만 답변입력 가능 -->
