@@ -21,6 +21,7 @@ import org.kosta.watflix.model.service.QnAService;
 import org.kosta.watflix.model.service.ReportService;
 import org.kosta.watflix.model.service.ReviewLikeService;
 import org.kosta.watflix.model.service.ReviewService;
+import org.kosta.watflix.model.vo.Authority;
 import org.kosta.watflix.model.vo.CommentsVO;
 import org.kosta.watflix.model.vo.MemberVO;
 import org.springframework.test.context.ContextConfiguration;
@@ -217,7 +218,9 @@ public class SungsikTestJUnit {
 		//리뷰좋아요 삭제 후
 		System.out.println(reviewLikeMapper.mReviewLikeExist(rvo));
 		*/
-		for(int i = 0; i<200; i++) {
+		
+		//회원가입 대량
+		/*for(int i = 0; i<200; i++) {
 			MemberVO memberVO = new MemberVO();
 			memberVO.setId("tiamo"+i);
 			memberVO.setPassword("123");
@@ -229,7 +232,22 @@ public class SungsikTestJUnit {
 			memberVO.setAddress(i+"우리집");
 			memberVO.setAgreement("동의");
 			memberService.sMemberRegister(memberVO);
-		}
+		}*/
+		//회원가입
+//		MemberVO memberVO = new MemberVO();
+//		memberVO.setId("tiamo");
+//		memberVO.setPassword("123");
+//		memberVO.setName("Dev6M");
+//		memberVO.setTel("01065433948");
+//		memberVO.setBirth("2020-1-1");
+//		memberVO.setSex("남자");
+//		memberVO.setEmail("tiamo@gmail.com");
+//		memberVO.setAddress("우리집");
+//		memberVO.setAgreement("동의");
+//		Authority authority = new Authority("ROLE_MEMBER",memberVO.getId());
+//		memberVO.set
+//		memberService.sMemberRegister(memberVO);
+		
 	}
 }
 	

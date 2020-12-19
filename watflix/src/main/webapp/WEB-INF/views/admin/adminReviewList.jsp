@@ -1,6 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script type="text/javascript">
+//리뷰 디테일 팝업
+function reviewDetailPopup(reviewNo){
+	// popup
+	var path = "${pageContext.request.contextPath}/reviewByReviewNo.do?reviewNo="+reviewNo;
+	window.open(path, "commentsByComments","width=1000, height=420, top=150, left=200");
+	
+}
+</script>
 <div class="container-lg margin-top margin-bottom" style="margin:100px auto;">
 <div class="container boardClassMain" style="border-radius: 1.5px;">
   <h4>리뷰리스트</h4>
@@ -21,7 +30,7 @@
 		<c:forEach var="reviewList" items="${requestScope.reviewList.reviewList}">
 			<tr>
 				<!-- 리뷰제목 불러오기 -->
-				<td><a href="${pageContext.request.contextPath}/reviewDetail.do?reviewNo=${reviewList.reviewNo}">${reviewList.reviewTitle}</a></td>
+				<td><a href="#"  onclick="reviewDetailPopup(${reviewList.reviewNo});return false;">${reviewList.reviewTitle}</a></td>
 				<td>${reviewList.memberVO.id}</td>					<!-- 리뷰작성자 불러오기 -->
 				<td>${reviewList.reviewPostedTime}</td>				<!-- 리뷰작성일 불러오기 -->
 				<td>${reviewList.reviewLikes}</td>					<!-- 리뷰추천수 불러오기 -->

@@ -49,8 +49,9 @@ function listMyComments(commentsListVO){
 							commentsTbody += "<td style='width: 5%'>"+ commentsListVO.list[i].commentsStars + "</td>";
 							commentsTbody += "<td>";
 							commentsTbody += commentsListVO.list[i].comments + "<br>" + commentsListVO.list[i].memberVO.id +" "+ commentsListVO.list[i].commentsPostedTime;
-							/* 권한 부여하고자 하였으나 실패함 */
-							commentsTbody += "<button type='button' name='deleteButton' style='width: 56px; float: right;' onclick='getCommentsAfterDelete("+ commentsListVO.list[i].contentsNo +","+ commentsListVO.list[i].commentsNo +","+ commentsListVO.pagingBean.nowPage+")'>삭제</button>";
+							/* 삭제기능 보류
+								commentsTbody += "<button type='button' name='deleteButton' style='width: 56px; float: right;' onclick='getCommentsAfterDelete("+ commentsListVO.list[i].contentsNo +","+ commentsListVO.list[i].commentsNo +","+ commentsListVO.pagingBean.nowPage+")'>삭제</button>";
+							 */
 							commentsTbody += "</td>";
 						commentsTbody += "</tr>";	
 					}
@@ -102,7 +103,9 @@ function commentsPostPaging(commentsListVO){
 					${commentsList.comments}<br>
 					${commentsList.memberVO.id }
 					${commentsList.commentsPostedTime}
+					<%-- 삭제기능 보류
 					<button type='button' name='deleteButton' style='width: 56px; float: right;' onclick='getCommentsAfterDelete(${commentsList.contentsVO.contentsNo},${commentsList.commentsNo},${requestScope.commentsListVO.pagingBean.nowPage})'>삭제</button>
+					 --%>
 				</td>			
 	      </tr>
 	      </c:forEach>

@@ -9,15 +9,17 @@
 		var reportTfoot ="";
 		$.ajax({
 			type: "get",
-			url: "${pageContext.request.contextPath}/myReviewList.do?pageNo="+reviewPageNo,
+			url: "${pageContext.request.contextPath}/myReviewList.do",
+			dataType: "json",
+			data: 'pageNo='+ reviewPageNo,
 			success:function(data){
 				//table의 tbody
 				for (var i = 0; i < data.reviewList.length; i++){
 					reviewTbody += "<tr>";
-						reviewTbody += "<th><a href=\"${pageContext.request.contextPath}/reviewDetailNoHits.do?reviewNo="+data.reviewList[i].reviewNo+"\">"+ data.reviewList[i].reviewTitle + "</a></th>";
-						reviewTbody += "<th class="myReviewDateTd">"+ data.reviewList[i].reviewPostedTime + "</th>";
-						reviewTbody += "<th class="myReviewLikesTd">"+ data.reviewList[i].reviewLikes +"</th>";
-						reviewTbody += "<th class="myReviewHitsTd">"+ data.reviewList[i].reviewHits +"</th>";
+						reviewTbody += "<td><a href=\"#\"  onclick=\"reviewDetailPopup("+data.reviewList[i].reviewNo+");return false;\">"+data.reviewList[i].reviewTitle+"</a></td>";
+						reviewTbody += "<td class=\"myReviewDateTd\">"+ data.reviewList[i].reviewPostedTime + "</td>";
+						reviewTbody += "<td class=\"myReviewLikesTd\">"+ data.reviewList[i].reviewLikes +"</td>";
+						reviewTbody += "<td class=\"myReviewHitsTd\">"+ data.reviewList[i].reviewHits +"</td>";
 					reviewTbody += "</tr>";
 				}
 				$("#reviewTbody").html(reviewTbody);
@@ -45,6 +47,13 @@
 			}
 		})
 	}
+	//리뷰 디테일 팝업
+	function reviewDetailPopup(reviewNo){
+		// popup
+		var path = "${pageContext.request.contextPath}/reviewByReviewNo.do?reviewNo="+reviewNo;
+		window.open(path, "commentsByComments","width=1000, height=420, top=150, left=200");
+		
+	}
 </script>
 <div class="tableMargin">
 	<div class="container boardClassMain">
@@ -62,7 +71,7 @@
 			<c:forEach var="rvoc" items="${requestScope.reviewListVO.reviewList}">
 				<tr>
 					<!-- 리뷰제목 불러오기 -->
-					<td><a href="${pageContext.request.contextPath}/reviewDetail.do?reviewNo=${rvoc.reviewNo}">${rvoc.reviewTitle}</a></td>
+					<td><a href="#"  onclick="reviewDetailPopup(${rvoc.reviewNo});return false;">${rvoc.reviewTitle}</a></td>
 					<td class="myReviewDateTd">${rvoc.reviewPostedTime}</td>				<!-- 리뷰작성일 불러오기 -->
 					<td class="myReviewLikesTd">${rvoc.reviewLikes}</td>					<!-- 리뷰추천수 불러오기 -->
 					<td class="myReviewHitsTd">${rvoc.reviewHits}</td>						<!-- 리뷰조회수 불러오기 -->
@@ -77,7 +86,7 @@
 					<c:forEach var="i" begin="${rpbc.startPageOfPageGroup}" end="${rpbc.endPageOfPageGroup}">
 						<c:choose>
 							<c:when test="${rpbc.nowPage != i}">
-								<li><a href="#" onclick="reviewPaging(${i});return false;">${i}</a></li>
+								<li><a href="#" onclick="reviewPaging(${i}); return false;">${i}</a></li>
 							</c:when>
 							<c:otherwise>
 								<li class="active"><a href="#" onclick="return false">${i}</a></li>

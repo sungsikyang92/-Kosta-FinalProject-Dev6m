@@ -23,29 +23,31 @@
 		});	//backToReviewDetail function
 	});	//ready
 </script>
-<div class="container-lg margin-top margin-bottom boardClassMain">
+<div class="tableMargin">
+	<div class="container-lg boardClassMainFaQ">
   <h2>FAQ 수정하기</h2>           
 	<form action="${pageContext.request.contextPath}/faqUpdate.do" method="post" id="faqUpdate">
 		<sec:csrfInput/>
 		<input type="hidden" name="faqNo" value="${fvo.faqNo}">
 	  	<table class="table table-bordered" style="border-radius: 1.5px;">
 			<tr>
-				<td class="boardTd">제목</td>
-				<td><input type="text" name="faqTitle" id="faqTitle" class="boardTitle" value="${fvo.faqTitle}" required="required" placeholder="FAQ의 제목을 입력해주세요!"></td>
+				<td class="boardTdFaQ">제목</td>
+				<td><input type="text" name="faqTitle" id="faqTitle" class="boardTitleFaQ" value="${fvo.faqTitle}" required="required" placeholder="FAQ의 제목을 입력해주세요!"></td>
 			</tr>
 			<tr>
-				<td>내용</td>
+				<td class="boardCtFaQ">내용</td>
 				<td>
-					<textarea name="faqContents" required="required" class="boardTextarea" placeholder="FAQ의 내용을 입력해주세요!">${fvo.faqContents}</textarea>
+					<textarea name="faqContents" required="required" class="boardTextareaFaQ" placeholder="FAQ의 내용을 입력해주세요!">${fvo.faqContents}</textarea>
 				</td>
 			</tr>
 			<tr>
 				<td colspan="2" class="btnArea">
-					<button type="button" class="btn btn-default boardDetailBtn" id="backToFaqDetail">이전페이지</button>
-					<button type="reset" class="btn-reset btn btn-default boardDetailBtn">초기화</button>
-					<button type="submit" class="btn btn-default boardDetailBtn" >수정</button>
+					<button type="button" class="btn-listFaQ btnFaQ boardDetailBtnFaQ" id="backToFaqDetail">이전페이지</button>
+					<button type="reset" class="btn-listFaQ btnFaQ boardDetailBtnFaQ">초기화</button>
+					<button type="submit" class="btn-listFaQ btnFaQ boardDetailBtnFaQ" >수정</button>
 				</td>
 			</tr>
 	  	</table>
 	</form>
+</div>
 </div>
