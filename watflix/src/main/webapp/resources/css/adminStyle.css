@@ -279,6 +279,8 @@ a, a:hover {
 	text-align: center;
 }
 .td_titleFaQ{
+	text-align: left;
+	color: black;
 }
 .td_authorFaQ{
 	text-align: center;

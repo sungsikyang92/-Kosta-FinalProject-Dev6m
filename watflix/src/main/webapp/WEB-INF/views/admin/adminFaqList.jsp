@@ -17,7 +17,7 @@
 			<tbody>
 			<c:forEach var="fvo" items="${requestScope.faqListVO.faqList}">
 				<tr>
-					<td class="td_titleFaQ"><a href="${pageContext.request.contextPath}/faqDetailNoHitsForAdmin.do?faqNo=${fvo.faqNo}">${fvo.faqTitle}</a></td>
+					<td class="td_titleFaQ"><a href="${pageContext.request.contextPath}/faqDetailNoHitsForAdmin.do?faqNo=${fvo.faqNo}" style="color:black">${fvo.faqTitle}</a></td>
 					<td class="td_hitsFaQ">${fvo.faqHits}</td>
 					<td class="td_dateFaQ">${fvo.faqPostedTime}</td>
 					<td class="th_authorFaQ">${fvo.memberVO.id}</td>
