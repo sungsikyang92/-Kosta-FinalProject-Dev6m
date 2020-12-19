@@ -2,14 +2,13 @@
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
-    <%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <div class="tableMargin">
-	<div class="container boardClassMain">
-		<h4>FAQ  자주 묻는 질문</h4>
+	<div class="container-lg boardClassMainFaQ">
+		<h4 style="display: inline-flex;">FAQ 자주 묻는 질문</h4>
 		<table class="table table-hover table-bordered" style="border-radius: 1.5px;">
 			<thead>
 				<tr>
-					<th style="width:50%">제목</th>
+					<th>제목</th>
 					<th>조회수</th>
 					<th>공지시간</th>
 					<th>작성자</th>
@@ -53,4 +52,4 @@
 	</div><!-- pagingInfo -->
 	</div><!-- boardBottomDiv -->
 	</div><!-- container boardClassMain -->
-</div>
+</div><!-- tableMargin -->

@@ -1375,3 +1375,109 @@ SELECT P.POINT_HISTORY_NO,P.ID,P.REVIEW_NO,(select REVIEW_TITLE from REVIEW wher
 		
 		
 		
+INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('Fuze','$2a$10$i2cyl1OhUeJ71PUTHozM9enjjiJ0rZVVjn/z7FVXnJA1pBi7gOUH2','앵앵','gmail');
+insert into grade values('ROLE_ADMIN', 'Fuze');
+insert into grade values('ROLE_MEMBER', 'Fuze');
+INSERT INTO REVIEW(REVIEW_NO,ID,CONTENTS_NO,REVIEW_TITLE,REVIEW_CONTENTS) VALUES(REVIEW_seq.nextval,'Fuze','81171201','블러드샷 봤어..?','블러드샷은 전설이다');
+
+INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('like','$2a$10$i2cyl1OhUeJ71PUTHozM9enjjiJ0rZVVjn/z7FVXnJA1pBi7gOUH2','앵앵','gmail');
+insert into grade values('ROLE_ADMIN', 'like');
+insert into grade values('ROLE_MEMBER', 'like');
+INSERT INTO REVIEW(REVIEW_NO,ID,CONTENTS_NO,REVIEW_TITLE,REVIEW_CONTENTS) VALUES(REVIEW_seq.nextval,'like','81171201','블러드샷 봤어..?','블러드샷은 전설이다');
+
+INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('horse','$2a$10$i2cyl1OhUeJ71PUTHozM9enjjiJ0rZVVjn/z7FVXnJA1pBi7gOUH2','앵앵','gmail');
+insert into grade values('ROLE_ADMIN', 'horse');
+insert into grade values('ROLE_MEMBER', 'horse');
+INSERT INTO REVIEW(REVIEW_NO,ID,CONTENTS_NO,REVIEW_TITLE,REVIEW_CONTENTS) VALUES(REVIEW_seq.nextval,'horse','81171201','블러드샷 봤어..?','블러드샷은 전설이다');
+
+INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('Daniel','$2a$10$i2cyl1OhUeJ71PUTHozM9enjjiJ0rZVVjn/z7FVXnJA1pBi7gOUH2','앵앵','gmail');
+insert into grade values('ROLE_ADMIN', 'Daniel');
+insert into grade values('ROLE_MEMBER', 'Daniel');
+INSERT INTO REVIEW(REVIEW_NO,ID,CONTENTS_NO,REVIEW_TITLE,REVIEW_CONTENTS) VALUES(REVIEW_seq.nextval,'Daniel','81171201','블러드샷 봤어..?','블러드샷은 전설이다');
+
+INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('Jacob','$2a$10$i2cyl1OhUeJ71PUTHozM9enjjiJ0rZVVjn/z7FVXnJA1pBi7gOUH2','앵앵','gmail');
+insert into grade values('ROLE_ADMIN', 'Jacob');
+insert into grade values('ROLE_MEMBER', 'Jacob');
+INSERT INTO REVIEW(REVIEW_NO,ID,CONTENTS_NO,REVIEW_TITLE,REVIEW_CONTENTS) VALUES(REVIEW_seq.nextval,'Jacob','81171201','블러드샷 봤어..?','블러드샷은 전설이다');
+
+INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('Josh','$2a$10$i2cyl1OhUeJ71PUTHozM9enjjiJ0rZVVjn/z7FVXnJA1pBi7gOUH2','앵앵','gmail');
+insert into grade values('ROLE_ADMIN', 'Josh');
+insert into grade values('ROLE_MEMBER', 'Josh');
+INSERT INTO REVIEW(REVIEW_NO,ID,CONTENTS_NO,REVIEW_TITLE,REVIEW_CONTENTS) VALUES(REVIEW_seq.nextval,'Josh','81171201','블러드샷 봤어..?','블러드샷은 전설이다');
+
+INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('Matt','$2a$10$i2cyl1OhUeJ71PUTHozM9enjjiJ0rZVVjn/z7FVXnJA1pBi7gOUH2','앵앵','gmail');
+insert into grade values('ROLE_ADMIN', 'Matt');
+insert into grade values('ROLE_MEMBER', 'Matt');
+INSERT INTO REVIEW(REVIEW_NO,ID,CONTENTS_NO,REVIEW_TITLE,REVIEW_CONTENTS) VALUES(REVIEW_seq.nextval,'Matt','81171201','블러드샷 봤어..?','블러드샷은 전설이다');
+
+INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('Dior','$2a$10$i2cyl1OhUeJ71PUTHozM9enjjiJ0rZVVjn/z7FVXnJA1pBi7gOUH2','앵앵','gmail');
+insert into grade values('ROLE_ADMIN', 'Dior');
+insert into grade values('ROLE_MEMBER', 'Dior');
+INSERT INTO REVIEW(REVIEW_NO,ID,CONTENTS_NO,REVIEW_TITLE,REVIEW_CONTENTS) VALUES(REVIEW_seq.nextval,'Dior','81171201','블러드샷 봤어..?','블러드샷은 전설이다');
+
+INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('HighLander','$2a$10$i2cyl1OhUeJ71PUTHozM9enjjiJ0rZVVjn/z7FVXnJA1pBi7gOUH2','앵앵','gmail');
+insert into grade values('ROLE_ADMIN', 'HighLander');
+insert into grade values('ROLE_MEMBER', 'HighLander');
+INSERT INTO REVIEW(REVIEW_NO,ID,CONTENTS_NO,REVIEW_TITLE,REVIEW_CONTENTS) VALUES(REVIEW_seq.nextval,'HighLander','81171201','블러드샷 봤어..?','블러드샷은 전설이다');
+
+INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('NYC','$2a$10$i2cyl1OhUeJ71PUTHozM9enjjiJ0rZVVjn/z7FVXnJA1pBi7gOUH2','앵앵','gmail');
+insert into grade values('ROLE_ADMIN', 'NYC');
+insert into grade values('ROLE_MEMBER', 'NYC');
+INSERT INTO REVIEW(REVIEW_NO,ID,CONTENTS_NO,REVIEW_TITLE,REVIEW_CONTENTS) VALUES(REVIEW_seq.nextval,'NYC','81171201','블러드샷 봤어..?','블러드샷은 전설이다');
+
+INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('LABUDDY','$2a$10$i2cyl1OhUeJ71PUTHozM9enjjiJ0rZVVjn/z7FVXnJA1pBi7gOUH2','앵앵','gmail');
+insert into grade values('ROLE_ADMIN', 'LABUDDY');
+insert into grade values('ROLE_MEMBER', 'LABUDDY');
+INSERT INTO REVIEW(REVIEW_NO,ID,CONTENTS_NO,REVIEW_TITLE,REVIEW_CONTENTS) VALUES(REVIEW_seq.nextval,'LABUDDY','81171201','블러드샷 봤어..?','블러드샷은 전설이다');
+
+INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('fuze','$2a$10$i2cyl1OhUeJ71PUTHozM9enjjiJ0rZVVjn/z7FVXnJA1pBi7gOUH2','앵앵','gmail');
+insert into grade values('ROLE_MEMBER', 'fuze');
+INSERT INTO REVIEW(REVIEW_NO,ID,CONTENTS_NO,REVIEW_TITLE,REVIEW_CONTENTS) VALUES(REVIEW_seq.nextval,'LABUDDY','81171201','마!이거봤나!?','블러드샷은 전설이다');
+
+INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('IPAD','$2a$10$i2cyl1OhUeJ71PUTHozM9enjjiJ0rZVVjn/z7FVXnJA1pBi7gOUH2','앵앵','gmail');
+insert into grade values('ROLE_MEMBER', 'IPAD');
+INSERT INTO REVIEW(REVIEW_NO,ID,CONTENTS_NO,REVIEW_TITLE,REVIEW_CONTENTS) VALUES(REVIEW_seq.nextval,'IPAD','81171201','눈물없이 볼수 없다..','블러드샷은 전설이다');
+
+INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('Apple','$2a$10$i2cyl1OhUeJ71PUTHozM9enjjiJ0rZVVjn/z7FVXnJA1pBi7gOUH2','앵앵','gmail');
+insert into grade values('ROLE_MEMBER', 'Apple');
+INSERT INTO REVIEW(REVIEW_NO,ID,CONTENTS_NO,REVIEW_TITLE,REVIEW_CONTENTS) VALUES(REVIEW_seq.nextval,'Apple','81171201','진짜 강추...','블러드샷은 전설이다');
+
+INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('Galaxy','$2a$10$i2cyl1OhUeJ71PUTHozM9enjjiJ0rZVVjn/z7FVXnJA1pBi7gOUH2','앵앵','gmail');
+insert into grade values('ROLE_MEMBER', 'Galaxy');
+INSERT INTO REVIEW(REVIEW_NO,ID,CONTENTS_NO,REVIEW_TITLE,REVIEW_CONTENTS) VALUES(REVIEW_seq.nextval,'Galaxy','81171201','이걸 왜 이제서야봤을까?','블러드샷은 전설이다');
+
+INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('CongSoonYI','$2a$10$i2cyl1OhUeJ71PUTHozM9enjjiJ0rZVVjn/z7FVXnJA1pBi7gOUH2','앵앵','gmail');
+insert into grade values('ROLE_MEMBER', 'CongSoonYI');
+INSERT INTO REVIEW(REVIEW_NO,ID,CONTENTS_NO,REVIEW_TITLE,REVIEW_CONTENTS) VALUES(REVIEW_seq.nextval,'CongSoonYI','81171201','어떻게 널 사랑하겟냐','블러드샷은 전설이다');
+
+INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('Ramen','$2a$10$i2cyl1OhUeJ71PUTHozM9enjjiJ0rZVVjn/z7FVXnJA1pBi7gOUH2','앵앵','gmail');
+insert into grade values('ROLE_MEMBER', 'Ramen');
+INSERT INTO REVIEW(REVIEW_NO,ID,CONTENTS_NO,REVIEW_TITLE,REVIEW_CONTENTS) VALUES(REVIEW_seq.nextval,'Ramen','81171201','걸어다니는 폭탄 보이냐?','블러드샷은 전설이다');
+
+INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('Cal','$2a$10$i2cyl1OhUeJ71PUTHozM9enjjiJ0rZVVjn/z7FVXnJA1pBi7gOUH2','앵앵','gmail');
+insert into grade values('ROLE_MEMBER', 'Cal');
+INSERT INTO REVIEW(REVIEW_NO,ID,CONTENTS_NO,REVIEW_TITLE,REVIEW_CONTENTS) VALUES(REVIEW_seq.nextval,'Cal','81171201','디젤형 진짜 인간병기다','블러드샷은 전설이다');
+
+INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('Nick','$2a$10$i2cyl1OhUeJ71PUTHozM9enjjiJ0rZVVjn/z7FVXnJA1pBi7gOUH2','앵앵','gmail');
+insert into grade values('ROLE_MEMBER', 'Nick');
+INSERT INTO REVIEW(REVIEW_NO,ID,CONTENTS_NO,REVIEW_TITLE,REVIEW_CONTENTS) VALUES(REVIEW_seq.nextval,'Nick','81171201','총알맞고 몸 안 뚫리는게 말이되냐?','블러드샷은 전설이다');
+
+INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('Neo','$2a$10$i2cyl1OhUeJ71PUTHozM9enjjiJ0rZVVjn/z7FVXnJA1pBi7gOUH2','앵앵','gmail');
+insert into grade values('ROLE_MEMBER', 'Neo');
+INSERT INTO REVIEW(REVIEW_NO,ID,CONTENTS_NO,REVIEW_TITLE,REVIEW_CONTENTS) VALUES(REVIEW_seq.nextval,'Neo','81171201','무슨 영화를 이따구로 만들어?','블러드샷은 전설이다');
+
+INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('Jason','$2a$10$i2cyl1OhUeJ71PUTHozM9enjjiJ0rZVVjn/z7FVXnJA1pBi7gOUH2','앵앵','gmail');
+insert into grade values('ROLE_MEMBER', 'Jason');
+INSERT INTO REVIEW(REVIEW_NO,ID,CONTENTS_NO,REVIEW_TITLE,REVIEW_CONTENTS) VALUES(REVIEW_seq.nextval,'Jason','81171201','형님;;그냥 분노의질주나 찍으십쇼;;','블러드샷은 전설이다');
+
+INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('BeMyBuddy','$2a$10$i2cyl1OhUeJ71PUTHozM9enjjiJ0rZVVjn/z7FVXnJA1pBi7gOUH2','앵앵','gmail');
+insert into grade values('ROLE_MEMBER', 'BeMyBuddy');
+INSERT INTO REVIEW(REVIEW_NO,ID,CONTENTS_NO,REVIEW_TITLE,REVIEW_CONTENTS) VALUES(REVIEW_seq.nextval,'BeMyBuddy','81171201','디젤형 나이가몇인가 아직도 몸매가...','블러드샷은 전설이다');
+
+INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('IADOREU','$2a$10$i2cyl1OhUeJ71PUTHozM9enjjiJ0rZVVjn/z7FVXnJA1pBi7gOUH2','앵앵','gmail');
+insert into grade values('ROLE_MEMBER', 'IADOREU');
+INSERT INTO REVIEW(REVIEW_NO,ID,CONTENTS_NO,REVIEW_TITLE,REVIEW_CONTENTS) VALUES(REVIEW_seq.nextval,'IADOREU','81171201','속보!디젤형 앙 기모띠','블러드샷은 전설이다');
+
+INSERT INTO MEMBER(ID,PASSWORD,NAME,EMAIL) VALUES('abc','$2a$10$i2cyl1OhUeJ71PUTHozM9enjjiJ0rZVVjn/z7FVXnJA1pBi7gOUH2','앵앵','gmail');
+insert into grade values('ROLE_MEMBER', 'abc');
+insert into grade values('ROLE_ADMIN', 'abc');
