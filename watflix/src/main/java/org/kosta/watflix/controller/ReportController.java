@@ -86,37 +86,12 @@ public class ReportController {
 			}
 		}
 	
-	// 내 신고 리스트(리뷰)
-	// ResponseBody는 비동기 통신에 필요한 어노테이션이다.
-	@RequestMapping("myReportBoard.do")
-	@ResponseBody
-	public ReportListVO myReportReviewBoard(String reportPageNo, boolean reportType) {
-		System.out.println("myReportBoard.do 실행");
-		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String id = mvo.getId();
-		if(reportType) {
-			return reportService.sGetMyReportCommentsList(id, reportPageNo);
-		} else {
-			return reportService.sGetMyReportReviewList(id, reportPageNo);
-		}
-	}
-	
 
 	// 마이페이지로 이동(임시)
 	@RequestMapping("testMyPageBoard.do")
 	public ModelAndView testMyPageBoard() {
 		return new ModelAndView("report/my_report_board.tiles");
 	}
-
-	// 내 신고 리스트(평점)
-	//@RequestMapping("myReportCommentsBoard.do")
-	//@ResponseBody
-	//public ReportListVO myReportCommentsBoard(String pageNo) {
-	//	MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-	//	String id = mvo.getId();
-	//	
-	//}	
-
 }
 
 

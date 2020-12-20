@@ -72,6 +72,8 @@
                게시물 </a></li>
          <li><a class="nav-link navbar-nav-item"
             href="${pageContext.request.contextPath}/adminFaqList.do"> FAQ </a></li>
+            <li><a class="nav-link navbar-nav-item"
+            href="${pageContext.request.contextPath}/qnaList.do"> 1:1문의 </a></li>
          <li><a class="nav-link navbar-nav-item" href="#"> 공지사항 </a></li>
       </ul>
    </div>

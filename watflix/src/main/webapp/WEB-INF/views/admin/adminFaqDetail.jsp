@@ -13,8 +13,8 @@
 		});
 	});//document.ready
 </script>
-
-<div class="container-lg margin-top margin-bottom boardClassMain">
+<div class="tableMargin">
+	<div class="container-lg boardClassMainFaQ">
   <h2>FAQ상세보기</h2>           
   <table class="table table-bordered" style="border-radius: 1.5px;">
 		<tr>
@@ -32,9 +32,9 @@
 		</tr>
 		<tr>		
 			<td colspan="3" class="btnArea">
-				<button type="button" class="btn btn-default boardDetailBtn" onclick="location.href='${pageContext.request.contextPath}/adminFaqList.do'">목록</button>
-				<button form="faqDeleteForm" class="btn btn-default boardDetailBtn" type="submit">삭제</button>
-				<button form="faqUpdateForm" class="btn btn-default boardDetailBtn" type="submit">수정</button>
+				<button type="button" class="btn-listFaQ btnFaQ boardDetailBtnFaQ" onclick="location.href='${pageContext.request.contextPath}/adminFaqList.do'">목록</button>
+				<button form="faqDeleteForm" class="btn-listFaQ btnFaQ boardDetailBtnFaQ" type="submit">삭제</button>
+				<button form="faqUpdateForm" class="btn-listFaQ btnFaQ boardDetailBtnFaQ" type="submit">수정</button>
 				<form action="${pageContext.request.contextPath}/faqDelete.do" id="faqDeleteForm" method="post">
 				<sec:csrfInput/>
 				<input type="hidden" name="faqNo" value="${requestScope.fvo.faqNo}">
@@ -46,5 +46,6 @@
 			</td>
 		</tr>
   </table>
+</div>
 </div>
 

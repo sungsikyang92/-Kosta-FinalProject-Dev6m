@@ -1002,15 +1002,18 @@ a, a:hover {
 .middleBox{
 	margin: 40px 30px;
 }
-
+/*평점보기 게시판 CSS*/
 .starPointImg{
 	width:15%;
 }
-.startPointNum{
+.starPointNum{
 	width:5%;
 	text-align: center;
 }
+.starContents{
+}
 .starIdDt{
+	width:11%;
 	font-size: 8px;
 	text-align: center;
 }
@@ -1235,4 +1238,66 @@ li {
 	background-color:white;
 	width:100%;
 	height:100%;
+}
+
+/*내리뷰모아보기*/
+.myReviewTitle{
+	width: 78%;
+}
+.myReviewDate{
+	width: 10%;
+	text-align: center;
+}
+.myReviewLikes{
+	width: 6%;
+	text-align: center;
+}
+.myReviewHits{
+	width: 6%;
+	text-align: center;
+}
+.myReviewDateTd{
+	width: 10%;
+	text-align: center;
+}
+.myReviewLikesTd{
+	width: 6%;
+	text-align: center;
+}
+.myReviewHitsTd{
+	width: 6%;
+	text-align: center;
+}
+/*QnA*/
+.qnaWriteBtn{
+		float:right;
+}
+.qnaNo{
+	width: 5%;
+}
+.qnaTitle{
+	width: 70%;
+}
+.qnaWriter{
+	width: 10%
+}
+.qnaPostedTime{
+	width: 15%;
+	text-align: center;
+}
+.boardClassMainQnA{
+	background-color: white;
+	color: black;
+	position:relative;
+    padding-bottom: 45px;
+   	padding-top: 15px;
+   	border: 2px solid gold;
+}
+.QnACategory{
+	width: 10%;
+	text-align: center;
+}
+.qnaAnswerBtn{
+	width: 50px;
+	float: right;
 }

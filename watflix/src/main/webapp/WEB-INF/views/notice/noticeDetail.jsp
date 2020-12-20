@@ -33,13 +33,11 @@
 			<td>조회수</td>
 			<td>${requestScope.noticeDetail.noticeHits}</td>
 		</tr>
-		<sec:authorize access="hasRole('ROLE_ADMIN')">
 		<tr>
 			<td colspan="8" class="btnArea">
 				<button type="button" class="btn-list btn btn-default boardDetailBtn" id="backToNoticeList">목록</button>
 			</td>
-		</tr>
-		</sec:authorize>
+		</tr>		
 	</table>
 </div>
 </div>
