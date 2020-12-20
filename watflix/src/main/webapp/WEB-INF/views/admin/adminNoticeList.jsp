@@ -31,7 +31,8 @@
 		})
 	})
 </script>
-<div class="container boardClassMain">
+<div class="tableMargin">
+	<div class="container-lg boardClassMainFaQ">
 	<h4 style="display: inline-flex;">공지사항</h4>
 	<!-- 공지사항 게시글 작성 폼으로 이동하는 버튼, ROLE_ADMIN 권한을 가진 관리자에게만 노출한다. -->
 	<sec:authorize access="hasRole('ROLE_ADMIN')">
@@ -104,3 +105,4 @@
 </div><!-- pagingInfo -->
 </div><!-- boardBottomDiv -->
 </div><!-- container boardClassMain -->
+</div>
