@@ -33,7 +33,7 @@
 	})
 </script>
 <div class="tableMargin">
-<div class="container boardClassMain">
+	<div class="container-lg boardClassMainFaQ">
 	<h4 style="display: inline-flex;">공지사항</h4>
 	<!-- 자바스크립트 메소드를 호출한다. -->
 	<button type="button" id="noticeWriteButton" style="width: 66px; float: right;">글쓰기</button>
