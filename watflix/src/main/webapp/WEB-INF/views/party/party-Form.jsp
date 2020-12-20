@@ -31,7 +31,6 @@ $(document).ready(function () {
 		
 	})// 두번째 select 박스
 })
-
 </script>
 
 <div class="tableMargin">
@@ -44,25 +43,26 @@ $(document).ready(function () {
 	<td class="boardTd">제목</td>
 	<td><input type="text" name=partyTitle required="required" class="boardTitle" maxlength="30"  placeholder="제목을 입력해주세요!"></td>
 </tr>
+<tr>
+	<td class="boardTd">이용권 종류</td>
+	<td>
+	<!-- 이용권 셀렉박스 -->
+	<select name="membershipVO.membershipNo" id="membershipType" required >
+	<option value="">이용권 종류를 선택해주세요</option>
+	<option value="1">BASIC</option>
+	<option value="2">STANDARD</option>
+	<option value="3">PREMIUM</option>
+	</select>
+	
+	<!-- 모집인원 셀렉박스 -->
+	<select name="partyHeadCount" id="partyHeadCount" required>
+	<option>모집할 인원을 선택해주세요</option>
+	</select>
+	</td>
+</tr>
  </table>
-제목:
-이용권 종류를 선택해주세요:
 
-<!-- 이용권 셀렉박스 -->
-<select name="membershipVO.membershipNo" id="membershipType" required >
-<option value="">이용권 종류를 선택해주세요</option>
-<option value="1">BASIC</option>
-<option value="2">STANDARD</option>
-<option value="3">PREMIUM</option>
-</select>
-
-<!-- 모집인원 셀렉박스 -->
-<select name="partyHeadCount" id="partyHeadCount" required>
-<option>모집할 인원을 선택해주세요</option>
-</select>
-<br>
-
-<input type="submit" value="등록">
+<input type="submit" class="btn btn-default boardDetailBtn" value="등록">
 </form>
 </div>
 </div>

@@ -1,19 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-<div class="container-lg margin-top margin-bottom" style="margin:100px auto;">
-회원관리
+<div class="container-lg boardClassMainFaQ">
+<h2>회원관리</h2>
  <div class="row main">
  <c:set var="nowPage" value="${param.pageNo}"/>
-<table border="1">
+<table class="table table-hover table-bordered" style="border-radius: 1.5px;">
 			<tr>
 				<th>아이디</th>
 				<th>마지막접속</th>
@@ -54,7 +46,7 @@
 			</c:forEach>
 </table>
 </div>
-</div>
+
 <%-- 페이징빈 처리 영역 --%>
 		<div class="pagingInfo">
 			<%-- 코드를 줄이기 위해 pb 변수에 pagingBean을 담는다. --%>
@@ -62,14 +54,14 @@
 			<ul class="pagination">
 				<c:if test="${pb.previousPageGroup}">
 					<li><a class="btn btn-outline-primary"
-						href="${pageContext.request.contextPath}/adminControlMember.do?pageNo=${pb.startPageOfPageGroup-1}">&laquo;</a></li>
+						href="${pageContext.request.contextPath}/adminControlMember.do?pageNo=${pb.startPageOfPageGroup-1}" style="color:black">&laquo;</a></li>
 				</c:if>
 				<c:forEach var="i" begin="${pb.startPageOfPageGroup}"
 					end="${pb.endPageOfPageGroup}">
 					<c:choose>
 						<c:when test="${pb.nowPage!=i}">
 							<li><a
-								href="${pageContext.request.contextPath}/adminControlMember.do?pageNo=${i}">${i}</a></li>
+								href="${pageContext.request.contextPath}/adminControlMember.do?pageNo=${i}" style="color:black">${i}</a></li>
 						</c:when>
 						<c:otherwise>
 							<li class="active"><a href="#">${i}</a></li>
@@ -78,10 +70,8 @@
 				</c:forEach>
 				<c:if test="${pb.nextPageGroup}">
 					<li><a class="btn btn-outline-primary"
-						href="${pageContext.request.contextPath}/adminControlMember.do?pageNo=${pb.endPageOfPageGroup+1}">&raquo;</a></li>
+						href="${pageContext.request.contextPath}/adminControlMember.do?pageNo=${pb.endPageOfPageGroup+1}" style="color:black">&raquo;</a></li>
 				</c:if>
 			</ul>
 		</div>
-
-</body>
-</html>
+</div>

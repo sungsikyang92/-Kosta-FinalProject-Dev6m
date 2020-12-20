@@ -73,7 +73,6 @@ public class ReviewServiceImpl implements ReviewService {
 		reviewMapper.mReviewWrite(reviewVO);
 		memberMapper.mMemberPointUpdate(reviewVO.getMemberVO());
 		pointHistoryMapper.mPointHistoryAddWithReview(reviewVO.getReviewNo(), reviewVO.getMemberVO().getId(),reviewVO.getContentsVO().getContentsNo());
-		System.out.println("히스토리에넣음");
 	}
 	
 	//리뷰업데이트

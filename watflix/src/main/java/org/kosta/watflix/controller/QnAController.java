@@ -8,6 +8,7 @@ import org.kosta.watflix.model.vo.QnAAnswerListVO;
 import org.kosta.watflix.model.vo.QnAAnswerVO;
 import org.kosta.watflix.model.vo.QnATypeVO;
 import org.kosta.watflix.model.vo.QnAVO;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,8 +27,10 @@ public class QnAController {
 	@RequestMapping("qnaList.do")
 	public String list(Model model, String pageNo) {
 		if(pageNo==null) {
+			System.out.println(qnaService.sGetQnAList());
 			model.addAttribute("lvo",qnaService.sGetQnAList());
 		}else {
+			System.out.println(qnaService.sGetQnAList(pageNo));
 			model.addAttribute("lvo",qnaService.sGetQnAList(pageNo));
 		}
 		return "qna/qna_list.tiles";
@@ -52,8 +55,7 @@ public class QnAController {
 		qnaService.sQnAWrite(qnaVO);
 		re.addAttribute("qnaNo",qnaVO.getQnaNo());
 		return "redirect:qnaDetail.do";
-	}
-	
+	}	
 	// qna 상세보기 
 	@RequestMapping("qnaDetail.do")
 	public String qnaDeteail(int qnaNo, Model model) {
@@ -82,6 +84,13 @@ public class QnAController {
 	public QnAAnswerListVO qnaAnswerList(int qnaNo,String pageNo) {
 		return qnaService.sQnAAnswerByQnANo(qnaNo, pageNo);
 	}
+	// qna 삭제 
+		@PostMapping("qnaDelete.do") 
+		public String qnaDelete(int qnaNo, String pageNo, RedirectAttributes redirectAttributes) {
+			qnaService.sQnADelete(qnaNo);
+			redirectAttributes.addAttribute("pageNo", pageNo);
+			return "redirect:qnaList.do";
+		}
 }
 
 

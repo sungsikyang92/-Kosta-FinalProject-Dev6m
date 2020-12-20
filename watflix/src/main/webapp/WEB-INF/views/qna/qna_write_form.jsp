@@ -4,14 +4,22 @@
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="sec"%>
 <%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
-
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>1:1문의 작성</title>
-</head>
-<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){	
+		$("#backToQnAList").click(function(){
+			if(confirm("리스트로 이동하시겠습니까?")){
+			return location.href='${pageContext.request.contextPath}/qnaList.do?qnaNo=${requestScope.qnaNo}'
+			}else{
+				return
+			}
+		});
+		//form id로 제어한다 
+		$("#qna_write").submit(function() {
+			return confirm("문의를 등록하시겠습니까?");
+		});
+	});//ready
+</script>
 <div class="tableMargin">
 <div class="container-lg boardClassMain">
 	<div class="row">
@@ -43,21 +51,12 @@
 				</tr>
 		  	</table>
 				<div class="btnArea">
+					<button type="reset" class="btn btn-default boardDetailBtn">초기화</button>
+					<button type="button" class="btn-list btn btn-default boardDetailBtn" id="backToQnAList">목록</button>
 					<button type="submit" class="btn btn-default boardDetailBtn">확인</button>
-					<button type="reset" class="btn btn-default boardDetailBtn">취소</button>
 				</div>
 			</form>
 		</div>
 	</div>
 	</div>
 	</div>
-	<script type="text/javascript">
-		$(document).ready(function() {
-			//form id로 제어한다 
-			$("#qna_write").submit(function() {
-				return confirm("문의를 등록하시겠습니까?");
-			});
-		});
-	</script>
-</body>
-</html>
