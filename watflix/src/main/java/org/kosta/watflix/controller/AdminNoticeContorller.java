@@ -37,8 +37,6 @@ public class AdminNoticeContorller {
 	// 공지 디테일 조회수 증가 o
 	@RequestMapping("noticeDetail.do")
 	public String noticeDetail(int noticeNo, String pageNo, RedirectAttributes redirectAttributes) {
-		// 조회수 올림(세션적용하지 않아 읽었던 글을 다시 읽더라고 조회수 증가함.
-		// 로그인시 조회 내역을 저장할 수 있는 리스트를 만들어 세션에 넣는 코드가 필요함. 
 		noticeService.sNoticeUpdateHits(noticeNo);		
 		redirectAttributes.addAttribute("noticeNo", noticeNo);
 		redirectAttributes.addAttribute("pageNo", pageNo);

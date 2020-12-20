@@ -48,14 +48,14 @@
 	function qnaAnswerList(qnaAnswerListVO){
 		var answerBody = "";
 		for (var i=0; i < qnaAnswerListVO.qnaAnswerList.length; i++){
-			answerBody += "<table><tr>";
+			answerBody += "<tr>";
 			answerBody += "<td>"+i+1+"</td>";
 			answerBody += "<td>"+qnaAnswerListVO.qnaAnswerList[i].memberVO.id+"</td>";
 			answerBody += "<td>"+qnaAnswerListVO.qnaAnswerList[i].qnaAnswerContents+"</td>";
 			answerBody += "<td>"+qnaAnswerListVO.qnaAnswerList[i].qnaAnswerPostedTime+"</td>";
 			answerBody += "<td><button class='qnaAnswerBtn' type='button' onclick='return false;'>수정</button></td>";			
 			answerBody += "<td><button class='qnaAnswerBtn' type='button' onclick='return false;'>삭제</button></td>";			
-			answerBody +="</tr></table>";
+			answerBody +="</tr>";
 		}
 		$("#adminAnswer").html(answerBody);		
 	}
@@ -106,6 +106,8 @@
 								onclick='return false;'>삭제</button></td>
 					</tr>
 				</c:forEach>
+			</table>
+			<table class="table table-hover">
 				<tr>
 					<td>
 						<!-- 답변페이징 -->
