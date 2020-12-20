@@ -46,13 +46,13 @@
 	<c:set var="pb" value="${requestScope.lvo.pagingBean}"></c:set>
 	<ul class="pagination">
 	<c:if test="${pb.previousPageGroup}">	
-	<li><a href="${pageContext.request.contextPath}/faqList.do?pageNo=${pb.startPageOfPageGroup-1}">&laquo;</a></li>
+	<li><a href="${pageContext.request.contextPath}/faqList.do?pageNo=${pb.startPageOfPageGroup-1}" style="color:black">&laquo;</a></li>
 	</c:if>
 	<c:forEach var="i" begin="${pb.startPageOfPageGroup}" end="${pb.endPageOfPageGroup}">
 	<c:choose>
 	<c:when test="${pb.nowPage!=i}">
 	<!-- <div class="pageNoBtn"> -->
-	<li><a href="${pageContext.request.contextPath}/qnaList.do?pageNo=${i}">${i}</a></li> 
+	<li><a href="${pageContext.request.contextPath}/qnaList.do?pageNo=${i}" style="color:black">${i}</a></li> 
 	<!-- </div> -->
 	</c:when>
 	<c:otherwise>
@@ -62,7 +62,7 @@
 	&nbsp;
 	</c:forEach>
 	<c:if test="${pb.nextPageGroup}">	
-	<li><a href="${pageContext.request.contextPath}/qnaList.do?pageNo=${pb.endPageOfPageGroup+1}">&raquo;</a></li>
+	<li><a href="${pageContext.request.contextPath}/qnaList.do?pageNo=${pb.endPageOfPageGroup+1}" style="color:black">&raquo;</a></li>
 	</c:if>
 	</ul>	 		
 	</div> 	
