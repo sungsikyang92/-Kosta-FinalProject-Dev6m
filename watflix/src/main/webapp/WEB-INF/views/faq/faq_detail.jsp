@@ -19,6 +19,12 @@ function updateBtn() {
 <!-- <div id="faqForm"> -->
 <table class="table table-hover table-bordered" style="border-radius: 1.5px;">
 		<tr>
+			<td>NO</td><td>${requestScope.fvo.faqNo}</td>
+			<td>조회수</td><td>${requestScope.fvo.faqHits}</td>
+			<td>작성자</td><td>${requestScope.fvo.memberVO.id}</td>
+			<td>작성시간</td><td>${requestScope.fvo.faqPostedTime}</td>
+		</tr>	
+		<tr>
 			<td>제목</td>
 			<td colspan="7">${requestScope.fvo.faqTitle}</td>
 		</tr>
@@ -26,12 +32,7 @@ function updateBtn() {
 			<td>내용</td>
 			<td colspan="7"><div style="margin:0 auto;" ><pre style="white-space:pre-wrap;" >${requestScope.fvo.faqContents}</pre></div></td>
 		</tr>
-		<tr>
-			<td>NO</td><td>${requestScope.fvo.faqNo}</td>
-			<td>조회수</td><td>${requestScope.fvo.faqHits}</td>
-			<td>작성자</td><td>${requestScope.fvo.memberVO.id}</td>
-			<td>작성시간</td><td>${requestScope.fvo.faqPostedTime}</td>
-		</tr>	
+		
 </table>
 <div class="faqBtn">
 <sec:authorize access="hasRole('ROLE_ADMIN')">

@@ -7,7 +7,7 @@
 	$(document).ready(function(){
 		$("#faqDeleteForm").submit(function(){
 			return confirm("정말 삭제하시겠습니까?");
-		});//reviewDelete
+		});//faqDelete
 		$("#faqUpdateForm").submit(function(){
 			return confirm("수정 페이지로 이동 하시겠습니까?");
 		});
