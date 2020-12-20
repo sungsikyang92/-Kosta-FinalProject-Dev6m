@@ -23,7 +23,6 @@ CREATE TABLE MEMBER(
    CONSTRAINT MEMBER_ACC_STATUS_NO_FK FOREIGN KEY(ACC_STATUS_NO) REFERENCES ACC_STATUS(ACC_STATUS_NO) on delete cascade,
    REPORTCOUNT NUMBER DEFAULT 0
 )
-ALTER TABLE MEMBER ADD REPORTCOUNT NUMBER DEFAULT 0;
 
 /*장르코드*/
 CREATE TABLE GENRE(
@@ -185,6 +184,12 @@ CREATE TABLE FAQ(
    CONSTRAINT FAQ_SERVICE_ID_FK FOREIGN KEY(ID) REFERENCES MEMBER(ID) ON DELETE CASCADE
 )
 
+/*QNA 타입*/
+CREATE TABLE QNA_TYPE(
+   QNA_TYPE_NO NUMBER PRIMARY KEY,
+   QNA_TYPE VARCHAR2(1000) NOT NULL
+)
+
 /*QNA*/
 CREATE TABLE QNA(
    QNA_NO NUMBER PRIMARY KEY,
@@ -196,11 +201,6 @@ CREATE TABLE QNA(
    CONSTRAINT QNA_ID_FK FOREIGN KEY(ID) REFERENCES MEMBER(ID) ON DELETE CASCADE,
    CONSTRAINT QNA_TYPE_NO_FK FOREIGN KEY(QNA_TYPE_NO) REFERENCES QNA_TYPE(QNA_TYPE_NO) ON DELETE CASCADE
 )
-/*QNA 타입*/
-   CREATE TABLE QNA_TYPE(
-   QNA_TYPE_NO NUMBER PRIMARY KEY,
-   QNA_TYPE VARCHAR2(1000) NOT NULL
-   )
 
 /*QNA 답변*/
 CREATE TABLE QNA_ANSWER(
@@ -212,9 +212,6 @@ CREATE TABLE QNA_ANSWER(
    CONSTRAINT QNA_SERVICE_ID_FK FOREIGN KEY(ID) REFERENCES MEMBER(ID) ON DELETE CASCADE,
    CONSTRAINT QNA_NO_FK FOREIGN KEY(QNA_NO) REFERENCES QNA(QNA_NO) ON DELETE CASCADE
    )
-
-drop table qna;
-drop table qna_answer;
 
 /* 이용권타입 */
 CREATE TABLE MEMBERSHIP(
@@ -311,22 +308,47 @@ INSERT INTO PRO_STATUS VALUES(1,'정상판매');
 INSERT INTO PRO_STATUS VALUES(2,'판매중지');
 
 /*Table drop*/
-DROP TABLE CONTENTS_LIKE;
 DROP TABLE REVIEW_LIKE;
+DROP TABLE CONTENTS_LIKE;
 drop table apply;
 drop table party;
 drop table membership;
+DROP TABLE QNA_ANSWER;
+DROP TABLE QNA_TYPE cascade constraint;
+DROP TABLE QNA;
 drop table faq;
 drop table grade;
-drop table product_order;
-drop table product;
+DROP TABLE POINT_HISTORY;
+drop table product_order cascade constraint;
+drop table product cascade constraint;
+DROP TABLE PRO_STATUS;
+DROP TABLE PRODUCT_CATEGORY;
 drop table report;
 drop table report_type;
 drop table notice;
-drop table review;
-drop table comments;
+drop table review cascade constraint;
+drop table comments cascade constraint;
 drop table contents cascade constraint;
 drop table genre;
 drop table member cascade constraint;
 drop table acc_status cascade constraint;
+drop table product_category;
+drop table point_history;
+drop table pro_status;
+drop table qna;
+drop table qna_answer;
+drop table qna_type;
+
+/*SEQ drop*/
+DROP SEQUENCE COMMENTS_SEQ;
+DROP SEQUENCE REVIEW_SEQ;
+DROP SEQUENCE NOTICE_SEQ;
+DROP SEQUENCE REPORT_SEQ;
+DROP SEQUENCE PRODUCT_SEQ;
+DROP SEQUENCE PRODUCT_ORDER_SEQ;
+DROP SEQUENCE FAQ_SEQ;
+DROP SEQUENCE QNA_SEQ;
+DROP SEQUENCE QNA_ANSWER_SEQ;
+DROP SEQUENCE PARTY_SEQ;
+DROP SEQUENCE POINT_HISTORY_SEQ;
 

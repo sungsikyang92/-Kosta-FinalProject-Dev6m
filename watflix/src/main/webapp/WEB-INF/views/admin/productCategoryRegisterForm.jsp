@@ -34,7 +34,7 @@
 </head>
 <body>
 <div class="container boardClassMain">
-  <h2>상품카테고리 리스트</h2>
+  <h2>상품카테고리 등록</h2>
   <form action="${pageContext.request.contextPath}/productCategoryRegister.do" id="productCategoryRegisterForm">     
 	<sec:csrfInput/>
 	  <table class="table table-bordered" style="border-radius: 1.5px;">
@@ -48,7 +48,7 @@
   </form>
 	<div class="boardBottomDiv">
 		<div class="writeBtn">
-			<div style="width:60%;">
+			<div>
 				<button type="button" class="btn-default boardBtnSubmit" id="productCategoryRegisterComBtn">등록</button>
 			</div>
 		</div>

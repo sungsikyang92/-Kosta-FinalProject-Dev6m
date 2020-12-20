@@ -19,56 +19,21 @@ public class AdminNoticeContorller {
 
 	@Resource
 	NoticeService noticeService;
-		
+	// 회원, 비회원 공지
 	@RequestMapping("getNoticeList.do")
 	public String getNoticeList(String pageNo, Model model) {
 		model.addAttribute("noticeList", noticeService.sNoticeGetList(pageNo));
 		return "notice/noticeList.tiles";
-	}
-	// 관리자 공지 리스트
-	@Secured("ROLE_ADMIN")
-	@RequestMapping("getNoticeListAdmin.do")
-	public String getNoticeListAdmin(String pageNo, Model model) {
-		model.addAttribute("noticeList", noticeService.sNoticeGetList(pageNo));
-		return "admin/adminNoticeList.tiles";
-	}
-	// 관리자 공지 작성 폼
-	@Secured("ROLE_ADMIN")
-	@RequestMapping("noticeWriteForm.do")
-	public String noticeWriteForm(String pageNo, Model model){
-		model.addAttribute("pageNo", pageNo);
-		return "admin/adminNoticeWriteForm.tiles";
-	}
-	// 관리자 공지 작성
-	@Secured("ROLE_ADMIN")
-	@PostMapping("noticeWrite.do")
-	public String noticeWrite(NoticeVO noticeVO, Model model, RedirectAttributes redirectAttributes) {
-		MemberVO memberVO = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		noticeVO.setMemberVO(memberVO);
-		noticeService.sNoticeWrite(noticeVO);
-		redirectAttributes.addAttribute("noticeNo", noticeVO.getNoticeNo());
-		return "redirect:noticeDetailNoHits.do";
-	}
-	// 공지 디테일 조회수 증가 x
-	@RequestMapping("noticeDetailNoHits.do")
+	}	
+	// 공지 디테일 조회수 증가 x 
+	@RequestMapping("noticeDetailNoHits.do") 
 	public ModelAndView noticeDetailNoHits(int noticeNo, String pageNo, RedirectAttributes redirectAttributes) {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("notice/noticeDetail.tiles");
 		modelAndView.addObject("noticeDetail", noticeService.sNoticeGetDetailNoHits(noticeNo));
-		modelAndView.addObject("pageNo", pageNo);
+		modelAndView.addObject("pageNo", pageNo); 
 		return modelAndView;
 	}
-	// 관리자 공지 디테일 조회수 증가 x
-	@Secured("ROLE_ADMIN")
-	@RequestMapping("noticeDetailNoHitsAdmin.do")
-	public ModelAndView noticeDetailNoHitsAdmin(int noticeNo, String pageNo, RedirectAttributes redirectAttributes) {
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("admin/adminNoticeDetail.tiles");
-		modelAndView.addObject("noticeDetail", noticeService.sNoticeGetDetailNoHits(noticeNo));
-		modelAndView.addObject("pageNo", pageNo);
-		return modelAndView;
-	}
-
 	// 공지 디테일 조회수 증가 o
 	@RequestMapping("noticeDetail.do")
 	public String noticeDetail(int noticeNo, String pageNo, RedirectAttributes redirectAttributes) {
@@ -79,17 +44,33 @@ public class AdminNoticeContorller {
 		redirectAttributes.addAttribute("pageNo", pageNo);
 		return "redirect:noticeDetailNoHits.do";
 	}	
-	// 관리자 공지 디테일 조회수 증가 o
+	
+	// 관리자 공지 
+	// 관리자 공지 리스트
 	@Secured("ROLE_ADMIN")
-	@RequestMapping("noticeDetailAdmin.do")
-	public String noticeDetailAdmin(int noticeNo, String pageNo, RedirectAttributes redirectAttributes) {
-		// 조회수 올림(세션적용하지 않아 읽었던 글을 다시 읽더라고 조회수 증가함.
-		// 로그인시 조회 내역을 저장할 수 있는 리스트를 만들어 세션에 넣는 코드가 필요함. 
-		noticeService.sNoticeUpdateHits(noticeNo);		
-		redirectAttributes.addAttribute("noticeNo", noticeNo);
-		redirectAttributes.addAttribute("pageNo", pageNo);
+	@RequestMapping("getNoticeListAdmin.do")
+	public String getNoticeListAdmin(String pageNo, Model model) {
+		model.addAttribute("noticeList", noticeService.sNoticeGetList(pageNo));
+		return "admin/adminNoticeList.tiles";
+	}
+	// 관리자 공지 작성 폼
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("noticeWriteFormAdmin.do")
+	public String noticeWriteForm(String pageNo, Model model){
+		System.out.println(pageNo);
+		model.addAttribute("pageNo", pageNo);
+		return "admin/adminNoticeWriteForm.tiles";
+	}
+	// 관리자 공지 작성
+	@Secured("ROLE_ADMIN")
+	@PostMapping("noticeWrite.do")
+	public String noticeWrite(NoticeVO noticeVO, RedirectAttributes redirectAttributes) {
+		MemberVO memberVO = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		noticeVO.setMemberVO(memberVO);
+		noticeService.sNoticeWrite(noticeVO);
+		redirectAttributes.addAttribute("noticeNo", noticeVO.getNoticeNo());
 		return "redirect:noticeDetailNoHitsAdmin.do";
-	}	
+	}
 	// 공지 업데이트 폼
 	@Secured("ROLE_ADMIN")
 	@PostMapping("noticeUpdateForm.do")
@@ -109,23 +90,45 @@ public class AdminNoticeContorller {
 		redirectAttributes.addAttribute("pageNo", pageNo);
 		return "redirect:noticeDetailNoHitsAdmin.do";
 	}
-	// 공지 삭제
+	// 관리자 공지 디테일 조회수 증가 x
 	@Secured("ROLE_ADMIN")
-	@PostMapping("noticeDelete.do")
-	public String noticeDelete(int noticeNo, String pageNo, RedirectAttributes redirectAttributes) {
+	@RequestMapping("noticeDetailNoHitsAdmin.do")
+	public ModelAndView noticeDetailNoHitsAdmin(int noticeNo, String pageNo, RedirectAttributes redirectAttributes) {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("admin/adminNoticeDetail.tiles");
+		modelAndView.addObject("noticeDetail", noticeService.sNoticeGetDetailNoHits(noticeNo));
+		modelAndView.addObject("pageNo", pageNo);
+		return modelAndView;
+	}
+
+	// 관리자 공지 디테일 조회수 증가 o
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("noticeDetailAdmin.do")
+	public String noticeDetailAdmin(int noticeNo, String pageNo, RedirectAttributes redirectAttributes) {
+		// 조회수 올림(세션적용하지 않아 읽었던 글을 다시 읽더라고 조회수 증가함.
+		// 로그인시 조회 내역을 저장할 수 있는 리스트를 만들어 세션에 넣는 코드가 필요함. 
+		noticeService.sNoticeUpdateHits(noticeNo);		
+		redirectAttributes.addAttribute("noticeNo", noticeNo);
+		redirectAttributes.addAttribute("pageNo", pageNo);
+		return "redirect:noticeDetailNoHitsAdmin.do";
+	}	
+	
+	//공지 삭제 
+	@Secured("ROLE_ADMIN") 
+	@PostMapping("noticeDelete.do") public String noticeDelete(int noticeNo, String pageNo, RedirectAttributes redirectAttributes) {
 		noticeService.sNoticeDelete(noticeNo);
 		redirectAttributes.addAttribute("pageNo", pageNo);
 		return "redirect:getNoticeListAdmin.do";
 	}
-	// 공지 삭제 체크박스
-	@Secured("ROLE_ADMIN")
+	 
+	//공지 삭제 체크박스	
+	@Secured("ROLE_ADMIN")	 
 	@PostMapping("noticeDeleteByCheckbox.do")
 	public String noticeDelete(int[] deleteCheckbox, String pageNo, RedirectAttributes redirectAttributes) {
 		for(int i = 0; i < deleteCheckbox.length; i++) {
 			noticeService.sNoticeDelete(deleteCheckbox[i]);
 		}
 		redirectAttributes.addAttribute("pageNo", pageNo);
-		return "redirect:getNoticeList.do";
-	}
-	
+		return "redirect:getNoticeListAdmin.do";
+	}	
 }

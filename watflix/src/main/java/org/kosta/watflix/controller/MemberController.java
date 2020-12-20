@@ -9,6 +9,7 @@ import org.kosta.watflix.model.service.MemberService;
 import org.kosta.watflix.model.service.PagingBean;
 import org.kosta.watflix.model.service.PointHistoryService;
 import org.kosta.watflix.model.service.ProductOrderService;
+import org.kosta.watflix.model.service.ReportService;
 import org.kosta.watflix.model.service.ReviewService;
 import org.kosta.watflix.model.vo.CommentsListVO;
 import org.kosta.watflix.model.vo.MemberVO;
@@ -16,6 +17,7 @@ import org.kosta.watflix.model.vo.PointHistoryListVO;
 import org.kosta.watflix.model.vo.PointHistoryVO;
 import org.kosta.watflix.model.vo.ProductOrderListVO;
 import org.kosta.watflix.model.vo.ProductOrderVO;
+import org.kosta.watflix.model.vo.ReportListVO;
 import org.kosta.watflix.model.vo.ReviewListVO;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -43,6 +45,9 @@ public class MemberController {
 	
 	@Resource
 	ProductOrderService productOrderService;
+	
+	@Resource
+	ReportService reportService;
 	
 	@RequestMapping("loginForm.do")
 	public String loginForm() {
@@ -188,6 +193,21 @@ public class MemberController {
 	public CommentsListVO myCommentsList(String pageNo) {
 		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		return commentsService.sMyCommentsGetList(mvo.getId(), pageNo);
+	}
+	
+	// 내 신고 리스트
+	// ResponseBody는 비동기 통신에 필요한 어노테이션이다.
+	@RequestMapping("myReportBoard.do")
+	@ResponseBody
+	public ReportListVO myReportReviewBoard(String reportPageNo, boolean reportType) {
+		System.out.println("myReportBoard.do 실행");
+		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String id = mvo.getId();
+		if(reportType) {
+			return reportService.sGetMyReportCommentsList(id, reportPageNo);
+		} else {
+			return reportService.sGetMyReportReviewList(id, reportPageNo);
+		}
 	}
 
 	//포인트사용내역 조회

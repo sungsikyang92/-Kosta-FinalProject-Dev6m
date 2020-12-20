@@ -1,8 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<sec:authorize access="hasRole('ROLE_ADMIN')">
+<script type="text/javascript">
+$(document).ready(function(){
+// 공지글 목록으로 돌아가는 메소드
+		$("#backToNoticeList").click(function(){
+			if(confirm("리스트로 이동하시겠습니까?")){
+				return location.href="${pageContext.request.contextPath}/getNoticeListAdmin.do?pageNo=${requestScope.pageNo}";
+			}
+		})
+})
+</script>
 <div class="container-lg" style="margin-top: 90px">
-		<sec:authorize access="hasRole('ROLE_ADMIN')">
 		<form method="post"
 		 action="${pageContext.request.contextPath}/noticeUpdate.do">
 		<sec:csrfInput />
@@ -28,9 +38,10 @@
 				</td>
 				<td>
 					<button type="reset">취소</button>
+					<button type="button" class="btn-list btn btn-default boardDetailBtn" id="backToNoticeList">목록</button>
 				</td>
 			</tr>
 		</table>
 		</form>
-		</sec:authorize>
 </div>
+</sec:authorize>
