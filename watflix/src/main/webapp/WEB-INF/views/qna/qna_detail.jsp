@@ -19,7 +19,7 @@
 			url: "${pageContext.request.contextPath}/qnaAnswerList.do",
 			dataType: "json",
 			data: 'qnaNo='+qnaNo+
-				  'pageNo='+pageNo,				 
+				  '&pageNo='+pageNo,				 
 			success:function(result){
 				qnaAnswerList(result);
 			}
@@ -48,14 +48,14 @@
 	function qnaAnswerList(qnaAnswerListVO){
 		var answerBody = "";
 		for (var i=0; i < qnaAnswerListVO.qnaAnswerList.length; i++){
-			answerBody += "<table><tr>";
-			answerBody += "<td>"+i+1+"</td>";
+			answerBody += "<tr>";
+			answerBody += "<td>"+(i+1)+"</td>";
 			answerBody += "<td>"+qnaAnswerListVO.qnaAnswerList[i].memberVO.id+"</td>";
 			answerBody += "<td>"+qnaAnswerListVO.qnaAnswerList[i].qnaAnswerContents+"</td>";
 			answerBody += "<td>"+qnaAnswerListVO.qnaAnswerList[i].qnaAnswerPostedTime+"</td>";
 			answerBody += "<td><button class='qnaAnswerBtn' type='button' onclick='return false;'>수정</button></td>";			
 			answerBody += "<td><button class='qnaAnswerBtn' type='button' onclick='return false;'>삭제</button></td>";			
-			answerBody +="</tr></table>";
+			answerBody +="</tr>";
 		}
 		$("#adminAnswer").html(answerBody);		
 	}
@@ -106,6 +106,8 @@
 								onclick='return false;'>삭제</button></td>
 					</tr>
 				</c:forEach>
+			</table>
+			<table class="table table-hover">
 				<tr>
 					<td>
 						<!-- 답변페이징 -->
@@ -157,10 +159,12 @@
 				<button class="btn-listFaQ btnFaQ boardDetailBtnFaQ" id="qnaListBtn"	onclick="qnaListBtn()">목록</button>
 					</td></tr>
 			</table>
-			<!-- qna 삭제? -->
-			<%-- <form action="qnaDelete.do" id="qnaDelete" method="post">
-<sec:csrfInput/>
-<input type="hidden" name="qnaNo" value="${requestScope.qvo.qnaNo}">
-</form> --%>
+			<!-- qna 삭제 -->
+			<form action="qnaDelete.do" id="qnaDelete" method="post">
+				<sec:csrfInput/>
+				<input type="hidden" name="qnaNo" value="${requestScope.qvo.qnaNo}">
+				<input type="hidden" name="pageNo" value="${requestScope.pageNo}">
+			</form>
 		</div>
 	</div>
+</div>
