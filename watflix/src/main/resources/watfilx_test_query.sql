@@ -511,6 +511,33 @@ select * from member
 select * from grade
 select * from contents
 UPDATE contents SET contents_avg_stars = 0
+-- table 삭제
+DROP TABLE CONTENTS_LIKE;
+DROP TABLE REVIEW_LIKE;
+drop table apply;
+drop table party;
+drop table membership;
+drop table faq;
+drop table grade;
+drop table product_order cascade constraint;
+drop table product cascade constraint;
+drop table report;
+drop table report_type;
+drop table notice;
+drop table review cascade constraint;
+drop table comments cascade constraint;
+drop table contents cascade constraint;
+drop table genre;
+drop table member cascade constraint;
+drop table acc_status cascade constraint;
+drop table PRODUCT_CATEGORY;
+drop table PRO_STATUS;
+drop table POINT_HISTORY;
+drop table QNA_ANSWER;
+drop table QNA;
+drop table QNA_TYPE;
+--
+
 
 
 select * from grade where id='java'
