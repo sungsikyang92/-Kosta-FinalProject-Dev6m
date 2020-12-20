@@ -63,7 +63,7 @@
 				</c:forEach>
 				<!-- 검색된 컨텐츠가 없을 경우 안내문 -->
 				<c:if test="${empty requestScope.genreList}">
-					<h2 style="text-align: center;">검색된 컨텐츠가 없습니다.</h2>
+					<h2 style="text-align: center;color: red;">검색된 컨텐츠가 없습니다.</h2>
 				</c:if>
 			</c:otherwise>
 		</c:choose>
