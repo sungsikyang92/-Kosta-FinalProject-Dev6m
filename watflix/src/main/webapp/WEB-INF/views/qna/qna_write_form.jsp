@@ -28,7 +28,7 @@
 				method="post" id="qna_write">
 				<sec:csrfInput />
 				<!--  post 방식일 때 form안에 꼭 들어가 있어야 하는 토큰 -->
-				<h2>문의하기</h2><hr>
+				<h2>1:1 문의하기</h2><hr>
 				<table class="table table-bordered" style="border-radius: 1.5px;">
 				<tr>
 				<td class="QnACategory">유형</td>

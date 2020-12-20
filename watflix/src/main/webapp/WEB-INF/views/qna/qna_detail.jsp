@@ -25,6 +25,12 @@
 			}
 		})
 	}
+	$(document).ready(function() {
+		$("#qnaDelete").submit(function() {
+			return confirm("정말 삭제하시겠습니까?");
+		});  //qnaDelete
+	});
+	
 	function writeAndGetAnswer(){
 		alert("답변을 작성하시겠습니까?");
 		var answerContents = $("#answerContents").val();
@@ -152,7 +158,7 @@
 						</td>
 					</tr>
 					<tr><td class="btnArea">
-					<button class="btn-listFaQ btnFaQ boardDetailBtnFaQ" form="qnaDelete.do" type="submit" id="qna-delete-btn">삭제</button>
+					<button class="btn-listFaQ btnFaQ boardDetailBtnFaQ" form="qnaDelete" type="submit" id="qna-delete-btn">삭제</button>
 					</td></tr>
 				</sec:authorize>
 					<tr><td class="btnArea">

@@ -43,10 +43,7 @@ public class QnAController {
 	// qna 작성
 	@RequestMapping("qnaWrite.do")
 	public String qnaWrite(QnAVO qnaVO,QnATypeVO qnaTypeVO,RedirectAttributes re) {
-		// 아래의 1번 문장은 시큐리티를 통해서 세션을 가져와 MemberVO 값을 가져온다.
-		//1. SecurityContextHolder.getContext().getAuthentication().getPrincipal() : (MemberVO) 다운캐스팅 USERVO .
 		MemberVO memberVO = (MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		//System.out.println(memberVO.getId());
 		qnaVO.setMemberVO(memberVO);
 		// 사용자가 선택한 문의유형 넣어주기
 		qnaVO.setQnaTypeVO(qnaTypeVO);
@@ -75,8 +72,6 @@ public class QnAController {
 		qnaService.sQnAAnswerWrite(qnaAnswerVO);
 		re.addAttribute("qnaNo", qnaNo);
 		return "redirect:qnaAnswerList.do";
-		//System.out.println(qnaService.sQnAAnswerByQnANo(qnaNo, pageNo));
-		//return qnaService.sQnAAnswerByQnANo(qnaNo, pageNo);
 	}
 	// qna 답변 리스트
 	@ResponseBody
@@ -86,9 +81,8 @@ public class QnAController {
 	}
 	// qna 삭제 
 		@PostMapping("qnaDelete.do") 
-		public String qnaDelete(int qnaNo, String pageNo, RedirectAttributes redirectAttributes) {
+		public String qnaDelete(int qnaNo) {
 			qnaService.sQnADelete(qnaNo);
-			redirectAttributes.addAttribute("pageNo", pageNo);
 			return "redirect:qnaList.do";
 		}
 }
