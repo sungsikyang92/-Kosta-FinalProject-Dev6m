@@ -30,4 +30,5 @@ public interface MemberService {
 	MemberListVO sMemberAllList(String pageNo);
 	//멤버 계정 정지 or 해제
 	void sMemberStatusUpdate(String id, int accStatusNo);
+	void sMemberStatusUpdateInactive();
 }

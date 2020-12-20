@@ -23,13 +23,14 @@ overflow:hidden; padding-left:110px; }
 
 /*게시글 CSS*/
 .boardClassMain{
-	background-color: white;
+   	background-color: white;
 	color: black;
 	position:relative;
 	top:50px;
     padding-bottom: 40px;
     margin-bottom: 80px;
    	padding-top: 15px;
+   	border: 2px solid red;
 }
 .boardClassMain a, a:hover{
 	color:black;

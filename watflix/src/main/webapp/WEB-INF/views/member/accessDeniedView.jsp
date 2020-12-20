@@ -11,6 +11,7 @@
 
 <script type="text/javascript">
 alert("접근권한이 없습니다.")
+location.href="${pageContext.request.contextPath}/home.do"
 
 </script>
 </body>

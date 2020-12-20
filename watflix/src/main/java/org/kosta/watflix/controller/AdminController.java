@@ -55,6 +55,8 @@ public class AdminController {
    	@Secured("ROLE_ADMIN")
 	@RequestMapping("adminHome.do")
 	public String adminHome(){
+   		//마지막으로 로그인한 시간이 현시간부로 6개월 전인 계정은 모두 휴먼계정으로 전환 
+   		memberService.sMemberStatusUpdateInactive();
 		return "adminHome.tiles";
 	}
    

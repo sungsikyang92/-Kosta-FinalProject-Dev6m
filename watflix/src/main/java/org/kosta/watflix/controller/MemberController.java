@@ -66,9 +66,20 @@ public class MemberController {
 	}
 	
 	//로그인 후 안내페이지
+	@Secured("ROLE_MEMBER")
 	@RequestMapping("login_result.do")
 	public String login() {
-		return "member/login_result";
+		MemberVO memberVO = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+		//휴먼계정인지 확인
+		if(memberVO.getAccStatusVO().getAccStatusNo()==1) {
+			//정상계정
+			memberService.sMemberStatusUpdate(memberVO.getId(), 0);
+			return "member/login_inactive";
+		}
+		else {
+			return "member/login_result";
+		}
 	}
 	
 	//로그아웃 후 안내페이지
@@ -91,7 +102,6 @@ public class MemberController {
 	//회원가입
 	@PostMapping("memberRegister.do")
 	public String memberRegister(MemberVO memberVO){
-		System.out.println(memberVO.getAddress());
 		memberService.sMemberRegister(memberVO);
 		return "redirect:memberRegister_result.do?id="+memberVO.getId();
 	}

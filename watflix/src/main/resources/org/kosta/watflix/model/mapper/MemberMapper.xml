@@ -114,6 +114,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		UPDATE MEMBER SET ACC_STATUS_NO = #{accStatusNo} WHERE ID = #{id}
 	</update>
 	
+	<!-- 관리자 로그인시간 기준으로 멤버들 휴먼계정으로 상태변경 -->
+	<update id="mMemberStatusUpdateInactive">
+		UPDATE MEMBER SET ACC_STATUS_NO = 1 WHERE MONTHS_BETWEEN(SYSDATE,LOGIN_TIME)>5
+	</update>
+	
+	
 </mapper>
 
 

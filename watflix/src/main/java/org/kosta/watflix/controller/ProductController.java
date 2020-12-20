@@ -166,11 +166,8 @@ public class ProductController {
 			//구매내역테이블에 저장할 데이터 set END
 			//멤버 포인트 변경
 			memberVO.setPoint(lackPoint);
-			System.out.println(lackPoint);
-			System.out.println(memberVO.getPoint());
 			//재고수량 변경
 			productVO.setProductStock(productService.sGetProductStock(productVO.getProductNo()));
-			System.out.println("현재 재고수: "+ productVO.getProductStock());
 			int count =productVO.getProductStock()-productOrderVO.getQuantity();
 			productVO.setProductStock(count);
 			productService.sProductBuy(productVO,memberVO,productOrderVO);
