@@ -2,15 +2,12 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
-<script type="text/javascript">
-$(document).ready(function(){
-})//ready종료
-</script>
+
 <div class="tableMargin">
 <div class="container boardClassMain">
-<h2 align="center">주문내역</h2>  
+<h2 align="center">구매내역</h2>  
   <div class="middleBox">       
-  <table class="table table-hover table-bordered" style="border-radius: 1.5px;">
+  <table class="table table-hover table-bordered">
     <thead>
       <tr>
 		<th>상품명</th>

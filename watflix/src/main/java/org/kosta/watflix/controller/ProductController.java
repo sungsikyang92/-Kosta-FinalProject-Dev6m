@@ -79,7 +79,6 @@ public class ProductController {
 	public String productList(Model model,String pageNo) {
 		PagingBean pagingBean = null;
 		int totalProductCount = productService.sProductGetTotalCount();
-		
 		if(pageNo==null) {
 			pagingBean = new PagingBean(totalProductCount, 12, 4);
 		}
@@ -97,7 +96,6 @@ public class ProductController {
 		PagingBean pagingBean = null;
 		//정상판매인 상품의 수
 		int totalProductCount = productService.sProductStatusNormalGetTotalCount();
-		
 		if(pageNo==null) {
 			pagingBean = new PagingBean(totalProductCount, 12, 4);
 		}

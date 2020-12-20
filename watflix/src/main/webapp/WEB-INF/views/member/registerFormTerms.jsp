@@ -83,7 +83,8 @@
 				<ul class="registerTermUl">
 					<li>
 						<a href="#" class="mustSelect">
-							<input type='checkbox'/>WATFLIX 이용약관 동의<font color="red">(필수)</font>
+							<input type='checkbox'/>
+							WATFLIX 이용약관 동의<font color="red">(필수)</font>
 						</a>
 					</li>
 					<li>

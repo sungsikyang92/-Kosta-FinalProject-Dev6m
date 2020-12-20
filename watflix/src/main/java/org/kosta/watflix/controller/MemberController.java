@@ -49,6 +49,11 @@ public class MemberController {
 		return "loginForm.tiles";
 	}
 	
+	@RequestMapping("accessDeniedView.do")
+	public String accessDeniedView(){
+		return "member/accessDeniedView";
+	}
+	
 	//로그인 실패
 	@RequestMapping("login_fail.do")
 	public String loginFail() {
@@ -232,6 +237,7 @@ public class MemberController {
 		else {
 			pagingBean = new PagingBean(productOrderCount, Integer.parseInt(pageNo));
 		}
+		//id를 가지고 구매내역 조회
 		List<ProductOrderVO> list = productOrderService.sProductOrderList(pagingBean,mvo.getId());
 		ProductOrderListVO polvo = new ProductOrderListVO(list, pagingBean);
 		model.addAttribute("productOrderListVO",polvo);
@@ -242,6 +248,7 @@ public class MemberController {
 	@Secured("ROLE_MEMBER")
 	@RequestMapping("productOrderDetail.do")
 	public String productOrderDetail(ProductOrderVO productOrderVO,Model model) {
+		//security에서 세션값 불러옴
 		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		model.addAttribute("productOrderDetail",productOrderService.sProductOrderDetail(mvo.getId(),productOrderVO.getOrderNo()));
 		return "member/productOrderDetail.tiles";

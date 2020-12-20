@@ -8,8 +8,8 @@
 </head>
 <body>
 <script type="text/javascript">
-alert("컨텐츠 업레이트 완료하였습니다.")
-location.href="${pageContext.request.contextPath}/home.do";
+alert("컨텐츠 업데이트 완료하였습니다.")
+location.href="${pageContext.request.contextPath}/adminHome.do";
 
 </script>
 </body>

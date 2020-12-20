@@ -50,7 +50,7 @@
 <div id="topMenu">
    <div id="topWrap">
       <h1>
-         <a class="navbar-brand logo" href="home.do"> <img
+         <a class="navbar-brand logo" href="${pageContext.request.contextPath}/adminHome.do"> <img
             src="${pageContext.request.contextPath}/resources/media/images/logo.png"
             width="80" alt="">
          </a>
@@ -66,6 +66,7 @@
       </ul>
       <ul class="menu">
          <li><a class="nav-link navbar-nav-item" href="#"> 회원 </a></li>
+         <li><a class="nav-link navbar-nav-item" href="#"> 컨텐츠 </a></li>
          <li><a class="nav-link navbar-nav-item" href="#"> 상품 </a></li>
          <li><a class="nav-link navbar-nav-item" id="allPost"
             href="${pageContext.request.contextPath}/allPostForAdmin.do">
@@ -89,6 +90,13 @@
       </li>
       <li>
          <ul>
+            <li>
+            <a class="nav-link navbar-nav-item" href="${pageContext.request.contextPath}/contentsUpdateAdmin.do">
+                  컨텐츠 다운로드 </a></li>
+         </ul>
+      </li>
+      <li>
+         <ul>
             <li><a class="nav-link navbar-nav-item"
                href="${pageContext.request.contextPath}/productRegisterForm.do">
                   상품등록 </a></li>
@@ -100,7 +108,7 @@
                   구매내역관리 </a></li>
          </ul>
       </li>
-      <li>
+      <li style="width:150px;">
          <ul>
             <li><a class="nav-link navbar-nav-item" id="allPost" href="${pageContext.request.contextPath}/allPostForAdmin.do">평점/리뷰/신고<br>게시물</a></li>
          </ul>

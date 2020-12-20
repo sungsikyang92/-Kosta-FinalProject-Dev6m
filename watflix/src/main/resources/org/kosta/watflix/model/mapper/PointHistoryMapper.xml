@@ -11,7 +11,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="reviewVO.contentsVO.contentsTitle" column="contents_title"/>
 		<!-- 평점정보담기  -->
 		<result property="commentsVO.commentsNo" column="comments_no"/>
-		<result property="commentsVO.comments" column="comments"/>
+		<result property="commentsVO.commentsStars" column="comments_stars"/>
 		<result property="commentsVO.contentsVO.contentsTitle" column="contents_title"/>
 		<!-- 컨텐츠 정보담기  -->
 		<result property="contentsVO.contentsNo" column="contents_no"/>
@@ -28,7 +28,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 사용자에 따른 포인트 사용내역 리스트 출력 -->
 	<select id="mMemberPointHistoryCheck" resultMap="pointHistoryRM">
 		SELECT P.POINT_HISTORY_NO,P.ID,P.REVIEW_NO,(select REVIEW_TITLE from REVIEW where P.REVIEW_no=REVIEW_no) AS REVIEW_TITLE,
-      P.COMMENTS_NO,(select COMMENTS from COMMENTS where P.COMMENTS_no=COMMENTS_no) as COMMENTS,
+      P.COMMENTS_NO,(select comments_stars from COMMENTS where P.COMMENTS_no=COMMENTS_no) as comments_stars,
        NVL2((select C.CONTENTS_NO from REVIEW R,CONTENTS C where P.REVIEW_no=R.REVIEW_NO and C.CONTENTS_NO=R.CONTENTS_NO),
       (select C.CONTENTS_NO from REVIEW R,CONTENTS C where P.REVIEW_no=R.REVIEW_NO and C.CONTENTS_NO=R.CONTENTS_NO), 
       (select C.CONTENTS_NO from COMMENTS M,CONTENTS C where P.COMMENTS_no=M.COMMENTS_NO and C.CONTENTS_NO=M.CONTENTS_NO)) AS CONTENTS_NO,

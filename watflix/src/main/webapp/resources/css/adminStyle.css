@@ -9,14 +9,14 @@ li{list-style:none;}
 #topWrap .top{position:absolute; top:10; right:0;}
 #topWrap .top li{float:left;}
 #topWrap .top li a{color:#FFF; display:block; padding-left:10px; font-size:11px;}
-#topWrap .menu{position:absolute; top:50px; left:400px;}
+#topWrap .menu{position:absolute; top:50px; left:250px;}
 #topWrap .menu li{float:left;}
 #topWrap .menu li a{color:#FFF; display:block; margin-right:60px; font-size:16px; font-weight:bold;}
 
 #subMenu{width:100%; height:100px; background-color:#ffffff; border-bottom:2px solid red; position:absolute; top:100px; left:0; z-index:1; display:none;}
 
 #subMenu #sub{width:1000px; margin:0 auto; height:100px; 
-overflow:hidden; padding-left:260px; }
+overflow:hidden; padding-left:110px; }
 #subMenu #sub > li{float:left; width:130px; border-right:1px solid #ebebeb; height:200px;}
 #subMenu #sub li a{display:block; color:#666; padding:5px 3px 5px 10px; }
 #subMenu #sub li a:hover{background-color:#333; color:#FFF;}
@@ -105,7 +105,7 @@ overflow:hidden; padding-left:260px; }
 /*버튼*/
 .btn {
 	padding: 5px 10px;
-	color: white;
+	color: black;
 	transition: 0.3s;
 	border-radius: 25px;
 	z-index: 999;

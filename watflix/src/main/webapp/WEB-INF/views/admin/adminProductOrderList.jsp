@@ -39,12 +39,12 @@
 				<c:set var="pb" value="${requestScope.productOrderListVO.pagingBean}"/>
 				<ul class="pagination">
 					<c:if test="${pb.previousPageGroup}">		
-					<li><a href="${pageContext.request.contextPath}/memberProductOrderList.do?pageNo=${pb.startPageOfPageGroup-1}">&laquo;</a></li>	
+					<li><a href="${pageContext.request.contextPath}/adminProductOrderList.do?pageNo=${pb.startPageOfPageGroup-1}">&laquo;</a></li>	
 					</c:if>
 					<c:forEach var="i" begin="${pb.startPageOfPageGroup}" end="${pb.endPageOfPageGroup}">
 						<c:choose>
 							<c:when test="${pb.nowPage != i}">
-								<li><a href="${pageContext.request.contextPath}/memberProductOrderList.do?pageNo=${i}">${i}</a></li>
+								<li><a href="${pageContext.request.contextPath}/adminProductOrderList.do?pageNo=${i}">${i}</a></li>
 							</c:when>
 							<c:otherwise>
 								<li class="active"><a href="#">${i}</a></li>
@@ -52,7 +52,7 @@
 						</c:choose>
 					</c:forEach>
 					<c:if test="${pb.nextPageGroup}">	
-						<li><a href="${pageContext.request.contextPath}/memberProductOrderList.do?pageNo=${pb.endPageOfPageGroup+1}">&raquo;</a></li>
+						<li><a href="${pageContext.request.contextPath}/adminProductOrderList.do?pageNo=${pb.endPageOfPageGroup+1}">&raquo;</a></li>
 					</c:if>
 				</ul>
 			</div>

@@ -95,7 +95,7 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 </style>
 <div class="login-wrap">
 	<div class="login-content login-form hybrid-login-form hybrid-login-form-signup" style="margin-bottom: 600px;">
-		<div class="hybrid-login-form-main">
+		<div class="hybrid-register-form-main">
 			<h1>회원가입</h1>
 			<form method="post" class="login-form" action="memberRegister.do">
 				<sec:csrfInput />
@@ -214,7 +214,7 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 					<div class="nfInputPlacement">
 						<div class="nfEmailPhoneControls">
 							<label class="input_id">
-								<input type="text" name="address" class="registerForNfTextField" id="address" tabindex="0" required="required" style="font-size:15px;"> 
+								<input type="text" name="address" class="registerForNfTextField" id="address" tabindex="0" required="required"> 
 								<label for="id_address" class="placeLabel">주소</label> 
 							</label>
 						</div>
@@ -226,7 +226,7 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 					<div class="nfInputPlacement">
 						<div class="nfEmailPhoneControls">
 							<label class="input_id">
-								<input type="text" name="address" class="registerForNfTextField" id="address2" tabindex="0" style="font-size:15px;"> 
+								<input type="text" name="address" class="registerForNfTextField" id="address2" tabindex="0"> 
 								<label for="id_address" class="placeLabel">상세주소</label> 
 							</label>
 						</div>

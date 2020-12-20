@@ -622,7 +622,11 @@ a, a:hover {
 
 .hybrid-login-form-main {
 	color: white;
-	padding-bottom:200px;
+}
+
+.hybrid-register-form-main {
+	color: white;
+	height:1000px;
 }
 
 .hybrid-login-form-other {
@@ -761,6 +765,10 @@ a, a:hover {
 	margin-right: 8px;
 	zoom: 1.5
 }
+.registerTermUl li a:hover{
+	opacity:0.3;
+	color:#BDBDBD;
+}
 /*회원가입 End*/
 
 /*타이틀 및 작성폼 css Start!*/
@@ -840,7 +848,7 @@ a, a:hover {
 	border-radius: 4px;
 	border: 0;
 	height: 60px;
-	font-size:30px;
+	font-size:17px;
 	line-height: 60px;
 	padding: 10px 20px 0;
 	background: white;
@@ -1235,4 +1243,10 @@ li {
 	background-color:white;
 	width:100%;
 	height:100%;
+}
+
+/* 포인트체크 테이블*/
+.table-pointCheck{
+	font-size:12px;
+	text-align:center;
 }
