@@ -2,11 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
-
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
 <title>상품카테고리 등록</title>
 	<!-- Bootstrap 4.4.1 -->
 	<link rel="stylesheet" type="text/css"
@@ -31,8 +26,6 @@
 		})
 	})
 	</script>
-</head>
-<body>
 <div class="container boardClassMain">
   <h2>상품카테고리 등록</h2>
   <form action="${pageContext.request.contextPath}/productCategoryRegister.do" id="productCategoryRegisterForm">     
@@ -54,5 +47,3 @@
 		</div>
 	</div>
 </div>
-</body>
-</html>

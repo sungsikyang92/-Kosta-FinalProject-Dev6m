@@ -123,6 +123,11 @@
       </li>
       <li>
          <ul>
+            <li><a class="nav-link navbar-nav-item" href="${pageContext.request.contextPath}/qnaList.do">1:1문의 관리</a></li>
+         </ul>
+      </li>
+      <li>
+         <ul>
             <li><a class="nav-link navbar-nav-item" href="${pageContext.request.contextPath}/getNoticeListAdmin.do">공지사항<br>등록/관리</a></li>
          </ul>
       </li>

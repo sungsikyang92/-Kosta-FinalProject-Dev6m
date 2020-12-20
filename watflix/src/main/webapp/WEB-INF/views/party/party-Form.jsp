@@ -62,7 +62,7 @@ $(document).ready(function () {
 </select>
 <br>
 
-<input type="submit" value="등록">
+<input type="submit" class="btn btn-default boardDetailBtn" value="등록">
 </form>
 </div>
 </div>

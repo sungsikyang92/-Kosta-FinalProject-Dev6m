@@ -17,7 +17,7 @@
 		}
 	}
 </script>
- <div class="container-lg margin-top margin-bottom boardClassMain">
+<div class="container-lg boardClassMainFaQ">
   <h2>상품 등록하기</h2>           
 	<form action="${pageContext.request.contextPath}/productRegister.do" method="post" name="productForm" enctype="multipart/form-data" onsubmit="return checkForm()">
 		<sec:csrfInput/>
@@ -53,8 +53,8 @@
 			</tr>
 			<tr>		
 				<td colspan="2" class="btnArea">
-					<button type="reset" class="btn-reset btn btn-default boardDetailBtn">초기화</button>
-					<button type="submit" class="btn btn-default boardDetailBtn">등록</button>
+					<button type="reset" class="btn-submitFaQ btnFaQ boardDetailBtnFaQ">초기화</button>
+					<button type="submit" class="btn-submitFaQ btnFaQ boardDetailBtnFaQ">등록</button>
 				</td>
 			</tr>
 	  	</table>

@@ -73,7 +73,7 @@ public class ReviewController {
 	return "redirect:reviewDetailNoHits.do";
 	}
 	
-	//리뷰 상세보기(조회수 증가X, 세션추가 불필요?)
+	//리뷰 상세보기(조회수 증가X)
 	//그러나 조회수가 증가 되지 않는 컨트롤러 메서드이다. (자기자신이 자기글 디테일 보는 경우이다)
 	//리뷰 작성 후 자신의 글 확인, 혹은 리뷰 수정 후 확인하는 용도이다.
 	@Secured("ROLE_MEMBER")
@@ -85,7 +85,7 @@ public class ReviewController {
 		return "review/reviewDetail.tiles";
 	}
 	
-	//리뷰 상세보기(조회수 증가O, 세션 추가 필요함.)
+	//리뷰 상세보기(조회수 증가O)
 	//작성 후 혹은 수정 후가 아니라 리스트에서 눌러서 들어온 경우로 조회수가 증가한다.
 	//그러나 이미 조회한 리뷰인 경우에 한해서 조회수가 증가하지 않도록 한다.
 	@Secured("ROLE_MEMBER")
@@ -96,7 +96,7 @@ public class ReviewController {
 		return "redirect:reviewDetailNoHits.do";
 	}
 	
-	//리뷰 업데이트폼 이동(세션 추가 필요함)
+	//리뷰 업데이트폼 이동
 	@Secured("ROLE_MEMBER")
 	@RequestMapping("reviewUpdateForm.do")
 	public ModelAndView reviewUpdateForm(int reviewNo) {
@@ -104,7 +104,7 @@ public class ReviewController {
 		return new ModelAndView("review/reviewUpdateForm.tiles","ru",reviewService.sGetReviewDetailNoHits(memberVO.getId(),reviewNo));
 	}
 	
-	//리뷰 업데이트(세션 추가 필요함)
+	//리뷰 업데이트
 	@Secured("ROLE_MEMBER")
 	@PostMapping("reviewUpdate.do")
 	public ModelAndView reviewUpdate(ReviewVO reviewVO) {
