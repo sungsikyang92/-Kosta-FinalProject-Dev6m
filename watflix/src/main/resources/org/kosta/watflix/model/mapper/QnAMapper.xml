@@ -32,6 +32,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <select id="mGetQnAList" resultMap="qnaRM" parameterType="pagingBean">
 	select QNA_NO,ID,QNA_TITLE,QNA_CONTENTS,QNA_POSTED_TIME
 	from (select ROW_NUMBER() OVER(ORDER BY QNA_NO DESC) AS RNUM, ID, QNA_NO,QNA_TITLE,QNA_CONTENTS,QNA_POSTED_TIME FROM QNA)
+	WHERE rnum BETWEEN #{startRowNumber} AND #{endRowNumber}
 </select>
  	<!-- QnAVO에 MemberVO의 id(has a 관계)를 넣을 수 있도록 ResaultMap을 셋팅한다. -->
 	<resultMap type="qnaVO" id="qnaRM">

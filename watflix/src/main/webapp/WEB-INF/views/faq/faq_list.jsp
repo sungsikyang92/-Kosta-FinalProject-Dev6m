@@ -17,7 +17,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		<c:forEach var="fvo" items="${requestScope.lvo.faqList}">
+		<c:forEach var="fvo" items="${requestScope.faqListVO.faqList}">
 			<tr>
 				<td>${fvo.faqNo}</td>
 				<td>${fvo.faqHits}</td>

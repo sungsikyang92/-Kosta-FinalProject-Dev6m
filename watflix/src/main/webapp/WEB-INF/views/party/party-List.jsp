@@ -121,7 +121,7 @@ src="https://www.youtube.com/embed/Ck-h9YGKyOc?mute=1&loop=1&autoplay=1&rel=0&co
 									</c:if>
 									<c:if test="${(plvo.isApply eq 'Y')}">
 									<td><input type="button"
-										class="checkBtn btn-outline-primary partyApply2" value="지원완료" /></td>
+										class="checkBtn btn-outline-warning partyApply2" value="지원완료" /></td>
 									</c:if>									
 								</c:when>		
 								
