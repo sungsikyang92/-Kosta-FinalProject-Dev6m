@@ -19,7 +19,7 @@
 			url: "${pageContext.request.contextPath}/qnaAnswerList.do",
 			dataType: "json",
 			data: 'qnaNo='+qnaNo+
-				  'pageNo='+pageNo,				 
+				  '&pageNo='+pageNo,				 
 			success:function(result){
 				qnaAnswerList(result);
 			}
@@ -49,7 +49,7 @@
 		var answerBody = "";
 		for (var i=0; i < qnaAnswerListVO.qnaAnswerList.length; i++){
 			answerBody += "<tr>";
-			answerBody += "<td>"+i+1+"</td>";
+			answerBody += "<td>"+(i+1)+"</td>";
 			answerBody += "<td>"+qnaAnswerListVO.qnaAnswerList[i].memberVO.id+"</td>";
 			answerBody += "<td>"+qnaAnswerListVO.qnaAnswerList[i].qnaAnswerContents+"</td>";
 			answerBody += "<td>"+qnaAnswerListVO.qnaAnswerList[i].qnaAnswerPostedTime+"</td>";
@@ -159,10 +159,12 @@
 				<button class="btn-listFaQ btnFaQ boardDetailBtnFaQ" id="qnaListBtn"	onclick="qnaListBtn()">내 문의 목록 보기</button>
 					</td></tr>
 			</table>
-			<!-- qna 삭제? -->
-			<%-- <form action="qnaDelete.do" id="qnaDelete" method="post">
-<sec:csrfInput/>
-<input type="hidden" name="qnaNo" value="${requestScope.qvo.qnaNo}">
-</form> --%>
+			<!-- qna 삭제 -->
+			<form action="qnaDelete.do" id="qnaDelete" method="post">
+				<sec:csrfInput/>
+				<input type="hidden" name="qnaNo" value="${requestScope.qvo.qnaNo}">
+				<input type="hidden" name="pageNo" value="${requestScope.pageNo}">
+			</form>
 		</div>
 	</div>
+</div>
