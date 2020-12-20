@@ -51,9 +51,9 @@
 				</tr>
 		  	</table>
 				<div class="btnArea">
-					<button type="reset" class="btn btn-default boardDetailBtn">초기화</button>
-					<button type="button" class="btn-list btn btn-default boardDetailBtn" id="backToQnAList">목록</button>
+					<button type="reset" class="btn btn-default boardDetailBtn">취소</button>
 					<button type="submit" class="btn btn-default boardDetailBtn">확인</button>
+					<button type="button" class="btn-list btn btn-default boardDetailBtn" id="backToQnAList">목록</button>
 				</div>
 			</form>
 		</div>

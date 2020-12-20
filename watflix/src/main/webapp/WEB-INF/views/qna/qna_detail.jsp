@@ -150,11 +150,11 @@
 						</td>
 					</tr>
 					<tr><td class="btnArea">
-					<button class="btn-listFaQ btnFaQ boardDetailBtnFaQ" form="qnaDelete" type="submit" id="qna-delete-btn">삭제</button>
+					<button class="btn-listFaQ btnFaQ boardDetailBtnFaQ" form="qnaDelete.do" type="submit" id="qna-delete-btn">삭제</button>
 					</td></tr>
 				</sec:authorize>
 					<tr><td class="btnArea">
-				<button class="btn-listFaQ btnFaQ boardDetailBtnFaQ" id="qnaListBtn"	onclick="qnaListBtn()">내 문의 목록 보기</button>
+				<button class="btn-listFaQ btnFaQ boardDetailBtnFaQ" id="qnaListBtn"	onclick="qnaListBtn()">목록</button>
 					</td></tr>
 			</table>
 			<!-- qna 삭제? -->
