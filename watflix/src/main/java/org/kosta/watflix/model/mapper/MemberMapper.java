@@ -32,6 +32,7 @@ public interface MemberMapper {
 	List<MemberVO> mMemberAllList(PagingBean pagingBean);
 	//멤버 정지 or 정지해제
 	void mMemberStatusUpdate(HashMap<String, Object> map);
+	void mMemberStatusUpdateInactive();
 
 	
 	

@@ -79,7 +79,6 @@ public class ProductController {
 	public String productList(Model model,String pageNo) {
 		PagingBean pagingBean = null;
 		int totalProductCount = productService.sProductGetTotalCount();
-		
 		if(pageNo==null) {
 			pagingBean = new PagingBean(totalProductCount, 12, 4);
 		}
@@ -97,7 +96,6 @@ public class ProductController {
 		PagingBean pagingBean = null;
 		//정상판매인 상품의 수
 		int totalProductCount = productService.sProductStatusNormalGetTotalCount();
-		
 		if(pageNo==null) {
 			pagingBean = new PagingBean(totalProductCount, 12, 4);
 		}
@@ -168,11 +166,8 @@ public class ProductController {
 			//구매내역테이블에 저장할 데이터 set END
 			//멤버 포인트 변경
 			memberVO.setPoint(lackPoint);
-			System.out.println(lackPoint);
-			System.out.println(memberVO.getPoint());
 			//재고수량 변경
 			productVO.setProductStock(productService.sGetProductStock(productVO.getProductNo()));
-			System.out.println("현재 재고수: "+ productVO.getProductStock());
 			int count =productVO.getProductStock()-productOrderVO.getQuantity();
 			productVO.setProductStock(count);
 			productService.sProductBuy(productVO,memberVO,productOrderVO);

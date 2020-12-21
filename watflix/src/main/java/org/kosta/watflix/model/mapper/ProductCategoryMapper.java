@@ -13,6 +13,8 @@ public interface ProductCategoryMapper {
 
 	int mProductCategoryGetTotalCount();
 
-	List<ProductCategoryVO> mGetProductCategoryList(PagingBean pagingBean); 
+	List<ProductCategoryVO> mGetProductCategoryList(PagingBean pagingBean);
+
+	ProductCategoryVO mProductCategoryNameCheck(String productCategoryName); 
 	
 }

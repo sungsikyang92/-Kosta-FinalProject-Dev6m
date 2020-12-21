@@ -33,6 +33,7 @@ public class ContentsController {
 	ReviewService reviewService;
 	@Resource
 	CommentsService commentsService;
+	
 	@RequestMapping("contentsDetail.do")
 	public String ContentsDetail(Model model, ContentsVO contentsVO, String commentsPageNo, String reviewPageNo, String countComments) {
 		//CommentsListByContentsNo in ContentsDetail

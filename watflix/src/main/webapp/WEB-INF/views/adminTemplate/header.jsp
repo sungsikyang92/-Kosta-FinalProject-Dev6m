@@ -13,16 +13,6 @@
             $("#subMenu").css("display","none");
          }); 
        
-       /* 권한이 있을때에만 로그아웃이벤트 활성화 */
-       <sec:authorize access="hasRole('ROLE_MEMBER')">
-       $("#logoutBtn").click(function() {
-            $("#logoutForm").submit();
-         });
-       
-       $("#mypageBtn").click(function(){
-          $("#mypageDiv").toggle('slow');
-       })
-       </sec:authorize> 
        /* 권한이 있을때에만 관리자페이지 활성화 */
        <sec:authorize access="hasRole('ROLE_ADMIN')">
           $("#logoutBtn").click(function() {
@@ -50,22 +40,23 @@
 <div id="topMenu">
    <div id="topWrap">
       <h1>
-         <a class="navbar-brand logo" href="home.do"> <img
+         <a class="navbar-brand logo" href="${pageContext.request.contextPath}/adminHome.do"> <img
             src="${pageContext.request.contextPath}/resources/media/images/logo.png"
             width="80" alt="">
          </a>
       </h1>
       <ul class="top">
          <sec:authorize access="hasRole('ROLE_ADMIN')">
-            <li><a class="nav-link navbar-nav-item" href="${pageContext.request.contextPath}/logout.do" id="logoutBtn">로그아웃</a>
+            <li><a class="nav-link navbar-nav-item" href="#" id="logoutBtn">로그아웃</a>
+            	<form id="logoutForm" action="${pageContext.request.contextPath}/logout.do" method="post" style="display: none">
+            	<sec:csrfInput />
+				</form>
                </li>
-         </sec:authorize>
-         <sec:authorize access="!hasRole('ROLE_ADMIN')">
-            <li><a class="nav-link navbar-nav-item" href="${pageContext.request.contextPath}/loginForm.do" id="logoutBtn">로그인</a></li>
          </sec:authorize>
       </ul>
       <ul class="menu">
          <li><a class="nav-link navbar-nav-item" href="#"> 회원 </a></li>
+         <li><a class="nav-link navbar-nav-item" href="#"> 컨텐츠 </a></li>
          <li><a class="nav-link navbar-nav-item" href="#"> 상품 </a></li>
          <li><a class="nav-link navbar-nav-item" id="allPost"
             href="${pageContext.request.contextPath}/allPostForAdmin.do">
@@ -91,6 +82,13 @@
       </li>
       <li>
          <ul>
+            <li>
+            <a class="nav-link navbar-nav-item" href="${pageContext.request.contextPath}/contentsUpdateAdmin.do">
+                  컨텐츠 다운로드 </a></li>
+         </ul>
+      </li>
+      <li>
+         <ul>
             <li><a class="nav-link navbar-nav-item"
                href="${pageContext.request.contextPath}/productRegisterForm.do">
                   상품등록 </a></li>
@@ -102,7 +100,7 @@
                   구매내역관리 </a></li>
          </ul>
       </li>
-      <li>
+      <li style="width:150px;">
          <ul>
             <li><a class="nav-link navbar-nav-item" id="allPost" href="${pageContext.request.contextPath}/allPostForAdmin.do">평점/리뷰/신고<br>게시물</a></li>
          </ul>

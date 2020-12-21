@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
+
 <script type="text/javascript">
 	$(document).ready(function(){
 		//각 항목 클릭시 체크 toggle
@@ -50,14 +51,7 @@
 				}
 			}
 			else{
-				$(".mustSelect input[type=checkbox]").removeAttr("checked");
-				$("#mustSelectAll input[type=checkbox]").removeAttr("checked");
-				//필수항목들 체크했는지 확인
-				var mustAgree= $(".mustSelect").eq(0).children("input[type=checkbox]").attr("checked");
-				var mustPersonal =$(".mustSelect").eq(1).children("input[type=checkbox]").attr("checked");
-				if(mustAgree==null||mustPersonal==null){
-					$("#submitBtn").attr("disabled","true");
-				}
+				location.href="${pageContext.request.contextPath}/memberRegisterFormTerms.do";
 			}
 		})
 	}); //ready
@@ -83,7 +77,8 @@
 				<ul class="registerTermUl">
 					<li>
 						<a href="#" class="mustSelect">
-							<input type='checkbox'/>WATFLIX 이용약관 동의<font color="red">(필수)</font>
+							<input type='checkbox'/>
+							WATFLIX 이용약관 동의<font color="red">(필수)</font>
 						</a>
 					</li>
 					<li>

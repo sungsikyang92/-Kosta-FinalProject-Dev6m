@@ -153,18 +153,21 @@
 				
 				<sec:authorize access="hasRole('ROLE_ADMIN')">
 					<tr>
-						<td class="btnArea">관리자 답변<br>
-						 <textarea style="width: 902px" cols="100" rows="3"	name="answerContents" id="answerContents"	placeholder="답변내용을 입력하세요"></textarea>
-							<button class="btn-listFaQ btnFaQ boardDetailBtnFaQ" type="button" onclick="writeAndGetAnswer()">답변작성</button>
+						<td class="btnArea">관리자 답변 <textarea cols="100" rows="3"	name="answerContents" id="answerContents"	placeholder="답변내용을 입력하세요"></textarea>
+							<button class="btn-list btn btn-default boardDetailBtn" type="button" onclick="writeAndGetAnswer()" style=color:black;>답변작성</button>
 						</td>
 					</tr>
-					<tr><td class="btnArea">
-					<button class="btn-listFaQ btnFaQ boardDetailBtnFaQ" form="qnaDelete" type="submit" id="qna-delete-btn">삭제</button>
-					</td></tr>
+					<tr>
+						<td>
+							<button class="btn-list btn btn-default boardDetailBtn" form="qnaDelete" type="submit" id="qna-delete-btn" style=color:black;>삭제</button>
+						</td>
+					</tr>
 				</sec:authorize>
-					<tr><td class="btnArea">
-				<button class="btn-listFaQ btnFaQ boardDetailBtnFaQ" id="qnaListBtn"	onclick="qnaListBtn()">목록</button>
-					</td></tr>
+				<tr>
+					<td>
+						<button class="btn-list btn btn-default boardDetailBtn" id="qnaListBtn"	onclick="qnaListBtn()" style=color:black;>목록</button>
+					</td>
+				</tr>
 			</table>
 			<!-- qna 삭제 -->
 			<form action="qnaDelete.do" id="qnaDelete" method="post">

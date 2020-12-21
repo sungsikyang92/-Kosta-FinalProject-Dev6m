@@ -1,29 +1,30 @@
 $(document).ready(function() {
 
 	//이미지 슬라이드를 위한 코드
-	  var slides = document.querySelector('.slides'),
+  	var slides = document.querySelector('.slides'),
     slide = document.querySelectorAll('.slides>li'),
     currentIdx=0,
     slideCount=slide.length,
+    //슬라이드 한개당 넢이
     slideWidth=198,
     slideMargin=30,
     prevBtn = document.querySelector('.prev'),
     nextBtn = document.querySelector('.next');
 
-slides.style.width=(slideWidth+slideMargin)*slideCount-slideMargin+'px';
-function moveSlide(num){
-    slides.style.left = -num*228+'px';
-    currentIdx=num;
-  }
-  nextBtn.addEventListener('click',function(){
-    if(currentIdx<slideCount-5){
-      moveSlide(currentIdx+1);
-    }
-    else{
-      moveSlide(0)
-    }
-
-  })
+	slides.style.width=(slideWidth+slideMargin)*slideCount-slideMargin+'px';
+	function moveSlide(num){
+	    slides.style.left = -num*228+'px';
+	    currentIdx=num;
+	  }
+	  nextBtn.addEventListener('click',function(){
+	    if(currentIdx<slideCount-5){
+	      moveSlide(currentIdx+1);
+	    }
+	    else{
+	      moveSlide(0)
+	    }
+	
+	  })
 
   prevBtn.addEventListener('click',function(){
     if(currentIdx>0){
@@ -32,7 +33,6 @@ function moveSlide(num){
     else{
       moveSlide(slideCount-5)
     }
-
   })
   //장르 출력
 function genreDenote(genreList){

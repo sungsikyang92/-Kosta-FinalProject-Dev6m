@@ -622,7 +622,6 @@ a, a:hover {
 
 .hybrid-login-form-main {
 	color: white;
-	padding-bottom:200px;
 }
 
 .hybrid-login-form-other {
@@ -839,18 +838,18 @@ a, a:hover {
 	width: 100%;
 	border-radius: 4px;
 	border: 0;
-	height: 60px;
-	font-size:30px;
-	line-height: 60px;
+	height: 50px;
+	font-size:20px;
+	line-height: 50px;
 	padding: 10px 20px 0;
 	background: white;
 	position: relative;
 }
 .selectBox{
-	height:60px; 
+	height:50px; 
 	background-color: white; 
 	width:422px; 
-	font-size:30px; 
+	font-size:20px; 
 	text-align-last: center; 
 	border-radius: 4px; 
 	border: 0;
@@ -948,22 +947,23 @@ a, a:hover {
 	width:23%;
 	margin:0px 1.5%;
 	position:relative;
+	vertical-align:top;
+	border-top-width:0px;
+	text-align: center;
 }
 .productListDiv table .row{
 	position: absolute; 
 	bottom:0px;
 	width:92%;
 }
-.productListTd{
-	border-top-width:0px;
-}
+
 .productListDiv img{
-	width:100%;
-	height:auto;
+	width:250px;
+	height:250px;
 	position:relative;
 	top:0;
 	left:0;
-	object-fit:fill;
+	object-fit:contain;
 }
 .tabled{
 	width: 100%;
@@ -1300,4 +1300,15 @@ li {
 .qnaAnswerBtn{
 	width: 50px;
 	float: right;
+}
+/* 포인트체크 테이블*/
+.table-pointCheck{
+	font-size:12px;
+	text-align:center;
+}
+.hybrid-register-form-main h1{
+	color:white;
+}
+#mainCarousel{
+	margin-top:60px;
 }

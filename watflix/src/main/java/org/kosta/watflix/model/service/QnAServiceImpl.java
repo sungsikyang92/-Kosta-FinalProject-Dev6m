@@ -78,6 +78,20 @@ public class QnAServiceImpl implements QnAService {
 		QnAAnswerListVO qnaAnswerListVO = new QnAAnswerListVO(qnaMapper.mQnAAnswerByQnANo(qnaNo, pagingBean), pagingBean);
 		return qnaAnswerListVO;
 	}
+	
+	// QnA 리스트 ById
+		@Override
+		public QnAListVO sGetQnAListById(String pageNo, String id) {
+			int totalPostCount = qnaMapper.mGetTotalQnACount();
+			PagingBean pagingBean=null;
+			if(pageNo==null) {
+				pagingBean = new PagingBean(totalPostCount);
+			}else {
+				pagingBean = new PagingBean(totalPostCount,Integer.parseInt(pageNo));
+			}
+			QnAListVO qnaListVO=new QnAListVO(qnaMapper.mGetQnAListById(id, pagingBean),pagingBean);
+			return qnaListVO;
+		}
 
 
 }

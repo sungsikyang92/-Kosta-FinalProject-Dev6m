@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.ibatis.javassist.bytecode.annotation.EnumMemberValue;
 import org.kosta.watflix.model.mapper.MemberMapper;
 import org.kosta.watflix.model.vo.Authority;
 import org.kosta.watflix.model.vo.MemberListVO;
@@ -71,9 +72,8 @@ public class MemberServiceImpl implements MemberService {
 	
 	//아이디 중복확인
 	@Override
-	public String idcheck(String id) {
-		MemberVO vo = memberMapper.mFindMemberById(id);
-		return (vo == null) ? "ok" : "fail";
+	public MemberVO idcheck(String id) {
+		return memberMapper.mFindMemberById(id);
 	}
 	
 	//아이디 탈퇴
@@ -153,7 +153,7 @@ public class MemberServiceImpl implements MemberService {
 	public int sMemberAllCount() {
 		return memberMapper.mMemberAllCount();
 	}
-
+	//계정상태 업데이트
 	@Override
 	public void sMemberStatusUpdate(String id, int accStatusNo) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -162,8 +162,12 @@ public class MemberServiceImpl implements MemberService {
 		memberMapper.mMemberStatusUpdate(map);
 		
 	}
-
 	
+	//휴먼계정으로 전환
+	@Override
+	public void sMemberStatusUpdateInactive() {
+		memberMapper.mMemberStatusUpdateInactive();
+	}
 
 }
 

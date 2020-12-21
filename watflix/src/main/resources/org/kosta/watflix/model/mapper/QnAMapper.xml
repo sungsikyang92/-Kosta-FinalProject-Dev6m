@@ -34,6 +34,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	from (select ROW_NUMBER() OVER(ORDER BY QNA_NO DESC) AS RNUM, ID, QNA_NO,QNA_TITLE,QNA_CONTENTS,QNA_POSTED_TIME FROM QNA)
 	WHERE rnum BETWEEN #{startRowNumber} AND #{endRowNumber}
 </select>
+<!-- My QNA 리스트 가져오기 -->
+<select id="mGetQnAListById" resultMap="qnaRM" parameterType="map">
+	select QNA_NO,ID,QNA_TITLE,QNA_CONTENTS,QNA_POSTED_TIME
+	from (select ROW_NUMBER() OVER(ORDER BY QNA_NO DESC) AS RNUM, ID, QNA_NO,QNA_TITLE,QNA_CONTENTS,QNA_POSTED_TIME FROM QNA WHERE id = #{id})
+	WHERE rnum BETWEEN #{pagingBean.startRowNumber} AND #{pagingBean.endRowNumber}
+</select>
  	<!-- QnAVO에 MemberVO의 id(has a 관계)를 넣을 수 있도록 ResaultMap을 셋팅한다. -->
 	<resultMap type="qnaVO" id="qnaRM">
 		<result property="memberVO.id" column="id" />
@@ -48,7 +54,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	insert into QNA_ANSWER(QNA_ANSWER_NO,ID,QNA_ANSWER_CONTENTS,QNA_NO)
 	values(#{qnaAnswerNo},#{memberVO.id},#{qnaAnswerContents},#{qnaVO.qnaNo})
 	</insert>
-	
+		
 	<!-- QnAAnswer용 resultMap -->
 	<resultMap type="qnAAnswerVO" id="qnAAnswerRM">
 		<result property="memberVO.id" column="id"/>

@@ -23,6 +23,8 @@ public interface QnAService {
 	void sQnAAnswerWrite(QnAAnswerVO qnaAnswerVO);
 	// QnAAnswer 조회
 	QnAAnswerListVO sQnAAnswerByQnANo(int qnaNo, String pageNo);
+	// QnA 리스트 ById
+	QnAListVO sGetQnAListById(String pageNo, String id);
 }
 
 

@@ -47,13 +47,13 @@ function denote(member){
            </a>
        </nav>
   <div class="middleBox">       
-  <table class="table table-hover table-bordered table-pointCheck" style="border-radius: 1.5px;">
+  <table class="table table-hover table-bordered table-pointCheck">
     <thead>
       <tr>
 		<th>사용자명</th>
 		<th>컨텐츠명</th>
 		<th>리뷰제목</th>
-		<th>평점제목</th>
+		<th>평점점수</th>
 		<th>주문번호</th>
 		<th>포인트내역</th>
 		<th>사용내역</th>
@@ -66,9 +66,39 @@ function denote(member){
 				<td>${phVO.id}</td>
 				<!--컨텐츠명 출력  -->				
 				<td><a href="${pageContext.request.contextPath}/contentsDetail.do?contentsNo=${phVO.contentsVO.contentsNo}">${phVO.contentsVO.contentsTitle}</a></td>					
-				<td><a href="${pageContext.request.contextPath}/reviewDetail.do?reviewNo=${phVO.reviewVO.reviewNo}">${phVO.reviewVO.reviewTitle}</a></td>				
-				<td>${phVO.commentsVO.comments}</td>					
-				<td><a href="${pageContext.request.contextPath}/">${phVO.productOrderVO.orderNo}</a></td>						
+				<td>
+				<!-- 리뷰가 있는지 확인 -->
+					<c:choose>
+						<c:when test="${phVO.reviewVO.reviewNo>0}">
+							<a href="${pageContext.request.contextPath}/reviewDetail.do?reviewNo=${phVO.reviewVO.reviewNo}">${phVO.reviewVO.reviewTitle}</a>
+						</c:when>
+						<c:otherwise>
+						-
+						</c:otherwise>
+					</c:choose>
+				</td>				
+				<td>
+				<!-- 평점이 있는지 확인 -->
+					<c:choose>
+						<c:when test="${phVO.commentsVO.commentsNo>0}">
+							<img src="${pageContext.request.contextPath}/resources/media/icons/star.png" width="10" alt="" style="padding-bottom: 3px">${phVO.commentsVO.commentsStars}
+						</c:when>
+						<c:otherwise>
+						-
+						</c:otherwise>
+					</c:choose>
+				</td>					
+				<td>
+				<!-- 주문건이 있는지 확인 -->
+					<c:choose>
+						<c:when test="${phVO.productOrderVO.orderNo>0}">
+							<a href="${pageContext.request.contextPath}/">${phVO.productOrderVO.orderNo}</a>
+						</c:when>
+						<c:otherwise>
+						-
+						</c:otherwise>
+					</c:choose>
+				</td>						
 				<td>${phVO.point}</td>						
 				<td>${phVO.pointHistoryContents}</td>						
 				<td>${phVO.currentTime}</td>						
