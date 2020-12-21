@@ -15,7 +15,7 @@ $(document).ready(function(){
 	})
 })
 </script>
-<div class="container-lg margin-top margin-bottom boardClassMain">
+<div class="container-lg boardClassMain">
 	<div class="productListDiv">
  	 <h2 align="center">상품 리스트</h2>  
 	  <table class="table" style="border: none;" >
@@ -26,7 +26,7 @@ $(document).ready(function(){
 		  		<form action="${pageContext.request.contextPath}/productDetail.do" class="productDetailForm">
 		  			<input type="hidden" name="productNo" value="${pvo.productNo}">
 		  			<img alt="상품이미지" src="${pageContext.request.contextPath}/${pvo.productPic}">
-		  			<div class="row">
+		  			<div class="row classrow">
 						<div class="col-4 text-left no-padding">
 							품명: ${pvo.productName}
 						</div>

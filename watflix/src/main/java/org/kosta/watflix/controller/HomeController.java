@@ -33,6 +33,7 @@ public class HomeController {
 	ReviewLikeService reviewLikeService;
 	@Resource
 	ContentsLikeService contentsLikeService;
+	
 	@RequestMapping("home.do")
 	public String home(Model model){
 		List<ContentsVO> contentsList = contentsService.sGetAllContentsList();
@@ -49,7 +50,6 @@ public class HomeController {
 		map.put("startNumber", Integer.toString(0));
 		map.put("endNumber", Integer.toString(10));
 		map.put("contentsType", "영화");
-		
 		
 		//좋아요 여부를 위한 로그인 체크
 		MemberVO memberVO = new MemberVO();

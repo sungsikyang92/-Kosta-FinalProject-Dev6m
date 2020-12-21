@@ -37,7 +37,13 @@ $(document).ready(function(){
 									가격: ${pvo.productPoint}
 								</div>
 								<div class="col-4 text-right no-padding rating">
-									재고: ${pvo.productStock}
+									재고: 
+									<c:choose>
+										<c:when test="${pvo.productStock>0}">${pvo.productStock}</c:when>
+										<c:otherwise>품절</c:otherwise>
+									</c:choose>
+									
+									
 								</div>
 							</div>
 						</form>

@@ -19,7 +19,7 @@ public interface MemberService {
 	MemberVO sFindMemberById(String id);
 	MemberVO sFindMemberByIdWithStatusNormal(String id);
 	List<Authority> sFindAuthorityById(String id);
-	String idcheck(String id);
+	MemberVO idcheck(String id);
 	int sMemberPointCheck(String id);
 	void sMemberPointUpdate(MemberVO memberVO);
 	List<ProductOrderVO> sMemberProductOrderHistory(String id);
@@ -30,4 +30,5 @@ public interface MemberService {
 	MemberListVO sMemberAllList(String pageNo);
 	//멤버 계정 정지 or 해제
 	void sMemberStatusUpdate(String id, int accStatusNo);
+	void sMemberStatusUpdateInactive();
 }

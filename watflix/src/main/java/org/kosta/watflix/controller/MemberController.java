@@ -54,6 +54,11 @@ public class MemberController {
 		return "loginForm.tiles";
 	}
 	
+	@RequestMapping("accessDeniedView.do")
+	public String accessDeniedView(){
+		return "member/accessDeniedView";
+	}
+	
 	//로그인 실패
 	@RequestMapping("login_fail.do")
 	public String loginFail() {
@@ -61,9 +66,20 @@ public class MemberController {
 	}
 	
 	//로그인 후 안내페이지
+	@Secured("ROLE_MEMBER")
 	@RequestMapping("login_result.do")
 	public String login() {
-		return "member/login_result";
+		MemberVO memberVO = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+		//휴먼계정인지 확인
+		if(memberVO.getAccStatusVO().getAccStatusNo()==1) {
+			//정상계정
+			memberService.sMemberStatusUpdate(memberVO.getId(), 0);
+			return "member/login_inactive";
+		}
+		else {
+			return "member/login_result";
+		}
 	}
 	
 	//로그아웃 후 안내페이지
@@ -86,7 +102,6 @@ public class MemberController {
 	//회원가입
 	@PostMapping("memberRegister.do")
 	public String memberRegister(MemberVO memberVO){
-		System.out.println(memberVO.getAddress());
 		memberService.sMemberRegister(memberVO);
 		return "redirect:memberRegister_result.do?id="+memberVO.getId();
 	}
@@ -100,7 +115,12 @@ public class MemberController {
 	@ResponseBody
 	@PostMapping("memberIdCheck.do")
 	public String memberIdCheck(String id) {
-		return memberService.idcheck(id);
+		if(memberService.idcheck(id) != null) {
+			return "yes";
+		}
+		else {
+			return "no";
+		}
 	}
 	
 	//회원정보수정폼으로 이동
@@ -252,6 +272,7 @@ public class MemberController {
 		else {
 			pagingBean = new PagingBean(productOrderCount, Integer.parseInt(pageNo));
 		}
+		//id를 가지고 구매내역 조회
 		List<ProductOrderVO> list = productOrderService.sProductOrderList(pagingBean,mvo.getId());
 		ProductOrderListVO polvo = new ProductOrderListVO(list, pagingBean);
 		model.addAttribute("productOrderListVO",polvo);
@@ -262,6 +283,7 @@ public class MemberController {
 	@Secured("ROLE_MEMBER")
 	@RequestMapping("productOrderDetail.do")
 	public String productOrderDetail(ProductOrderVO productOrderVO,Model model) {
+		//security에서 세션값 불러옴
 		MemberVO mvo = (MemberVO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		model.addAttribute("productOrderDetail",productOrderService.sProductOrderDetail(mvo.getId(),productOrderVO.getOrderNo()));
 		return "member/productOrderDetail.tiles";

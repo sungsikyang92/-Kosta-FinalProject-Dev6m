@@ -73,12 +73,13 @@ public class ProductServiceImpl implements ProductService {
 	@Transactional
 	@Override
 	public void sProductBuy(ProductVO productVO, MemberVO memberVO,ProductOrderVO productOrderVO) {
+		//주문내역 추가완료
 		productOrderMapper.mProductOrderAdd(productOrderVO);
-		System.out.println("주문내역추가완료"+productOrderVO);
+		//회원포인트갱신완료
 		memberMapper.mMemberPointUpdate(memberVO);
-		System.out.println("회원포인트갱신완료"+memberVO);
+		//상품재고갱신완료
 		productMapper.mProductStockDown(productVO);
-		System.out.println("상품재고갱신완료"+productVO);
+		//DB입력
 		pointHistoryMapper.mPointHistoryAddWithOrder(productOrderVO, productOrderVO.getQuantity()*productOrderVO.getProductVO().getProductPoint());
 	}
 

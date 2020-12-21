@@ -27,18 +27,23 @@
 	$(document).ready(function(){
 		var category = window.opener.document.productForm;
 		$("tr").click(function(){
-			if(confirm($(this).children(".categoryName").text()+"를 선택하시겠습니까?")){
-				category.productCategoryNo.value=$(this).children(".categoryNo").text();
-				category.productCategoryName.value=$(this).children(".categoryName").text();
-				self.close();
+			var categoryName=$(this).children(".categoryName").text();
+			if(categoryName != ''){
+				if(confirm(categoryName+"를 선택하시겠습니까?")){
+					category.productCategoryNo.value=$(this).children(".categoryNo").text();
+					category.productCategoryName.value=$(this).children(".categoryName").text();
+					self.close();
+				}
+				else{
+					return;
+				}
 			}
-			else{
+			else
 				return;
-			}
 		})//tr클릭
 		//상품카테고리 등록
 		$("#productCategoryRegisterBtn").click(function(){
-			window.open("${pageContext.request.contextPath}/productCategoryRegisterForm.do", "popup","width=400,height=800,top=0,left=0");
+			window.open("${pageContext.request.contextPath}/productCategoryRegisterForm.do", "popup","width=500,height=800,top=0,left=0");
 		})
 	})
 	</script>

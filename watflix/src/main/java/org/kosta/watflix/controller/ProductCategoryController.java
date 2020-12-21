@@ -11,7 +11,9 @@ import org.kosta.watflix.model.vo.ProductCategoryVO;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -48,10 +50,22 @@ public class ProductCategoryController {
 	
 	//카테고리 등록하기
 	@Secured("ROLE_ADMIN")
-	@RequestMapping("productCategoryRegister.do")
+	@PostMapping("productCategoryRegister.do")
 	public String productCategoryRegister(ProductCategoryVO productCategoryVO,RedirectAttributes ra) {
 		productCategoryService.sProductCategoryRegister(productCategoryVO);
 		ra.addAttribute("productCategoryName",productCategoryVO.getProductCategoryName());
-		return "product/productCategoryRegister_result";
+		return "admin/productCategoryRegister_result";
+	}
+	
+	//카테고리명 체크
+	@Secured("ROLE_ADMIN")
+	@ResponseBody
+	@PostMapping("productCategoryNameCheck.do")
+	public String sproductCategoryNameCheck(String productCategoryName) {
+		if(productCategoryService.sProductCategoryNameCheck(productCategoryName) != null) {
+			return "yes";
+		}
+		else
+			return "no";
 	}
 }
