@@ -63,13 +63,12 @@
 	}
 	
 	function deleteConfirm(){
-	
 	}
 </script>
 <div class="tableMargin">
-	<div class="container-lg boardClassMainQnA">
-		<div id="qnaForm">
-			<table class="table table-hover">
+<div class="container-lg boardClassMainFaQ">
+<h2>QnA 1:1문의 상세보기</h2>
+			<table class="table" style="border-radius: 1.5px;">
 				<thead>
 					<tr>
 						<th class="qnaNo">NO</th>
@@ -88,7 +87,7 @@
 						<td>${requestScope.qvo.qnaPostedTime}</td>
 					</tr>
 					<tr>
-						<td colspan="4"><div style="margin: 0 auto;">
+						<td colspan="5"><div style="margin: 0 auto;">
 								<pre style="white-space: pre-wrap;">
 									<br><br>${requestScope.qvo.qnaContents}</pre>
 							</div></td>
@@ -176,4 +175,5 @@
 			</form>
 		</div>
 	</div>
+</div>
 </div>
