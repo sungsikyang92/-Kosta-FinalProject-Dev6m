@@ -52,7 +52,7 @@
 				}
 				reportTbody += "<td>";
 					<!-- 신고글 삭제 -->
-				reportTbody += "<button type='button' name='deleteButton' style='width: 56px; float: right;' onclick='getReportAfterDelete("+reportListVO.list[i].reportNo+","+reportListVO.pagingBean.nowPage+","+reportType+")'>신고 삭제</button>";
+				reportTbody += "<button type='button' name='deleteButton' style='width: 60px; float: right;' onclick='getReportAfterDelete("+reportListVO.list[i].reportNo+","+reportListVO.pagingBean.nowPage+","+reportType+")'>신고 삭제</button>";
 				reportTbody += "</td>";
 			reportTbody += "</tr>";
 			reportTbody += "<tr>";
@@ -128,7 +128,7 @@
 					</td>
 					<td>
 						<!-- 신고글 삭제 -->
-						<button type='button' name='deleteButton' style='width: 56px; float: right;' onclick='getReportAfterDelete(${rvo.reportNo}, ${requestScope.reportCommentsList.pagingBean.nowPage}, true)'>신고 삭제</button>
+						<button type='button' name='deleteButton' style='width: 60px; float: right;' onclick='getReportAfterDelete(${rvo.reportNo}, ${requestScope.reportCommentsList.pagingBean.nowPage}, true)'>신고 삭제</button>
 					</td>
 				</tr>
 				<tr>
