@@ -16,6 +16,8 @@ public interface QnAMapper {
 	QnAVO mQnADetail(int QnANo);
 	// QnA 리스트
 	List<QnAVO> mGetQnAList(PagingBean pagingBean);
+	// Qna 리스트
+	List<QnAVO> mGetQnAListById(@Param("id") String id, @Param("pagingBean") PagingBean pagingBean);
 	// QnA 삭제
 	void mQnADelete(int qnaNo);
 	// QnA 갯수 불러오기

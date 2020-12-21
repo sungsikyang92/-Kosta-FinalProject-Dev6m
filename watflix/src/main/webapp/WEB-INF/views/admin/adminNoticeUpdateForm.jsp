@@ -12,36 +12,36 @@ $(document).ready(function(){
 		})
 })
 </script>
-<div class="container-lg" style="margin-top: 90px">
+<div class="tableMargin">
+	<div class="container-lg boardClassMainFaQ">
 		<form method="post"
 		 action="${pageContext.request.contextPath}/noticeUpdate.do">
 		<sec:csrfInput />
-		<table>
+		<table class="table table-bordered" style="border-radius: 1.5px;">
+			<tr>
+				<td>제목</td>	<td colspan="7"><input type="text" size="150" name="noticeTitle" value="${requestScope.noticeUpdateForm.noticeTitle}" required="required"></td>
+			</tr>
+			<tr>
+				<td>내용</td>
+				<td colspan="7"><textarea cols="151" rows="15" name="noticeContents" required="required">${requestScope.noticeUpdateForm.noticeContents}</textarea></td>
+			</tr>
 			<tr>
 				<td>번호</td>	<td>${requestScope.noticeUpdateForm.noticeNo}</td>
-				<td>제목</td>	<td colspan="3"><input type="text" size="70" name="noticeTitle" value="${requestScope.noticeUpdateForm.noticeTitle}" required="required"></td>
-			</tr>
-			<tr>
-				<td colspan="2">내용</td>
-				<td colspan="5"><textarea cols="90" rows="15" name="noticeContents" required="required">${requestScope.noticeUpdateForm.noticeContents}</textarea></td>
-			</tr>
-			<tr>
 				<td>작성자</td><td>${requestScope.noticeUpdateForm.memberVO.id}</td>
 				<td>작성시간</td><td>${requestScope.noticeUpdateForm.noticePostedTime}</td>
 				<td>조회수</td><td>${requestScope.noticeUpdateForm.noticeHits}</td>
 			</tr>
 			<tr>
-				<td>
+				<td colspan="8" class="btnArea">
 					<input type="hidden" name="noticeNo" value="${requestScope.noticeUpdateForm.noticeNo}">
 					<input type="hidden" name="pageNo" value="${requestScope.pageNo}">
-					<button type="submit">수정</button>
-				</td>
-				<td>
-					<button type="reset">취소</button>
-					<button type="button" class="btn-list btn btn-default boardDetailBtn" id="backToNoticeList">목록</button>
+					<button style="color: black" type="submit" class="btn-list btn btn-default boardDetailBtn">수정</button>
+					<button style="color: black" type="reset" class="btn-list btn btn-default boardDetailBtn">취소</button>
+					<button style="color: black" type="button" class="btn-list btn btn-default boardDetailBtn" id="backToNoticeList">목록</button>
 				</td>
 			</tr>
 		</table>
 		</form>
+</div>
 </div>
 </sec:authorize>

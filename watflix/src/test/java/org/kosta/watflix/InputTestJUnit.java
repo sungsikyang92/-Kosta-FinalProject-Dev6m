@@ -95,7 +95,7 @@ public class InputTestJUnit {
 		address.add("서울");
 		address.add("부산");
 		address.add("북한");
-		int createCount = 60; //생성할 회원 수
+		int createCount = 61; //생성할 회원 수
 		
 		// 컨텐츠 정보
 		List<ContentsVO> contentsList= contentsService.sGetAllContentsList();
@@ -138,7 +138,7 @@ public class InputTestJUnit {
 		int reportCount = 0;
 		
 		// 회원 생성후  평점,리뷰 작성 반복 진행
-		for (int user=0; user < 100; user++) {
+		for (int user=0; user < createCount; user++) {
 			// 회원 생성
 			memberVO.setId(id+user);
 			memberVO.setPassword("123");
