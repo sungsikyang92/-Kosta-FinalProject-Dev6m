@@ -3,6 +3,7 @@ package org.kosta.watflix.controller;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.kosta.watflix.model.service.CommentsService;
 import org.kosta.watflix.model.service.MemberService;
@@ -89,15 +90,27 @@ public class MemberController {
 	}
 	//회원가입폼(이용약관) 이동
 	@RequestMapping("memberRegisterFormTerms.do")
-	public String memberRegisterFormTerms(){
+	public String memberRegisterFormTerms(HttpSession session){
+		session.setAttribute("terms", "yes");
 		return "member/registerFormTerms.tiles";
 	}
 	//회원가입폼 이동
 	@RequestMapping("memberRegisterForm.do")
-	public String memberRegisterForm(String IsSelect, Model model){
-		//마케팅 수신동의 여부
-		model.addAttribute("ISselectMarketing",IsSelect);
-		return "member/registerForm.tiles";
+	public String memberRegisterForm(String IsSelect, Model model,HttpSession session){
+		if(session.getAttribute("terms")!=null){
+			if(session.getAttribute("terms").equals("yes")) {
+				//마케팅 수신동의 여부
+				model.addAttribute("ISselectMarketing",IsSelect);
+				session.invalidate();
+				return "member/registerForm.tiles";
+			}
+			else {
+				return "member/wrong_access";
+			}
+		}
+		else {
+			return "member/wrong_access";
+		}
 	}
 	//회원가입
 	@PostMapping("memberRegister.do")
