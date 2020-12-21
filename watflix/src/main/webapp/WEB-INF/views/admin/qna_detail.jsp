@@ -70,7 +70,8 @@
 		location.href="${pageContext.request.contextPath}/qnaList.do";
 	}
 </script>
-			<table class="table table-hover">
+<div class="container-lg boardClassMainFaQ">
+			<table class="table table-hover table-bordered" style="border-radius: 1.5px;">
 				<thead>
 					<tr>
 						<th class="qnaNo">NO</th>
@@ -89,7 +90,7 @@
 						<td>${requestScope.qvo.qnaPostedTime}</td>
 					</tr>
 					<tr>
-						<td colspan="4"><div style="margin: 0 auto;">
+						<td colspan="5"><div style="margin: 0 auto;">
 								<pre style="white-space: pre-wrap;">
 									<br><br>${requestScope.qvo.qnaContents}</pre>
 							</div></td>
@@ -177,4 +178,5 @@
 			</form>
 		</div>
 	</div>
+</div>
 </div>
