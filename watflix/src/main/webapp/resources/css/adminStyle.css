@@ -15,8 +15,8 @@ li{list-style:none;}
 
 #subMenu{width:100%; height:100px; background-color:#ffffff; border-bottom:2px solid red; position:absolute; top:100px; left:0; z-index:1; display:none;}
 
-#subMenu #sub{width:1000px; margin:0 auto; height:100px; 
-overflow:hidden; padding-left:110px; }
+#subMenu #sub{width:1110px; height:100px; 
+overflow:hidden;text-align:center;margin-left:435px;}
 #subMenu #sub > li{float:left; width:130px; border-right:1px solid #ebebeb; height:200px;}
 #subMenu #sub li a{display:block; color:#666; padding:5px 3px 5px 10px; }
 #subMenu #sub li a:hover{background-color:#333; color:#FFF;}
