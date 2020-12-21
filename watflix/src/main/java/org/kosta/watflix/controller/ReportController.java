@@ -60,37 +60,20 @@ public class ReportController {
 		return "report/report_ok";
 	}
 	
-	// 신고글 삭제
-	@PostMapping("deleteReport.do")
-	public String deleteReportComments(int reportNo, String commentsNo) {
-		reportService.sReportDelete(reportNo);
-		if (commentsNo != null) {
-			return "redirect:reportCommentsBoard.do";
-		}else {
-			return "redirect:reportReviewBoard.do";
-		}
-	}
 	
 	// 삭제버튼으로 삭제(ajax방식 / adminReportList.jsp)
-		@PostMapping("reportDeleteAjax.do")
-		@ResponseBody
-		public ReportListVO reportDeleteAjax(int reportNo, String pageNo, boolean reportType) {
-			reportService.sReportDelete(reportNo);
-			// reportType(true: comments / false: review)
-			if(reportType) {
+	@PostMapping("reportDeleteAjax.do")
+	@ResponseBody
+	public ReportListVO reportDeleteAjax(int reportNo, String pageNo, boolean reportType) {
+		reportService.sReportDelete(reportNo);
+		// reportType(true: comments / false: review)
+		if(reportType) {
+		System.out.println(reportType);
+		return reportService.sGetReportCommentsList(pageNo);
+		} else {
 			System.out.println(reportType);
-			return reportService.sGetReportCommentsList(pageNo);
-			} else {
-				System.out.println(reportType);
-			return reportService.sGetReportReviewList(pageNo);
-			}
+		return reportService.sGetReportReviewList(pageNo);
 		}
-	
-
-	// 마이페이지로 이동(임시)
-	@RequestMapping("testMyPageBoard.do")
-	public ModelAndView testMyPageBoard() {
-		return new ModelAndView("report/my_report_board.tiles");
 	}
 }
 
