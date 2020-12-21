@@ -140,7 +140,7 @@
 						  		<li><a href="${pageContext.request.contextPath}/memberProductOrderList.do">- 구매내역조회</a></li>
 						  		<!-- 임시로 경로 설정 -->
 						  		<li><a href="${pageContext.request.contextPath}/myPostList.do">- 내 게시물 조회</a></li>
-						  		<li><a href="${pageContext.request.contextPath}/qnaList.do">- 1:1문의</a></li>
+						  		<li><a href="${pageContext.request.contextPath}/qnaListById.do">- 1:1문의</a></li>
 						  	</ul>
 						  </div>
 						</li>

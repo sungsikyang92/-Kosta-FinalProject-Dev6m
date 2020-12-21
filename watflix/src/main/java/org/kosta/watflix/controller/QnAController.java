@@ -84,7 +84,21 @@ public class QnAController {
 		public String qnaDelete(int qnaNo) {
 			qnaService.sQnADelete(qnaNo);
 			return "redirect:qnaList.do";
+	}
+	// qna 리스트 출력
+	@RequestMapping("qnaListById.do")
+	public String qnaListById(Model model, String pageNo) {
+		MemberVO memberVO = (MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String id = memberVO.getId();
+		if(pageNo==null) {
+			System.out.println(qnaService.sGetQnAListById(null, id));
+			model.addAttribute("lvo",qnaService.sGetQnAListById(null, id));
+		}else {
+			System.out.println(qnaService.sGetQnAListById(pageNo, id));
+			model.addAttribute("lvo",qnaService.sGetQnAListById(pageNo, id));
 		}
+		return "qna/qna_list.tiles";
+	}
 }
 
 

@@ -38,14 +38,15 @@
 		})
 	})
 </script>
-<div class="container-lg margin-top margin-bottom boardClassMain">
+<div class="tableMargin">
+	<div class="container-lg boardClassMainFaQ">
 		<form action="${pageContext.request.contextPath}/noticeWrite.do" method="post" id="noticeWriteForm">
 			<sec:csrfInput/>
 			<table class="table table-bordered" style="border-radius: 1.5px;">
 				<tr>
 					<td class="boardTd">제목</td>
 					<td>
-						<input type="text" name="noticeTitle" id="noticeTitle" class="boardTitle" placeholder="공지사항의 제목을 입력해주세요!" required="required">
+						<input style="width : 754px" type="text" name="noticeTitle" id="noticeTitle" class="boardTitle" placeholder="공지사항의 제목을 입력해주세요!" required="required">
 						<!-- 현재 제목 글자수를 나타낸다. -->
 						<div id="countTitleWord"style="float: right;">(0/30)</div>
 					</td>
@@ -53,18 +54,19 @@
 				<tr>
 					<td>내용</td>
 					<td>
-						<textarea name="noticeContents" id="noticeContents" class="boardTextarea" placeholder="공지사항의 내용을 입력해주세요!" required="required"></textarea>
+						<textarea style="width : 754px; height : 302px;" name="noticeContents" id="noticeContents" class="boardTextarea" placeholder="공지사항의 내용을 입력해주세요!" required="required"></textarea>
 						<div id="countContentsWord"style="float: right;">(0/1000)</div>
 					</td>					
 				</tr>				
 				<tr>
 					<td colspan="2" class="btnArea">
-						<button type="button" class="btn-list btn btn-default boardDetailBtn" id="backToNoticeList">목록</button>
-						<button type="submit" class="btn-list btn btn-default boardDetailBtn">확인</button>
-						<button type="reset" class="btn-list btn btn-default boardDetailBtn">취소</button>
+						<button style="color: black" type="button" class="btn-list btn btn-default boardDetailBtn" id="backToNoticeList">목록</button>
+						<button style="color: black" type="submit" class="btn-list btn btn-default boardDetailBtn">확인</button>
+						<button style="color: black" type="reset" class="btn-list btn btn-default boardDetailBtn">취소</button>
 					</td>
 				</tr>
 			</table>
 		</form>
 	</div>
+</div>
 </sec:authorize>
