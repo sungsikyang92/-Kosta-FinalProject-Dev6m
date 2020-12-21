@@ -60,14 +60,15 @@ overflow:hidden; padding-left:110px; }
 }
 .productListDiv .productListTd{
 	border-top-width:0px;
+	text-align:center;
 }
 .productListDiv img{
-	width:100%;
-	height:auto;
+	width:250px;
+	height:250px;
 	position:relative;
 	top:0;
 	left:0;
-	object-fit:fill;
+	object-fit:contain;
 }
 .tabled{
 	width: 100%;
@@ -295,4 +296,13 @@ a, a:hover {
 }
 .td_hitsFaQ{
 	text-align: center;
+}
+
+.no-padding {
+	padding: 0;
+}
+
+.classrow{
+	margin-left: 0px;
+    margin-right: 0px;
 }

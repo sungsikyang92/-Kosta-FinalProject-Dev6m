@@ -947,22 +947,23 @@ a, a:hover {
 	width:23%;
 	margin:0px 1.5%;
 	position:relative;
+	vertical-align:top;
+	border-top-width:0px;
+	text-align: center;
 }
 .productListDiv table .row{
 	position: absolute; 
 	bottom:0px;
 	width:92%;
 }
-.productListTd{
-	border-top-width:0px;
-}
+
 .productListDiv img{
-	width:100%;
-	height:auto;
+	width:250px;
+	height:250px;
 	position:relative;
 	top:0;
 	left:0;
-	object-fit:fill;
+	object-fit:contain;
 }
 .tabled{
 	width: 100%;
@@ -1307,4 +1308,7 @@ li {
 }
 .hybrid-register-form-main h1{
 	color:white;
+}
+#mainCarousel{
+	margin-top:60px;
 }

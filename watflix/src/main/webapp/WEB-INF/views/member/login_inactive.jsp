@@ -9,7 +9,7 @@
 </head>
 <body>
 <script type="text/javascript">
-alert("<sec:authentication property='principal.id'/>님 휴먼상태가 해제됐습니다.");
+alert("<sec:authentication property='principal.id'/>님 휴면상태가 해제됐습니다.");
 alert("<sec:authentication property='principal.id'/>님 환영합니다.");
 location.href="${pageContext.request.contextPath}/home.do";
 	

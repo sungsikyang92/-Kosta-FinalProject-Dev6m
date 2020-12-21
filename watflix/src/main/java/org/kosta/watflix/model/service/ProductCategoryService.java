@@ -11,6 +11,8 @@ public interface ProductCategoryService {
 	List<ProductCategoryVO> sGetProductCategoryList(PagingBean pagingBean);
 
 	void sProductCategoryRegister(ProductCategoryVO productCategoryVO);
+
+	ProductCategoryVO sProductCategoryNameCheck(String productCategoryName);
 	
 	
 }

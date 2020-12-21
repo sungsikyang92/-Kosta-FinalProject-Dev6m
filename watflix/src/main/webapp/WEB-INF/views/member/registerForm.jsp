@@ -6,26 +6,37 @@
 	$(document).ready(function(){
 		//아이디 입력시 중복값 확인
 		$("#id").keyup(function() {
-			if($("#id").val()==''){
-				$("#confirmId").html("").css("color","black");
+			var idValue = $("#id").val();
+			if(idValue.length<4 || idValue.length>10){
+				$("#confirmId").html("아이디는 4자 이상 10자 이하만 가능합니다.").css("color","red");
+				return;
 			}
+
 			else{
-				$.ajax({
-					type: "post",
-					url:"${pageContext.request.contextPath}/memberIdCheck.do",
-					beforeSend:function(xhr){  
-			            xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-			        },
-					data: "id="+$("#id").val(),
-					success:function(result){ // result변수로 응답정보가 전달된다.
-						if(result==='ok'){
-							$("#confirmId").html("사용가능").css("color","blue");
+				if(checkSpace($("#id").val())){
+					alert("아이디에 공백이 포함되어 있습니다.")
+					$("#id").html();
+					$("#id").focus();
+				}
+				else{
+					$.ajax({
+						type: "post",
+						url:"${pageContext.request.contextPath}/memberIdCheck.do",
+						beforeSend:function(xhr){  
+				            xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+				        },
+						data: "id="+$("#id").val(),
+						success:function(result){ // result변수로 응답정보가 전달된다.
+							if(result==='no'){
+								$("#confirmId").html("사용가능").css("color","blue");
+							}
+							else{
+								$("#confirmId").html("사용불가능").css("color","red");
+							}
 						}
-						else{
-							$("#confirmId").html("사용불가능").css("color","red");
-						}
-					}
-				});//ajax
+					});//ajax
+				}
+				
 			}
 		})//아이디 keyup
 		
@@ -35,9 +46,16 @@
 				$("#confirmPass").html("비밀번호는 최소 4글자 이상이여야 합니다.").css("color","red");
 			}
 			else{
-				$("#confirmPass").html("").css("color","black");
-				if($("#confirmPass2").html()=='비밀번호가 일치합니다.'){
-					$("#confirmPass2").html("비밀번호가 일치하지 않습니다.").css("color","red");
+				if(checkSpace($("#password").val())){
+					alert("패스워드에 공백이 포함되어 있습니다.")
+					$("#password").html();
+					$("#password").focus();
+				}
+				else{
+					$("#confirmPass").html("").css("color","black");
+					if($("#confirmPass2").html()=='비밀번호가 일치합니다.'){
+						$("#confirmPass2").html("비밀번호가 일치하지 않습니다.").css("color","red");
+					}
 				}
 			}
 		})//패스워드 1차 keyup
@@ -56,20 +74,14 @@
 				$("#confirmPass2").html("비밀번호가 일치하지 않습니다.").css("color","red");
 			}
 			else if(pass1.length>3 && pass1 == pass2 ){
-				$("#confirmPass2").html("비밀번호가 일치합니다.").css("color","blue");
-			}
-		})//패스워드 2차 keyup
-		
-		//비밀번호 2차 입력
-		$("#password2").keyup(function(){
-			var pass1 = $("#password").val();
-			var pass2 = $(this).val();
-			
-			if(pass1 != pass2){
-				$("#confirmPass2").html("비밀번호가 일치하지 않습니다.").css("color","red");
-			}
-			else{
-				$("#confirmPass2").html("비밀번호가 일치합니다.").css("color","blue");
+				if(checkSpace($("#password2").val())){
+					alert("패스워드에 공백이 포함되어 있습니다.")
+					$("#password2").html();
+					$("#password2").focus();
+				}
+				else{
+					$("#confirmPass2").html("비밀번호가 일치합니다.").css("color","blue");
+				}
 			}
 		})//패스워드 2차 keyup
 		
@@ -82,8 +94,58 @@
 			        }
 			    }).open();
 		}) // 주소 api
-		
+		$("#memberRegisterForm").submit(function(){
+			var id = $("#id").val();
+			alert(id)
+			if($("#confirmId").html()=="사용가능" && !KoCheck(id)){
+				alert(!KoCheck(id))
+				if($("#confirmPass").html()==''){
+					if($("#confirmPass2").html("비밀번호가 일치합니다.")){
+						return true;
+					}
+					else{
+						$("#password2").html("");
+						$("#confirmPass2").html("");
+						$("#confirmPass2").focus();
+						return false;
+					}
+				}
+				else{
+					$("#confirmPass2").html("");
+					$("#password").html("");
+					$("#password2").html("");
+					$("#password").focus();
+					return false;
+				}
+			}
+			else{
+				alert("아이디는 영어,숫자로만 구성이 가능합니다. 다시 기입해주세요")
+				$("#id").html("");
+				$("#confirmId").html("");
+				$("#id").focus();
+				return false;
+			}
+		})
 	}); //ready
+
+// 공백이 있나 없나 체크 
+function checkSpace(str) { 
+	if(str.search(/\s/) != -1) { 
+		return true; 
+	} else {
+		return false; 
+	}
+}
+//한글 체크
+function KoCheck(str){
+     var check = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+     if(check.test(str)){
+        return true;
+     }else{
+        return false;
+     }
+}
+
 </script>
 
 <!-- input타입이 숫자일때 스크롤 생기지 않게 하는 것 -->
@@ -97,14 +159,14 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 	<div class="login-content">
 		<div class="hybrid-register-form-main">
 			<h1>회원가입</h1>
-			<form method="post" class="login-form" action="memberRegister.do">
+			<form method="post" class="login-form" action="memberRegister.do" id="memberRegisterForm">
 				<sec:csrfInput />
 				<div data-uia="login-field+container"
 					class="nfInput nfEmailPhoneInput login-input login-input-email">
 					<div class="nfInputPlacement">
 						<div class="nfEmailPhoneControls">
 							<label class="input_id">
-								<input type="text" name="id" class="registerForNfTextField" id="id" tabindex="0" required="required"> 
+								<input type="text" name="id" class="registerForNfTextField" id="id" tabindex="0" required="required" inputmode="text"> 
 								<label for="id_userLoginId" class="placeLabel">아이디</label> 
 								<label for="id_userLoginId" class="confirmPlaceLabel" id="confirmId"></label> 
 							</label>

@@ -13,16 +13,6 @@
             $("#subMenu").css("display","none");
          }); 
        
-       /* 권한이 있을때에만 로그아웃이벤트 활성화 */
-       <sec:authorize access="hasRole('ROLE_MEMBER')">
-       $("#logoutBtn").click(function() {
-            $("#logoutForm").submit();
-         });
-       
-       $("#mypageBtn").click(function(){
-          $("#mypageDiv").toggle('slow');
-       })
-       </sec:authorize> 
        /* 권한이 있을때에만 관리자페이지 활성화 */
        <sec:authorize access="hasRole('ROLE_ADMIN')">
           $("#logoutBtn").click(function() {
@@ -57,11 +47,11 @@
       </h1>
       <ul class="top">
          <sec:authorize access="hasRole('ROLE_ADMIN')">
-            <li><a class="nav-link navbar-nav-item" href="${pageContext.request.contextPath}/logout.do" id="logoutBtn">로그아웃</a>
+            <li><a class="nav-link navbar-nav-item" href="#" id="logoutBtn">로그아웃</a>
+            	<form id="logoutForm" action="${pageContext.request.contextPath}/logout.do" method="post" style="display: none">
+            	<sec:csrfInput />
+				</form>
                </li>
-         </sec:authorize>
-         <sec:authorize access="!hasRole('ROLE_ADMIN')">
-            <li><a class="nav-link navbar-nav-item" href="${pageContext.request.contextPath}/loginForm.do" id="logoutBtn">로그인</a></li>
          </sec:authorize>
       </ul>
       <ul class="menu">

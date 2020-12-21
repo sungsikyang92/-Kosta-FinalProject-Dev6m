@@ -21,6 +21,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE rnum BETWEEN #{startRowNumber} AND #{endRowNumber}
 	 </select>
 	 
+	 <!-- 상품카테고리명이 있는지 확인 -->
+	 <select id="mProductCategoryNameCheck" resultType="productCategoryVO">
+	 	SELECT * FROM PRODUCT_CATEGORY WHERE PRODUCT_CATEGORY_NAME=#{VALUE}
+	 </select>
+	 
  	<!-- 상품 카테고리 추가 -->
  	<insert id="mProductCategoryRegister" parameterType="productCategoryVO">
  		insert into PRODUCT_CATEGORY(PRODUCT_CATEGORY_NO,PRODUCT_CATEGORY_NAME) values(PRODUCT_CATEGORY_SEQ.nextval,#{productCategoryName})

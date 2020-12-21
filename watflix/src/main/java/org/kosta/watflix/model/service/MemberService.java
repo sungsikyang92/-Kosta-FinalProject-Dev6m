@@ -19,7 +19,7 @@ public interface MemberService {
 	MemberVO sFindMemberById(String id);
 	MemberVO sFindMemberByIdWithStatusNormal(String id);
 	List<Authority> sFindAuthorityById(String id);
-	String idcheck(String id);
+	MemberVO idcheck(String id);
 	int sMemberPointCheck(String id);
 	void sMemberPointUpdate(MemberVO memberVO);
 	List<ProductOrderVO> sMemberProductOrderHistory(String id);

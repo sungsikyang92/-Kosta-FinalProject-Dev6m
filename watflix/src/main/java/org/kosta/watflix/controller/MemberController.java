@@ -115,7 +115,12 @@ public class MemberController {
 	@ResponseBody
 	@PostMapping("memberIdCheck.do")
 	public String memberIdCheck(String id) {
-		return memberService.idcheck(id);
+		if(memberService.idcheck(id) != null) {
+			return "yes";
+		}
+		else {
+			return "no";
+		}
 	}
 	
 	//회원정보수정폼으로 이동

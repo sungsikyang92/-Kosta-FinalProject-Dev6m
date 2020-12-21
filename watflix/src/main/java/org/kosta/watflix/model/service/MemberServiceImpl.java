@@ -72,9 +72,8 @@ public class MemberServiceImpl implements MemberService {
 	
 	//아이디 중복확인
 	@Override
-	public String idcheck(String id) {
-		MemberVO vo = memberMapper.mFindMemberById(id);
-		return (vo == null) ? "ok" : "fail";
+	public MemberVO idcheck(String id) {
+		return memberMapper.mFindMemberById(id);
 	}
 	
 	//아이디 탈퇴
