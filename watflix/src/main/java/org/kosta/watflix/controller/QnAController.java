@@ -24,18 +24,7 @@ public class QnAController {
 	QnAService qnaService;
 	
 	// qna 리스트 출력
-	@RequestMapping("qnaList.do")
-	public String list(Model model, String pageNo) {
-		if(pageNo==null) {
-			System.out.println(qnaService.sGetQnAList());
-			model.addAttribute("lvo",qnaService.sGetQnAList());
-		}else {
-			System.out.println(qnaService.sGetQnAList(pageNo));
-			model.addAttribute("lvo",qnaService.sGetQnAList(pageNo));
-		}
-		return "qna/qna_list.tiles";
-	}
-	// qna 리스트 출력
+	@Secured("ROLE_ADMIN")
 	@RequestMapping("adminQnaList.do")
 	public String adminList(Model model, String pageNo) {
 		if(pageNo==null) {
@@ -48,11 +37,13 @@ public class QnAController {
 		return "admin/qna_list.tiles";
 	}
 	// qna 작성 폼 이동
+	@Secured("ROLE_MEMBER")
 	@RequestMapping("qnaWriteForm.do")
 	public String qnaWriteForm() {
 		return "qna/qna_write_form.tiles";
 	}
 	// qna 작성
+	@Secured("ROLE_MEMBER")
 	@RequestMapping("qnaWrite.do")
 	public String qnaWrite(QnAVO qnaVO,QnATypeVO qnaTypeVO,RedirectAttributes re) {
 		MemberVO memberVO = (MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -66,6 +57,7 @@ public class QnAController {
 		return "redirect:qnaDetail.do";
 	}	
 	// qna 상세보기 
+	@Secured("ROLE_MEMBER")
 	@RequestMapping("qnaDetail.do")
 	public String qnaDeteail(int qnaNo, Model model) {
 		System.out.println(qnaService.sQnADetail(qnaNo));
@@ -73,7 +65,17 @@ public class QnAController {
 		model.addAttribute("answerListVO", qnaService.sQnAAnswerByQnANo(qnaNo, null));
 		return "qna/qna_detail.tiles";
 	}
+	// qna 상세보기 
+	@Secured("ROLE_ADMIN")
+	@RequestMapping("adminQnaDetail.do")
+	public String adminQnaDeteail(int qnaNo, Model model) {
+		System.out.println(qnaService.sQnADetail(qnaNo));
+		model.addAttribute("qvo", qnaService.sQnADetail(qnaNo));
+		model.addAttribute("answerListVO", qnaService.sQnAAnswerByQnANo(qnaNo, null));
+		return "admin/qna_detail.tiles";
+	}
 	// qna 답변 작성
+	@Secured("ROLE_ADMIN")
 	@PostMapping("qnaAnswerWrite.do")
 	public String qnaAnswerWrite(QnAAnswerVO qnaAnswerVO,int qnaNo, RedirectAttributes re) {
 		MemberVO memberVO = (MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -87,17 +89,20 @@ public class QnAController {
 	}
 	// qna 답변 리스트
 	@ResponseBody
+	@Secured("ROLE_MEMBER")
 	@RequestMapping("qnaAnswerList.do")
 	public QnAAnswerListVO qnaAnswerList(int qnaNo,String pageNo) {
 		return qnaService.sQnAAnswerByQnANo(qnaNo, pageNo);
 	}
 	// qna 삭제 
+	@Secured("ROLE_MEMBER")
 		@PostMapping("qnaDelete.do") 
 		public String qnaDelete(int qnaNo) {
 			qnaService.sQnADelete(qnaNo);
 			return "redirect:qnaList.do";
 	}
 	// qna 리스트 출력
+	@Secured("ROLE_MEMBER")
 	@RequestMapping("qnaListById.do")
 	public String qnaListById(Model model, String pageNo) {
 		MemberVO memberVO = (MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
