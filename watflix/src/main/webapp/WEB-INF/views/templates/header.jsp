@@ -140,7 +140,7 @@
 						  		<li><a href="${pageContext.request.contextPath}/memberProductOrderList.do">- 구매내역조회</a></li>
 						  		<!-- 임시로 경로 설정 -->
 						  		<li><a href="${pageContext.request.contextPath}/myPostList.do">- 내 게시물 조회</a></li>
-						  		<li><a href="${pageContext.request.contextPath}/qnaList.do">- 1:1문의</a></li>
+						  		<li><a href="${pageContext.request.contextPath}/qnaListById.do">- 1:1문의</a></li>
 						  	</ul>
 						  </div>
 						</li>
@@ -157,11 +157,10 @@
 			      <li class="sidebar-nav-item">
 			        <a class="js-scroll-trigger" href="${pageContext.request.contextPath}/productMarket.do">포인트마켓</a>
 			      </li>
-			      <!-- 관리자만 볼수 있도록 코딩해야함 -->
 			      <li class="sidebar-nav-item">
-			        <a class="js-scroll-trigger" href="${pageContext.request.contextPath}/reportReviewBoard.do">신고게시판</a>
+			        <a class="js-scroll-trigger" href="${pageContext.request.contextPath}/contentsUpdateAdmin.do">컨텐츠 다운로드</a>
 			      </li>
-			      			     	 <sec:authorize access="hasRole('ROLE_ADMIN')">
+			     	 <sec:authorize access="hasRole('ROLE_ADMIN')">
 						<li class="sidebar-nav-item">
 				        	<a class="js-scroll-trigger" href="${pageContext.request.contextPath}/adminHome.do" >관리자 페이지</a>
 				      	</li>

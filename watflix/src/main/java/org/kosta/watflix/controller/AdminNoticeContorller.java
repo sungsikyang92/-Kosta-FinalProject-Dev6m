@@ -92,6 +92,7 @@ public class AdminNoticeContorller {
 	@Secured("ROLE_ADMIN")
 	@RequestMapping("noticeDetailNoHitsAdmin.do")
 	public ModelAndView noticeDetailNoHitsAdmin(int noticeNo, String pageNo, RedirectAttributes redirectAttributes) {
+		System.out.println(pageNo);
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("admin/adminNoticeDetail.tiles");
 		modelAndView.addObject("noticeDetail", noticeService.sNoticeGetDetailNoHits(noticeNo));

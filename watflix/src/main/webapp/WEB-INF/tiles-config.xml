@@ -85,9 +85,9 @@
 	<definition name="my_post_list.tiles" template="/WEB-INF/views/templates/mypostlist.jsp">
 		<put-attribute name="title"  value="WATFLIX" />
  		<put-attribute name="header" value="/WEB-INF/views/templates/header.jsp"/>
- 		<put-attribute name="main" value="/WEB-INF/views/report/my_comments_board.jsp"/>
-		<put-attribute name="main2" value="/WEB-INF/views/report/my_review_board.jsp"/>
-		<put-attribute name="main3" value="/WEB-INF/views/report/my_report_board.jsp"/>
+ 		<put-attribute name="main" value="/WEB-INF/views/member/mycommentsboard.jsp"/>
+		<put-attribute name="main2" value="/WEB-INF/views/member/myreviewboard.jsp"/>
+		<put-attribute name="main3" value="/WEB-INF/views/member/myreportboard.jsp"/>
 		<put-attribute name="footer" value="/WEB-INF/views/templates/footer.jsp"/>
 	</definition>
 	 	<!-- 

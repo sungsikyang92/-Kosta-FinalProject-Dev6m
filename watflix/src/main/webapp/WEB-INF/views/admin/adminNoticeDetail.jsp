@@ -43,14 +43,14 @@
 		<sec:authorize access="hasRole('ROLE_ADMIN')">
 		<tr>
 			<td colspan="8" class="btnArea">
-				<button type="button" class="btn-list btn btn-default boardDetailBtn" id="backToNoticeList">목록</button>
-				<button form="noticeUpdateForm" class="btn btn-default boardDetailBtn">수정</button>
+				<button style="color: black" type="button" class="btn-list btn btn-default boardDetailBtn" id="backToNoticeList">목록</button>
+				<button style="color: black" form="noticeUpdateForm" class="btn btn-default boardDetailBtn">수정</button>
 				<form action="noticeUpdateForm.do" id="noticeUpdateForm" method="post">
 					<sec:csrfInput />
 					<input type="hidden" name="pageNo" value="${requestScope.pageNo}">
 					<input type="hidden" name="noticeNo" value="${requestScope.noticeDetail.noticeNo}">
 				</form>
-				<button form="noticeDeleteForm" class="btn btn-default boardDetailBtn" type="submit">삭제</button>
+				<button style="color: black" form="noticeDeleteForm" class="btn btn-default boardDetailBtn" type="submit">삭제</button>
 				<form action="noticeDelete.do" id="noticeDeleteForm" method="post">
 					<sec:csrfInput />
 					<input type="hidden" name="pageNo" value="${requestScope.pageNo}">

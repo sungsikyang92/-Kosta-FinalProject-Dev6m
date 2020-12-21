@@ -80,7 +80,7 @@
                   회원관리 </a></li>
          </ul>
       </li>
-      <li>
+      <li style="width: 148px;">
          <ul>
             <li>
             <a class="nav-link navbar-nav-item" href="${pageContext.request.contextPath}/contentsUpdateAdmin.do">
@@ -111,12 +111,12 @@
             <li><a class="nav-link navbar-nav-item" href="${pageContext.request.contextPath}/adminFaqList.do">FAQ 관리</a></li>
          </ul>
       </li>
-      <li>
+      <li style="width:160px">
          <ul>
             <li><a class="nav-link navbar-nav-item" href="${pageContext.request.contextPath}/qnaList.do">1:1문의 관리</a></li>
          </ul>
       </li>
-      <li>
+      <li style="width:148px">
          <ul>
             <li><a class="nav-link navbar-nav-item" href="${pageContext.request.contextPath}/getNoticeListAdmin.do">공지사항<br>등록/관리</a></li>
          </ul>
