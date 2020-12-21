@@ -153,7 +153,8 @@
 				
 				<sec:authorize access="hasRole('ROLE_ADMIN')">
 					<tr>
-						<td class="btnArea">관리자 답변 <textarea cols="100" rows="3"	name="answerContents" id="answerContents"	placeholder="답변내용을 입력하세요"></textarea>
+						<td class="btnArea">관리자 답변<br>
+						 <textarea style="width: 902px" cols="100" rows="3"	name="answerContents" id="answerContents"	placeholder="답변내용을 입력하세요"></textarea>
 							<button class="btn-listFaQ btnFaQ boardDetailBtnFaQ" type="button" onclick="writeAndGetAnswer()">답변작성</button>
 						</td>
 					</tr>
