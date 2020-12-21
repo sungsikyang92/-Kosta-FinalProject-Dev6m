@@ -73,20 +73,26 @@
 		<tr class="boardDetailTr">
 			<td colspan="4" class="reviewContents"><pre style="white-space:pre-wrap;">${reviewDetail.reviewContents}</pre></td>
 		</tr>
+	<sec:authorize access="hasRole('ROLE_MEMBER')">
+	<sec:authentication property="principal.id" var="userId"/>
 		<tr>			<!-- 임시로 align="center"줘서 중앙배열 시켜놓음 CSS로 해야함 -->
 			<td colspan="4" class="btnArea">
-				<button type="button" class="btn btn-default boardDetailBtn" onclick="location.href='${pageContext.request.contextPath}/contentsDetail.do?contentsNo=${reviewDetail.contentsVO.contentsNo}'">목록</button>
-				<button form="reviewUpdateForm" class="btn btn-default boardDetailBtn" type="submit">수정</button>
-				<form action="reviewDelete.do" id="reviewDelete" method="post">
-				<sec:csrfInput/>
-				<input type="hidden" name="reviewNo" value="${reviewDetail.reviewNo}">
-				</form>
-				<form action="reviewUpdateForm.do" id="reviewUpdateForm" method="post">
-				<sec:csrfInput/>
-				<input type="hidden" name="reviewNo" value="${reviewDetail.reviewNo}">
-				</form>
+			<c:choose>
+				<c:when test= "${requestScope.rdvo.memberVO.id == userId}">
+					<button type="button" class="btn btn-default boardDetailBtn" onclick="location.href='${pageContext.request.contextPath}/contentsDetail.do?contentsNo=${reviewDetail.contentsVO.contentsNo}'">목록</button>
+					<button form="reviewUpdateForm" class="btn btn-default boardDetailBtn" type="submit">수정</button>
+					<form action="reviewUpdateForm.do" id="reviewUpdateForm" method="post">
+					<sec:csrfInput/>
+					<input type="hidden" name="reviewNo" value="${reviewDetail.reviewNo}">
+					</form>
+				</c:when>	
+				<c:otherwise>
+					<button type="button" class="btn btn-default boardDetailBtn" onclick="location.href='${pageContext.request.contextPath}/contentsDetail.do?contentsNo=${reviewDetail.contentsVO.contentsNo}'">목록</button>
+				</c:otherwise>
+		</c:choose>
 			</td>
 		</tr>
+	</sec:authorize>
   </table>
 </div>
 </div>

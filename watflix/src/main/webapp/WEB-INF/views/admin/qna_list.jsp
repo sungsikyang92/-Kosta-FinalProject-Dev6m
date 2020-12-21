@@ -4,33 +4,29 @@
     <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
     <%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <div class="tableMargin">
-<div class="container-lg boardClassMainQnA">
+<div class="container-lg boardClassMainFaQ">
 	<h2>QnA 1:1문의</h2>
 <form>
-<table class="table table-hover">
+	<table class="table table-hover table-bordered" style="border-radius: 1.5px;">
 	<thead>
 		<tr>
-			<th class="qnaNo">NO</th>
-			<th class="qnaTitle">제목</th>
-			<th class="qnaWriter">작성자</th>
-			<th class="qnaPostedTime">작성일</th>
+			<th class="th_hitsFaQ">NO</th>
+			<th class="th_titleFaQ">제목</th>
+			<th class="th_authorFaQ">작성자</th>
+			<th class="th_dateFaQ">작성일</th>
 		</tr>
 	</thead>
 	<tbody>
 		<c:forEach var="qvo" items="${requestScope.lvo.qnaList}">
 			<tr>
-				<td>${qvo.qnaNo}</td>
-				<td><a href="${pageContext.request.contextPath}/adminQnaDetail.do?qnaNo=${qvo.qnaNo}" style="color:black">${qvo.qnaTitle}</a></td>
-				<td>${qvo.memberVO.id}</td>
-				<td>${qvo.qnaPostedTime}</td>
+				<td class="td_hitsFaQ">${qvo.qnaNo}</td>
+				<td class="td_titleFaQ"><a href="${pageContext.request.contextPath}/adminQnaDetail.do?qnaNo=${qvo.qnaNo}" style="color:black">${qvo.qnaTitle}</a></td>
+				<td class="th_authorFaQ">${qvo.memberVO.id}</td>
+				<td class="td_dateFaQ">${qvo.qnaPostedTime}</td>
 			</tr>
 		</c:forEach>
 	</tbody>
 </table>
-
-<div class="qnaWriteBtn">
-<a href="${pageContext.request.contextPath}/qnaWriteForm.do"><input type="button" value="1:1문의 작성" ></a>
-</div>
 </form>
 
 <div class="boardBottomDiv" style="width: 50%">
