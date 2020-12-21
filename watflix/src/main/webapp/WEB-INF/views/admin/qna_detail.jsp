@@ -1,18 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+ <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
-<title>1:1문의 상세보기</title>
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/css/style.css">
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/css/adminStyle.css">
-<div class="tableMargin">
-	<div class="container-lg boardClassMainQnA">
-		<div id="qnaForm">
-			<script type="text/javascript">
+<script type="text/javascript">
 	function answerPaging(qnaNo, pageNo){
 		$.ajax({
 			type: "get",
@@ -58,18 +50,25 @@
 			answerBody += "<td>"+(i+1)+"</td>";
 			answerBody += "<td>"+qnaAnswerListVO.qnaAnswerList[i].memberVO.id+"</td>";
 			answerBody += "<td>"+qnaAnswerListVO.qnaAnswerList[i].qnaAnswerContents+"</td>";
-			answerBody += "<td>"+qnaAnswerListVO.qnaAnswerList[i].qnaAnswerPostedTime+"</td>";
-			answerBody += "<td><button class='qnaAnswerBtn' type='button' onclick='return false;'>수정</button></td>";			
-			answerBody += "<td><button class='qnaAnswerBtn' type='button' onclick='return false;'>삭제</button></td>";			
+			answerBody += "<td>"+qnaAnswerListVO.qnaAnswerList[i].qnaAnswerPostedTime+"</td>";			
+			answerBody += "<td><input type='hidden'class='qnaAnswerNoVal' value='"+qnaAnswerListVO.qnaAnswerList[i].qnaAnswerNo+"'>삭제</td>";			
 			answerBody +="</tr>";
 		}
 		$("#adminAnswer").html(answerBody);		
 	}
+	/* answerBody += "<td><button class='qnaAnswerBtn' type='button' onclick='return false'>삭제</button></td>";		 */
 
 	function qnaListBtn() {
 		location.href="${pageContext.request.contextPath}/qnaList.do";
 	}
+	
+	function deleteConfirm(){
+	
+	}
 </script>
+<div class="tableMargin">
+	<div class="container-lg boardClassMainQnA">
+		<div id="qnaForm">
 			<table class="table table-hover">
 				<thead>
 					<tr>
