@@ -156,7 +156,7 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 	} 
 </style>
 <div class="login-wrap">
-	<div class="login-content">
+	<div class="login-content" style="height:1100px;">
 		<div class="hybrid-register-form-main">
 			<h1>회원가입</h1>
 			<form method="post" class="login-form" action="memberRegister.do" id="memberRegisterForm">
