@@ -25,6 +25,12 @@
 			}
 		})
 	}
+	$(document).ready(function() {
+		$("#qnaDelete").submit(function() {
+			return confirm("정말 삭제하시겠습니까?");
+		});  //qnaDelete
+	});
+	
 	function writeAndGetAnswer(){
 		alert("답변을 작성하시겠습니까?");
 		var answerContents = $("#answerContents").val();
@@ -156,7 +162,7 @@
 					</td></tr>
 				</sec:authorize>
 					<tr><td class="btnArea">
-				<button class="btn-listFaQ btnFaQ boardDetailBtnFaQ" id="qnaListBtn"	onclick="qnaListBtn()">내 문의 목록 보기</button>
+				<button class="btn-listFaQ btnFaQ boardDetailBtnFaQ" id="qnaListBtn"	onclick="qnaListBtn()">목록</button>
 					</td></tr>
 			</table>
 			<!-- qna 삭제 -->

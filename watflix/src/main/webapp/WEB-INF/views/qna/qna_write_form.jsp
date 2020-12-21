@@ -28,7 +28,7 @@
 				method="post" id="qna_write">
 				<sec:csrfInput />
 				<!--  post 방식일 때 form안에 꼭 들어가 있어야 하는 토큰 -->
-				<h2>문의하기</h2><hr>
+				<h2>1:1 문의하기</h2><hr>
 				<table class="table table-bordered" style="border-radius: 1.5px;">
 				<tr>
 				<td class="QnACategory">유형</td>
@@ -51,9 +51,9 @@
 				</tr>
 		  	</table>
 				<div class="btnArea">
-					<button type="reset" class="btn btn-default boardDetailBtn">초기화</button>
-					<button type="button" class="btn-list btn btn-default boardDetailBtn" id="backToQnAList">목록</button>
+					<button type="reset" class="btn btn-default boardDetailBtn">취소</button>
 					<button type="submit" class="btn btn-default boardDetailBtn">확인</button>
+					<button type="button" class="btn-list btn btn-default boardDetailBtn" id="backToQnAList">목록</button>
 				</div>
 			</form>
 		</div>
