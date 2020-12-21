@@ -35,6 +35,18 @@ public class QnAController {
 		}
 		return "qna/qna_list.tiles";
 	}
+	// qna 리스트 출력
+	@RequestMapping("adminQnaList.do")
+	public String adminList(Model model, String pageNo) {
+		if(pageNo==null) {
+			System.out.println(qnaService.sGetQnAList());
+			model.addAttribute("lvo",qnaService.sGetQnAList());
+		}else {
+			System.out.println(qnaService.sGetQnAList(pageNo));
+			model.addAttribute("lvo",qnaService.sGetQnAList(pageNo));
+		}
+		return "admin/qna_list.tiles";
+	}
 	// qna 작성 폼 이동
 	@RequestMapping("qnaWriteForm.do")
 	public String qnaWriteForm() {

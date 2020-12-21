@@ -62,9 +62,9 @@
             href="${pageContext.request.contextPath}/allPostForAdmin.do">
                게시물 </a></li>
          <li><a class="nav-link navbar-nav-item"
-            href="${pageContext.request.contextPath}/adminFaqList.do"> FAQ </a></li>
+            href="#"> FAQ </a></li>
             <li><a class="nav-link navbar-nav-item"
-            href="${pageContext.request.contextPath}/qnaList.do"> 1:1문의 </a></li>
+            href="#"> 1:1문의 </a></li>
          <li><a class="nav-link navbar-nav-item" href="#"> 공지사항 </a></li>
       </ul>
    </div>
@@ -113,7 +113,7 @@
       </li>
       <li style="width:160px">
          <ul>
-            <li><a class="nav-link navbar-nav-item" href="${pageContext.request.contextPath}/qnaList.do">1:1문의 관리</a></li>
+            <li><a class="nav-link navbar-nav-item" href="${pageContext.request.contextPath}/adminQnaList.do">1:1문의 관리</a></li>
          </ul>
       </li>
       <li style="width:148px">
