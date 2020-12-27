@@ -64,7 +64,7 @@ public class AdminController {
    @RequestMapping("contentsUpdateAdmin.do")
    public String updateContents() {
 	  double count;
-      String[] genreArr= {"1568","2638104","7424","783","26009","11177","83","83059"};
+      String[] genreArr= {"1568","2638104","7424","783","26009","11177","83","83059","11714","1365","2125","31694","6839","10375"};
       //크롤링할 웹페이지 주소
       String stemplateURL = "https://www.netflix.com/kr/browse/genre/";
       String btemplateURL = "https://www.netflix.com/kr/title/";   //게시물 상세보기 관련 URL
@@ -105,7 +105,7 @@ public class AdminController {
                }
 
                sElems = sDoc.select("img.nm-collections-title-img");
-               for(int a=0;a<80;a++) {
+               for(int a=0;a<30;a++) {
             	   Element sElem = sElems.get(a);
                   path="C:\\kosta203\\FinalProject\\-Kosta-FinalProject-Dev6m\\watflix\\src\\main\\webapp\\resources\\contents\\"; //사진을 저장할 물리적인 장소
                    //이미지

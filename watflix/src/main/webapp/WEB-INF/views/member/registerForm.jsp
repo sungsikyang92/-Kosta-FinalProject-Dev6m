@@ -13,6 +13,7 @@
 			}
 
 			else{
+				$("#confirmId").html("")
 				if(checkSpace($("#id").val())){
 					alert("아이디에 공백이 포함되어 있습니다.")
 					$("#id").html();
@@ -20,14 +21,11 @@
 				}
 				else{
 					$.ajax({
-						type: "post",
+						type: "GET",
 						url:"${pageContext.request.contextPath}/memberIdCheck.do",
-						beforeSend:function(xhr){  
-				            xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-				        },
 						data: "id="+$("#id").val(),
 						success:function(result){ // result변수로 응답정보가 전달된다.
-							if(result==='no'){
+							if(result=='no'){
 								$("#confirmId").html("사용가능").css("color","blue");
 							}
 							else{
@@ -96,9 +94,7 @@
 		}) // 주소 api
 		$("#memberRegisterForm").submit(function(){
 			var id = $("#id").val();
-			alert(id)
 			if($("#confirmId").html()=="사용가능" && !KoCheck(id)){
-				alert(!KoCheck(id))
 				if($("#confirmPass").html()==''){
 					if($("#confirmPass2").html("비밀번호가 일치합니다.")){
 						return true;

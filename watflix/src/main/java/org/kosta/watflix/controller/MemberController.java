@@ -98,15 +98,10 @@ public class MemberController {
 	@RequestMapping("memberRegisterForm.do")
 	public String memberRegisterForm(String IsSelect, Model model,HttpSession session){
 		if(session.getAttribute("terms")!=null){
-			if(session.getAttribute("terms").equals("yes")) {
-				//마케팅 수신동의 여부
-				model.addAttribute("ISselectMarketing",IsSelect);
-				session.invalidate();
-				return "member/registerForm.tiles";
-			}
-			else {
-				return "member/wrong_access";
-			}
+			System.out.println(session.getAttribute("terms"));
+			//마케팅 수신동의 여부
+			model.addAttribute("ISselectMarketing",IsSelect);
+			return "member/registerForm.tiles";
 		}
 		else {
 			return "member/wrong_access";
@@ -114,8 +109,10 @@ public class MemberController {
 	}
 	//회원가입
 	@PostMapping("memberRegister.do")
-	public String memberRegister(MemberVO memberVO){
+	public String memberRegister(MemberVO memberVO,HttpSession session){
 		memberService.sMemberRegister(memberVO);
+		session.invalidate();
+		System.out.println("회원가입완료");
 		return "redirect:memberRegister_result.do?id="+memberVO.getId();
 	}
 	//회원가입 후 안내페이지
@@ -125,10 +122,10 @@ public class MemberController {
 		return "member/memberRegister_result";
 	}
 	//아이디 중복체크
+	@RequestMapping("memberIdCheck.do")
 	@ResponseBody
-	@PostMapping("memberIdCheck.do")
 	public String memberIdCheck(String id) {
-		if(memberService.idcheck(id) != null) {
+		if(memberService.idcheck(id)!=null) {
 			return "yes";
 		}
 		else {

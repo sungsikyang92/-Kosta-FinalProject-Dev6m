@@ -200,7 +200,7 @@ public class ProductController {
 				File localPathDir=new File(localPath);
 				if(localPathDir.exists()==false)
 					localPathDir.mkdirs();
-				FileCopyUtils.copy(file.getBytes(), new File(localPath+File.separator+file.getOriginalFilename()));
+				FileCopyUtils.copy(uploadFile, new File(localPath+File.separator+file.getOriginalFilename()));
 				productPic = "resources\\product\\"+productVO.getProductName()+"\\"+file.getOriginalFilename();
 			} catch (IllegalStateException | IOException e) {				
 				e.printStackTrace();

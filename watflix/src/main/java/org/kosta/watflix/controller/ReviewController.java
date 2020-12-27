@@ -31,7 +31,7 @@ public class ReviewController {
 	@Resource
 	MemberService memberService;
 	//콘텐츠리뷰리스트
-	@Secured("ROLE_ADMIN")
+	@Secured("ROLE_MEMBER")
 	@RequestMapping("reviewList.do")
 	public String getReviewList(String pageNo, Model model) {
 		model.addAttribute("reviewList",reviewService.sGetReviewList(pageNo));
@@ -40,6 +40,7 @@ public class ReviewController {
 		return "admin/adminReviewList.tiles";
 	}
 	//컨텐츠별 리뷰리스트
+	@Secured("ROLE_MEMBER")
 	@RequestMapping("getReviewListByContentsNo.do")
 	public String getReviewListByContentsNo(String contentsNo, String pageNo, Model model) {
 		model.addAttribute("reviewListByContentsNo", reviewService.sGetReviewListByContentsNo(pageNo, contentsNo));
@@ -59,7 +60,6 @@ public class ReviewController {
 	
 	//리뷰 작성 submit(세션 추가 해야 합니다.)
 	@Secured("ROLE_MEMBER")
-	@Transactional
 	@PostMapping("reviewWrite.do")
 	public String reviewWrite(ReviewVO reviewVO, ContentsVO contentsVO ,RedirectAttributes ra) {
 	MemberVO memberVO = (MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -142,11 +142,17 @@ public class ReviewController {
 	@Secured("ROLE_MEMBER")
 	@RequestMapping("checkReviewExist.do")
 	@ResponseBody
-	public int checkReviewExist(String contentsNo) {
+	public String checkReviewExist(String contentsNo) {
 		MemberVO memberVO = (MemberVO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		System.out.println(memberVO);
 		String id = memberVO.getId();
-		//유저가 작성한 리뷰가 존재할 경우 0 이상의 값을 받는다.
-		return reviewService.sCheckReviewExist(id, contentsNo);
+			//유저가 작성한 리뷰가 존재할 경우 0 이상의 값을 받는다.
+			if(reviewService.sCheckReviewExist(id, contentsNo) == 0) {
+				return "yes";
+			}
+			else{
+				return "no";
+			}
 	}
 }
 
